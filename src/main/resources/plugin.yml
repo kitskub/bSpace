@@ -4,6 +4,7 @@ name: BananaSpace
 url: http://github.com/BananaCode/BananaSpace
 version: '1.2 [Squid]'
 softdepend: [Permissions, Spout, Pail]
+load: startup
 commands:
   space:
     description: Go to space, back to earth etc.
