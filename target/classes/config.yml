@@ -1,0 +1,41 @@
+# BananaSpace v1.1 - Main Configuration File 
+# ----------------------------------------
+#     This configuration has a pretty      
+#    huge amount of documentation, but     
+#   if you still have questions, please    
+#  ask on our bukkit.org thread! Thanks.   
+############################################
+# Global settings
+global:
+    # Spacesuit armortype
+    armortype: iron
+    # Spacehelmet block id
+    blockid: 86
+    # Other global settings
+    givehelmet: false
+    givesuit: false
+    usespout: true
+# Space worlds
+worlds:
+    world_space:
+        # World generation options
+        generation:
+            generateplanets: true
+            # From 0-200, 0 means no glowstone/asteroid will be generated.
+            glowstonechance: 1
+            asteroidchance: 3
+        # Spacesuit options
+        suit:
+            required: false
+        # Spacehelmet options
+        helmet:
+            required: false
+        # Breathing area options
+        breathingarea:
+            maxroomheight: 5
+        # Miscellaneous options
+        weather: false
+        nethermode: false
+        alwaysnight: true
+        neutralmobs: true
+        hostilemobs: false

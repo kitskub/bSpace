@@ -1,0 +1,53 @@
+# BananaSpace v1.2 - Planet Generation Configuration File 
+# ----------------------------------------------------- 
+#            This configuration has a pretty                   
+#           huge amount of documentation, but                  
+#          if you still have questions, please                 
+#         ask on our bukkit.org thread! Thanks.              
+#########################################################
+# Remember, these settings affect all space worlds with 
+# planet generation turned on!
+seed: 4394682821756678415
+density: 1000
+minDistance: 100
+bedrock: false
+floorBlock: STATIONARY_WATER
+# Alter this value if you want a floor
+floorHeight: 0
+# Minimum & maximum planet size
+minSize: 10
+maxSize: 40
+# Minimum & maximum shell size
+minShellSize: 10
+maxShellSize: 20
+blocks:
+    # Planet shells & probabilities
+    shells:
+    - STONE-1.0
+    - DIRT-1.0
+    - LEAVES-0.9
+    - ICE-0.9
+    - SNOW_BLOCK-0.9
+    - GLOWSTONE-0.4
+    - BRICK-0.6
+    - SANDSTONE-0.8
+    - OBSIDIAN-0.5
+    - MOSSY_COBBLESTONE-0.3
+    - WOOL-0.4
+    - GLASS-0.9
+    # Planet cores & probabilities
+    cores:
+    - PUMPKIN-0.8
+    - STATIONARY_LAVA-0.8
+    - STATIONARY_WATER-1.0
+    - COAL_ORE-1.0
+    - IRON_ORE-0.8
+    - DIAMOND_ORE-0.4
+    - CLAY-0.3
+    - LAPIS_ORE-0.4
+    - LOG-1.0
+    - GOLD_ORE-0.6
+    - REDSTONE_ORE-0.75
+    - SAND-1.0
+    - BEDROCK-0.5
+    - AIR-1.0
