@@ -4,7 +4,7 @@ A (Craft)Bukkit plugin that generates spaceworlds and offers many features to ma
 
 Download: [Latest release build (StyxSpace)](http://saxxyspin.com/dcp/dl.php?id=StyxSpace&ver=1.1)
 
-Bukkit forums thread: [not ready yet](#A (Craft)Bukkit)
+Bukkit forums thread: [not ready yet]()
 
 NOTE: Developer builds can be found from target/!
 
