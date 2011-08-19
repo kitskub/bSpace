@@ -47,6 +47,7 @@ public class SpaceWorldHandler {
             return;
         }
         for (String world : worlds) {
+            if (plugin.getServer().getWorld(world) != null) {
             World.Environment env;
             if (SpaceConfig.myConfig.getBoolean("worlds." + world + ".nethermode", false)) {
                 env = World.Environment.NETHER;
@@ -64,6 +65,7 @@ public class SpaceWorldHandler {
                         env,
                         new PlanetsChunkGenerator(SpacePlanetConfig.myConfig, plugin));
                 spaceWorlds.add(Bukkit.getServer().getWorld(world));
+            }
             }
         }
     }

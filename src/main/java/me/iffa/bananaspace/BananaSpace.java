@@ -31,6 +31,9 @@ import com.nijikokun.bukkit.Permissions.Permissions;
 
 // Pail Imports
 import me.escapeNT.pail.Pail;
+import me.iffa.bananaspace.wgen.SpaceChunkGenerator;
+import me.iffa.bananaspace.wgen.planets.PlanetsChunkGenerator;
+import org.bukkit.generator.ChunkGenerator;
 
 /**
  * Main class of BananaSpace
@@ -169,5 +172,12 @@ public class BananaSpace extends JavaPlugin {
      */
     public static SpacePlayerHandler getPlayerHandler() {
         return playerHandler;
+    }
+    @Override
+        public ChunkGenerator getDefaultWorldGenerator(String worldName, String id) {
+        if(SpaceConfig.myConfig.getBoolean("worlds." + worldName + ".generation.generateplanets", true)){
+            return new PlanetsChunkGenerator(SpacePlanetConfig.myConfig,this);
+        }
+        return new SpaceChunkGenerator();
     }
 }
