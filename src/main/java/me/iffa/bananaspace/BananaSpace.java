@@ -16,6 +16,8 @@ import me.iffa.bananaspace.api.SpaceConfigHandler;
 import me.iffa.bananaspace.api.SpacePlayerHandler;
 import me.iffa.bananaspace.config.SpacePlanetConfig;
 import me.iffa.bananaspace.gui.PailInterface;
+import me.iffa.bananaspace.wgen.SpaceChunkGenerator;
+import me.iffa.bananaspace.wgen.planets.PlanetsChunkGenerator;
 
 // Bukkit imports
 import org.bukkit.World;
@@ -24,6 +26,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.scheduler.BukkitScheduler;
+import org.bukkit.generator.ChunkGenerator;
 
 //Permissions (Nijiko)
 import com.nijiko.permissions.PermissionHandler;
@@ -31,9 +34,6 @@ import com.nijikokun.bukkit.Permissions.Permissions;
 
 // Pail Imports
 import me.escapeNT.pail.Pail;
-import me.iffa.bananaspace.wgen.SpaceChunkGenerator;
-import me.iffa.bananaspace.wgen.planets.PlanetsChunkGenerator;
-import org.bukkit.generator.ChunkGenerator;
 
 /**
  * Main class of BananaSpace
@@ -154,7 +154,15 @@ public class BananaSpace extends JavaPlugin {
         }
         permissionHandler = ((Permissions) permissionsPlugin).getHandler();
     }
-    
+
+    @Override
+    public ChunkGenerator getDefaultWorldGenerator(String worldName, String id) {
+        if (SpaceConfig.myConfig.getBoolean("worlds." + worldName + ".generation.generateplanets", true)) {
+            return new PlanetsChunkGenerator(SpacePlanetConfig.myConfig, this);
+        }
+        return new SpaceChunkGenerator();
+    }
+
     /* Some API methods */
     /**
      * Gets the SpaceWorldHandler.
@@ -164,7 +172,7 @@ public class BananaSpace extends JavaPlugin {
     public static SpaceWorldHandler getWorldHandler() {
         return worldHandler;
     }
-    
+
     /**
      * Gets the SpacePlayerHandler.
      * 
@@ -172,12 +180,5 @@ public class BananaSpace extends JavaPlugin {
      */
     public static SpacePlayerHandler getPlayerHandler() {
         return playerHandler;
-    }
-    @Override
-        public ChunkGenerator getDefaultWorldGenerator(String worldName, String id) {
-        if(SpaceConfig.myConfig.getBoolean("worlds." + worldName + ".generation.generateplanets", true)){
-            return new PlanetsChunkGenerator(SpacePlanetConfig.myConfig,this);
-        }
-        return new SpaceChunkGenerator();
     }
 }

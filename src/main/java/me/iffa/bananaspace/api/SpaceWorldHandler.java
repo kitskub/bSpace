@@ -5,9 +5,9 @@ package me.iffa.bananaspace.api;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 // BananaSpace Imports
-import java.util.Map;
 import me.iffa.bananaspace.BananaSpace;
 import me.iffa.bananaspace.wgen.planets.PlanetsChunkGenerator;
 import me.iffa.bananaspace.schedulers.SpaceRunnable;
@@ -47,26 +47,21 @@ public class SpaceWorldHandler {
             return;
         }
         for (String world : worlds) {
-            if (plugin.getServer().getWorld(world) != null) {
-            World.Environment env;
-            if (SpaceConfig.myConfig.getBoolean("worlds." + world + ".nethermode", false)) {
-                env = World.Environment.NETHER;
-            } else {
-                env = World.Environment.NORMAL;
+            if (plugin.getServer().getWorld(world) == null) {
+                World.Environment env;
+                if (SpaceConfig.myConfig.getBoolean("worlds." + world + ".nethermode", false)) {
+                    env = World.Environment.NETHER;
+                } else {
+                    env = World.Environment.NORMAL;
+                }
+                // Choosing which chunk generator to use
+                if (!SpaceConfig.myConfig.getBoolean("worlds." + world + ".generation.generateplanets", true)) {
+                    plugin.getServer().createWorld(world, env, new SpaceChunkGenerator());
+                } else {
+                    plugin.getServer().createWorld(world, env, new PlanetsChunkGenerator(SpacePlanetConfig.myConfig, plugin));
+                }
             }
-            // Choosing which chunk generator to use
-            if (!SpaceConfig.myConfig.getBoolean(
-                    "worlds." + world + ".generation.generateplanets", true)) {
-                plugin.getServer().createWorld(world,
-                        env, new SpaceChunkGenerator());
-                spaceWorlds.add(Bukkit.getServer().getWorld(world));
-            } else {
-                plugin.getServer().createWorld(world,
-                        env,
-                        new PlanetsChunkGenerator(SpacePlanetConfig.myConfig, plugin));
-                spaceWorlds.add(Bukkit.getServer().getWorld(world));
-            }
-            }
+            spaceWorlds.add(Bukkit.getServer().getWorld(world));
         }
     }
 
