@@ -26,11 +26,6 @@
     </build>
     <dependencies>
         <dependency>
-            <groupId>com.bukkit</groupId>
-            <artifactId>bukkit</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
             <groupId>com.nijikokun</groupId>
             <artifactId>Permissions</artifactId>
             <version>3.1.6</version>
@@ -45,6 +40,11 @@
             <groupId>me.escapeNT</groupId>
             <artifactId>pail</artifactId>
             <version>0.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.bukkit</groupId>
+            <artifactId>bukkit</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
 </project>

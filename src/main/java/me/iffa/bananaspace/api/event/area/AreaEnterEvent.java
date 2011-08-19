@@ -12,8 +12,12 @@ import org.bukkit.entity.Player;
 public class AreaEnterEvent extends AreaEvent {
     // Variables
     private static final long serialVersionUID = 8533622463870713905L;
-
-    // Constructor
+    
+    /**
+     * Constructor for AreaEnterEvent.
+     * 
+     * @param player Player
+     */
     public AreaEnterEvent(Player player) {
         super("AreaEnterEvent", player);
     }

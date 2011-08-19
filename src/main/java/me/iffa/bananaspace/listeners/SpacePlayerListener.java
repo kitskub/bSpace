@@ -12,7 +12,7 @@ import me.iffa.bananaspace.api.event.area.AreaEnterEvent;
 import me.iffa.bananaspace.api.event.area.AreaLeaveEvent;
 import me.iffa.bananaspace.api.event.misc.SpaceSuffocationEvent;
 import me.iffa.bananaspace.api.event.misc.TeleportToSpaceEvent;
-import me.iffa.bananaspace.api.player.SpacePlayer;
+import me.iffa.bananaspace.api.SpacePlayerHandler;
 import me.iffa.bananaspace.schedulers.SpaceRunnable2;
 
 // Bukkit Imports
@@ -37,7 +37,7 @@ import org.bukkit.inventory.ItemStack;
 public class SpacePlayerListener extends PlayerListener {
     // Variables
     public static BananaSpace plugin;
-    public SpacePlayer spacePlayer = new SpacePlayer();
+    public SpacePlayerHandler spacePlayer = new SpacePlayerHandler();
     public static Map<Player, Boolean> isUsed = new HashMap<Player, Boolean>();
     public static Map<Player, Boolean> inArea = new HashMap<Player, Boolean>();
     public static Map<Player, Boolean> fixDupe = new HashMap<Player, Boolean>();

@@ -13,6 +13,7 @@ import me.iffa.bananaspace.commands.SpaceCommand;
 import me.iffa.bananaspace.config.SpaceConfig;
 import me.iffa.bananaspace.api.SpaceWorldHandler;
 import me.iffa.bananaspace.api.SpaceConfigHandler;
+import me.iffa.bananaspace.api.SpacePlayerHandler;
 import me.iffa.bananaspace.config.SpacePlanetConfig;
 import me.iffa.bananaspace.gui.PailInterface;
 
@@ -46,6 +47,7 @@ public class BananaSpace extends JavaPlugin {
     public static PermissionHandler permissionHandler;
     private SpaceCommand sce = null;
     public static SpaceWorldHandler worldHandler;
+    public static SpacePlayerHandler playerHandler;
     public static PailInterface pailInt;
     SpaceConfig cMgr = new SpaceConfig();
     SpacePlanetConfig cplaMgr = new SpacePlanetConfig();
@@ -75,7 +77,9 @@ public class BananaSpace extends JavaPlugin {
         version = getDescription().getVersion();
         prefix = "[" + getDescription().getName() + "]";
         PluginManager pm = getServer().getPluginManager();
-        
+        worldHandler = new SpaceWorldHandler(this);
+        playerHandler = new SpacePlayerHandler();
+
         // Loading configuration files
         cMgr.loadConfig();
         cplaMgr.loadConfig();
@@ -107,7 +111,6 @@ public class BananaSpace extends JavaPlugin {
         }
 
         // Creating all space worlds.
-        worldHandler = new SpaceWorldHandler(this);
         worldHandler.createSpaceWorlds();
 
         // Initializing the CommandExecutor
@@ -147,5 +150,24 @@ public class BananaSpace extends JavaPlugin {
             return;
         }
         permissionHandler = ((Permissions) permissionsPlugin).getHandler();
+    }
+    
+    /* Some API methods */
+    /**
+     * Gets the SpaceWorldHandler.
+     * 
+     * @return SpaceWorldHandler
+     */
+    public static SpaceWorldHandler getWorldHandler() {
+        return worldHandler;
+    }
+    
+    /**
+     * Gets the SpacePlayerHandler.
+     * 
+     * @return SpacePlayerHandler
+     */
+    public static SpacePlayerHandler getPlayerHandler() {
+        return playerHandler;
     }
 }

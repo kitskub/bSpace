@@ -14,17 +14,6 @@ import org.bukkit.World;
  */
 public class SpaceConfigHandler {
     /**
-     * Gets the world name of a world (why is this even here?)
-     * 
-     * @param world World
-     * 
-     * @return world name
-     */
-    public static String getWorldName(World world) {
-        return world.getName();
-    }
-
-    /**
      * Gets the required helmet-state of a world.
      * 
      * @param world World

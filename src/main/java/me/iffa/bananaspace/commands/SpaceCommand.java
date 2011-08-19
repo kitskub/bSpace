@@ -8,7 +8,7 @@ import java.util.Map;
 // BananaSpace Imports
 import me.iffa.bananaspace.BananaSpace;
 import me.iffa.bananaspace.api.event.misc.SpaceCommandEvent;
-import me.iffa.bananaspace.api.player.SpacePlayer;
+import me.iffa.bananaspace.api.SpacePlayerHandler;
 
 // Bukkit Imports
 import org.bukkit.Bukkit;
@@ -32,7 +32,7 @@ public class SpaceCommand implements CommandExecutor {
     private Map<Player, Location> exitDest;
     private Map<Player, Location> enterDest;
     private Plugin plugin;
-    private SpacePlayer spacePlayer = new SpacePlayer();
+    private SpacePlayerHandler spacePlayer = new SpacePlayerHandler();
 
     // Constructor
     public SpaceCommand(Plugin plugin) {

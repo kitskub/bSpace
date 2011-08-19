@@ -182,6 +182,8 @@ public class SpaceWorldHandler {
     /**
      * Checks if a player is in any space world.
      * 
+     * @param player Player
+     * 
      * @return true if the player is in a space world
      */
     public boolean isInAnySpace(Player player) {
