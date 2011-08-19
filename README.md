@@ -3,8 +3,10 @@ BananaSpace
 A (Craft)Bukkit plugin that generates spaceworlds and offers many features to make survival in space lots of fun.
 
 Download: [Latest release build (StyxSpace)](http://saxxyspin.com/dcp/dl.php?id=StyxSpace&ver=1.1)
-Download: [Latest developer build](http://saxxyspin.com/dcp/dl.php?id=BananaSpace&ver=1.2)
-Bukkit forums thread: [not ready yet](#)
+
+Bukkit forums thread: [not ready yet](#A (Craft)Bukkit)
+
+NOTE: Developer builds can be found from target/!
 
 Coding and Pull Request Conventions
 -----------
