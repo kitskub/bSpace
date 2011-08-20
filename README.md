@@ -8,6 +8,13 @@ Bukkit forums thread: [not ready yet]()
 
 NOTE: Developer builds can be found from target/!
 
+Authors
+-----------
+**iffa** - original creator (empty chunk generator, helmets, suits, etc)
+**Canis85** - planet generation, /space back etc
+kitskub - small fixes
+BR - ceiling checking code
+
 License
 -----------
 
