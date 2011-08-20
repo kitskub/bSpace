@@ -36,7 +36,7 @@ public class SpaceConfig {
             try {
                 Bukkit.getServer().getPluginManager().getPlugin("BananaSpace").getDataFolder().mkdir();
                 InputStream jarURL = getClass().getResourceAsStream("/config.yml");
-                this.copyFile(jarURL, configFile);
+                SpaceConfig.copyFile(jarURL, configFile);
                 myConfig = new Configuration(configFile);
                 myConfig.load();
                 BananaSpace.log.info(BananaSpace.prefix + " Generated configuration file for version " + BananaSpace.version);
@@ -54,7 +54,7 @@ public class SpaceConfig {
      * 
      * @throws Exception
      */
-    private void copyFile(InputStream in, File out) throws Exception {
+    static public void copyFile(InputStream in, File out) throws Exception {
         InputStream fis = in;
         FileOutputStream fos = new FileOutputStream(out);
         try {
