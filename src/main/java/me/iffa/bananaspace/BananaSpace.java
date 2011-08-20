@@ -33,7 +33,10 @@ import com.nijiko.permissions.PermissionHandler;
 import com.nijikokun.bukkit.Permissions.Permissions;
 
 // Pail Imports
+import java.io.File;
 import me.escapeNT.pail.Pail;
+import org.bukkit.Bukkit;
+import org.bukkit.util.config.Configuration;
 
 /**
  * Main class of BananaSpace
@@ -157,8 +160,25 @@ public class BananaSpace extends JavaPlugin {
 
     @Override
     public ChunkGenerator getDefaultWorldGenerator(String worldName, String id) {
-        if (SpaceConfig.myConfig.getBoolean("worlds." + worldName + ".generation.generateplanets", true)) {
-            return new PlanetsChunkGenerator(SpacePlanetConfig.myConfig, this);
+        Configuration myConfig = null;
+        File configFile = new File(Bukkit.getServer().getPluginManager().getPlugin("BananaSpace").getDataFolder(), "config.yml");
+        if (configFile.exists()) {
+            myConfig = new Configuration(configFile) {};
+            myConfig.load();
+        }
+        else {
+            try {
+                Bukkit.getServer().getPluginManager().getPlugin("BananaSpace").getDataFolder().mkdir();
+                SpaceConfig.copyFile(getClass().getResourceAsStream("/config.yml"), configFile);
+                myConfig = new Configuration(configFile);
+                myConfig.load();
+                configFile.delete();
+            } catch (Exception e) {
+                System.out.println(e.toString());
+            }
+        }
+        if (myConfig.getBoolean("worlds." + worldName + ".generation.generateplanets", true)) {
+            return new PlanetsChunkGenerator(myConfig, this);
         }
         return new SpaceChunkGenerator();
     }
