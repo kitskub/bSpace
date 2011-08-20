@@ -14,6 +14,7 @@ import me.iffa.bananaspace.api.SpacePlayerHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -154,10 +155,14 @@ public class SpaceCommand implements CommandExecutor {
                 }
             } else if (args.length == 1 && args[0].equalsIgnoreCase("list") && sender instanceof Player) {
                 if (!spacePlayer.hasPermission("bananaspace.teleport.list", (Player) sender)) {
-                    
+                    sender.sendMessage(ChatColor.RED + "You don't have permission!");
+                    return true;
                 }
                 sender.sendMessage(ChatColor.GREEN + BananaSpace.prefix + " List of spaceworlds:");
-                sender.sendMessage(ChatColor.GREEN + BananaSpace.worldHandler.getSpaceWorlds().toString().replace("[", "").replace("]", ""));
+                for(World world : BananaSpace.getWorldHandler().getSpaceWorlds()) {
+                    sender.sendMessage(ChatColor.DARK_GREEN + "- " + world.getName());
+                }
+                return true;
             } else if (args.length == 1 && args[0].equalsIgnoreCase("help")) {
                 sender.sendMessage(ChatColor.GREEN + "[BananaSpace] Usage:");
                 sender.sendMessage(ChatColor.GREEN + "/space enter [world] - Go to space (default world or given one)");
