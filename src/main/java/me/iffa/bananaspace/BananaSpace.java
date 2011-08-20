@@ -3,6 +3,7 @@ package me.iffa.bananaspace;
 
 // Java imports
 import java.util.logging.Logger;
+import java.io.File;
 
 // BananaSpace imports
 import me.iffa.bananaspace.listeners.SpaceEntityListener;
@@ -27,16 +28,15 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.scheduler.BukkitScheduler;
 import org.bukkit.generator.ChunkGenerator;
+import org.bukkit.Bukkit;
+import org.bukkit.util.config.Configuration;
 
 //Permissions (Nijiko)
 import com.nijiko.permissions.PermissionHandler;
 import com.nijikokun.bukkit.Permissions.Permissions;
 
 // Pail Imports
-import java.io.File;
 import me.escapeNT.pail.Pail;
-import org.bukkit.Bukkit;
-import org.bukkit.util.config.Configuration;
 
 /**
  * Main class of BananaSpace
@@ -163,10 +163,9 @@ public class BananaSpace extends JavaPlugin {
         Configuration myConfig = null;
         File configFile = new File(Bukkit.getServer().getPluginManager().getPlugin("BananaSpace").getDataFolder(), "config.yml");
         if (configFile.exists()) {
-            myConfig = new Configuration(configFile) {};
+            myConfig = new Configuration(configFile);
             myConfig.load();
-        }
-        else {
+        } else {
             try {
                 Bukkit.getServer().getPluginManager().getPlugin("BananaSpace").getDataFolder().mkdir();
                 SpaceConfig.copyFile(getClass().getResourceAsStream("/config.yml"), configFile);

@@ -18,7 +18,6 @@ import me.iffa.bananaspace.config.SpacePlanetConfig;
 // Bukkit Imports
 import org.bukkit.Bukkit;
 import org.bukkit.World;
-import org.bukkit.craftbukkit.CraftServer;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
