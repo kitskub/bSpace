@@ -317,44 +317,44 @@ public class SpacePlayerListener extends PlayerListener {
     private boolean hasSuit(Player p, String armortype) {
         if (armortype.equalsIgnoreCase("diamond")) {
             // Diamond
-            if (p.getInventory().getBoots().getType() == Material.DIAMOND_BOOTS
-                    && p.getInventory().getChestplate().getType() == Material.DIAMOND_CHESTPLATE
-                    && p.getInventory().getLeggings().getType() == Material.DIAMOND_LEGGINGS) {
-                return true;
+            if (p.getInventory().getBoots().getType() != Material.DIAMOND_BOOTS
+                    || p.getInventory().getChestplate().getType() != Material.DIAMOND_CHESTPLATE
+                    || p.getInventory().getLeggings().getType() != Material.DIAMOND_LEGGINGS) {
+                return false;
             }
-            return false;
+            return true;
         } else if (armortype.equalsIgnoreCase("chainmail")) {
             // Chainmail
-            if (p.getInventory().getBoots().getType() == Material.CHAINMAIL_BOOTS
-                    && p.getInventory().getChestplate().getType() == Material.CHAINMAIL_CHESTPLATE
-                    && p.getInventory().getLeggings().getType() == Material.CHAINMAIL_LEGGINGS) {
-                return true;
+            if (p.getInventory().getBoots().getType() != Material.CHAINMAIL_BOOTS
+                    || p.getInventory().getChestplate().getType() != Material.CHAINMAIL_CHESTPLATE
+                    || p.getInventory().getLeggings().getType() != Material.CHAINMAIL_LEGGINGS) {
+                return false;
             }
-            return false;
+            return true;
         } else if (armortype.equalsIgnoreCase("gold")) {
             // Gold
-            if (p.getInventory().getBoots().getType() == Material.GOLD_BOOTS
-                    && p.getInventory().getChestplate().getType() == Material.GOLD_CHESTPLATE
-                    && p.getInventory().getLeggings().getType() == Material.GOLD_LEGGINGS) {
-                return true;
+            if (p.getInventory().getBoots().getType() != Material.GOLD_BOOTS
+                    || p.getInventory().getChestplate().getType() != Material.GOLD_CHESTPLATE
+                    || p.getInventory().getLeggings().getType() != Material.GOLD_LEGGINGS) {
+                return false;
             }
-            return false;
+            return true;
         } else if (armortype.equalsIgnoreCase("iron")) {
             // Iron
-            if (p.getInventory().getBoots().getType() == Material.IRON_BOOTS
-                    && p.getInventory().getChestplate().getType() == Material.IRON_CHESTPLATE
-                    && p.getInventory().getLeggings().getType() == Material.IRON_LEGGINGS) {
-                return true;
+            if (p.getInventory().getBoots().getType() != Material.IRON_BOOTS
+                    || p.getInventory().getChestplate().getType() != Material.IRON_CHESTPLATE
+                    || p.getInventory().getLeggings().getType() != Material.IRON_LEGGINGS) {
+                return false;
             }
-            return false;
+            return true;
         } else if (armortype.equalsIgnoreCase("leather")) {
             // Leather
-            if (p.getInventory().getBoots().getType() == Material.LEATHER_BOOTS
-                    && p.getInventory().getChestplate().getType() == Material.LEATHER_CHESTPLATE
-                    && p.getInventory().getLeggings().getType() == Material.LEATHER_LEGGINGS) {
-                return true;
+            if (p.getInventory().getBoots().getType() != Material.LEATHER_BOOTS
+                    || p.getInventory().getChestplate().getType() != Material.LEATHER_CHESTPLATE
+                    || p.getInventory().getLeggings().getType() != Material.LEATHER_LEGGINGS) {
+                return false;
             }
-            return false;
+            return true;
         }
         return false;
     }
