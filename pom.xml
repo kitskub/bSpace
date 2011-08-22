@@ -10,6 +10,10 @@
             <id>bukkit-repo</id>
             <url>http://repo.bukkit.org/artifactory/repo</url>
         </repository>
+        <repository>
+            <id>spout-repo</id>
+            <url>http://ci.craftfire.com/plugin/repository/everything/</url>
+        </repository>
     </repositories>
     <build>
         <plugins>
@@ -33,7 +37,7 @@
         <dependency>
             <groupId>org.getspout</groupId>
             <artifactId>spout</artifactId>
-            <version>0.0.1</version>
+            <version>dev-SNAPSHOT</version>
             <type>jar</type>
         </dependency>
         <dependency>
@@ -42,7 +46,7 @@
             <version>0.0.1</version>
         </dependency>
         <dependency>
-            <groupId>com.bukkit</groupId>
+            <groupId>org.bukkit</groupId>
             <artifactId>bukkit</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
