@@ -30,6 +30,7 @@ public class SpaceWorldHandler {
     // Variables
     private BananaSpace plugin;
     private Map<World, Integer> forcenightId = new HashMap<World, Integer>();
+    private boolean startupLoaded;
     public static List<World> spaceWorlds = new ArrayList<World>();
 
     // Constructor
@@ -44,6 +45,7 @@ public class SpaceWorldHandler {
         List<String> worlds = SpaceConfig.myConfig.getKeys("worlds");
         if (worlds == null) {
             BananaSpace.log.severe(BananaSpace.prefix + " Your configuration file has no worlds! Cancelling world generation process.");
+            startupLoaded = false;
             return;
         }
         for (String world : worlds) {
@@ -62,7 +64,20 @@ public class SpaceWorldHandler {
                 }
             }
             spaceWorlds.add(Bukkit.getServer().getWorld(world));
+            startupLoaded = true;
         }
+    }
+    
+    /**
+     * Checks if any worlds were created/loaded on plugin startup.
+     * 
+     * @return true if any spaceworld was loaded from the config
+     */
+    public boolean getStartupLoaded() {
+        if (startupLoaded) {
+            return true;
+        }
+        return false;
     }
 
     /**

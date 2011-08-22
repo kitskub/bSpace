@@ -3,7 +3,6 @@ package me.iffa.bananaspace;
 
 // Java imports
 import java.util.logging.Logger;
-import java.io.File;
 
 // BananaSpace imports
 import me.iffa.bananaspace.listeners.SpaceEntityListener;
@@ -28,8 +27,6 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.scheduler.BukkitScheduler;
 import org.bukkit.generator.ChunkGenerator;
-import org.bukkit.Bukkit;
-import org.bukkit.util.config.Configuration;
 
 //Permissions (Nijiko)
 import com.nijiko.permissions.PermissionHandler;
@@ -116,8 +113,10 @@ public class BananaSpace extends JavaPlugin {
             pm.registerEvent(Event.Type.PLAYER_JOIN, spListener, Event.Priority.Normal, this);
         }
 
-        // Creating all space worlds.
-        worldHandler.createSpaceWorlds();
+        // Creating all space worlds if MultiVerse-Core is not found.
+        if (pm.getPlugin("Multiverse-Core") == null) {
+            worldHandler.createSpaceWorlds();
+        }
 
         // Initializing the CommandExecutor
         sce = new SpaceCommand(this);
@@ -158,26 +157,21 @@ public class BananaSpace extends JavaPlugin {
         permissionHandler = ((Permissions) permissionsPlugin).getHandler();
     }
 
+    /**
+     * Gets the default world generator of the plugin.
+     * 
+     * @param worldName World name
+     * @param id ID (cow, fish etc)
+     * 
+     * @return ChunkGenerator
+     */
     @Override
     public ChunkGenerator getDefaultWorldGenerator(String worldName, String id) {
-        Configuration myConfig = null;
-        File configFile = new File(Bukkit.getServer().getPluginManager().getPlugin("BananaSpace").getDataFolder(), "config.yml");
-        if (configFile.exists()) {
-            myConfig = new Configuration(configFile);
-            myConfig.load();
-        } else {
-            try {
-                Bukkit.getServer().getPluginManager().getPlugin("BananaSpace").getDataFolder().mkdir();
-                SpaceConfig.copyFile(getClass().getResourceAsStream("/config.yml"), configFile);
-                myConfig = new Configuration(configFile);
-                myConfig.load();
-                configFile.delete();
-            } catch (Exception e) {
-                System.out.println(e.toString());
-            }
+        if (id.isEmpty()) {
+            return new SpaceChunkGenerator();
         }
-        if (myConfig.getBoolean("worlds." + worldName + ".generation.generateplanets", true)) {
-            return new PlanetsChunkGenerator(myConfig, this);
+        if (id.equalsIgnoreCase("planets")) {
+            return new PlanetsChunkGenerator(SpacePlanetConfig.myConfig, this);
         }
         return new SpaceChunkGenerator();
     }
