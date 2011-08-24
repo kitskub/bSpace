@@ -21,7 +21,7 @@ public class SpaceConfigHandler {
      * @return true if a helmet is required
      */
     public static boolean getRequireHelmet(World world) {
-        return SpaceConfig.myConfig.getBoolean("worlds." + world.getName() + ".helmet.required", true);
+        return SpaceConfig.getConfig().getBoolean("worlds." + world.getName() + ".helmet.required", true);
     }
 
     /**
@@ -32,7 +32,7 @@ public class SpaceConfigHandler {
      * @return true if a suit is required
      */
     public static boolean getRequireSuit(World world) {
-        return SpaceConfig.myConfig.getBoolean("worlds." + world.getName() + ".suit.required", true);
+        return SpaceConfig.getConfig().getBoolean("worlds." + world.getName() + ".suit.required", true);
     }
 
     /**
@@ -41,7 +41,7 @@ public class SpaceConfigHandler {
      * @return true if a helmet is given when teleporting to this world
      */
     public static boolean isHelmetGiven() {
-        return SpaceConfig.myConfig.getBoolean("global.givehelmet", true);
+        return SpaceConfig.getConfig().getBoolean("global.givehelmet", true);
     }
 
     /**
@@ -50,7 +50,7 @@ public class SpaceConfigHandler {
      * @return true if a suit is given when teleporting to this world
      */
     public static boolean isSuitGiven() {
-        return SpaceConfig.myConfig.getBoolean("global.givesuit", true);
+        return SpaceConfig.getConfig().getBoolean("global.givesuit", true);
     }
 
     /**
@@ -61,7 +61,7 @@ public class SpaceConfigHandler {
      * @return true if hostile mobs are allowed
      */
     public static boolean allowHostileMobs(World world) {
-        return SpaceConfig.myConfig.getBoolean("worlds." + world.getName() + ".hostilemobs", false);
+        return SpaceConfig.getConfig().getBoolean("worlds." + world.getName() + ".hostilemobs", false);
     }
 
     /**
@@ -72,7 +72,7 @@ public class SpaceConfigHandler {
      * @return true if neutral mobs are allowed
      */
     public static boolean allowNeutralMobs(World world) {
-        return SpaceConfig.myConfig.getBoolean("worlds." + world.getName() + ".neutralmobs", true);
+        return SpaceConfig.getConfig().getBoolean("worlds." + world.getName() + ".neutralmobs", true);
     }
 
     /**
@@ -83,7 +83,7 @@ public class SpaceConfigHandler {
      * @return true if night is forced
      */
     public static boolean forceNight(World world) {
-        return SpaceConfig.myConfig.getBoolean("worlds." + world.getName() + ".alwaysnight", true);
+        return SpaceConfig.getConfig().getBoolean("worlds." + world.getName() + ".alwaysnight", true);
     }
 
     /**
@@ -92,7 +92,7 @@ public class SpaceConfigHandler {
      * @return block id integer
      */
     public static int getHelmetBlock() {
-        return SpaceConfig.myConfig.getInt("global.blockid", 86);
+        return SpaceConfig.getConfig().getInt("global.blockid", 86);
     }
 
     /**
@@ -101,7 +101,7 @@ public class SpaceConfigHandler {
      * @return armortype string
      */
     public static String getArmorType() {
-        return SpaceConfig.myConfig.getString("global.armortype", "iron");
+        return SpaceConfig.getConfig().getString("global.armortype", "iron");
     }
 
     /**
@@ -112,7 +112,7 @@ public class SpaceConfigHandler {
      * @return room height int
      */
     public static int getRoomHeight(World world) {
-        return SpaceConfig.myConfig.getInt("worlds." + world.getName() + ".breathingarea.maxroomheight", 5);
+        return SpaceConfig.getConfig().getInt("worlds." + world.getName() + ".breathingarea.maxroomheight", 5);
     }
 
     /**
@@ -123,7 +123,7 @@ public class SpaceConfigHandler {
      * @return true if weather is allowed
      */
     public static boolean allowWeather(World world) {
-        return SpaceConfig.myConfig.getBoolean("worlds." + world.getName() + ".weather", false);
+        return SpaceConfig.getConfig().getBoolean("worlds." + world.getName() + ".weather", false);
     }
 
     /**
@@ -134,7 +134,7 @@ public class SpaceConfigHandler {
      * @return glowstone chance int
      */
     public static int getGlowstoneChance(World world) {
-        return SpaceConfig.myConfig.getInt("worlds." + world.getName() + ".generation.glowstonechance", 1);
+        return SpaceConfig.getConfig().getInt("worlds." + world.getName() + ".generation.glowstonechance", 1);
     }
     
     /**
@@ -145,7 +145,7 @@ public class SpaceConfigHandler {
      * @return asteroid chance int
      */
     public static int getAsteroidChance(World world) {
-        return SpaceConfig.myConfig.getInt("worlds." + world.getName() + ".generation.asteroidchance", 1);
+        return SpaceConfig.getConfig().getInt("worlds." + world.getName() + ".generation.asteroidchance", 1);
     }
     
     /**
@@ -154,6 +154,6 @@ public class SpaceConfigHandler {
      * @return true if Spout is used
      */
     public static boolean isUsingSpout() {
-        return SpaceConfig.myConfig.getBoolean("global.usespout", true);
+        return SpaceConfig.getConfig().getBoolean("global.usespout", true);
     }
 }

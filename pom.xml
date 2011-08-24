@@ -30,6 +30,11 @@
     </build>
     <dependencies>
         <dependency>
+            <groupId>com.bukkit</groupId>
+            <artifactId>bukkit</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
             <groupId>com.nijikokun</groupId>
             <artifactId>Permissions</artifactId>
             <version>3.1.6</version>
@@ -37,18 +42,13 @@
         <dependency>
             <groupId>org.getspout</groupId>
             <artifactId>spout</artifactId>
-            <version>dev-SNAPSHOT</version>
+            <version>0.0.1</version>
             <type>jar</type>
         </dependency>
         <dependency>
             <groupId>me.escapeNT</groupId>
             <artifactId>pail</artifactId>
             <version>0.0.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.bukkit</groupId>
-            <artifactId>bukkit</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
 </project>

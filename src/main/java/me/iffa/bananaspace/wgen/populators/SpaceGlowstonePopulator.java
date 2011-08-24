@@ -4,7 +4,7 @@ package me.iffa.bananaspace.wgen.populators;
 // Java Imports
 import java.util.Random;
 
-// StyxSpace Imports
+// BananaSpace Imports
 import me.iffa.bananaspace.api.SpaceConfigHandler;
 
 // Bukkit Imports

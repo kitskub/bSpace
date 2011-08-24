@@ -23,22 +23,36 @@ import org.bukkit.util.config.Configuration;
 public class SpacePlanetConfig {
     // Variables
     public static Configuration myConfig;
+    private static boolean loaded;
+    
+    /**
+     * @return the myConfig
+     */
+    public static Configuration getConfig() {
+        if(!loaded){
+            loadConfig();
+        }
+        return myConfig;
+    }
 
     /**
      * Loads the configuration file from the .jar.
      */
-    public void loadConfig() {
+    public static void loadConfig() {
+        if(!loaded){
         File configFile = new File(Bukkit.getServer().getPluginManager().getPlugin("BananaSpace").getDataFolder(), "planets.yml");
         if (configFile.exists()) {
             myConfig = new Configuration(configFile);
             myConfig.load();
+            loaded=true;
         } else {
             try {
                 Bukkit.getServer().getPluginManager().getPlugin("BananaSpace").getDataFolder().mkdir();
-                InputStream jarURL = getClass().getResourceAsStream("/planets.yml");
-                this.copyFile(jarURL, configFile);
+                InputStream jarURL = SpacePlanetConfig.class.getResourceAsStream("/planets.yml");
+                copyFile(jarURL, configFile);
                 myConfig = new Configuration(configFile);
                 myConfig.load();
+                loaded=true;
                 if ((long) myConfig.getDouble("seed", -1.0) == -1) {
                     myConfig.setProperty("seed", Bukkit.getServer().getWorlds().get(0).getSeed());
                 }
@@ -46,6 +60,7 @@ public class SpacePlanetConfig {
             } catch (Exception e) {
                 System.out.println(e.toString());
             }
+        }
         }
     }
 
@@ -57,7 +72,7 @@ public class SpacePlanetConfig {
      * 
      * @throws Exception
      */
-    private void copyFile(InputStream in, File out) throws Exception {
+    private static void copyFile(InputStream in, File out) throws Exception {
         InputStream fis = in;
         FileOutputStream fos = new FileOutputStream(out);
         try {

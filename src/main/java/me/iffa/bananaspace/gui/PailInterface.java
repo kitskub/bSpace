@@ -22,8 +22,8 @@ import javax.swing.DefaultListModel;
 public class PailInterface extends javax.swing.JPanel {
     // Variables
     private BananaSpace plugin;
-    public static Configuration config = SpaceConfig.myConfig;
-    public static Configuration planetConfig = SpacePlanetConfig.myConfig;
+    public static Configuration config = SpaceConfig.getConfig();
+    public static Configuration planetConfig = SpacePlanetConfig.getConfig();
 
     /** Creates new form PailInterface */
     public PailInterface(BananaSpace plugin) {

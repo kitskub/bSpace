@@ -52,8 +52,6 @@ public class BananaSpace extends JavaPlugin {
     public static SpaceWorldHandler worldHandler;
     public static SpacePlayerHandler playerHandler;
     public static PailInterface pailInt;
-    SpaceConfig cMgr = new SpaceConfig();
-    SpacePlanetConfig cplaMgr = new SpacePlanetConfig();
     private final SpaceWeatherListener weatherListener = new SpaceWeatherListener(
             this);
     private final SpaceEntityListener entityListener = new SpaceEntityListener(
@@ -84,8 +82,8 @@ public class BananaSpace extends JavaPlugin {
         playerHandler = new SpacePlayerHandler();
 
         // Loading configuration files
-        cMgr.loadConfig();
-        cplaMgr.loadConfig();
+        SpaceConfig.loadConfig();
+        SpacePlanetConfig.loadConfig();
 
         // Registering other events
         pm.registerEvent(Event.Type.WEATHER_CHANGE, weatherListener,
@@ -167,7 +165,7 @@ public class BananaSpace extends JavaPlugin {
      */
     @Override
     public ChunkGenerator getDefaultWorldGenerator(String worldName, String id) {
-        if (id.isEmpty()) {
+        if (id==null||id.isEmpty()) {
             return new SpaceChunkGenerator();
         }
         if (id.equalsIgnoreCase("planets")) {

@@ -42,7 +42,7 @@ public class SpaceWorldHandler {
      * Creates all space worlds from the configuration file. WARNING: Do not use this with your plugin, as it may cause explosions etc etc!
      */
     public void createSpaceWorlds() {
-        List<String> worlds = SpaceConfig.myConfig.getKeys("worlds");
+        List<String> worlds = SpaceConfig.getConfig().getKeys("worlds");
         if (worlds == null) {
             BananaSpace.log.severe(BananaSpace.prefix + " Your configuration file has no worlds! Cancelling world generation process.");
             startupLoaded = false;
@@ -51,16 +51,16 @@ public class SpaceWorldHandler {
         for (String world : worlds) {
             if (plugin.getServer().getWorld(world) == null) {
                 World.Environment env;
-                if (SpaceConfig.myConfig.getBoolean("worlds." + world + ".nethermode", false)) {
+                if (SpaceConfig.getConfig().getBoolean("worlds." + world + ".nethermode", false)) {
                     env = World.Environment.NETHER;
                 } else {
                     env = World.Environment.NORMAL;
                 }
                 // Choosing which chunk generator to use
-                if (!SpaceConfig.myConfig.getBoolean("worlds." + world + ".generation.generateplanets", true)) {
+                if (!SpaceConfig.getConfig().getBoolean("worlds." + world + ".generation.generateplanets", true)) {
                     plugin.getServer().createWorld(world, env, new SpaceChunkGenerator());
                 } else {
-                    plugin.getServer().createWorld(world, env, new PlanetsChunkGenerator(SpacePlanetConfig.myConfig, plugin));
+                    plugin.getServer().createWorld(world, env, new PlanetsChunkGenerator(SpacePlanetConfig.getConfig(), plugin));
                 }
             }
             spaceWorlds.add(Bukkit.getServer().getWorld(world));
@@ -92,19 +92,19 @@ public class SpaceWorldHandler {
             BananaSpace.log.warning(BananaSpace.prefix + " Plugin '" + plugin.getDescription().getName() + "' tried to create a new spaceworld with a name that is already a world! Nag to author(s) '" + plugin.getDescription().getAuthors() + "'!");
             return;
         }
-        SpaceConfig.myConfig.setProperty("worlds." + worldname + ".generation.generateplanets", true);
-        SpaceConfig.myConfig.setProperty("worlds." + worldname + ".generation.glowstonechance", 1);
-        SpaceConfig.myConfig.setProperty("worlds." + worldname + ".generation.asteroidchance", 3);
-        SpaceConfig.myConfig.setProperty("worlds." + worldname + ".suit.required", false);
-        SpaceConfig.myConfig.setProperty("worlds." + worldname + ".helmet.required", false);
-        SpaceConfig.myConfig.setProperty("worlds." + worldname + ".breathingarea.maxroomheight", 5);
-        SpaceConfig.myConfig.setProperty("worlds." + worldname + ".weather", false);
-        SpaceConfig.myConfig.setProperty("worlds." + worldname + ".nethermode", false);
-        SpaceConfig.myConfig.setProperty("worlds." + worldname + ".alwaysnight", true);
-        SpaceConfig.myConfig.setProperty("worlds." + worldname + ".neutralmobs", true);
-        SpaceConfig.myConfig.setProperty("worlds." + worldname + ".hostilemobs", false);
-        SpaceConfig.myConfig.save();
-        plugin.getServer().createWorld(worldname, World.Environment.NORMAL, new PlanetsChunkGenerator(SpacePlanetConfig.myConfig, plugin));
+        SpaceConfig.getConfig().setProperty("worlds." + worldname + ".generation.generateplanets", true);
+        SpaceConfig.getConfig().setProperty("worlds." + worldname + ".generation.glowstonechance", 1);
+        SpaceConfig.getConfig().setProperty("worlds." + worldname + ".generation.asteroidchance", 3);
+        SpaceConfig.getConfig().setProperty("worlds." + worldname + ".suit.required", false);
+        SpaceConfig.getConfig().setProperty("worlds." + worldname + ".helmet.required", false);
+        SpaceConfig.getConfig().setProperty("worlds." + worldname + ".breathingarea.maxroomheight", 5);
+        SpaceConfig.getConfig().setProperty("worlds." + worldname + ".weather", false);
+        SpaceConfig.getConfig().setProperty("worlds." + worldname + ".nethermode", false);
+        SpaceConfig.getConfig().setProperty("worlds." + worldname + ".alwaysnight", true);
+        SpaceConfig.getConfig().setProperty("worlds." + worldname + ".neutralmobs", true);
+        SpaceConfig.getConfig().setProperty("worlds." + worldname + ".hostilemobs", false);
+        SpaceConfig.getConfig().save();
+        plugin.getServer().createWorld(worldname, World.Environment.NORMAL, new PlanetsChunkGenerator(SpacePlanetConfig.getConfig(), plugin));
         World world = plugin.getServer().getWorld(worldname);
         spaceWorlds.add(world);
         if (log) {
@@ -129,8 +129,8 @@ public class SpaceWorldHandler {
             return;
         }
         spaceWorlds.remove(plugin.getServer().getWorld(worldname));
-        SpaceConfig.myConfig.removeProperty("worlds." + worldname);
-        SpaceConfig.myConfig.save();
+        SpaceConfig.getConfig().removeProperty("worlds." + worldname);
+        SpaceConfig.getConfig().save();
         plugin.getServer().unloadWorld(worldname, true);
         if (log) {
             BananaSpace.log.info(BananaSpace.prefix + " Plugin '" + plugin.getDescription().getName() + "' removed spaceworld '" + worldname + "'");
