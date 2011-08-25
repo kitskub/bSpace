@@ -189,7 +189,7 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
             chunkXPos = (x % SYSTEM_SIZE) * 16;
         } else {
             chunkXPos = SYSTEM_SIZE * 16 + ((x % SYSTEM_SIZE) * 16);
-        }
+        }   
         int chunkZPos;
         if (z >= 0) {
             chunkZPos = (z % SYSTEM_SIZE) * 16;
