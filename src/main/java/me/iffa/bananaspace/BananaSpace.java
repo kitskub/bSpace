@@ -167,12 +167,12 @@ public class BananaSpace extends JavaPlugin {
      */
     @Override
     public ChunkGenerator getDefaultWorldGenerator(String worldName, String id) {
-        if (id.isEmpty()) {
-            return new SpaceChunkGenerator();
-        }
-        if (id.equalsIgnoreCase("planets")) {
-            return new PlanetsChunkGenerator(SpacePlanetConfig.myConfig, this);
-        }
+        //if (id.isEmpty()) {
+        //    return new SpaceChunkGenerator();
+        //}
+        //if (id.equalsIgnoreCase("planets")) {
+        //    return new PlanetsChunkGenerator(SpacePlanetConfig.myConfig, this);
+        //}
         return new SpaceChunkGenerator();
     }
 
