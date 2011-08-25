@@ -55,6 +55,7 @@ Coding and Pull Request Conventions
 * We generally follow the Sun/Oracle coding standards.
 * No tabs; use 4 spaces instead.
 * No trailing whitespaces.
+* Organize imports properly.
 * No 80 column limit or midstatement newlines (usually).
 * No fucking ugly Eclipse formatting (unless you have modified it to actually look good).
 * Proper javadoc for each method added/changed to describe what it does.
