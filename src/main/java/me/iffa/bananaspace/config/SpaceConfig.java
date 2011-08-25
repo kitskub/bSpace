@@ -22,23 +22,35 @@ import org.bukkit.util.config.Configuration;
  */
 public class SpaceConfig {
     // Variables
-    public static Configuration myConfig;
+    public static Configuration myConfig; //TODO convert all uses to getter method
+    private static boolean loaded=false;
 
+    /**
+     * @return the myConfig
+     */
+    public static Configuration getConfig() {
+        if(!loaded){
+            loadConfig();
+        }
+        return myConfig;
+    }
     /**
      * Loads the configuration file from the .jar.
      */
-    public void loadConfig() {
+    public static void loadConfig() {
         File configFile = new File(Bukkit.getServer().getPluginManager().getPlugin("BananaSpace").getDataFolder(), "config.yml");
         if (configFile.exists()) {
             myConfig = new Configuration(configFile);
             myConfig.load();
+            loaded=true;
         } else {
             try {
                 Bukkit.getServer().getPluginManager().getPlugin("BananaSpace").getDataFolder().mkdir();
-                InputStream jarURL = getClass().getResourceAsStream("/config.yml");
-                SpaceConfig.copyFile(jarURL, configFile);
+                InputStream jarURL = SpaceConfig.class.getResourceAsStream("/config.yml");
+                copyFile(jarURL, configFile);
                 myConfig = new Configuration(configFile);
                 myConfig.load();
+                loaded=true;
                 BananaSpace.log.info(BananaSpace.prefix + " Generated configuration file for version " + BananaSpace.version);
             } catch (Exception e) {
                 System.out.println(e.toString());
@@ -54,7 +66,7 @@ public class SpaceConfig {
      * 
      * @throws Exception
      */
-    static public void copyFile(InputStream in, File out) throws Exception {
+    static private void copyFile(InputStream in, File out) throws Exception {
         InputStream fis = in;
         FileOutputStream fos = new FileOutputStream(out);
         try {
