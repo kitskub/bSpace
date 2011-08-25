@@ -77,7 +77,7 @@ public class SpaceListener extends CustomEventListener implements Listener {
     }
 
     /**
-     * Handles calling the events (like a boss).
+     * Handles the events that are called.
      * 
      * @param event Event
      */

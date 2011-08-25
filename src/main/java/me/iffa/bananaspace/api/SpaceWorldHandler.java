@@ -67,7 +67,7 @@ public class SpaceWorldHandler {
             startupLoaded = true;
         }
     }
-    
+
     /**
      * Checks if any worlds were created/loaded on plugin startup.
      * 

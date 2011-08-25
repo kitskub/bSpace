@@ -56,6 +56,7 @@ Coding and Pull Request Conventions
 * No tabs; use 4 spaces instead.
 * No trailing whitespaces.
 * Organize imports properly.
+* If you make major changes to a class, add an author-tag for you.
 * No 80 column limit or midstatement newlines (usually).
 * No fucking ugly Eclipse formatting (unless you have modified it to actually look good).
 * Proper javadoc for each method added/changed to describe what it does.

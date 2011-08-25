@@ -19,17 +19,20 @@ import org.bukkit.util.config.Configuration;
  * @author iffa
  * @author Pandarr
  * @author Sammy
+ * @author kitskub
  */
 public class SpacePlanetConfig {
     // Variables
     public static Configuration myConfig;
-    private static boolean loaded;
-    
+    private static boolean loaded = false;
+
     /**
+     * Gets the configuration file.
+     * 
      * @return the myConfig
      */
     public static Configuration getConfig() {
-        if(!loaded){
+        if (!loaded) {
             loadConfig();
         }
         return myConfig;
@@ -39,28 +42,28 @@ public class SpacePlanetConfig {
      * Loads the configuration file from the .jar.
      */
     public static void loadConfig() {
-        if(!loaded){
-        File configFile = new File(Bukkit.getServer().getPluginManager().getPlugin("BananaSpace").getDataFolder(), "planets.yml");
-        if (configFile.exists()) {
-            myConfig = new Configuration(configFile);
-            myConfig.load();
-            loaded=true;
-        } else {
-            try {
-                Bukkit.getServer().getPluginManager().getPlugin("BananaSpace").getDataFolder().mkdir();
-                InputStream jarURL = SpacePlanetConfig.class.getResourceAsStream("/planets.yml");
-                copyFile(jarURL, configFile);
+        if (!loaded) {
+            File configFile = new File(Bukkit.getServer().getPluginManager().getPlugin("BananaSpace").getDataFolder(), "planets.yml");
+            if (configFile.exists()) {
                 myConfig = new Configuration(configFile);
                 myConfig.load();
-                loaded=true;
-                if ((long) myConfig.getDouble("seed", -1.0) == -1) {
-                    myConfig.setProperty("seed", Bukkit.getServer().getWorlds().get(0).getSeed());
+                loaded = true;
+            } else {
+                try {
+                    Bukkit.getServer().getPluginManager().getPlugin("BananaSpace").getDataFolder().mkdir();
+                    InputStream jarURL = SpacePlanetConfig.class.getResourceAsStream("/planets.yml");
+                    copyFile(jarURL, configFile);
+                    myConfig = new Configuration(configFile);
+                    myConfig.load();
+                    loaded = true;
+                    if ((long) myConfig.getDouble("seed", -1.0) == -1) {
+                        myConfig.setProperty("seed", Bukkit.getServer().getWorlds().get(0).getSeed());
+                    }
+                    BananaSpace.log.info(BananaSpace.prefix + " Generated planet configuration for version " + BananaSpace.version);
+                } catch (Exception e) {
+                    System.out.println(e.toString());
                 }
-                BananaSpace.log.info(BananaSpace.prefix + " Generated planet configuration for version " + BananaSpace.version);
-            } catch (Exception e) {
-                System.out.println(e.toString());
             }
-        }
         }
     }
 

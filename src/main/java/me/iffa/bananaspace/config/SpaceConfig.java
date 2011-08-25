@@ -19,21 +19,25 @@ import org.bukkit.util.config.Configuration;
  * @author iffa
  * @author Pandarr
  * @author Sammy
+ * @author kitskub
  */
 public class SpaceConfig {
     // Variables
     public static Configuration myConfig; //TODO convert all uses to getter method
-    private static boolean loaded=false;
+    private static boolean loaded = false;
 
     /**
+     * Gets the configuration file.
+     * 
      * @return the myConfig
      */
     public static Configuration getConfig() {
-        if(!loaded){
+        if (!loaded) {
             loadConfig();
         }
         return myConfig;
     }
+
     /**
      * Loads the configuration file from the .jar.
      */
@@ -42,7 +46,7 @@ public class SpaceConfig {
         if (configFile.exists()) {
             myConfig = new Configuration(configFile);
             myConfig.load();
-            loaded=true;
+            loaded = true;
         } else {
             try {
                 Bukkit.getServer().getPluginManager().getPlugin("BananaSpace").getDataFolder().mkdir();
@@ -50,7 +54,7 @@ public class SpaceConfig {
                 copyFile(jarURL, configFile);
                 myConfig = new Configuration(configFile);
                 myConfig.load();
-                loaded=true;
+                loaded = true;
                 BananaSpace.log.info(BananaSpace.prefix + " Generated configuration file for version " + BananaSpace.version);
             } catch (Exception e) {
                 System.out.println(e.toString());

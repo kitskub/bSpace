@@ -82,7 +82,7 @@ public class SpacePlayerListener extends PlayerListener {
             } else if (!BananaSpace.worldHandler.isSpaceWorld(event.getTo().getWorld())
                     && BananaSpace.worldHandler.isSpaceWorld(event.getFrom().getWorld())) {
                 if (SpaceConfigHandler.isHelmetGiven()) {
-                    event.getPlayer().getInventory().setHelmet(new ItemStack(null, 1));
+                    event.getPlayer().getInventory().setHelmet(new ItemStack(Material.AIR, 1));
                 }
                 if (SpaceConfigHandler.isSuitGiven()) {
                     spacePlayer.giveSpaceSuit("null", player);
