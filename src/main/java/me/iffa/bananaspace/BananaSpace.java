@@ -169,7 +169,7 @@ public class BananaSpace extends JavaPlugin {
             return new SpaceChunkGenerator();
         }
         if (id.equalsIgnoreCase("planets")) {
-            return new PlanetsChunkGenerator(SpacePlanetConfig.myConfig, this);
+            return new PlanetsChunkGenerator(SpacePlanetConfig.getConfig(), this);
         }
         return new SpaceChunkGenerator();
     }

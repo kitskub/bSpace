@@ -23,7 +23,7 @@ import org.bukkit.util.config.Configuration;
  */
 public class SpacePlanetConfig {
     // Variables
-    public static Configuration myConfig;
+    private static Configuration myConfig;
     private static boolean loaded = false;
 
     /**
