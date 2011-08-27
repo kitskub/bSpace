@@ -2,7 +2,6 @@
 package me.iffa.bananaspace.gui;
 
 // BananaSpace Imports
-import java.io.IOException;
 import me.iffa.bananaspace.BananaSpace;
 import me.iffa.bananaspace.config.SpaceConfig;
 
@@ -16,6 +15,7 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.JOptionPane;
 import javax.swing.DefaultListModel;
+import java.io.IOException;
 
 /**
  * Interface for Pail, a Bukkit GUI.
@@ -128,7 +128,7 @@ public class PailInterface extends javax.swing.JPanel {
         CreateWorldButton = new javax.swing.JButton();
         DeleteWorldButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        Settings = new javax.swing.JPanel();
         Settings_Save = new javax.swing.JButton();
         Settings_Reset = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
@@ -149,7 +149,7 @@ public class PailInterface extends javax.swing.JPanel {
         jLabel7 = new javax.swing.JLabel();
         Settings_RoomHeight = new javax.swing.JSpinner();
         Settings_Night = new javax.swing.JCheckBox();
-        BananaSpaceLogo = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
         jFrame1.getContentPane().setLayout(jFrame1Layout);
@@ -328,7 +328,7 @@ public class PailInterface extends javax.swing.JPanel {
             }
         });
 
-        DeleteWorldButton.setFont(new java.awt.Font("Arial", 0, 11));
+        DeleteWorldButton.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         DeleteWorldButton.setText("Delete");
         DeleteWorldButton.setToolTipText("Select a spaceworld from the list and click this button to delete the spaceworld. The world data will be saved.");
         DeleteWorldButton.addActionListener(new java.awt.event.ActionListener() {
@@ -344,6 +344,7 @@ public class PailInterface extends javax.swing.JPanel {
             .addGroup(SpaceWorldsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(SpaceWorldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(SpaceWorldsLayout.createSequentialGroup()
                         .addGap(125, 125, 125)
@@ -358,9 +359,8 @@ public class PailInterface extends javax.swing.JPanel {
         SpaceWorldsLayout.setVerticalGroup(
             SpaceWorldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(SpaceWorldsLayout.createSequentialGroup()
-                .addGroup(SpaceWorldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, SpaceWorldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(SpaceWorldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(SpaceWorldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(SpaceWorldsLayout.createSequentialGroup()
                             .addContainerGap()
                             .addComponent(CreateWorldButton)
@@ -368,12 +368,15 @@ public class PailInterface extends javax.swing.JPanel {
                             .addComponent(DeleteWorldButton))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SpaceWorldsLayout.createSequentialGroup()
                             .addComponent(jLabel1)
-                            .addGap(147, 147, 147))))
-                .addContainerGap())
+                            .addGap(147, 147, 147)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Spaceworld Settings", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
-        jPanel1.setToolTipText("Settings for the currently selected spaceworld in the list.");
+        Settings.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Spaceworld Settings", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
+        Settings.setToolTipText("Settings for the currently selected spaceworld in the list.");
+        Settings.setMaximumSize(new java.awt.Dimension(200, 32767));
+        Settings.setPreferredSize(new java.awt.Dimension(200, 250));
 
         Settings_Save.setText("Save");
         Settings_Save.setToolTipText("Saves the changes made to the spaceworld's settings.");
@@ -460,119 +463,107 @@ public class PailInterface extends javax.swing.JPanel {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(Settings_Save)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(Settings_Reset))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(Settings_WorldName, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(339, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(Settings_SuitRequired)
-                                    .addComponent(Settings_HelmetRequired)
-                                    .addComponent(Settings_Planets)
-                                    .addComponent(Settings_Asteroids))
-                                .addGap(110, 110, 110)
-                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(21, 21, 21)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(Settings_StoneChance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel6)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(Settings_GlowstoneChance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+        javax.swing.GroupLayout SettingsLayout = new javax.swing.GroupLayout(Settings);
+        Settings.setLayout(SettingsLayout);
+        SettingsLayout.setHorizontalGroup(
+            SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(SettingsLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(SettingsLayout.createSequentialGroup()
+                        .addComponent(Settings_Save)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(Settings_Reset))
+                    .addGroup(SettingsLayout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(Settings_WorldName, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(SettingsLayout.createSequentialGroup()
+                        .addGroup(SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Settings_SuitRequired)
+                            .addComponent(Settings_HelmetRequired)
+                            .addComponent(Settings_Planets)
+                            .addGroup(SettingsLayout.createSequentialGroup()
+                                .addGroup(SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(Settings_Asteroids)
+                                    .addComponent(jLabel3))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(Settings_StoneChance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(SettingsLayout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(Settings_GlowstoneChance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(Settings_Night)
-                                .addContainerGap())
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(Settings_Weather)
-                                    .addComponent(Settings_Hostile)
-                                    .addComponent(Settings_Neutral))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(Settings_Nether)
-                                    .addComponent(jLabel7)
-                                    .addComponent(Settings_RoomHeight, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(45, 45, 45))))))
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Settings_Night)
+                            .addComponent(Settings_Weather)
+                            .addComponent(Settings_Nether)
+                            .addComponent(Settings_Neutral)
+                            .addComponent(Settings_Hostile)
+                            .addGroup(SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(Settings_RoomHeight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel7)))))
+                .addGap(107, 107, 107))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(Settings_Save)
-                            .addComponent(Settings_Reset))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(Settings_WorldName))
-                        .addGap(18, 18, 18)
-                        .addComponent(Settings_Planets, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(Settings_Asteroids, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(Settings_StoneChance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        SettingsLayout.setVerticalGroup(
+            SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(SettingsLayout.createSequentialGroup()
+                .addGroup(SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Settings_Save)
+                    .addComponent(Settings_Reset))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(Settings_WorldName))
+                .addGroup(SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(SettingsLayout.createSequentialGroup()
+                            .addGap(18, 18, 18)
+                            .addComponent(Settings_Planets, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(Settings_Asteroids, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel3)
+                                .addComponent(Settings_StoneChance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel6)
+                                .addComponent(Settings_GlowstoneChance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(Settings_HelmetRequired, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(Settings_SuitRequired, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(SettingsLayout.createSequentialGroup()
+                            .addGap(6, 6, 6)
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)))
+                    .addGroup(SettingsLayout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(Settings_Weather, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(3, 3, 3)
+                        .addComponent(Settings_Night, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(Settings_GlowstoneChance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(Settings_Nether, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(Settings_Neutral, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(3, 3, 3)
+                        .addComponent(Settings_Hostile, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(Settings_HelmetRequired, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(Settings_SuitRequired, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(55, 55, 55)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(66, 66, 66)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(Settings_Weather, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Settings_Nether, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(Settings_RoomHeight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addGap(3, 3, 3)
-                                .addComponent(Settings_Night, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(Settings_Hostile, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(Settings_Neutral, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)))
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Settings_RoomHeight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(24, 24, 24)))
                 .addContainerGap())
         );
 
-        BananaSpaceLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/me/iffa/bananaspace/gui/bananaspace.png"))); // NOI18N
-        BananaSpaceLogo.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bananaspace.png"))); // NOI18N
+        jLabel8.setText("  ");
+        jLabel8.setOpaque(true);
+        jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                BananaSpaceLogoMouseClicked(evt);
+                jLabel8MouseClicked(evt);
             }
         });
 
@@ -581,33 +572,30 @@ public class PailInterface extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(SpaceWorlds, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(34, 34, 34)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(GlobalSettings, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(BananaSpaceLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(39, 39, 39))
+                        .addGap(26, 26, 26)
+                        .addComponent(Settings, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(GlobalSettings, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(399, 399, 399))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(175, 175, 175)
+                .addComponent(jLabel8)
+                .addContainerGap(447, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(GlobalSettings, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(BananaSpaceLogo)))
-                .addGap(55, 55, 55)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(SpaceWorlds, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(50, 50, 50))
+                .addContainerGap()
+                .addComponent(GlobalSettings, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(3, 3, 3)
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(SpaceWorlds, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Settings, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -665,7 +653,7 @@ private void DeleteWorldButtonActionPerformed(java.awt.event.ActionEvent evt) {/
             JOptionPane.YES_NO_OPTION);
     if (n == JOptionPane.YES_OPTION) {
         String s = (String) SpaceList.getModel().getElementAt(SpaceList.getSelectedIndex());
-        BananaSpace.worldHandler.removeSpaceWorld(plugin, s, false);
+        BananaSpace.worldHandler.removeSpaceWorld(plugin, s, true);
         ((DefaultListModel) SpaceList.getModel()).remove(SpaceList.getSelectedIndex());
         JOptionPane.showMessageDialog(this, "The spaceworld was deleted successfully!", "Spaceworld deleted", JOptionPane.INFORMATION_MESSAGE);
     }
@@ -707,14 +695,6 @@ private void SpaceListValueChanged(javax.swing.event.ListSelectionEvent evt) {//
     }
 }//GEN-LAST:event_SpaceListValueChanged
 
-private void BananaSpaceLogoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BananaSpaceLogoMouseClicked
-    try {
-        Desktop.getDesktop().browse(java.net.URI.create("http://forums.bukkit.org/threads/32546/"));
-    } catch (IOException ex) {
-        ex.printStackTrace();
-    }
-}//GEN-LAST:event_BananaSpaceLogoMouseClicked
-
 private void Settings_HostileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Settings_HostileActionPerformed
 // TODO add your handling code here:
 }//GEN-LAST:event_Settings_HostileActionPerformed
@@ -722,9 +702,17 @@ private void Settings_HostileActionPerformed(java.awt.event.ActionEvent evt) {//
 private void Settings_NightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Settings_NightActionPerformed
 // TODO add your handling code here:
 }//GEN-LAST:event_Settings_NightActionPerformed
+
+private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
+    try {
+        // TODO add your handling code here:
+        Desktop.getDesktop().browse(java.net.URI.create("http://forums.bukkit.org/threads/32546/"));
+    } catch (IOException ex) {
+        BananaSpace.log.warning(BananaSpace.prefix + " Something went wrong while opening a page on your web browser!");
+    }
+}//GEN-LAST:event_jLabel8MouseClicked
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField ArmorTypeBox;
-    private javax.swing.JLabel BananaSpaceLogo;
     private javax.swing.JCheckBox CheckBoxHelmet;
     private javax.swing.JCheckBox CheckBoxSuit;
     private javax.swing.JButton CreateWorldButton;
@@ -733,6 +721,7 @@ private void Settings_NightActionPerformed(java.awt.event.ActionEvent evt) {//GE
     private javax.swing.JTextField HelmetBlockIdBox;
     private javax.swing.JButton ResetButton;
     private javax.swing.JButton SaveButton;
+    private javax.swing.JPanel Settings;
     private javax.swing.JCheckBox Settings_Asteroids;
     private javax.swing.JSpinner Settings_GlowstoneChance;
     private javax.swing.JCheckBox Settings_HelmetRequired;
@@ -760,7 +749,7 @@ private void Settings_NightActionPerformed(java.awt.event.ActionEvent evt) {//GE
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables

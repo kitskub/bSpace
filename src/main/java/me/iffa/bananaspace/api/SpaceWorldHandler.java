@@ -130,7 +130,10 @@ public class SpaceWorldHandler {
             return;
         }
         spaceWorlds.remove(plugin.getServer().getWorld(worldname));
-        SpaceConfig.getConfig().removeProperty("worlds." + worldname);
+        SpaceConfig.getConfig().removeProperty("worlds." + worldname + "");
+        SpaceConfig.getConfig().save();
+        SpaceConfig.getConfig().removeProperty("worlds." + worldname + "generation");
+        SpaceConfig.getConfig().removeProperty("worlds" + worldname);
         SpaceConfig.getConfig().save();
         plugin.getServer().unloadWorld(worldname, true);
         if (log) {

@@ -20,6 +20,7 @@ public class PailCreateWorld extends javax.swing.JFrame {
     public PailCreateWorld(BananaSpace plugin) {
         this.plugin = plugin;
         initComponents();
+        setResizable(false);
         setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
     }
 
@@ -86,6 +87,10 @@ public class PailCreateWorld extends javax.swing.JFrame {
 private void CreateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateButtonActionPerformed
 // TODO add your handling code here:
     String worldname = WorldNameBox.getText().trim();
+    if (worldname.equalsIgnoreCase("")) {
+        JOptionPane.showMessageDialog(this, "The world name cannot be empty!", "Invalid world name", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
     if (plugin.getServer().getWorld(worldname) != null) {
         JOptionPane.showMessageDialog(this, "A world with the given name already exists!", "Invalid world name", JOptionPane.WARNING_MESSAGE);
         return;
@@ -96,6 +101,7 @@ private void CreateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     }
     BananaSpace.worldHandler.createSpaceWorld(plugin, worldname, true);
     JOptionPane.showMessageDialog(this, "A new spaceworld called '" + worldname + "' has been created!", "Spaceworld created", JOptionPane.INFORMATION_MESSAGE);
+    setVisible(false);
 }//GEN-LAST:event_CreateButtonActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton CreateButton;
