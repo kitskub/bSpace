@@ -1,4 +1,4 @@
-# BananaSpace v1.2 - Main Configuration File 
+# BananaSpace v1.3 - Main Configuration File 
 # ----------------------------------------
 #     This configuration has a pretty      
 #    huge amount of documentation, but     
@@ -21,9 +21,10 @@ worlds:
         # World generation options
         generation:
             generateplanets: true
-            # From 0-200, 0 means no glowstone/asteroid will be generated.
+            generateasteroids: true
+            # From 1-200. These can be turned off with the generateasteroids-setting.
             glowstonechance: 1
-            asteroidchance: 3
+            stonechance: 3
         # Spacesuit options
         suit:
             required: false

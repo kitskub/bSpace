@@ -18,7 +18,7 @@ import java.util.Random;
 
 // BananaSpace Imports
 import me.iffa.bananaspace.BananaSpace;
-import me.iffa.bananaspace.wgen.populators.SpaceAsteroidPopulator;
+import me.iffa.bananaspace.wgen.populators.SpaceStonePopulator;
 import me.iffa.bananaspace.wgen.populators.SpaceGlowstonePopulator;
 
 // Bukkit Imports
@@ -259,7 +259,7 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
 
     @Override
     public List<BlockPopulator> getDefaultPopulators(World world) {
-        return Arrays.asList((BlockPopulator) new SpaceGlowstonePopulator(), new SpaceAsteroidPopulator());
+        return Arrays.asList((BlockPopulator) new SpaceGlowstonePopulator(), new SpaceStonePopulator());
     }
 
     @Override

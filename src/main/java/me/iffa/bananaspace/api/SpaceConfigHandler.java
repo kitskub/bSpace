@@ -144,10 +144,20 @@ public class SpaceConfigHandler {
      * 
      * @return asteroid chance int
      */
-    public static int getAsteroidChance(World world) {
-        return SpaceConfig.getConfig().getInt("worlds." + world.getName() + ".generation.asteroidchance", 1);
+    public static int getStoneChance(World world) {
+        return SpaceConfig.getConfig().getInt("worlds." + world.getName() + ".generation.stonechance", 3);
     }
     
+    /**
+     * Checks if asteroid generation is enabled for a world.
+     * 
+     * @param world World
+     * 
+     * @return true if asteroid generation is enabled
+     */
+    public static boolean getAsteroidsEnabled(World world) {
+        return SpaceConfig.getConfig().getBoolean("worlds" + world.getName() + ".generation.generateasteroids", true);
+    }
     /**
      * Checks if Spout will be used.
      * 

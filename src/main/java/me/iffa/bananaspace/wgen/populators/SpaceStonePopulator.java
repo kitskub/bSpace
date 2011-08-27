@@ -15,19 +15,19 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.generator.BlockPopulator;
 
 /**
- * SpaceGlowstonePopulator
+ * SpaceStonePopulator
  *
  * @author Markus 'Notch' Persson
  * @author iffa
  * @author Nightgunner5
  */
-public class SpaceGlowstonePopulator extends BlockPopulator {
+public class SpaceStonePopulator extends BlockPopulator {
     // Variables
     private static final BlockFace[] faces = {BlockFace.DOWN, BlockFace.EAST,
         BlockFace.NORTH, BlockFace.SOUTH, BlockFace.UP, BlockFace.WEST};
 
     /**
-     * Populates a world with glowstone.
+     * Populates a world with stone patches.
      * 
      * @param world World
      * @param random Random
@@ -46,8 +46,8 @@ public class SpaceGlowstonePopulator extends BlockPopulator {
             if (block.getTypeId() != 0) {
                 return;
             }
-            if (random.nextInt(200) <= SpaceConfigHandler.getGlowstoneChance(world)) {
-                block.setTypeId(89);
+            if (random.nextInt(200) <= SpaceConfigHandler.getStoneChance(world)) {
+                block.setTypeId(1);
                 
                 for (int j = 0; j < 1500; j++) {
                     Block current = block.getRelative(random.nextInt(8) - random.nextInt(8),
@@ -58,12 +58,12 @@ public class SpaceGlowstonePopulator extends BlockPopulator {
                     }
                     int count = 0;
                     for (BlockFace face : faces) {
-                        if (current.getRelative(face).getTypeId() == 89) {
+                        if (current.getRelative(face).getTypeId() == 1) {
                             count++;
                         }
                     }
                     if (count == 1) {
-                        current.setTypeId(89);
+                        current.setTypeId(1);
                     }
                 }
             }

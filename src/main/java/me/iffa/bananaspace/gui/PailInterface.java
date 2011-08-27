@@ -2,6 +2,7 @@
 package me.iffa.bananaspace.gui;
 
 // BananaSpace Imports
+import java.io.IOException;
 import me.iffa.bananaspace.BananaSpace;
 import me.iffa.bananaspace.config.SpaceConfig;
 
@@ -46,13 +47,49 @@ public class PailInterface extends javax.swing.JPanel {
             ((DefaultListModel) SpaceList.getModel()).addElement(world.getName());
         }
     }
-    
+
     /**
-     * Loads the configuration settings for the world selected in the list.
+     * Loads the configuration settings for the world selected in the list. Only one safety check is made (to make sure a world that doesn't exist is not loaded).
      * 
      * @param worldname Spaceworld name
      */
     private void loadSpaceListConfig(String worldname) {
+        if (config.getProperty("worlds." + worldname) == null) {
+            BananaSpace.log.warning(BananaSpace.prefix + " A world with the name '" + worldname + "' does not exist in the config!");
+            return;
+        }
+        Settings_WorldName.setText(worldname);
+        Settings_Planets.setSelected(config.getBoolean("worlds." + worldname + ".generation.generateplanets", true));
+        Settings_Asteroids.setSelected(config.getBoolean("worlds." + worldname + "generation.generateasteroids", true));
+        Settings_GlowstoneChance.setValue(config.getInt("worlds." + worldname + ".generation.glowstonechance", 1));
+        Settings_StoneChance.setValue(config.getInt("worlds." + worldname + ".generation.stonechance", 3));
+        Settings_Night.setSelected(config.getBoolean("worlds." + worldname + ".alwaysnight", true));
+        Settings_HelmetRequired.setSelected(config.getBoolean("worlds." + worldname + ".helmet.required", false));
+        Settings_SuitRequired.setSelected(config.getBoolean("worlds." + worldname + ".suit.required", false));
+        Settings_Weather.setSelected(config.getBoolean("worlds." + worldname + ".weather", false));
+        Settings_Nether.setSelected(config.getBoolean("worlds." + worldname + ".nethermode", false));
+        Settings_RoomHeight.setValue(config.getInt("worlds." + worldname + ".breathingarea.maxroomheight", 5));
+        Settings_Neutral.setSelected(config.getBoolean("worlds." + worldname + ".neutralmobs", true));
+        Settings_Hostile.setSelected(config.getBoolean("worlds." + worldname + ".hostilemobs", false));
+    }
+
+    private void saveSpaceListConfig(String worldname) {
+        if (config.getProperty("worlds." + worldname) == null) {
+            BananaSpace.log.warning(BananaSpace.prefix + " A world with the name '" + worldname + "' does not exist in the config!");
+            return;
+        }
+        config.setProperty("worlds." + worldname + ".generation.generateplanets", Settings_Planets.isSelected());
+        config.setProperty("worlds." + worldname + ".generation.generateasteroids", Settings_Asteroids.isSelected());
+        config.setProperty("worlds." + worldname + ".generation.glowstonechance", (Integer) Settings_GlowstoneChance.getValue());
+        config.setProperty("worlds." + worldname + ".generation.stonechance", (Integer) Settings_StoneChance.getValue());
+        config.setProperty("worlds." + worldname + ".weather", Settings_Weather.isSelected());
+        config.setProperty("worlds." + worldname + ".hostilemobs", Settings_Hostile.isSelected());
+        config.setProperty("worlds." + worldname + ".neutralmobs", Settings_Neutral.isSelected());
+        config.setProperty("worlds." + worldname + ".alwaysnight", Settings_Night.isSelected());
+        config.setProperty("worlds." + worldname + ".nethermode", Settings_Nether.isSelected());
+        config.setProperty("worlds." + worldname + ".suit.required", Settings_SuitRequired.isSelected());
+        config.setProperty("worlds" + worldname + ".helmet.required", Settings_HelmetRequired.isSelected());
+        config.save();
     }
 
     /**
@@ -74,31 +111,45 @@ public class PailInterface extends javax.swing.JPanel {
     private void initComponents() {
 
         jFrame1 = new javax.swing.JFrame();
-        jLabel1 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        GlobalSettings = new javax.swing.JPanel();
         CheckBoxHelmet = new javax.swing.JCheckBox();
         CheckBoxSuit = new javax.swing.JCheckBox();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        ArmorTypeBox = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         HelmetBlockIdBox = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        ArmorTypeBox = new javax.swing.JTextField();
         SpoutEnabled = new javax.swing.JCheckBox();
-        jSeparator1 = new javax.swing.JSeparator();
-        jSeparator2 = new javax.swing.JSeparator();
-        jLabel8 = new javax.swing.JLabel();
+        ResetButton = new javax.swing.JButton();
         SaveButton = new javax.swing.JButton();
-        jLabel9 = new javax.swing.JLabel();
-        jSeparator4 = new javax.swing.JSeparator();
+        SpaceWorlds = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         SpaceList = new javax.swing.JList();
         CreateWorldButton = new javax.swing.JButton();
         DeleteWorldButton = new javax.swing.JButton();
-        ResetButton = new javax.swing.JButton();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        Settings_Save = new javax.swing.JButton();
+        Settings_Reset = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        Settings_WorldName = new javax.swing.JLabel();
+        Settings_Planets = new javax.swing.JCheckBox();
+        Settings_Asteroids = new javax.swing.JCheckBox();
+        jLabel3 = new javax.swing.JLabel();
+        Settings_StoneChance = new javax.swing.JSpinner();
+        jLabel6 = new javax.swing.JLabel();
+        Settings_GlowstoneChance = new javax.swing.JSpinner();
+        Settings_HelmetRequired = new javax.swing.JCheckBox();
+        Settings_SuitRequired = new javax.swing.JCheckBox();
+        Settings_Weather = new javax.swing.JCheckBox();
+        jSeparator1 = new javax.swing.JSeparator();
+        Settings_Nether = new javax.swing.JCheckBox();
+        Settings_Hostile = new javax.swing.JCheckBox();
+        Settings_Neutral = new javax.swing.JCheckBox();
+        jLabel7 = new javax.swing.JLabel();
+        Settings_RoomHeight = new javax.swing.JSpinner();
+        Settings_Night = new javax.swing.JCheckBox();
+        BananaSpaceLogo = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
         jFrame1.getContentPane().setLayout(jFrame1Layout);
@@ -111,6 +162,8 @@ public class PailInterface extends javax.swing.JPanel {
             .addGap(0, 300, Short.MAX_VALUE)
         );
 
+        jLabel11.setText("jLabel11");
+
         setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         setInheritsPopupMenu(true);
         setMaximumSize(new java.awt.Dimension(850, 450));
@@ -118,11 +171,9 @@ public class PailInterface extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(850, 450));
         setRequestFocusEnabled(false);
 
-        jLabel1.setFont(new java.awt.Font("Arial", 0, 18));
-        jLabel1.setText("Global settings");
-        jLabel1.setToolTipText("Global settings. These affect every spaceworld.");
+        GlobalSettings.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Global Settings", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
+        GlobalSettings.setToolTipText("Global settings. These affect each and every spaceworld.");
 
-        CheckBoxHelmet.setSelected(true);
         CheckBoxHelmet.setText("Give helmet");
         CheckBoxHelmet.setToolTipText("Selected if a spacehelmet should be given when going to a space world.");
         CheckBoxHelmet.addActionListener(new java.awt.event.ActionListener() {
@@ -131,7 +182,6 @@ public class PailInterface extends javax.swing.JPanel {
             }
         });
 
-        CheckBoxSuit.setSelected(true);
         CheckBoxSuit.setText("Give suit");
         CheckBoxSuit.setToolTipText("Selected if a spacehelmet should be given when going to a space world.");
         CheckBoxSuit.addActionListener(new java.awt.event.ActionListener() {
@@ -140,13 +190,19 @@ public class PailInterface extends javax.swing.JPanel {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel2.setText("Spacehelmets");
-        jLabel2.setToolTipText("Global spacehelmet settings.");
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 10));
+        jLabel5.setText("Helmet block id:");
+        jLabel5.setToolTipText("The block id that will be the helmet.");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel3.setText("Other");
-        jLabel3.setToolTipText("Other global settings.");
+        HelmetBlockIdBox.setText("86");
+        HelmetBlockIdBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                HelmetBlockIdBoxActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        jLabel4.setText("Suit armortype:");
 
         ArmorTypeBox.setText("iron");
         ArmorTypeBox.setToolTipText("The spacesuit armortype. Can be diamond, chainmail, gold, iron or leather.");
@@ -156,39 +212,24 @@ public class PailInterface extends javax.swing.JPanel {
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
-        jLabel4.setText("Suit armortype:");
-
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
-        jLabel5.setText("Helmet block id:");
-        jLabel5.setToolTipText("The block id that will be the helmet.");
-
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel6.setText("Spacesuits");
-        jLabel6.setToolTipText("Global spacesuit settings.");
-
-        HelmetBlockIdBox.setText("86");
-        HelmetBlockIdBox.addActionListener(new java.awt.event.ActionListener() {
+        SpoutEnabled.setSelected(true);
+        SpoutEnabled.setText("Use Spout features");
+        SpoutEnabled.setToolTipText("Checked if you want to enable Spout features.");
+        SpoutEnabled.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                HelmetBlockIdBoxActionPerformed(evt);
+                SpoutEnabledActionPerformed(evt);
             }
         });
 
-        SpoutEnabled.setText("Use Spout features");
-        SpoutEnabled.setToolTipText("Checked if you want to enable Spout features.");
+        ResetButton.setText("Reset");
+        ResetButton.setToolTipText("Not happy with the changes? Just press this button and all your changes will be reset!");
+        ResetButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ResetButtonActionPerformed(evt);
+            }
+        });
 
-        jSeparator1.setBackground(new java.awt.Color(102, 102, 102));
-        jSeparator1.setForeground(new java.awt.Color(102, 102, 102));
-
-        jSeparator2.setBackground(new java.awt.Color(153, 153, 153));
-        jSeparator2.setForeground(new java.awt.Color(102, 102, 102));
-        jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
-
-        jLabel8.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        jLabel8.setText("Options");
-        jLabel8.setToolTipText("General options, saving the settings etc.");
-
-        SaveButton.setText("Save settings");
+        SaveButton.setText("Save");
         SaveButton.setToolTipText("Saves the changes and reloads the server for changes to take effect.");
         SaveButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -196,17 +237,68 @@ public class PailInterface extends javax.swing.JPanel {
             }
         });
 
-        jLabel9.setFont(new java.awt.Font("Arial", 0, 18));
-        jLabel9.setText("Spaceworlds");
-        jLabel9.setToolTipText("All spaceworlds and settings for each one.");
+        javax.swing.GroupLayout GlobalSettingsLayout = new javax.swing.GroupLayout(GlobalSettings);
+        GlobalSettings.setLayout(GlobalSettingsLayout);
+        GlobalSettingsLayout.setHorizontalGroup(
+            GlobalSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(GlobalSettingsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(GlobalSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(GlobalSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(GlobalSettingsLayout.createSequentialGroup()
+                            .addComponent(CheckBoxHelmet, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(HelmetBlockIdBox, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(24, 24, 24))
+                        .addGroup(GlobalSettingsLayout.createSequentialGroup()
+                            .addComponent(CheckBoxSuit)
+                            .addGap(12, 12, 12)
+                            .addComponent(jLabel4)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(ArmorTypeBox, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                    .addGroup(GlobalSettingsLayout.createSequentialGroup()
+                        .addComponent(SpoutEnabled)
+                        .addGap(115, 115, 115)))
+                .addGroup(GlobalSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(ResetButton)
+                    .addGroup(GlobalSettingsLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(SaveButton, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        GlobalSettingsLayout.setVerticalGroup(
+            GlobalSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(GlobalSettingsLayout.createSequentialGroup()
+                .addGroup(GlobalSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(CheckBoxHelmet, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5)
+                    .addComponent(HelmetBlockIdBox, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ResetButton))
+                .addGroup(GlobalSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(GlobalSettingsLayout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addGroup(GlobalSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(CheckBoxSuit, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4)
+                            .addComponent(ArmorTypeBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(SpoutEnabled, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(GlobalSettingsLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(SaveButton)
+                        .addContainerGap())))
+        );
 
-        jSeparator4.setBackground(new java.awt.Color(153, 153, 153));
-        jSeparator4.setForeground(new java.awt.Color(102, 102, 102));
-        jSeparator4.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        SpaceWorlds.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Spaceworlds", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
+        SpaceWorlds.setToolTipText("Panel with buttons to create and delete spaceworlds..");
 
-        SpaceList.setFont(new java.awt.Font("Arial", 0, 18));
+        SpaceList.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         SpaceList.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            String[] strings = { "No spaceworlds" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
@@ -229,6 +321,7 @@ public class PailInterface extends javax.swing.JPanel {
 
         CreateWorldButton.setFont(new java.awt.Font("Arial", 0, 11));
         CreateWorldButton.setText("Create");
+        CreateWorldButton.setToolTipText("Opens anew window that allows you to create new spaceworlds.");
         CreateWorldButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CreateWorldButtonActionPerformed(evt);
@@ -237,32 +330,249 @@ public class PailInterface extends javax.swing.JPanel {
 
         DeleteWorldButton.setFont(new java.awt.Font("Arial", 0, 11));
         DeleteWorldButton.setText("Delete");
+        DeleteWorldButton.setToolTipText("Select a spaceworld from the list and click this button to delete the spaceworld. The world data will be saved.");
         DeleteWorldButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 DeleteWorldButtonActionPerformed(evt);
             }
         });
 
-        ResetButton.setText("Reset settings");
-        ResetButton.setToolTipText("Not happy with the changes? Just press this button and all your changes will be reset!");
-        ResetButton.addActionListener(new java.awt.event.ActionListener() {
+        javax.swing.GroupLayout SpaceWorldsLayout = new javax.swing.GroupLayout(SpaceWorlds);
+        SpaceWorlds.setLayout(SpaceWorldsLayout);
+        SpaceWorldsLayout.setHorizontalGroup(
+            SpaceWorldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(SpaceWorldsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(SpaceWorldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(SpaceWorldsLayout.createSequentialGroup()
+                        .addGap(125, 125, 125)
+                        .addComponent(jLabel1))
+                    .addGroup(SpaceWorldsLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(SpaceWorldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(DeleteWorldButton, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(CreateWorldButton))))
+                .addContainerGap())
+        );
+        SpaceWorldsLayout.setVerticalGroup(
+            SpaceWorldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(SpaceWorldsLayout.createSequentialGroup()
+                .addGroup(SpaceWorldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, SpaceWorldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(SpaceWorldsLayout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(CreateWorldButton)
+                            .addGap(18, 18, 18)
+                            .addComponent(DeleteWorldButton))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SpaceWorldsLayout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addGap(147, 147, 147))))
+                .addContainerGap())
+        );
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Spaceworld Settings", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
+        jPanel1.setToolTipText("Settings for the currently selected spaceworld in the list.");
+
+        Settings_Save.setText("Save");
+        Settings_Save.setToolTipText("Saves the changes made to the spaceworld's settings.");
+        Settings_Save.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ResetButtonActionPerformed(evt);
+                Settings_SaveActionPerformed(evt);
             }
         });
 
-        jLabel10.setFont(new java.awt.Font("Arial", 0, 18));
-        jLabel10.setText("Spaceworld settings");
-        jLabel10.setToolTipText("Settings for the chosen spaceworld (on the list)");
-
-        jLabel12.setText("Coming soon...");
-
-        jButton1.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        jButton1.setText("Contact");
-        jButton1.setToolTipText("If you have a problem, use this button to contact the author(s).");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        Settings_Reset.setText("Reset");
+        Settings_Reset.setToolTipText("Resets the changes made to the world's settings.");
+        Settings_Reset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                Settings_ResetActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12));
+        jLabel2.setText("Currently editing:");
+
+        Settings_WorldName.setText("nothing");
+
+        Settings_Planets.setSelected(true);
+        Settings_Planets.setText("Generate planets");
+        Settings_Planets.setToolTipText("Checked if planets are generated.");
+        Settings_Planets.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Settings_PlanetsActionPerformed(evt);
+            }
+        });
+
+        Settings_Asteroids.setSelected(true);
+        Settings_Asteroids.setText("Generate asteroids");
+        Settings_Asteroids.setToolTipText("Asteroids are small patches of glowstone and stone. The frequency can be changed.");
+
+        jLabel3.setText("Stone-asteroid chance:");
+
+        Settings_StoneChance.setModel(new javax.swing.SpinnerNumberModel(3, 1, 200, 1));
+        Settings_StoneChance.setToolTipText("The stone-asteroid spawning chance. From 1 to 200.");
+
+        jLabel6.setText("Glowstone-asteroid chance:");
+
+        Settings_GlowstoneChance.setModel(new javax.swing.SpinnerNumberModel(1, 1, 200, 1));
+        Settings_GlowstoneChance.setToolTipText("The glowstone-asteroid spawning chance. From 1 to 200.");
+
+        Settings_HelmetRequired.setText("Helmet required");
+        Settings_HelmetRequired.setToolTipText("Checked if helmets are required in a spaceworld to survive.");
+
+        Settings_SuitRequired.setText("Suit required");
+        Settings_SuitRequired.setToolTipText("Checked if suits are required in a spaceworld to survive.");
+
+        Settings_Weather.setText("Weather");
+        Settings_Weather.setToolTipText("Selected if weather is allowed in the spaceworlds.");
+
+        jSeparator1.setForeground(new java.awt.Color(210, 213, 215));
+        jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
+        Settings_Nether.setText("Nethermode");
+        Settings_Nether.setToolTipText("Checked if the spaceworld should be like nether. (red fog and nether mobs)");
+
+        Settings_Hostile.setText("Hostile mobs");
+        Settings_Hostile.setToolTipText("Selected if hostile mobs are allowed to spawn.");
+        Settings_Hostile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Settings_HostileActionPerformed(evt);
+            }
+        });
+
+        Settings_Neutral.setSelected(true);
+        Settings_Neutral.setText("Neutral mobs");
+        Settings_Neutral.setToolTipText("Selected if neutral mobs are allowed to spawn.");
+
+        jLabel7.setText("Maximum room height:");
+
+        Settings_RoomHeight.setModel(new javax.swing.SpinnerNumberModel(5, 1, 64, 1));
+        Settings_RoomHeight.setToolTipText("The maximum height of a room where you can breathe in. In a zone like this, no helmets or suits are required.");
+
+        Settings_Night.setSelected(true);
+        Settings_Night.setText("Always night");
+        Settings_Night.setToolTipText("Checked if it should always be night in the spaceworld.");
+        Settings_Night.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Settings_NightActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(Settings_Save)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(Settings_Reset))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(Settings_WorldName, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(339, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(Settings_SuitRequired)
+                                    .addComponent(Settings_HelmetRequired)
+                                    .addComponent(Settings_Planets)
+                                    .addComponent(Settings_Asteroids))
+                                .addGap(110, 110, 110)
+                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(21, 21, 21)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(Settings_StoneChance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel6)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(Settings_GlowstoneChance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(Settings_Night)
+                                .addContainerGap())
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(Settings_Weather)
+                                    .addComponent(Settings_Hostile)
+                                    .addComponent(Settings_Neutral))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(Settings_Nether)
+                                    .addComponent(jLabel7)
+                                    .addComponent(Settings_RoomHeight, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(45, 45, 45))))))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(Settings_Save)
+                            .addComponent(Settings_Reset))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(Settings_WorldName))
+                        .addGap(18, 18, 18)
+                        .addComponent(Settings_Planets, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(Settings_Asteroids, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(Settings_StoneChance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(Settings_GlowstoneChance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(Settings_HelmetRequired, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(Settings_SuitRequired, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(55, 55, 55)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(66, 66, 66)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(Settings_Weather, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Settings_Nether, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(Settings_RoomHeight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addGap(3, 3, 3)
+                                .addComponent(Settings_Night, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(Settings_Hostile, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(Settings_Neutral, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+
+        BananaSpaceLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/me/iffa/bananaspace/gui/bananaspace.png"))); // NOI18N
+        BananaSpaceLogo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BananaSpaceLogoMouseClicked(evt);
             }
         });
 
@@ -272,161 +582,62 @@ public class PailInterface extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(HelmetBlockIdBox, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(CheckBoxHelmet, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGap(78, 78, 78)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(ArmorTypeBox, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(CheckBoxSuit)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel4)))
-                    .addComponent(jLabel1)
-                    .addComponent(SpoutEnabled)
-                    .addComponent(jLabel3))
-                .addGap(18, 18, 18)
-                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(SpaceWorlds, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(34, 34, 34)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel8))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(SaveButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(ResetButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(GlobalSettings, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(348, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 1003, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel9)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(CreateWorldButton)
-                    .addComponent(DeleteWorldButton, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(555, 555, 555))
+                        .addComponent(BananaSpaceLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(39, 39, 39))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(CheckBoxHelmet)
-                            .addComponent(CheckBoxSuit))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(HelmetBlockIdBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ArmorTypeBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(SpoutEnabled))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(SaveButton)
-                            .addComponent(jButton1))
-                        .addGap(18, 18, 18)
-                        .addComponent(ResetButton))
-                    .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(6, 6, 6)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(GlobalSettings, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(BananaSpaceLogo)))
+                .addGap(55, 55, 55)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel9)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(11, 11, 11)
-                                .addComponent(CreateWorldButton)
-                                .addGap(18, 18, 18)
-                                .addComponent(DeleteWorldButton))
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel12))
-                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(SpaceWorlds, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(50, 50, 50))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void CheckBoxHelmetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckBoxHelmetActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_CheckBoxHelmetActionPerformed
 
     private void CheckBoxSuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckBoxSuitActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_CheckBoxSuitActionPerformed
 
     private void ArmorTypeBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ArmorTypeBoxActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_ArmorTypeBoxActionPerformed
 
     private void HelmetBlockIdBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HelmetBlockIdBoxActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_HelmetBlockIdBoxActionPerformed
 
     private void SaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveButtonActionPerformed
-        // TODO config saving code
+
         config.setProperty("global.givesuit", CheckBoxSuit.isSelected());
         config.setProperty("global.givehelmet", CheckBoxHelmet.isSelected());
         config.setProperty("global.armortype", ArmorTypeBox.getText());
         config.setProperty("global.blockid", Integer.parseInt(HelmetBlockIdBox.getText()));
         config.setProperty("global.usespout", SpoutEnabled.isSelected());
         config.save();
-        JOptionPane.showMessageDialog(this, "Your settings have been saved!", "Settings saved!", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Your general settings have been saved!", "Settings saved!", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_SaveButtonActionPerformed
 
     private void ResetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResetButtonActionPerformed
         JOptionPane.showMessageDialog(this, "Your changes have been reset!", "Changes reset!", JOptionPane.INFORMATION_MESSAGE);
         readConfigs();
     }//GEN-LAST:event_ResetButtonActionPerformed
-
-    private void SpaceListFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_SpaceListFocusLost
-        // TODO add your handling code here:
-}//GEN-LAST:event_SpaceListFocusLost
-
-    private void SpaceListFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_SpaceListFocusGained
-        // TODO add your handling code here:
-}//GEN-LAST:event_SpaceListFocusGained
-
-    private void SpaceListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_SpaceListValueChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_SpaceListValueChanged
 
 private void CreateWorldButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateWorldButtonActionPerformed
     PailCreateWorld worldbox = new PailCreateWorld(plugin);
@@ -442,7 +653,7 @@ private void CreateWorldButtonActionPerformed(java.awt.event.ActionEvent evt) {/
 }//GEN-LAST:event_CreateWorldButtonActionPerformed
 
 private void DeleteWorldButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteWorldButtonActionPerformed
-// TODO add your handling code here:
+
     if (SpaceList.getSelectedIndex() == -1) {
         JOptionPane.showMessageDialog(this, "You need to choose a world to delete from the list!", "Select a world", JOptionPane.WARNING_MESSAGE);
         return;
@@ -460,40 +671,97 @@ private void DeleteWorldButtonActionPerformed(java.awt.event.ActionEvent evt) {/
     }
 }//GEN-LAST:event_DeleteWorldButtonActionPerformed
 
-private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-// TODO add your handling code here:
-    try {
-        Desktop.getDesktop().browse(java.net.URI.create("http://twitter.com/iffamies"));
-    } catch (java.io.IOException e) {
-        System.out.println(e.getMessage());
+private void Settings_ResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Settings_ResetActionPerformed
+
+    if (SpaceList.getSelectedIndex() != -1) {
+        String worldname = (String) SpaceList.getModel().getElementAt(SpaceList.getSelectedIndex());
+        loadSpaceListConfig(worldname);
+        JOptionPane.showMessageDialog(this, "Your changes have been reset!", "Changes reset!", JOptionPane.INFORMATION_MESSAGE);
     }
-}//GEN-LAST:event_jButton1ActionPerformed
+}//GEN-LAST:event_Settings_ResetActionPerformed
+
+private void Settings_SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Settings_SaveActionPerformed
+// TODO add your handling code here:
+    String worldname = (String) SpaceList.getModel().getElementAt(SpaceList.getSelectedIndex());
+    saveSpaceListConfig(worldname);
+    JOptionPane.showMessageDialog(this, "The spaceworld '" + worldname + "' has been saved. Please note that most changes take effect after reloading the server.", "Spaceworld saved!", JOptionPane.INFORMATION_MESSAGE);
+}//GEN-LAST:event_Settings_SaveActionPerformed
+
+private void Settings_PlanetsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Settings_PlanetsActionPerformed
+}//GEN-LAST:event_Settings_PlanetsActionPerformed
+
+private void SpoutEnabledActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SpoutEnabledActionPerformed
+}//GEN-LAST:event_SpoutEnabledActionPerformed
+
+private void SpaceListFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_SpaceListFocusLost
+}//GEN-LAST:event_SpaceListFocusLost
+
+private void SpaceListFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_SpaceListFocusGained
+}//GEN-LAST:event_SpaceListFocusGained
+
+private void SpaceListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_SpaceListValueChanged
+
+    if (SpaceList.getSelectedIndex() != -1) {
+        String worldname = (String) SpaceList.getModel().getElementAt(SpaceList.getSelectedIndex());
+        loadSpaceListConfig(worldname);
+    }
+}//GEN-LAST:event_SpaceListValueChanged
+
+private void BananaSpaceLogoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BananaSpaceLogoMouseClicked
+    try {
+        Desktop.getDesktop().browse(java.net.URI.create("http://forums.bukkit.org/threads/32546/"));
+    } catch (IOException ex) {
+        ex.printStackTrace();
+    }
+}//GEN-LAST:event_BananaSpaceLogoMouseClicked
+
+private void Settings_HostileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Settings_HostileActionPerformed
+// TODO add your handling code here:
+}//GEN-LAST:event_Settings_HostileActionPerformed
+
+private void Settings_NightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Settings_NightActionPerformed
+// TODO add your handling code here:
+}//GEN-LAST:event_Settings_NightActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField ArmorTypeBox;
+    private javax.swing.JLabel BananaSpaceLogo;
     private javax.swing.JCheckBox CheckBoxHelmet;
     private javax.swing.JCheckBox CheckBoxSuit;
     private javax.swing.JButton CreateWorldButton;
     private javax.swing.JButton DeleteWorldButton;
+    private javax.swing.JPanel GlobalSettings;
     private javax.swing.JTextField HelmetBlockIdBox;
     private javax.swing.JButton ResetButton;
     private javax.swing.JButton SaveButton;
+    private javax.swing.JCheckBox Settings_Asteroids;
+    private javax.swing.JSpinner Settings_GlowstoneChance;
+    private javax.swing.JCheckBox Settings_HelmetRequired;
+    private javax.swing.JCheckBox Settings_Hostile;
+    private javax.swing.JCheckBox Settings_Nether;
+    private javax.swing.JCheckBox Settings_Neutral;
+    private javax.swing.JCheckBox Settings_Night;
+    private javax.swing.JCheckBox Settings_Planets;
+    private javax.swing.JButton Settings_Reset;
+    private javax.swing.JSpinner Settings_RoomHeight;
+    private javax.swing.JButton Settings_Save;
+    private javax.swing.JSpinner Settings_StoneChance;
+    private javax.swing.JCheckBox Settings_SuitRequired;
+    private javax.swing.JCheckBox Settings_Weather;
+    private javax.swing.JLabel Settings_WorldName;
     private javax.swing.JList SpaceList;
+    private javax.swing.JPanel SpaceWorlds;
     private javax.swing.JCheckBox SpoutEnabled;
-    private javax.swing.JButton jButton1;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator4;
     // End of variables declaration//GEN-END:variables
 }
