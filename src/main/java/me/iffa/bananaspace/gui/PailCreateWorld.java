@@ -14,10 +14,9 @@ import me.iffa.bananaspace.BananaSpace;
  */
 public class PailCreateWorld extends javax.swing.JFrame {
     // Variables
-
     private BananaSpace plugin;
+    
     // Constructor
-
     public PailCreateWorld(BananaSpace plugin) {
         this.plugin = plugin;
         initComponents();
@@ -39,15 +38,15 @@ public class PailCreateWorld extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 18));
         jLabel1.setText("Create a spaceworld");
         jLabel1.setToolTipText("Simply specify a name for the space world and click create. The world will be created for you.");
 
         WorldNameBox.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         WorldNameBox.setText("New spaceworld name");
-        WorldNameBox.setToolTipText("Specify a name for the spaceworld. Must not be a world already, and must not be empty.");
+        WorldNameBox.setToolTipText("Specify a name for the spaceworld. Must not be a world already, and must not be empty or contain spaces.");
 
-        CreateButton.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        CreateButton.setFont(new java.awt.Font("Arial", 0, 11));
         CreateButton.setText("Create");
         CreateButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -86,13 +85,17 @@ public class PailCreateWorld extends javax.swing.JFrame {
 
 private void CreateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateButtonActionPerformed
 // TODO add your handling code here:
-    if (plugin.getServer().getWorld(WorldNameBox.getText()) != null) {
+    String worldname = WorldNameBox.getText().trim();
+    if (plugin.getServer().getWorld(worldname) != null) {
         JOptionPane.showMessageDialog(this, "A world with the given name already exists!", "Invalid world name", JOptionPane.WARNING_MESSAGE);
         return;
     }
-    BananaSpace.worldHandler.createSpaceWorld(plugin, WorldNameBox.getText(), false);
-    BananaSpace.pailInt.addSpaceList(WorldNameBox.getText());
-    JOptionPane.showMessageDialog(this, "A new spaceworld called '" + WorldNameBox.getText() + "' has been created!", "Spaceworld created", JOptionPane.INFORMATION_MESSAGE);
+    if (worldname.contains(" ")) {
+        JOptionPane.showMessageDialog(this, "The world name cannot contain spaces!", "Invalid world name", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+    BananaSpace.worldHandler.createSpaceWorld(plugin, worldname, true);
+    JOptionPane.showMessageDialog(this, "A new spaceworld called '" + worldname + "' has been created!", "Spaceworld created", JOptionPane.INFORMATION_MESSAGE);
 }//GEN-LAST:event_CreateButtonActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton CreateButton;

@@ -107,6 +107,7 @@ public class SpaceWorldHandler {
         plugin.getServer().createWorld(worldname, World.Environment.NORMAL, new PlanetsChunkGenerator(SpacePlanetConfig.getConfig(), plugin));
         World world = plugin.getServer().getWorld(worldname);
         spaceWorlds.add(world);
+        BananaSpace.pailInt.addSpaceList(worldname);
         if (log) {
             BananaSpace.log.info(BananaSpace.prefix + " Plugin '" + plugin.getDescription().getName() + "' created spaceworld '" + worldname + "'");
         }
@@ -148,7 +149,7 @@ public class SpaceWorldHandler {
     }
 
     /**
-     * Stops the force night task.
+     * Stops the force night task. No safety checks made, explosions may occur.
      * 
      * @param world World
      */
