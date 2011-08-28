@@ -2,13 +2,9 @@
 package me.iffa.bananaspace.api;
 
 // Bukkit Imports
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-
-// BananaSpace Imports
-import me.iffa.bananaspace.BananaSpace;
 
 /**
  * Player related methods.
@@ -17,6 +13,7 @@ import me.iffa.bananaspace.BananaSpace;
  * 
  */
 public class SpacePlayerHandler {
+
     /**
      * Checks if a player has the specified permission node.
      * 
@@ -25,12 +22,7 @@ public class SpacePlayerHandler {
      * @return true if the player has permission
      */
     public boolean hasPermission(String permission, Player player) {
-        boolean permissionPlugin = Bukkit.getServer().getPluginManager().isPluginEnabled("Permissions");
-        if (permissionPlugin) {
-            if (BananaSpace.permissionHandler.has(player, permission) || player.isOp()) {
-                return true;
-            }
-        } else if (player.hasPermission(permission)) {
+        if (player.hasPermission(permission)) {
             return true;
         }
         return false;
