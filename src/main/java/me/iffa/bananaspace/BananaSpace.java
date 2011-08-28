@@ -23,14 +23,9 @@ import me.iffa.bananaspace.wgen.planets.PlanetsChunkGenerator;
 import org.bukkit.World;
 import org.bukkit.event.Event;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.scheduler.BukkitScheduler;
 import org.bukkit.generator.ChunkGenerator;
-
-//Permissions (Nijiko)
-import com.nijiko.permissions.PermissionHandler;
-import com.nijikokun.bukkit.Permissions.Permissions;
 
 // Pail Imports
 import me.escapeNT.pail.Pail;
@@ -47,7 +42,6 @@ public class BananaSpace extends JavaPlugin {
     public static String version;
     public static final Logger log = Logger.getLogger("Minecraft");
     public static BukkitScheduler scheduler;
-    public static PermissionHandler permissionHandler;
     private SpaceCommand sce = null;
     public static SpaceWorldHandler worldHandler;
     public static SpacePlayerHandler playerHandler;
@@ -134,10 +128,6 @@ public class BananaSpace extends JavaPlugin {
             }
         }
 
-        // Setting up Permissions (Nijiko)
-        debugLog("Setting up Permissions (Nijiko).");
-        setupPermissions();
-
         // Pail
         if (pm.getPlugin("Pail") != null) {
             debugLog("Starting up the Pail tab.");
@@ -149,20 +139,10 @@ public class BananaSpace extends JavaPlugin {
     }
 
     /**
-     * Sets up Permissions (Nijiko)
+     * Prints a debug message to the server log.
+     * 
+     * @param msg Message
      */
-    private void setupPermissions() {
-        if (permissionHandler != null) {
-            return;
-        }
-        Plugin permissionsPlugin = this.getServer().getPluginManager().getPlugin("Permissions");
-
-        if (permissionsPlugin == null) {
-            return;
-        }
-        permissionHandler = ((Permissions) permissionsPlugin).getHandler();
-    }
-    
     public static void debugLog(String msg) {
         if (!SpaceConfigHandler.getDebugging()) {
             return;

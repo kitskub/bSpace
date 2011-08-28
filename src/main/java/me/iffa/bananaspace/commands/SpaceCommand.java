@@ -11,7 +11,6 @@ import me.iffa.bananaspace.api.event.misc.SpaceCommandEvent;
 import me.iffa.bananaspace.api.SpacePlayerHandler;
 
 // Bukkit Imports
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -20,7 +19,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.PluginManager;
 
 /**
  * CommandExecutor for 'space'
@@ -115,21 +113,11 @@ public class SpaceCommand implements CommandExecutor {
             } else if (args.length == 1 && args[0].equalsIgnoreCase("back")
                     && sender instanceof Player) {
                 if (BananaSpace.worldHandler.isInAnySpace(player)) {
-                    PluginManager pm = Bukkit.getServer().getPluginManager();
-                    boolean permission = pm.isPluginEnabled("Permissions");
-                    if (permission) {
-                        if (!BananaSpace.permissionHandler.has((Player) sender,
-                                "bananaspace.teleport.exit")) {
-                            permission = false;
-                        }
-                    } else if (sender.isOp()) {
-                        permission = true;
-                    }
-                    if (permission) {
+                    if (BananaSpace.playerHandler.hasPermission("bananaspace.teleport.exit", player)) {
                         enterDest.put(player, player.getLocation());
                     }
                     Location location;
-                    if (permission) {
+                    if (BananaSpace.playerHandler.hasPermission("bananaspace.teleport.exit", player)) {
                         if (exitDest.containsKey(player)) {
                             location = exitDest.get(player);
                             

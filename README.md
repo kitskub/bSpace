@@ -4,7 +4,7 @@ A (Craft)Bukkit plugin that generates spaceworlds and offers many features to ma
 
 Download: [Latest release build (StyxSpace)](http://saxxyspin.com/dcp/dl.php?id=StyxSpace&ver=1.1)
 
-Bukkit forums thread: [not ready yet]()
+BukkitDev link: [BananaSpace on dev.bukkit.org](http://dev.bukkit.org/server-mods/bananaspace/)
 
 NOTE: Developer builds can be found from target/!
 NOTE: This version will be/is for MultiVerse2 (usage).
@@ -15,7 +15,7 @@ Authors
 
 **Canis85** - planet generation, /space back etc
 
-kitskub - small fixes
+**kitskub** - active person making pull requests
 
 BR - ceiling checking code
 
