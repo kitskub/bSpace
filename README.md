@@ -1,4 +1,4 @@
-BananaSpace
+BananaSpace MV2
 ======
 A (Craft)Bukkit plugin that generates spaceworlds and offers many features to make survival in space lots of fun.
 
@@ -7,6 +7,7 @@ Download: [Latest release build (StyxSpace)](http://saxxyspin.com/dcp/dl.php?id=
 Bukkit forums thread: [not ready yet]()
 
 NOTE: Developer builds can be found from target/!
+NOTE: This version will be/is for MultiVerse2 (usage).
 
 Authors
 -----------
