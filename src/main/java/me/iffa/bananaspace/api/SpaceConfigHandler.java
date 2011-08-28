@@ -14,6 +14,14 @@ import org.bukkit.World;
  */
 public class SpaceConfigHandler {
     /**
+     * Checks if debugging mode is enabled.
+     * 
+     * @return true if debugging mode is enabled
+     */
+    public static boolean getDebugging() {
+        return SpaceConfig.getConfig().getBoolean("debug", true);
+    }
+    /**
      * Gets the required helmet-state of a world.
      * 
      * @param world World

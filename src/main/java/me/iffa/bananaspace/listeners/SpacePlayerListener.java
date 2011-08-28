@@ -76,6 +76,7 @@ public class SpacePlayerListener extends PlayerListener {
                         "TeleportToSpaceEvent", event.getPlayer(), event.getTo());
                 Bukkit.getServer().getPluginManager().callEvent(e);
                 if (e.isCancelled()) {
+                    BananaSpace.debugLog("Teleport to space was cancelled.");
                     event.setCancelled(true);
                 }
                 fixDupe.put(event.getPlayer(), true);
