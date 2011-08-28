@@ -58,8 +58,10 @@ public class SpaceWorldHandler {
                 }
                 // Choosing which chunk generator to use
                 if (!SpaceConfig.getConfig().getBoolean("worlds." + world + ".generation.generateplanets", true)) {
+                    BananaSpace.debugLog("Creating startup world '" + world + "' with normal generator.");
                     plugin.getServer().createWorld(world, env, new SpaceChunkGenerator());
                 } else {
+                    BananaSpace.debugLog("Creating startup world '" + world + "' with planet generator.");
                     plugin.getServer().createWorld(world, env, new PlanetsChunkGenerator(SpacePlanetConfig.getConfig(), plugin));
                 }
             }
@@ -81,7 +83,7 @@ public class SpaceWorldHandler {
     }
 
     /**
-     * Creates a spaceworld with the default settings and the given name. I suggest you to do the if worldname exists-check yourself aswell, <b>if you do not want BananaSpace to nag about it.</b>.
+     * Creates a spaceworld with the default settings and the given name. I suggest you to do the if worldname exists-check yourself aswell, <b>if you do not want BananaSpace to nag about it.</b>. I suggest you also turn logging on so users know an error was your fault, not mine.
      * 
      * @param plugin Your plugin
      * @param worldname Name for new spaceworld
@@ -104,6 +106,9 @@ public class SpaceWorldHandler {
         SpaceConfig.getConfig().setProperty("worlds." + worldname + ".neutralmobs", true);
         SpaceConfig.getConfig().setProperty("worlds." + worldname + ".hostilemobs", false);
         SpaceConfig.getConfig().save();
+        if (log) {
+            BananaSpace.log.info(BananaSpace.prefix + " Plugin '" + plugin.getDescription().getName() + "' starting to create spaceworld '" + worldname + "'");
+        }
         plugin.getServer().createWorld(worldname, World.Environment.NORMAL, new PlanetsChunkGenerator(SpacePlanetConfig.getConfig(), plugin));
         World world = plugin.getServer().getWorld(worldname);
         spaceWorlds.add(world);
@@ -114,7 +119,7 @@ public class SpaceWorldHandler {
     }
 
     /**
-     * Removes a spaceworld with the default settings and the given name. I suggest you to do the if worldname exists-check yourself aswell, <b>if you do not want BananaSpace to nag about it.</b>.
+     * Removes a spaceworld with the default settings and the given name. I suggest you to do the if worldname exists-check yourself aswell, <b>if you do not want BananaSpace to nag about it.</b>. I suggest you also turn logging on so users know an error was your fault, not mine.
      * 
      * @param plugin Your plugin
      * @param worldname Name of spaceworld
@@ -130,11 +135,14 @@ public class SpaceWorldHandler {
             return;
         }
         spaceWorlds.remove(plugin.getServer().getWorld(worldname));
-        SpaceConfig.getConfig().removeProperty("worlds." + worldname + "");
+        SpaceConfig.getConfig().removeProperty("worlds." + worldname);
         SpaceConfig.getConfig().save();
-        //SpaceConfig.getConfig().removeProperty("worlds." + worldname + "generation");
-        //SpaceConfig.getConfig().removeProperty("worlds" + worldname);
-        //SpaceConfig.getConfig().save();
+        /*
+         * Removing a few properties that in most cases WILL be left over because of the Configuration-class.
+         */
+        SpaceConfig.getConfig().removeProperty("worlds." + worldname + "generation");
+        SpaceConfig.getConfig().removeProperty("worlds" + worldname);
+        SpaceConfig.getConfig().save();
         plugin.getServer().unloadWorld(worldname, true);
         if (log) {
             BananaSpace.log.info(BananaSpace.prefix + " Plugin '" + plugin.getDescription().getName() + "' removed spaceworld '" + worldname + "'");

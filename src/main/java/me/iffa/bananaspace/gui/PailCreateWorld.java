@@ -14,7 +14,6 @@ import me.iffa.bananaspace.BananaSpace;
  */
 public class PailCreateWorld extends javax.swing.JFrame {
     // Variables
-
     private BananaSpace plugin;
 
     // Constructor

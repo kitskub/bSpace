@@ -77,6 +77,7 @@ public class BananaSpace extends JavaPlugin {
         // Initializing some variables
         version = getDescription().getVersion();
         prefix = "[" + getDescription().getName() + "]";
+        scheduler = getServer().getScheduler();
         PluginManager pm = getServer().getPluginManager();
         worldHandler = new SpaceWorldHandler(this);
         playerHandler = new SpacePlayerHandler();
@@ -84,6 +85,7 @@ public class BananaSpace extends JavaPlugin {
         // Loading configuration files
         SpaceConfig.loadConfig();
         SpacePlanetConfig.loadConfig();
+        debugLog("Initialized startup variables and loaded configuration files.");
 
         // Registering other events
         pm.registerEvent(Event.Type.WEATHER_CHANGE, weatherListener,
@@ -104,35 +106,41 @@ public class BananaSpace extends JavaPlugin {
                 Event.Priority.Normal, this);
         pm.registerEvent(Event.Type.PLAYER_JOIN, playerListener,
                 Event.Priority.Normal, this);
-
+        debugLog("Registered events (General).");
+        
         // Registering events for Spout
         if (pm.getPlugin("Spout") != null && SpaceConfigHandler.isUsingSpout()) {
             pm.registerEvent(Event.Type.PLAYER_TELEPORT, spListener, Event.Priority.Normal, this);
             pm.registerEvent(Event.Type.PLAYER_JOIN, spListener, Event.Priority.Normal, this);
+            debugLog("Registered events (Spout).");
         }
 
         // Creating all space worlds if MultiVerse-Core is not found.
         if (pm.getPlugin("Multiverse-Core") == null) {
+            debugLog("Starting to create spaceworlds (startup).");
             worldHandler.createSpaceWorlds();
         }
 
         // Initializing the CommandExecutor
         sce = new SpaceCommand(this);
         getCommand("space").setExecutor(sce);
+        debugLog("Initialized CommandExecutors.");
 
         // Checking if it should always be night in space
-        scheduler = getServer().getScheduler();
         for (World world : worldHandler.getSpaceWorlds()) {
             if (SpaceConfigHandler.forceNight(world)) {
                 worldHandler.startForceNightTask(world);
+                debugLog("Started night forcing task for world '" + world.getName() + "'.");
             }
         }
 
         // Setting up Permissions (Nijiko)
+        debugLog("Setting up Permissions (Nijiko).");
         setupPermissions();
 
         // Pail
         if (pm.getPlugin("Pail") != null) {
+            debugLog("Starting up the Pail tab.");
             pailInt = new PailInterface(this);
             ((Pail) pm.getPlugin("Pail")).loadInterfaceComponent("BananaSpace", pailInt);
         }
@@ -153,6 +161,13 @@ public class BananaSpace extends JavaPlugin {
             return;
         }
         permissionHandler = ((Permissions) permissionsPlugin).getHandler();
+    }
+    
+    public static void debugLog(String msg) {
+        if (!SpaceConfigHandler.getDebugging()) {
+            return;
+        }
+        log.info(prefix + " " + msg);
     }
 
     /**
