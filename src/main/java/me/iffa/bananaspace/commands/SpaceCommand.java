@@ -59,6 +59,9 @@ public class SpaceCommand implements CommandExecutor {
         if (e.isCancelled()) {
             return true;
         }
+        if (!BananaSpace.worldHandler.getStartupLoaded()) {
+            return true;
+        }
         if (!(sender instanceof Player)) {
             return true;
         }
