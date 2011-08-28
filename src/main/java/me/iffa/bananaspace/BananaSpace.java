@@ -116,10 +116,10 @@ public class BananaSpace extends JavaPlugin {
         }
 
         // Creating all space worlds if MultiVerse-Core is not found.
-        if (pm.getPlugin("Multiverse-Core") == null) {
+        //if (pm.getPlugin("Multiverse-Core") == null) {
             debugLog("Starting to create spaceworlds (startup).");
             worldHandler.createSpaceWorlds();
-        }
+        //}
 
         // Initializing the CommandExecutor
         sce = new SpaceCommand(this);
