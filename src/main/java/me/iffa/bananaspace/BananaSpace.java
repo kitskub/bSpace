@@ -110,11 +110,12 @@ public class BananaSpace extends JavaPlugin {
         }
 
         // Creating all space worlds if MultiVerse-Core is not found.
-        if (pm.getPlugin("Multiverse-Core") == null) {
+        /*if (pm.getPlugin("Multiverse-Core") == null) {
             debugLog("Starting to create spaceworlds (startup).");
             worldHandler.createSpaceWorlds();
         }
-
+        */
+        worldHandler.loadSpaceWorlds();
         // Initializing the CommandExecutor
         sce = new SpaceCommand(this);
         getCommand("space").setExecutor(sce);
@@ -160,6 +161,9 @@ public class BananaSpace extends JavaPlugin {
      */
     @Override
     public ChunkGenerator getDefaultWorldGenerator(String worldName, String id) {
+        if(!SpaceConfigHandler.worldIsInConfig(worldName)){
+            worldHandler.createSpaceWorld(this,worldName,true);
+        }
         if (id == null || id.isEmpty()) {
             return new SpaceChunkGenerator();
         }

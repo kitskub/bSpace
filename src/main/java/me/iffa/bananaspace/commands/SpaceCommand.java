@@ -67,7 +67,7 @@ public class SpaceCommand implements CommandExecutor {
         }
         Player player = (Player) sender;
         if (spacePlayer.hasPermission("bananaspace.teleport.enter", player) || spacePlayer.hasPermission("bananaspace.teleport.exit", player)) {
-            if (args.length == 1 && args[0].equalsIgnoreCase("enter")) {
+            if (args.length == 2 && args[0].equalsIgnoreCase("enter")) {
                 if (spacePlayer.hasPermission("bananaspace.teleport.enter", player)) {
                     if (BananaSpace.worldHandler.getSpaceWorlds().get(0) == player.getWorld()) {
                         player.sendMessage(ChatColor.RED
