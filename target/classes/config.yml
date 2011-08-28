@@ -5,6 +5,8 @@
 #   if you still have questions, please    
 #  ask on our bukkit.org thread! Thanks.   
 ############################################
+# Debugging mode
+debug: true
 # Global settings
 global:
     # Spacesuit armortype
