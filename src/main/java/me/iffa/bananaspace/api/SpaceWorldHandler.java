@@ -132,9 +132,9 @@ public class SpaceWorldHandler {
         spaceWorlds.remove(plugin.getServer().getWorld(worldname));
         SpaceConfig.getConfig().removeProperty("worlds." + worldname + "");
         SpaceConfig.getConfig().save();
-        SpaceConfig.getConfig().removeProperty("worlds." + worldname + "generation");
-        SpaceConfig.getConfig().removeProperty("worlds" + worldname);
-        SpaceConfig.getConfig().save();
+        //SpaceConfig.getConfig().removeProperty("worlds." + worldname + "generation");
+        //SpaceConfig.getConfig().removeProperty("worlds" + worldname);
+        //SpaceConfig.getConfig().save();
         plugin.getServer().unloadWorld(worldname, true);
         if (log) {
             BananaSpace.log.info(BananaSpace.prefix + " Plugin '" + plugin.getDescription().getName() + "' removed spaceworld '" + worldname + "'");

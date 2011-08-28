@@ -14,8 +14,9 @@ import me.iffa.bananaspace.BananaSpace;
  */
 public class PailCreateWorld extends javax.swing.JFrame {
     // Variables
+
     private BananaSpace plugin;
-    
+
     // Constructor
     public PailCreateWorld(BananaSpace plugin) {
         this.plugin = plugin;
@@ -99,7 +100,11 @@ private void CreateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         JOptionPane.showMessageDialog(this, "The world name cannot contain spaces!", "Invalid world name", JOptionPane.WARNING_MESSAGE);
         return;
     }
-    BananaSpace.worldHandler.createSpaceWorld(plugin, worldname, true);
+    BananaSpace.scheduler.scheduleSyncDelayedTask(plugin, new Runnable() {
+        public void run() {
+            BananaSpace.worldHandler.createSpaceWorld(plugin, WorldNameBox.getText().trim(), true);
+        }
+    }, 1L);
     JOptionPane.showMessageDialog(this, "A new spaceworld called '" + worldname + "' has been created!", "Spaceworld created", JOptionPane.INFORMATION_MESSAGE);
     setVisible(false);
 }//GEN-LAST:event_CreateButtonActionPerformed
