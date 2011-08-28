@@ -14,7 +14,7 @@ Authors
 
 **Canis85** - planet generation, /space back etc
 
-kitskub - small fixes
+**kitskub** - active person making pull requests
 
 BR - ceiling checking code
 
