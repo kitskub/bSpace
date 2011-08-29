@@ -1,4 +1,4 @@
-BananaSpace MV2
+BananaSpace
 ======
 A (Craft)Bukkit plugin that generates spaceworlds and offers many features to make survival in space lots of fun.
 
