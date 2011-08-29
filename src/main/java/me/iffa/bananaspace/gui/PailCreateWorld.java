@@ -15,8 +15,12 @@ import me.iffa.bananaspace.BananaSpace;
 public class PailCreateWorld extends javax.swing.JFrame {
     // Variables
     private BananaSpace plugin;
-
-    // Constructor
+    
+    /**
+     * Constructor for PailCreateWorld.
+     * 
+     * @param plugin BananaSpace
+     */
     public PailCreateWorld(BananaSpace plugin) {
         this.plugin = plugin;
         initComponents();
@@ -85,7 +89,7 @@ public class PailCreateWorld extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
 private void CreateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateButtonActionPerformed
-// TODO add your handling code here:
+
     String worldname = WorldNameBox.getText().trim();
     if (worldname.equalsIgnoreCase("")) {
         JOptionPane.showMessageDialog(this, "The world name cannot be empty!", "Invalid world name", JOptionPane.WARNING_MESSAGE);
@@ -100,6 +104,7 @@ private void CreateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         return;
     }
     BananaSpace.scheduler.scheduleSyncDelayedTask(plugin, new Runnable() {
+
         public void run() {
             BananaSpace.worldHandler.createSpaceWorld(plugin, WorldNameBox.getText().trim(), true);
         }

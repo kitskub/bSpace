@@ -24,10 +24,8 @@ import java.io.IOException;
  */
 public class PailInterface extends javax.swing.JPanel {
     // Variables
-
     private BananaSpace plugin;
     public static Configuration config = SpaceConfig.getConfig();
-    public static String s;
 
     /** Creates new form PailInterface */
     public PailInterface(BananaSpace plugin) {
@@ -648,19 +646,14 @@ private void DeleteWorldButtonActionPerformed(java.awt.event.ActionEvent evt) {/
         JOptionPane.showMessageDialog(this, "You need to choose a world to delete from the list!", "Select a world", JOptionPane.WARNING_MESSAGE);
         return;
     }
-    s = (String) SpaceList.getModel().getElementAt(SpaceList.getSelectedIndex());
+    String s = (String) SpaceList.getModel().getElementAt(SpaceList.getSelectedIndex());
     int n = JOptionPane.showConfirmDialog(
             this,
             "Deleting a spaceworld will only remove the world from the spaceworlds-list and unload it. The world itself will be saved. Do you want to continue?",
             "Delete a spaceworld",
             JOptionPane.YES_NO_OPTION);
     if (n == JOptionPane.YES_OPTION) {
-        BananaSpace.scheduler.scheduleSyncDelayedTask(plugin, new Runnable() {
-
-            public void run() {
-                BananaSpace.worldHandler.removeSpaceWorld(plugin, s, true);
-            }
-        }, 1L);
+        BananaSpace.worldHandler.removeSpaceWorld(plugin, s, true);
         ((DefaultListModel) SpaceList.getModel()).remove(SpaceList.getSelectedIndex());
         JOptionPane.showMessageDialog(this, "The spaceworld was deleted successfully!", "Spaceworld deleted", JOptionPane.INFORMATION_MESSAGE);
     }
