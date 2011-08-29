@@ -13,9 +13,9 @@ Authors
 -----------
 **iffa** - original creator (empty chunk generator, helmets, suits, etc)
 
-**Canis85** - planet generation, /space back etc
+**kitskub** - collaborator, active guy making commits 
 
-**kitskub** - active person making pull requests
+**Canis85** - planet generation, /space back etc
 
 BR - ceiling checking code
 
