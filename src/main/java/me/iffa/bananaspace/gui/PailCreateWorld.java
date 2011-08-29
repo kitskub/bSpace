@@ -15,7 +15,7 @@ import me.iffa.bananaspace.BananaSpace;
 public class PailCreateWorld extends javax.swing.JFrame {
     // Variables
     private BananaSpace plugin;
-    
+
     /**
      * Constructor for PailCreateWorld.
      * 
@@ -130,9 +130,7 @@ private void CreateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
 }//GEN-LAST:event_CreateButtonActionPerformed
 
 private void WorldNameBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_WorldNameBoxActionPerformed
-// TODO add your handling code here:
 }//GEN-LAST:event_WorldNameBoxActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton CreateButton;
     private javax.swing.JTextField WorldNameBox;

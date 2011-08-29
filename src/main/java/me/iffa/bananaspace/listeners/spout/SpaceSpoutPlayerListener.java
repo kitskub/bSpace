@@ -23,13 +23,17 @@ public class SpaceSpoutPlayerListener extends PlayerListener {
     // Variables
     private BananaSpace plugin;
 
-    // Constructor
+    /**
+     * Constructor for SpaceSpoutPlayerListener.
+     * 
+     * @param plugin BananaSpace
+     */
     public SpaceSpoutPlayerListener(BananaSpace plugin) {
         this.plugin = plugin;
     }
 
     /**
-     * Called when a player teleports.
+     * Called when a player attempts to teleport.
      * 
      * @param event Event data
      */
@@ -52,7 +56,7 @@ public class SpaceSpoutPlayerListener extends PlayerListener {
     /**
      * Called when a player joins the game.
      * 
-     * @param event 
+     * @param event Event data 
      */
     @Override
     public void onPlayerJoin(PlayerJoinEvent event) {

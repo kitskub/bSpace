@@ -18,24 +18,25 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 
 /**
- * CommandExecutor for 'space'
+ * CommandExecutor for 'space'.
  * 
  * @author iffa
- * 
  */
 public class SpaceCommand implements CommandExecutor {
     // Variables
     private Map<Player, Location> exitDest;
     private Map<Player, Location> enterDest;
-    private Plugin plugin;
+    private BananaSpace plugin;
     private SpacePlayerHandler spacePlayer = new SpacePlayerHandler();
 
-    // Constructor
-    public SpaceCommand(Plugin plugin) {
-        super();
+    /**
+     * Constructor for SpaceCommand.
+     * 
+     * @param plugin BananaSpace
+     */
+    public SpaceCommand(BananaSpace plugin) {
         this.plugin = plugin;
         exitDest = new HashMap<Player, Location>();
         enterDest = new HashMap<Player, Location>();
@@ -59,7 +60,7 @@ public class SpaceCommand implements CommandExecutor {
         if (e.isCancelled()) {
             return true;
         }
-        if (!BananaSpace.worldHandler.getStartupLoaded()) {
+        if (!BananaSpace.worldHandler.getStartupLoaded() || BananaSpace.worldHandler.getUsingMV()) {
             return true;
         }
         if (!(sender instanceof Player)) {

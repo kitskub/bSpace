@@ -17,13 +17,22 @@ public class TeleportToSpaceEvent extends Event implements Cancellable {
     private static final long serialVersionUID = 8744071438699676557L;
     protected boolean canceled = false;
     protected Player player = null;
-    protected Location destination = null;
+    protected Location to = null;
+    protected Location from = null;
 
-    // Constructor
-    public TeleportToSpaceEvent(String event, Player p, Location dest) {
+    /**
+     * Constructor for
+     * 
+     * @param event Event
+     * @param player Player
+     * @param from Where the player teleports from
+     * @param to Where the player teleports to
+     */
+    public TeleportToSpaceEvent(String event, Player player, Location from, Location to) {
         super(event);
-        this.player = p;
-        this.destination = dest;
+        this.player = player;
+        this.from = from;
+        this.to = to;
     }
 
     /**
@@ -41,7 +50,16 @@ public class TeleportToSpaceEvent extends Event implements Cancellable {
      * @return Destination of the teleport
      */
     public Location getTo() {
-        return this.destination;
+        return this.to;
+    }
+    
+    /**
+     * Gets where the player is trying to teleport from.
+     * 
+     * @return Where the player is trying to teleport from
+     */
+    public Location getFrom() {
+        return this.from;
     }
 
     @Override

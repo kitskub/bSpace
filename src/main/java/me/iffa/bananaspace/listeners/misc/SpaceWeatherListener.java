@@ -13,30 +13,29 @@ import org.bukkit.event.weather.WeatherListener;
  * WeatherListener for weather changes.
  * 
  * @author iffa
- * 
  */
 public class SpaceWeatherListener extends WeatherListener {
     // Variables
     private BananaSpace plugin;
-    
-    // Constructor
+
+    /**
+     * Constructor for SpaceWeatherListener.
+     * 
+     * @param plugin BananaSpace
+     */
     public SpaceWeatherListener(BananaSpace plugin) {
         this.plugin = plugin;
     }
 
     /**
-     * Called when the weather changes.
+     * Called when the weather attempts to change.
      * 
      * @param event Event data
      */
     @Override
     public void onWeatherChange(WeatherChangeEvent event) {
-        if (BananaSpace.worldHandler.isSpaceWorld(event.getWorld())) {
-            if (!SpaceConfigHandler.allowWeather(event.getWorld())) {
-                if (event.toWeatherState() == true) {
-                    event.setCancelled(true);
-                }
-            }
+        if (BananaSpace.worldHandler.isSpaceWorld(event.getWorld()) && !SpaceConfigHandler.allowWeather(event.getWorld()) && event.toWeatherState()) {
+            event.setCancelled(true);
         }
     }
 }

@@ -26,13 +26,17 @@ public class SpaceEntityListener extends EntityListener {
     // Variables
     private BananaSpace plugin;
 
-    // Constructor
-    public SpaceEntityListener(BananaSpace instance) {
-        plugin = instance;
+    /**
+     * Constructor for SpaceEntityListener.
+     * 
+     * @param plugin BananaSpace 
+     */
+    public SpaceEntityListener(BananaSpace plugin) {
+        this.plugin = plugin;
     }
 
     /**
-     * Called when a creature spawns.
+     * Called when a creature attempts to spawn.
      * 
      * @param event Event data
      */
@@ -50,12 +54,12 @@ public class SpaceEntityListener extends EntityListener {
                         || event.getCreatureType() == CreatureType.ZOMBIE
                         || event.getCreatureType() == CreatureType.SLIME) {
                     // Notify listeners.
-                    AntiMobSpawnEvent e = new AntiMobSpawnEvent(
-                            "AntiMobSpawnEvent", event.getEntity());
+                    AntiMobSpawnEvent e = new AntiMobSpawnEvent("AntiMobSpawnEvent", event.getEntity());
                     Bukkit.getServer().getPluginManager().callEvent(e);
                     if (!e.isCancelled()) {
-                        event.setCancelled(true);
+                        return;
                     }
+                    event.setCancelled(true);
                 }
             }
             if (!SpaceConfigHandler.allowNeutralMobs(event.getEntity().getWorld())) {
@@ -66,19 +70,19 @@ public class SpaceEntityListener extends EntityListener {
                         || event.getCreatureType() == CreatureType.SQUID
                         || event.getCreatureType() == CreatureType.WOLF) {
                     // Notify listeners.
-                    AntiMobSpawnEvent e = new AntiMobSpawnEvent(
-                            "AntiMobSpawnEvent", event.getEntity());
+                    AntiMobSpawnEvent e = new AntiMobSpawnEvent("AntiMobSpawnEvent", event.getEntity());
                     Bukkit.getServer().getPluginManager().callEvent(e);
                     if (!e.isCancelled()) {
-                        event.setCancelled(true);
+                        return;
                     }
+                    event.setCancelled(true);
                 }
             }
         }
     }
 
     /**
-     * Called when an entity takes damage.
+     * Called when an entity "attempts" to take damage.
      * 
      * @param event Event data
      */
@@ -87,13 +91,9 @@ public class SpaceEntityListener extends EntityListener {
         if (event.isCancelled()) {
             return;
         }
-        if (event.getEntity() instanceof Player
-                && BananaSpace.worldHandler.isInAnySpace((Player) event.getEntity())) {
+        if (event.getEntity() instanceof Player && BananaSpace.worldHandler.isInAnySpace((Player) event.getEntity()) && event.getCause() == DamageCause.VOID) {
             Player player = (Player) event.getEntity();
-            if (event.getCause() == DamageCause.VOID) {
-                Player killhim = (Player) event.getEntity();
-                killhim.setHealth(0);
-            }
+            player.setHealth(0);
         }
     }
 

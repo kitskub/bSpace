@@ -18,7 +18,13 @@ public class SpaceCommandEvent extends Event implements Cancellable {
     private CommandSender sender;
     private String arguments[];
 
-    // Constructor
+    /**
+     * Constructor for SpaceCommandEvent.
+     * 
+     * @param event Event
+     * @param sender CommandSender
+     * @param args Command arguments
+     */
     public SpaceCommandEvent(String event, CommandSender sender, String args[]) {
         super(event);
         this.sender = sender;

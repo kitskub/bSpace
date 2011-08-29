@@ -11,14 +11,18 @@ import org.bukkit.event.Event;
  * 
  * @author iffa
  */
-public class SpaceSuffocationEvent extends Event implements
-        Cancellable {
+public class SpaceSuffocationEvent extends Event implements Cancellable {
     // Variables
     private static final long serialVersionUID = 8772846319048911013L;
     protected boolean canceled = false;
     protected Player player = null;
 
-    // Constructor
+    /**
+     * Constructor for SpaceSuffocationEvent.
+     * 
+     * @param event Event
+     * @param player Player
+     */
     public SpaceSuffocationEvent(String event, Player player) {
         super(event);
         this.player = player;

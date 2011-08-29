@@ -17,7 +17,12 @@ public class AntiMobSpawnEvent extends Event implements Cancellable {
     protected boolean canceled = false;
     protected Entity entity = null;
 
-    // Constructor
+    /**
+     * Constructor for AntiMobSpawnEvent.
+     * 
+     * @param event Event
+     * @param entity Entity
+     */
     public AntiMobSpawnEvent(String event, Entity entity) {
         super(event);
         this.entity = entity;

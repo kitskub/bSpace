@@ -17,7 +17,12 @@ public abstract class AreaEvent extends Event {
     protected Player player;
     protected boolean cancelled;
 
-    // Constructor
+    /**
+     * Constructor for AreaEvent.
+     * 
+     * @param event Event
+     * @param player Player
+     */
     public AreaEvent(String event, Player player) {
         super(event);
         this.player = player;

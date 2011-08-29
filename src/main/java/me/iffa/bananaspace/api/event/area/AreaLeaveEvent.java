@@ -13,7 +13,11 @@ public class AreaLeaveEvent extends AreaEvent {
     // Variables
     private static final long serialVersionUID = 7604929590186681633L;
 
-    // Constructor
+    /**
+     * Constructor for AreaLeaveEvent.
+     * 
+     * @param player Player
+     */
     public AreaLeaveEvent(Player player) {
         super("AreaLeaveEvent", player);
     }

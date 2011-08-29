@@ -89,7 +89,12 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
         }
     }
 
-    // Constructor
+    /**
+     * Constructor for PlanetsChunkGenerator.
+     * 
+     * @param planetConfig Configuration
+     * @param plugin Plugin
+     */
     public PlanetsChunkGenerator(Configuration planetConfig, Plugin plugin) {
         this.plugin = plugin;
         this.planetConfig = planetConfig;
@@ -115,10 +120,10 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
      * 
      * @param world World
      * @param random Random
-     * @param x X
-     * @param z Z
+     * @param x X-coord
+     * @param z Z-coord
      * 
-     * @return byte[]
+     * @return byte[] Byte
      */
     @SuppressWarnings("unchecked")
     @Override
@@ -272,6 +277,14 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
         return new Location(world, 7, 77, 7);
     }
 
+    /**
+     * Generates planets.
+     * 
+     * @param x X-coord
+     * @param z Z-coord
+     * 
+     * @return List of Planetoids
+     */
     private List<Planetoid> generatePlanets(int x, int z) {
         List<Planetoid> planetoids = new ArrayList<Planetoid>();
 
@@ -363,6 +376,13 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
         return planetoids;
     }
 
+    /**
+     * Gets the squared distance.
+     * @param pl1 Planetoid 1
+     * @param pl2 Planetoid 2
+     * 
+     * @return Distance
+     */
     private int distanceSquared(Planetoid pl1, Planetoid pl2) {
         int xDist = pl2.xPos - pl1.xPos;
         int yDist = pl2.yPos - pl1.yPos;
@@ -372,15 +392,12 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
     }
 
     /**
-     * Returns a valid block type
+     * Returns a valid block type.
      * 
-     * @param rand
-     *            random generator to use
-     * @param core
-     *            if true, searching through allowed cores, otherwise allowed
-     *            shells
-     * @param heated
-     *            if true, will not return a block that gives off heat
+     * @param randrandom generator to use
+     * @param core if true, searching through allowed cores, otherwise allowed shells
+     * @param heated if true, will not return a block that gives off heat
+     * 
      * @return Material
      */
     private Material getBlockType(Random rand, boolean core, boolean noHeat) {

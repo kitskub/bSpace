@@ -24,10 +24,14 @@ import java.io.IOException;
  */
 public class PailInterface extends javax.swing.JPanel {
     // Variables
-    private BananaSpace plugin;
     public static Configuration config = SpaceConfig.getConfig();
+    private BananaSpace plugin;
 
-    /** Creates new form PailInterface */
+    /**
+     * Constructor for PailInterface.
+     * 
+     * @param plugin BananaSpace
+     */
     public PailInterface(BananaSpace plugin) {
         this.plugin = plugin;
         initComponents();
@@ -73,6 +77,11 @@ public class PailInterface extends javax.swing.JPanel {
         Settings_Hostile.setSelected(config.getBoolean("worlds." + worldname + ".hostilemobs", false));
     }
 
+    /**
+     * Saves the configuration settings for the world selected in the list. Only one safety check is made (to make sure a world that doesn't exist is not saved).
+     * 
+     * @param worldname Spaceworld name
+     */
     private void saveSpaceListConfig(String worldname) {
         if (config.getProperty("worlds." + worldname) == null) {
             BananaSpace.log.warning(BananaSpace.prefix + " A world with the name '" + worldname + "' does not exist in the config!");
@@ -651,7 +660,7 @@ private void Settings_ResetActionPerformed(java.awt.event.ActionEvent evt) {//GE
 }//GEN-LAST:event_Settings_ResetActionPerformed
 
 private void Settings_SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Settings_SaveActionPerformed
-// TODO add your handling code here:
+
     String worldname = (String) SpaceList.getModel().getElementAt(SpaceList.getSelectedIndex());
     saveSpaceListConfig(worldname);
     JOptionPane.showMessageDialog(this, "The spaceworld '" + worldname + "' has been saved. Please note that most changes take effect after reloading the server.", "Spaceworld saved!", JOptionPane.INFORMATION_MESSAGE);
@@ -678,16 +687,14 @@ private void SpaceListValueChanged(javax.swing.event.ListSelectionEvent evt) {//
 }//GEN-LAST:event_SpaceListValueChanged
 
 private void Settings_HostileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Settings_HostileActionPerformed
-// TODO add your handling code here:
 }//GEN-LAST:event_Settings_HostileActionPerformed
 
 private void Settings_NightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Settings_NightActionPerformed
-// TODO add your handling code here:
 }//GEN-LAST:event_Settings_NightActionPerformed
 
 private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
     try {
-        // TODO add your handling code here:
+
         Desktop.getDesktop().browse(java.net.URI.create("http://forums.bukkit.org/threads/32546/"));
     } catch (IOException ex) {
         BananaSpace.log.warning(BananaSpace.prefix + " Something went wrong while opening a page on your web browser!");

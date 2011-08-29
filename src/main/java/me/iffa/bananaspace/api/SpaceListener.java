@@ -24,8 +24,7 @@ public class SpaceListener extends CustomEventListener implements Listener {
     /**
      * Called when a player enters a breathable area.
      * 
-     * @param event
-     *            Event data
+     * @param event Event data
      */
     public void onAreaEnter(AreaEnterEvent event) {
     }
@@ -33,8 +32,7 @@ public class SpaceListener extends CustomEventListener implements Listener {
     /**
      * Called when a player leaves a breathable area.
      * 
-     * @param event
-     *            Event data
+     * @param event Event data
      */
     public void onAreaLeave(AreaLeaveEvent event) {
     }
@@ -42,8 +40,7 @@ public class SpaceListener extends CustomEventListener implements Listener {
     /**
      * Called when a player teleports to space.
      * 
-     * @param event
-     *            Event data
+     * @param event Event data
      */
     public void onTeleportToSpace(TeleportToSpaceEvent event) {
     }
@@ -52,8 +49,7 @@ public class SpaceListener extends CustomEventListener implements Listener {
      * Called when a player starts suffocating (for having no helmet, suit or
      * both).
      * 
-     * @param event
-     *            Event data
+     * @param event Event data
      */
     public void onSpaceSuffocation(SpaceSuffocationEvent event) {
     }
@@ -61,8 +57,7 @@ public class SpaceListener extends CustomEventListener implements Listener {
     /**
      * Called when a player uses the space command.
      * 
-     * @param event
-     *            Event data
+     * @param event Event data
      */
     public void onSpaceCommand(SpaceCommandEvent event) {
     }
@@ -70,8 +65,7 @@ public class SpaceListener extends CustomEventListener implements Listener {
     /**
      * Called when an entity is not allowed to spawn in space.
      * 
-     * @param event
-     *            Event data
+     * @param event Event data
      */
     public void onAntiMobSpawn(AntiMobSpawnEvent event) {
     }

@@ -21,18 +21,17 @@ import me.iffa.bananaspace.wgen.populators.SpaceGlowstonePopulator;
  * 
  * @author iffa
  * @author Canis85
- * 
  */
 public class SpaceChunkGenerator extends ChunkGenerator {
     /**
      * Generates empty chunks.
      * 
-     * @param world
-     * @param random
-     * @param cx
-     * @param cz
+     * @param world World
+     * @param random Random
+     * @param cx X-coord
+     * @param cz Z-coord
      * 
-     * @return byte[]
+     * @return byte[] Byte
      */
     public byte[] generate(World world, Random random, int cx, int cz) {
         return new byte[32768];

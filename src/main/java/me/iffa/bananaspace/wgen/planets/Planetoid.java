@@ -24,13 +24,24 @@ public class Planetoid implements Serializable {
     public int yPos;
     public int zPos;
 
-    // Constructor
+    /**
+     * Constructor for Planetoid.
+     */
     public Planetoid() {
     }
 
-    // Constructor
-    public Planetoid(Material coreID, Material shellID, int shellThick,
-            int radius, int x, int y, int z) {
+    /**
+     * Constructor for Planetoid.
+     * 
+     * @param coreID Core material
+     * @param shellID Shell material
+     * @param shellThick Shell thickness
+     * @param radius Radius
+     * @param x X-coord
+     * @param y Y-coord
+     * @param z Z-coord
+     */
+    public Planetoid(Material coreID, Material shellID, int shellThick, int radius, int x, int y, int z) {
         this.coreBlk = coreID;
         this.shellBlk = shellID;
         this.shellThickness = shellThick;

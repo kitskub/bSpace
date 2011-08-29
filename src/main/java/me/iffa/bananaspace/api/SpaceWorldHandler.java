@@ -10,7 +10,7 @@ import java.util.Map;
 // BananaSpace Imports
 import me.iffa.bananaspace.BananaSpace;
 import me.iffa.bananaspace.wgen.planets.PlanetsChunkGenerator;
-import me.iffa.bananaspace.schedulers.SpaceRunnable;
+import me.iffa.bananaspace.runnable.SpaceRunnable;
 import me.iffa.bananaspace.wgen.SpaceChunkGenerator;
 import me.iffa.bananaspace.config.SpaceConfig;
 import me.iffa.bananaspace.config.SpacePlanetConfig;
@@ -28,22 +28,57 @@ import org.bukkit.plugin.Plugin;
  */
 public class SpaceWorldHandler {
     // Variables
-
+    public static List<World> spaceWorlds = new ArrayList<World>();
     private BananaSpace plugin;
     private Map<World, Integer> forcenightId = new HashMap<World, Integer>();
     private boolean startupLoaded;
-    public static List<World> spaceWorlds = new ArrayList<World>();
     private boolean usingMV;
 
-    // Constructor
     /**
+     * Constructor for SpaceWorldHandler.
      * 
-     * @param plugin
+     * @param plugin BananaSpace
      */
     public SpaceWorldHandler(BananaSpace plugin) {
         this.plugin = plugin;
         if (plugin.getServer().getPluginManager().getPlugin("Multiverse-Core") != null) {
             usingMV = true;
+        }
+    }
+
+    /**
+     * Loads the space worlds into <code>spaceWorlds</code> and creates them if MultiVerse is not there
+     */
+    public void loadSpaceWorlds() {
+        List<String> worlds = SpaceConfig.getConfig().getKeys("worlds");
+        if (worlds == null) {
+            BananaSpace.log.severe(BananaSpace.prefix + " Your configuration file has no worlds! Cancelling world generation process.");
+            startupLoaded = false;
+            return;
+        }
+        for (String world : worlds) {
+            if (plugin.getServer().getWorld(world) == null) {
+                if (!usingMV) {
+                    World.Environment env;
+                    if (SpaceConfig.getConfig().getBoolean("worlds." + world + ".nethermode", false)) {
+                        env = World.Environment.NETHER;
+                    } else {
+                        env = World.Environment.NORMAL;
+                    }
+                    // Choosing which chunk generator to use
+                    if (!SpaceConfig.getConfig().getBoolean("worlds." + world + ".generation.generateplanets", true)) {
+                        BananaSpace.debugLog("Creating startup world '" + world + "' with normal generator.");
+                        plugin.getServer().createWorld(world, env, new SpaceChunkGenerator());
+                    } else {
+                        BananaSpace.debugLog("Creating startup world '" + world + "' with planet generator.");
+                        plugin.getServer().createWorld(world, env, new PlanetsChunkGenerator(SpacePlanetConfig.getConfig(), plugin));
+                    }
+                }
+            }
+            if (plugin.getServer().getWorld(world) != null) {
+                spaceWorlds.add(Bukkit.getServer().getWorld(world));
+            }
+            startupLoaded = true;
         }
     }
 
@@ -54,6 +89,18 @@ public class SpaceWorldHandler {
      */
     public boolean getStartupLoaded() {
         if (startupLoaded) {
+            return true;
+        }
+        return false;
+    }
+    
+    /**
+     * Checks if MultiVerse is being used for world generation.
+     * 
+     * @return true if MultiVerse is used
+     */
+    public boolean getUsingMV() {
+        if (usingMV) {
             return true;
         }
         return false;
@@ -207,41 +254,5 @@ public class SpaceWorldHandler {
             return getSpaceWorlds().get(getSpaceWorlds().indexOf(player.getWorld()));
         }
         return null;
-    }
-
-    /**
-     * Loads the space worlds into <code>spaceWorlds</code> and creates them if MultiVerse is not there
-     */
-    public void loadSpaceWorlds() {
-        List<String> worlds = SpaceConfig.getConfig().getKeys("worlds");
-        if (worlds == null) {
-            BananaSpace.log.severe(BananaSpace.prefix + " Your configuration file has no worlds! Cancelling world generation process.");
-            startupLoaded = false;
-            return;
-        }
-        for (String world : worlds) {
-            if (plugin.getServer().getWorld(world) == null) {
-                if (!usingMV) {
-                    World.Environment env;
-                    if (SpaceConfig.getConfig().getBoolean("worlds." + world + ".nethermode", false)) {
-                        env = World.Environment.NETHER;
-                    } else {
-                        env = World.Environment.NORMAL;
-                    }
-                    // Choosing which chunk generator to use
-                    if (!SpaceConfig.getConfig().getBoolean("worlds." + world + ".generation.generateplanets", true)) {
-                        BananaSpace.debugLog("Creating startup world '" + world + "' with normal generator.");
-                        plugin.getServer().createWorld(world, env, new SpaceChunkGenerator());
-                    } else {
-                        BananaSpace.debugLog("Creating startup world '" + world + "' with planet generator.");
-                        plugin.getServer().createWorld(world, env, new PlanetsChunkGenerator(SpacePlanetConfig.getConfig(), plugin));
-                    }
-                }
-            }
-            if (plugin.getServer().getWorld(world) != null) {
-                spaceWorlds.add(Bukkit.getServer().getWorld(world));
-            }
-            startupLoaded = true;
-        }
     }
 }

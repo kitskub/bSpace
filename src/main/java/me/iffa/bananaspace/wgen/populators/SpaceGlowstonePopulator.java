@@ -27,7 +27,7 @@ public class SpaceGlowstonePopulator extends BlockPopulator {
         BlockFace.NORTH, BlockFace.SOUTH, BlockFace.UP, BlockFace.WEST};
 
     /**
-     * Populates a world with glowstone.
+     * Populates a world with glowstone patches.
      * 
      * @param world World
      * @param random Random

@@ -42,10 +42,10 @@ public class BananaSpace extends JavaPlugin {
     public static String version;
     public static final Logger log = Logger.getLogger("Minecraft");
     public static BukkitScheduler scheduler;
-    private SpaceCommand sce = null;
     public static SpaceWorldHandler worldHandler;
     public static SpacePlayerHandler playerHandler;
     public static PailInterface pailInt;
+    private SpaceCommand sce = null;
     private final SpaceWeatherListener weatherListener = new SpaceWeatherListener(
             this);
     private final SpaceEntityListener entityListener = new SpaceEntityListener(
@@ -56,7 +56,7 @@ public class BananaSpace extends JavaPlugin {
             this);
 
     /**
-     * Called when the plugin is loaded
+     * Called when the plugin is disabled.
      */
     @Override
     public void onDisable() {
@@ -64,15 +64,15 @@ public class BananaSpace extends JavaPlugin {
     }
 
     /**
-     * Called when the plugin is loaded
+     * Called when the plugin is enabled.
      */
     @Override
     public void onEnable() {
-        // Initializing some variables
+        // Initializing variables
+        PluginManager pm = getServer().getPluginManager();
         version = getDescription().getVersion();
         prefix = "[" + getDescription().getName() + "]";
         scheduler = getServer().getScheduler();
-        PluginManager pm = getServer().getPluginManager();
         worldHandler = new SpaceWorldHandler(this);
         playerHandler = new SpacePlayerHandler();
 
@@ -108,14 +108,9 @@ public class BananaSpace extends JavaPlugin {
             pm.registerEvent(Event.Type.PLAYER_JOIN, spListener, Event.Priority.Normal, this);
             debugLog("Registered events (Spout).");
         }
-
-        // Creating all space worlds if MultiVerse-Core is not found.
-        /*if (pm.getPlugin("Multiverse-Core") == null) {
-            debugLog("Starting to create spaceworlds (startup).");
-            worldHandler.createSpaceWorlds();
-        }
-        */
+        
         worldHandler.loadSpaceWorlds();
+        
         // Initializing the CommandExecutor
         sce = new SpaceCommand(this);
         getCommand("space").setExecutor(sce);
@@ -129,7 +124,7 @@ public class BananaSpace extends JavaPlugin {
             }
         }
 
-        // Pail
+        // Pail interface
         if (pm.getPlugin("Pail") != null) {
             debugLog("Starting up the Pail tab.");
             pailInt = new PailInterface(this);

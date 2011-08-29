@@ -8,7 +8,7 @@ import me.iffa.bananaspace.config.SpaceConfig;
 import org.bukkit.World;
 
 /**
- * Static (because I'm too lazy to make an object) methods to use internally to handle world-specific configuration.
+ * Static methods to use internally (and externally, why not?) to handle world-specific configuration.
  * 
  * @author iffa
  */
