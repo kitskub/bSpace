@@ -48,6 +48,11 @@ public class PailCreateWorld extends javax.swing.JFrame {
         WorldNameBox.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         WorldNameBox.setText("world name");
         WorldNameBox.setToolTipText("Specify a name for the spaceworld. Must not be a world already, and must not be empty or contain spaces.");
+        WorldNameBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                WorldNameBoxActionPerformed(evt);
+            }
+        });
 
         CreateButton.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         CreateButton.setText("Create");
@@ -61,15 +66,14 @@ public class PailCreateWorld extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(19, Short.MAX_VALUE)
+                .addComponent(WorldNameBox, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(WorldNameBox, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(46, 46, 46)
-                        .addComponent(CreateButton)))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addGap(54, 54, 54)
+                .addComponent(CreateButton)
+                .addContainerGap(64, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -124,6 +128,11 @@ private void CreateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     JOptionPane.showMessageDialog(this, "A new spaceworld called '" + worldname + "' has been created!", "Spaceworld created", JOptionPane.INFORMATION_MESSAGE);
     setVisible(false);
 }//GEN-LAST:event_CreateButtonActionPerformed
+
+private void WorldNameBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_WorldNameBoxActionPerformed
+// TODO add your handling code here:
+}//GEN-LAST:event_WorldNameBoxActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton CreateButton;
     private javax.swing.JTextField WorldNameBox;
