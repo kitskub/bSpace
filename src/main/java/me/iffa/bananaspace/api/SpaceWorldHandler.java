@@ -28,6 +28,7 @@ import org.bukkit.plugin.Plugin;
  */
 public class SpaceWorldHandler {
     // Variables
+
     private BananaSpace plugin;
     private Map<World, Integer> forcenightId = new HashMap<World, Integer>();
     private boolean startupLoaded;
@@ -41,9 +42,10 @@ public class SpaceWorldHandler {
      */
     public SpaceWorldHandler(BananaSpace plugin) {
         this.plugin = plugin;
-        if (plugin.getServer().getPluginManager().getPlugin("Multiverse-Core") == null) usingMV=true;
+        if (plugin.getServer().getPluginManager().getPlugin("Multiverse-Core") != null) {
+            usingMV = true;
+        }
     }
-    
 
     /**
      * Checks if any worlds were created/loaded on plugin startup.
@@ -206,8 +208,9 @@ public class SpaceWorldHandler {
         }
         return null;
     }
+
     /**
-     * Loads the space worlds into <code>spaceWorlds</code> and creates them if Multiverse is not there
+     * Loads the space worlds into <code>spaceWorlds</code> and creates them if MultiVerse is not there
      */
     public void loadSpaceWorlds() {
         List<String> worlds = SpaceConfig.getConfig().getKeys("worlds");
@@ -218,7 +221,7 @@ public class SpaceWorldHandler {
         }
         for (String world : worlds) {
             if (plugin.getServer().getWorld(world) == null) {
-                if(!usingMV){
+                if (!usingMV) {
                     World.Environment env;
                     if (SpaceConfig.getConfig().getBoolean("worlds." + world + ".nethermode", false)) {
                         env = World.Environment.NETHER;
@@ -235,8 +238,8 @@ public class SpaceWorldHandler {
                     }
                 }
             }
-            if(plugin.getServer().getWorld(world) != null){
-            spaceWorlds.add(Bukkit.getServer().getWorld(world));   
+            if (plugin.getServer().getWorld(world) != null) {
+                spaceWorlds.add(Bukkit.getServer().getWorld(world));
             }
             startupLoaded = true;
         }
