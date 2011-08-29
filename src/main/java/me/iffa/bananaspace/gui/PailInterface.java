@@ -110,8 +110,6 @@ public class PailInterface extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jFrame1 = new javax.swing.JFrame();
-        jLabel11 = new javax.swing.JLabel();
         GlobalSettings = new javax.swing.JPanel();
         CheckBoxHelmet = new javax.swing.JCheckBox();
         CheckBoxSuit = new javax.swing.JCheckBox();
@@ -151,20 +149,7 @@ public class PailInterface extends javax.swing.JPanel {
         Settings_Night = new javax.swing.JCheckBox();
         jLabel8 = new javax.swing.JLabel();
 
-        javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
-        jFrame1.getContentPane().setLayout(jFrame1Layout);
-        jFrame1Layout.setHorizontalGroup(
-            jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        jFrame1Layout.setVerticalGroup(
-            jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
-
-        jLabel11.setText("jLabel11");
-
-        setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        setFont(new java.awt.Font("Arial", 0, 11));
         setInheritsPopupMenu(true);
         setMaximumSize(new java.awt.Dimension(850, 450));
         setMinimumSize(new java.awt.Dimension(850, 450));
@@ -201,7 +186,7 @@ public class PailInterface extends javax.swing.JPanel {
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 10));
         jLabel4.setText("Suit armortype:");
 
         ArmorTypeBox.setText("iron");
@@ -296,7 +281,7 @@ public class PailInterface extends javax.swing.JPanel {
         SpaceWorlds.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Spaceworlds", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
         SpaceWorlds.setToolTipText("Panel with buttons to create and delete spaceworlds..");
 
-        SpaceList.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        SpaceList.setFont(new java.awt.Font("Arial", 0, 12));
         SpaceList.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "No spaceworlds" };
             public int getSize() { return strings.length; }
@@ -328,7 +313,7 @@ public class PailInterface extends javax.swing.JPanel {
             }
         });
 
-        DeleteWorldButton.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        DeleteWorldButton.setFont(new java.awt.Font("Arial", 0, 11));
         DeleteWorldButton.setText("Delete");
         DeleteWorldButton.setToolTipText("Select a spaceworld from the list and click this button to delete the spaceworld. The world data will be saved.");
         DeleteWorldButton.addActionListener(new java.awt.event.ActionListener() {
@@ -349,11 +334,8 @@ public class PailInterface extends javax.swing.JPanel {
                     .addGroup(SpaceWorldsLayout.createSequentialGroup()
                         .addGap(125, 125, 125)
                         .addComponent(jLabel1))
-                    .addGroup(SpaceWorldsLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(SpaceWorldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(DeleteWorldButton, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(CreateWorldButton))))
+                    .addComponent(DeleteWorldButton, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(CreateWorldButton))
                 .addContainerGap())
         );
         SpaceWorldsLayout.setVerticalGroup(
@@ -740,9 +722,7 @@ private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
     private javax.swing.JList SpaceList;
     private javax.swing.JPanel SpaceWorlds;
     private javax.swing.JCheckBox SpoutEnabled;
-    private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
