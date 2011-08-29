@@ -644,7 +644,7 @@ private void DeleteWorldButtonActionPerformed(java.awt.event.ActionEvent evt) {/
             "Delete a spaceworld",
             JOptionPane.YES_NO_OPTION);
     if (n == JOptionPane.YES_OPTION) {
-        BananaSpace.worldHandler.removeSpaceWorld(plugin, s, true);
+        BananaSpace.worldHandler.removeSpaceWorld(plugin, s, false);
         ((DefaultListModel) SpaceList.getModel()).remove(SpaceList.getSelectedIndex());
         JOptionPane.showMessageDialog(this, "The spaceworld was deleted successfully!", "Spaceworld deleted", JOptionPane.INFORMATION_MESSAGE);
     }

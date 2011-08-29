@@ -108,7 +108,8 @@ public class BananaSpace extends JavaPlugin {
             pm.registerEvent(Event.Type.PLAYER_JOIN, spListener, Event.Priority.Normal, this);
             debugLog("Registered events (Spout).");
         }
-        
+       
+        // Loading space worlds (startup).
         worldHandler.loadSpaceWorlds();
         
         // Initializing the CommandExecutor

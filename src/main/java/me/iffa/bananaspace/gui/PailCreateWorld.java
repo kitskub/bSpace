@@ -122,7 +122,7 @@ private void CreateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     BananaSpace.scheduler.scheduleSyncDelayedTask(plugin, new Runnable() {
 
         public void run() {
-            BananaSpace.worldHandler.createSpaceWorld(plugin, WorldNameBox.getText().trim(), true);
+            BananaSpace.worldHandler.createSpaceWorld(plugin, WorldNameBox.getText().trim(), false);
         }
     }, 1L);
     JOptionPane.showMessageDialog(this, "A new spaceworld called '" + worldname + "' has been created!", "Spaceworld created", JOptionPane.INFORMATION_MESSAGE);
