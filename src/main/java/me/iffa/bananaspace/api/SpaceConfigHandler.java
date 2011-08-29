@@ -174,4 +174,13 @@ public class SpaceConfigHandler {
     public static boolean isUsingSpout() {
         return SpaceConfig.getConfig().getBoolean("global.usespout", true);
     }
+    /**
+     * 
+     * @param name of the world
+     * @return true is world is in config file
+     */
+    public static boolean worldIsInConfig(String name){
+        if (SpaceConfig.getConfig().getKeys("worlds." + name)!=null) return true;
+        return false;
+    }
 }
