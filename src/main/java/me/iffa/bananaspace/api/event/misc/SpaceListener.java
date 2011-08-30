@@ -1,42 +1,18 @@
 // Package Declaration
-package me.iffa.bananaspace.api;
+package me.iffa.bananaspace.api.event.misc;
 
 // Bukkit Imports
 import org.bukkit.event.CustomEventListener;
 import org.bukkit.event.Event;
 import org.bukkit.event.Listener;
 
-// BananaSpace Imports
-import me.iffa.bananaspace.api.event.area.AreaEnterEvent;
-import me.iffa.bananaspace.api.event.area.AreaLeaveEvent;
-import me.iffa.bananaspace.api.event.misc.AntiMobSpawnEvent;
-import me.iffa.bananaspace.api.event.misc.SpaceCommandEvent;
-import me.iffa.bananaspace.api.event.misc.SpaceSuffocationEvent;
-import me.iffa.bananaspace.api.event.misc.TeleportToSpaceEvent;
-
 /**
- * Listener for events of BananaSpace.
+ * Listener for misc events of BananaSpace.
  * 
  * @author iffa
  * 
  */
 public class SpaceListener extends CustomEventListener implements Listener {
-    /**
-     * Called when a player enters a breathable area.
-     * 
-     * @param event Event data
-     */
-    public void onAreaEnter(AreaEnterEvent event) {
-    }
-
-    /**
-     * Called when a player leaves a breathable area.
-     * 
-     * @param event Event data
-     */
-    public void onAreaLeave(AreaLeaveEvent event) {
-    }
-
     /**
      * Called when a player teleports to space.
      * 
@@ -77,11 +53,7 @@ public class SpaceListener extends CustomEventListener implements Listener {
      */
     @Override
     public void onCustomEvent(Event event) {
-        if (event instanceof AreaEnterEvent) {
-            onAreaEnter((AreaEnterEvent) event);
-        } else if (event instanceof AreaLeaveEvent) {
-            onAreaLeave((AreaLeaveEvent) event);
-        } else if (event instanceof TeleportToSpaceEvent) {
+        if (event instanceof TeleportToSpaceEvent) {
             onTeleportToSpace((TeleportToSpaceEvent) event);
         } else if (event instanceof SpaceCommandEvent) {
             onSpaceCommand((SpaceCommandEvent) event);

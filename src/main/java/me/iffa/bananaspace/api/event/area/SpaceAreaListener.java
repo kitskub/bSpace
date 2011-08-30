@@ -3,6 +3,7 @@ package me.iffa.bananaspace.api.event.area;
 
 // Bukkit Imports
 import org.bukkit.event.CustomEventListener;
+import org.bukkit.event.Event;
 import org.bukkit.event.Listener;
 
 /**
@@ -25,5 +26,19 @@ public class SpaceAreaListener extends CustomEventListener implements Listener {
      * @param event Event data
      */
     public void onAreaLeave(AreaLeaveEvent event) {
+    }
+
+    /**
+     * Handles the events that are called.
+     * 
+     * @param event Event
+     */
+    @Override
+    public void onCustomEvent(Event event) {
+        if (event instanceof AreaEnterEvent) {
+            onAreaEnter((AreaEnterEvent) event);
+        } else if (event instanceof AreaLeaveEvent) {
+            onAreaLeave((AreaLeaveEvent) event);
+        }
     }
 }
