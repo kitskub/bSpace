@@ -49,6 +49,7 @@ public class PailInterface extends javax.swing.JPanel {
         SpaceList.setModel(new DefaultListModel());
         for (World world : BananaSpace.worldHandler.getSpaceWorlds()) {
             ((DefaultListModel) SpaceList.getModel()).addElement(world.getName());
+            BananaSpace.debugLog("Added spaceworld '" + world.getName() + "' to list of spaceworlds (Pail).");
         }
     }
 
@@ -75,6 +76,7 @@ public class PailInterface extends javax.swing.JPanel {
         Settings_RoomHeight.setValue(config.getInt("worlds." + worldname + ".breathingarea.maxroomheight", 5));
         Settings_Neutral.setSelected(config.getBoolean("worlds." + worldname + ".neutralmobs", true));
         Settings_Hostile.setSelected(config.getBoolean("worlds." + worldname + ".hostilemobs", false));
+        BananaSpace.debugLog("Loaded settings for spaceworld '" + worldname + "'.");
     }
 
     /**
@@ -99,6 +101,7 @@ public class PailInterface extends javax.swing.JPanel {
         config.setProperty("worlds." + worldname + ".suit.required", Settings_SuitRequired.isSelected());
         config.setProperty("worlds" + worldname + ".helmet.required", Settings_HelmetRequired.isSelected());
         config.save();
+        BananaSpace.debugLog("Saved settings for spaceworld '" + worldname + "'.");
     }
 
     /**

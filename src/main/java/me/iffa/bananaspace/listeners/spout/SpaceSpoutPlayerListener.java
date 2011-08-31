@@ -46,10 +46,11 @@ public class SpaceSpoutPlayerListener extends PlayerListener {
         SkyManager sky = SpoutManager.getSkyManager();
         if (BananaSpace.worldHandler.isSpaceWorld(event.getTo().getWorld()) && !BananaSpace.worldHandler.isSpaceWorld(event.getFrom().getWorld())) {
             sky.setCloudsVisible(player, false);
-            sky.setMoonSizePercent(player, 20);
+            BananaSpace.debugLog("Made clouds invisible for player '" + player.getName() + "'.");
         }
         if (BananaSpace.worldHandler.isSpaceWorld(event.getFrom().getWorld()) && !BananaSpace.worldHandler.isSpaceWorld(event.getTo().getWorld())) {
             sky.setCloudsVisible(player, true);
+            BananaSpace.debugLog("Made clouds visible for player '" + player.getName() + "'.");
         }
     }
     
@@ -64,7 +65,7 @@ public class SpaceSpoutPlayerListener extends PlayerListener {
         SkyManager sky = SpoutManager.getSkyManager();
         if (BananaSpace.worldHandler.isSpaceWorld(player.getWorld())) {
             sky.setCloudsVisible(player, false);
-            sky.setMoonSizePercent(player, 20);
+            BananaSpace.debugLog("Made clouds invisible for player '" + player.getName() + "'.");
         }
     }
 }

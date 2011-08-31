@@ -56,10 +56,12 @@ public class SpaceEntityListener extends EntityListener {
                     // Notify listeners.
                     AntiMobSpawnEvent e = new AntiMobSpawnEvent("AntiMobSpawnEvent", event.getEntity());
                     Bukkit.getServer().getPluginManager().callEvent(e);
-                    if (!e.isCancelled()) {
+                    if (e.isCancelled()) {
                         return;
                     }
                     event.setCancelled(true);
+                    BananaSpace.debugLog("Cancelled creature spawn event, entity '" + event.getCreatureType() + "'.");
+                    
                 }
             }
             if (!SpaceConfigHandler.allowNeutralMobs(event.getEntity().getWorld())) {
@@ -72,10 +74,11 @@ public class SpaceEntityListener extends EntityListener {
                     // Notify listeners.
                     AntiMobSpawnEvent e = new AntiMobSpawnEvent("AntiMobSpawnEvent", event.getEntity());
                     Bukkit.getServer().getPluginManager().callEvent(e);
-                    if (!e.isCancelled()) {
+                    if (e.isCancelled()) {
                         return;
                     }
                     event.setCancelled(true);
+                    BananaSpace.debugLog("Cancelled creature spawn event, entity '" + event.getCreatureType() + "'.");
                 }
             }
         }
@@ -94,6 +97,7 @@ public class SpaceEntityListener extends EntityListener {
         if (event.getEntity() instanceof Player && BananaSpace.worldHandler.isInAnySpace((Player) event.getEntity()) && event.getCause() == DamageCause.VOID) {
             Player player = (Player) event.getEntity();
             player.setHealth(0);
+            BananaSpace.debugLog("Killed player '" + player.getName() + "' in void.");
         }
     }
 
@@ -109,6 +113,7 @@ public class SpaceEntityListener extends EntityListener {
             if (SpacePlayerListener.taskid.containsKey(p)) {
                 if (BananaSpace.scheduler.isCurrentlyRunning(SpacePlayerListener.taskid.get(p))) {
                     BananaSpace.scheduler.cancelTask(SpacePlayerListener.taskid.get(p));
+                    BananaSpace.debugLog("Cancelled suffocating task for player '" + p.getName() + "' because (s)he died.");
                 }
             }
         }

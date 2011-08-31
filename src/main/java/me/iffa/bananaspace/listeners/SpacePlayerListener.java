@@ -77,14 +77,14 @@ public class SpacePlayerListener extends PlayerListener {
                 TeleportToSpaceEvent e = new TeleportToSpaceEvent("TeleportToSpaceEvent", event.getPlayer(), event.getFrom(), event.getTo());
                 Bukkit.getServer().getPluginManager().callEvent(e);
                 if (e.isCancelled()) {
-                    BananaSpace.debugLog("Teleport to space was cancelled.");
                     event.setCancelled(true);
                 }
+                BananaSpace.debugLog("Player '" + event.getPlayer().getName() + "' teleported to space.");
                 fixDupe.put(event.getPlayer(), true);
             } else if (!BananaSpace.worldHandler.isSpaceWorld(event.getTo().getWorld())
                     && BananaSpace.worldHandler.isSpaceWorld(event.getFrom().getWorld())) {
                 if (SpaceConfigHandler.isHelmetGiven()) {
-                    event.getPlayer().getInventory().setHelmet(new ItemStack(Material.AIR, 1));
+                    event.getPlayer().getInventory().setHelmet(new ItemStack(null, 1));
                 }
                 if (SpaceConfigHandler.isSuitGiven()) {
                     spacePlayer.giveSpaceSuit("null", player);
@@ -126,6 +126,7 @@ public class SpacePlayerListener extends PlayerListener {
                         // Notify listeners.
                         AreaEnterEvent e = new AreaEnterEvent(event.getPlayer());
                         Bukkit.getServer().getPluginManager().callEvent(e);
+                        BananaSpace.debugLog("Player '" + event.getPlayer().getName() + "' entered an area.");
                     }
                 } else {
                     inArea.put(event.getPlayer(), true);
@@ -148,6 +149,7 @@ public class SpacePlayerListener extends PlayerListener {
                         // Notify listeners.
                         AreaLeaveEvent e = new AreaLeaveEvent(event.getPlayer());
                         Bukkit.getServer().getPluginManager().callEvent(e);
+                        BananaSpace.debugLog("Player '" + event.getPlayer().getName() + "' left an area.");
                     }
                 } else {
                     inArea.put(event.getPlayer(), false);
@@ -342,6 +344,7 @@ public class SpacePlayerListener extends PlayerListener {
         if (taskid.containsKey(event.getPlayer())) {
             if (BananaSpace.scheduler.isCurrentlyRunning(taskid.get(event.getPlayer()))) {
                 BananaSpace.scheduler.cancelTask(taskid.get(event.getPlayer()));
+                BananaSpace.debugLog("Cancelled suffocation task for player '" + event.getPlayer().getName() + "'.");
             }
         }
     }
@@ -353,8 +356,6 @@ public class SpacePlayerListener extends PlayerListener {
      */
     @Override
     public void onPlayerJoin(PlayerJoinEvent event) {
-        if (!armorType.containsKey(event.getPlayer())) {
-            armorType.put(event.getPlayer(), SpaceConfigHandler.getArmorType());
-        }
+        armorType.put(event.getPlayer(), SpaceConfigHandler.getArmorType());
     }
 }

@@ -125,6 +125,7 @@ private void CreateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
             BananaSpace.worldHandler.createSpaceWorld(plugin, WorldNameBox.getText().trim(), false);
         }
     }, 1L);
+    BananaSpace.debugLog("Created spaceworld '" + worldname + "' through Pail.");
     JOptionPane.showMessageDialog(this, "A new spaceworld called '" + worldname + "' has been created!", "Spaceworld created", JOptionPane.INFORMATION_MESSAGE);
     setVisible(false);
 }//GEN-LAST:event_CreateButtonActionPerformed

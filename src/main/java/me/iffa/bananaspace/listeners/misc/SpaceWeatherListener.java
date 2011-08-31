@@ -36,6 +36,7 @@ public class SpaceWeatherListener extends WeatherListener {
     public void onWeatherChange(WeatherChangeEvent event) {
         if (BananaSpace.worldHandler.isSpaceWorld(event.getWorld()) && !SpaceConfigHandler.allowWeather(event.getWorld()) && event.toWeatherState()) {
             event.setCancelled(true);
+            BananaSpace.debugLog("Cancelled WeatherChangeEvent for spaceworld '" + event.getWorld().getName() + "'.");
         }
     }
 }
