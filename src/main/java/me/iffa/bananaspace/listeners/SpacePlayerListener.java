@@ -96,21 +96,6 @@ public class SpacePlayerListener extends PlayerListener {
     }
 
     /**
-     * Old method for setting "isUsed", can't remember what this is used for exactly.
-     * 
-     * @param player Player
-     */
-    private void usedSet(Player player) {
-        if (isUsed.containsKey(player)) {
-            if (isUsed.get(player) == false) {
-                isUsed.put(player, true);
-            }
-        } else {
-            isUsed.put(player, true);
-        }
-    }
-
-    /**
      * Called when a player attempts to move.
      * 
      * @param event Event data
@@ -178,25 +163,33 @@ public class SpacePlayerListener extends PlayerListener {
                             BananaSpace.scheduler.cancelTask(taskid.get(event.getPlayer()));
                             isUsed.put(event.getPlayer(), false);
                         } else if (isUsed.get(event.getPlayer()) == false && event.getPlayer().getInventory().getHelmet().getTypeId() != SpaceConfigHandler.getHelmetBlock() || !hasSuit(event.getPlayer(), SpaceConfigHandler.getArmorType())) {
+                            // Notify listeners.
+                            SpaceSuffocationEvent e = new SpaceSuffocationEvent("SpaceSuffocationEvent", event.getPlayer());
+                            Bukkit.getServer().getPluginManager().callEvent(e);
+                            if (e.isCancelled()) {
+                                return;
+                            }
+                            BananaSpace.debugLog("Player '" + event.getPlayer().getName() + "' started suffocating in space.");
                             SpaceRunnable2 task = new SpaceRunnable2(event.getPlayer());
                             taskInt = BananaSpace.scheduler.scheduleSyncRepeatingTask(plugin, task, 20L, 20L);
                             taskid.put(event.getPlayer(), taskInt);
                             isUsed.put(event.getPlayer(), true);
-                            // Notify listeners.
-                            SpaceSuffocationEvent e = new SpaceSuffocationEvent("SpaceSuffocationEvent", event.getPlayer());
-                            Bukkit.getServer().getPluginManager().callEvent(e);
                         }
                     } else {
                         if (event.getPlayer().getInventory().getHelmet().getTypeId() == SpaceConfigHandler.getHelmetBlock() && hasSuit(event.getPlayer(), SpaceConfigHandler.getArmorType())) {
                             isUsed.put(event.getPlayer(), false);
                         } else {
+                            // Notify listeners.
+                            SpaceSuffocationEvent e = new SpaceSuffocationEvent("SpaceSuffocationEvent", event.getPlayer());
+                            Bukkit.getServer().getPluginManager().callEvent(e);
+                            if (e.isCancelled()) {
+                                return;
+                            }
+                            BananaSpace.debugLog("Player '" + event.getPlayer().getName() + "' started suffocating in space.");
                             SpaceRunnable2 task = new SpaceRunnable2(event.getPlayer());
                             taskInt = BananaSpace.scheduler.scheduleSyncRepeatingTask(plugin, task, 20L, 20L);
                             taskid.put(event.getPlayer(), taskInt);
                             isUsed.put(event.getPlayer(), true);
-                            // Notify listeners.
-                            SpaceSuffocationEvent e = new SpaceSuffocationEvent("SpaceSuffocationEvent", event.getPlayer());
-                            Bukkit.getServer().getPluginManager().callEvent(e);
                         }
                     }
                     // Only helmet required
@@ -206,26 +199,34 @@ public class SpacePlayerListener extends PlayerListener {
                             BananaSpace.scheduler.cancelTask(taskid.get(event.getPlayer()));
                             isUsed.put(event.getPlayer(), false);
                         } else if (isUsed.get(event.getPlayer()) == false && event.getPlayer().getInventory().getHelmet().getTypeId() != SpaceConfigHandler.getHelmetBlock()) {
+                            // Notify listeners.
+                            SpaceSuffocationEvent e = new SpaceSuffocationEvent("SpaceSuffocationEvent", event.getPlayer());
+                            Bukkit.getServer().getPluginManager().callEvent(e);
+                            if (e.isCancelled()) {
+                                return;
+                            }
+                            BananaSpace.debugLog("Player '" + event.getPlayer().getName() + "' started suffocating in space.");
                             SpaceRunnable2 task = new SpaceRunnable2(event.getPlayer());
                             taskInt = BananaSpace.scheduler.scheduleSyncRepeatingTask(plugin, task, 20L, 20L);
                             taskid.put(event.getPlayer(), taskInt);
                             isUsed.put(event.getPlayer(), true);
-                            // Notify listeners.
-                            SpaceSuffocationEvent e = new SpaceSuffocationEvent("SpaceSuffocationEvent", event.getPlayer());
-                            Bukkit.getServer().getPluginManager().callEvent(e);
 
                         }
                     } else {
                         if (event.getPlayer().getInventory().getHelmet().getTypeId() == SpaceConfigHandler.getHelmetBlock()) {
                             isUsed.put(event.getPlayer(), false);
                         } else {
+                            // Notify listeners.
+                            SpaceSuffocationEvent e = new SpaceSuffocationEvent("SpaceSuffocationEvent", event.getPlayer());
+                            Bukkit.getServer().getPluginManager().callEvent(e);
+                            if (e.isCancelled()) {
+                                return;
+                            }
+                            BananaSpace.debugLog("Player '" + event.getPlayer().getName() + "' started suffocating in space.");
                             SpaceRunnable2 task = new SpaceRunnable2(event.getPlayer());
                             taskInt = BananaSpace.scheduler.scheduleSyncRepeatingTask(plugin, task, 20L, 20L);
                             taskid.put(event.getPlayer(), taskInt);
                             isUsed.put(event.getPlayer(), true);
-                            // Notify listeners.
-                            SpaceSuffocationEvent e = new SpaceSuffocationEvent("SpaceSuffocationEvent", event.getPlayer());
-                            Bukkit.getServer().getPluginManager().callEvent(e);
                         }
                     }
 
@@ -236,26 +237,34 @@ public class SpacePlayerListener extends PlayerListener {
                             BananaSpace.scheduler.cancelTask(taskid.get(event.getPlayer()));
                             isUsed.put(event.getPlayer(), false);
                         } else if (isUsed.get(event.getPlayer()) == false && !hasSuit(event.getPlayer(), SpaceConfigHandler.getArmorType())) {
+                            // Notify listeners.
+                            SpaceSuffocationEvent e = new SpaceSuffocationEvent("SpaceSuffocationEvent", event.getPlayer());
+                            Bukkit.getServer().getPluginManager().callEvent(e);
+                            if (e.isCancelled()) {
+                                return;
+                            }
+                            BananaSpace.debugLog("Player '" + event.getPlayer().getName() + "' started suffocating in space.");
                             SpaceRunnable2 task = new SpaceRunnable2(event.getPlayer());
                             taskInt = BananaSpace.scheduler.scheduleSyncRepeatingTask(plugin, task, 20L, 20L);
                             taskid.put(event.getPlayer(), taskInt);
                             isUsed.put(event.getPlayer(), true);
-                            // Notify listeners.
-                            SpaceSuffocationEvent e = new SpaceSuffocationEvent("SpaceSuffocationEvent", event.getPlayer());
-                            Bukkit.getServer().getPluginManager().callEvent(e);
 
                         }
                     } else {
                         if (hasSuit(event.getPlayer(), SpaceConfigHandler.getArmorType())) {
                             isUsed.put(event.getPlayer(), false);
                         } else {
+                            // Notify listeners.
+                            SpaceSuffocationEvent e = new SpaceSuffocationEvent("SpaceSuffocationEvent", event.getPlayer());
+                            Bukkit.getServer().getPluginManager().callEvent(e);
+                            if (e.isCancelled()) {
+                                return;
+                            }
+                            BananaSpace.debugLog("Player '" + event.getPlayer().getName() + "' started suffocating in space.");
                             SpaceRunnable2 task = new SpaceRunnable2(event.getPlayer());
                             taskInt = BananaSpace.scheduler.scheduleSyncRepeatingTask(plugin, task, 20L, 20L);
                             taskid.put(event.getPlayer(), taskInt);
                             isUsed.put(event.getPlayer(), true);
-                            // Notify listeners.
-                            SpaceSuffocationEvent e = new SpaceSuffocationEvent("SpaceSuffocationEvent", event.getPlayer());
-                            Bukkit.getServer().getPluginManager().callEvent(e);
                         }
                     }
 

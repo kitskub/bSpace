@@ -55,8 +55,7 @@ public class SpaceCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command,
             String label, String args[]) {
         // Notify listeners.
-        SpaceCommandEvent e = new SpaceCommandEvent("SpaceCommandEvent",
-                sender, args);
+        SpaceCommandEvent e = new SpaceCommandEvent("SpaceCommandEvent", sender, args);
         if (e.isCancelled()) {
             return true;
         }
@@ -71,8 +70,7 @@ public class SpaceCommand implements CommandExecutor {
             if (args.length == 2 && args[0].equalsIgnoreCase("enter")) {
                 if (spacePlayer.hasPermission("bananaspace.teleport.enter", player)) {
                     if (BananaSpace.worldHandler.getSpaceWorlds().get(0) == player.getWorld()) {
-                        player.sendMessage(ChatColor.RED
-                                + "You are already in that space world!");
+                        player.sendMessage(ChatColor.RED + "You are already in that space world!");
                         return true;
                     }
                     exitDest.put(player, player.getLocation());
@@ -111,11 +109,9 @@ public class SpaceCommand implements CommandExecutor {
                     player.teleport(location);
                     return true;
                 }
-                sender.sendMessage(ChatColor.RED
-                        + "You don't have permission!");
+                sender.sendMessage(ChatColor.RED + "You don't have permission!");
                 return true;
-            } else if (args.length == 1 && args[0].equalsIgnoreCase("back")
-                    && sender instanceof Player) {
+            } else if (args.length == 1 && args[0].equalsIgnoreCase("back") && sender instanceof Player) {
                 if (BananaSpace.worldHandler.isInAnySpace(player)) {
                     if (BananaSpace.playerHandler.hasPermission("bananaspace.teleport.exit", player)) {
                         enterDest.put(player, player.getLocation());
@@ -124,25 +120,20 @@ public class SpaceCommand implements CommandExecutor {
                     if (BananaSpace.playerHandler.hasPermission("bananaspace.teleport.exit", player)) {
                         if (exitDest.containsKey(player)) {
                             location = exitDest.get(player);
-                            
                             player.teleport(location);
                             return true;
                         } else {
                             exitDest.put(player, plugin.getServer().getWorlds().get(0).getSpawnLocation());
-                            sender.sendMessage(ChatColor.RED
-                                    + "Exit destination not found, setting to default world spawn location.");
-                            sender.sendMessage(ChatColor.RED
-                                    + "Type '/space back' again to go there.");
+                            sender.sendMessage(ChatColor.RED + "Exit destination not found, setting to default world spawn location.");
+                            sender.sendMessage(ChatColor.RED + "Type '/space back' again to go there.");
                             return true;
                         }
                     } else {
-                        sender.sendMessage(ChatColor.RED
-                                + "You don't have permission!");
+                        sender.sendMessage(ChatColor.RED + "You don't have permission!");
                         return true;
                     }
                 } else {
-                    player.sendMessage(ChatColor.RED
-                            + "You are not in space!");
+                    player.sendMessage(ChatColor.RED + "You are not in space!");
                     return true;
                 }
             } else if (args.length == 1 && args[0].equalsIgnoreCase("list") && sender instanceof Player) {

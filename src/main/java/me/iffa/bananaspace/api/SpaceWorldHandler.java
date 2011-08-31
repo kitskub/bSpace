@@ -22,7 +22,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 /**
- * Class that handles space worlds. (internally)
+ * Class that handles space worlds.
  * 
  * @author iffa
  */
