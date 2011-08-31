@@ -2,20 +2,17 @@ BananaSpace
 ======
 A (Craft)Bukkit plugin that generates spaceworlds and offers many features to make survival in space lots of fun.
 
-Download: [Latest release build (StyxSpace)](http://saxxyspin.com/dcp/dl.php?id=StyxSpace&ver=1.1)
-
 BukkitDev link: [BananaSpace on dev.bukkit.org](http://dev.bukkit.org/server-mods/bananaspace/)
-
-NOTE: Developer builds can be found from target/!
-NOTE: This version will be/is for MultiVerse2 (usage).
 
 Authors
 -----------
+Bolded authors are currently active.
+
 **iffa** - original creator (empty chunk generator, helmets, suits, etc)
 
 **kitskub** - collaborator, active guy making commits 
 
-**Canis85** - planet generation, /space back etc
+Canis85 - planet generation, /space back etc
 
 BR - ceiling checking code
 
