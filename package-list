@@ -8,7 +8,7 @@ me.iffa.bananaspace.gui
 me.iffa.bananaspace.listeners
 me.iffa.bananaspace.listeners.misc
 me.iffa.bananaspace.listeners.spout
-me.iffa.bananaspace.schedulers
+me.iffa.bananaspace.runnable
 me.iffa.bananaspace.wgen
 me.iffa.bananaspace.wgen.planets
 me.iffa.bananaspace.wgen.populators
