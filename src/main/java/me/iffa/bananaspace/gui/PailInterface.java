@@ -161,7 +161,7 @@ public class PailInterface extends javax.swing.JPanel {
         Settings_Night = new javax.swing.JCheckBox();
         jLabel8 = new javax.swing.JLabel();
 
-        setFont(new java.awt.Font("Arial", 0, 11));
+        setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         setInheritsPopupMenu(true);
         setMaximumSize(new java.awt.Dimension(850, 450));
         setMinimumSize(new java.awt.Dimension(850, 450));
@@ -218,7 +218,7 @@ public class PailInterface extends javax.swing.JPanel {
             }
         });
 
-        ResetButton.setText("Reset");
+        ResetButton.setText("Revert");
         ResetButton.setToolTipText("Not happy with the changes? Just press this button and all your changes will be reset!");
         ResetButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -263,7 +263,7 @@ public class PailInterface extends javax.swing.JPanel {
                     .addComponent(ResetButton)
                     .addGroup(GlobalSettingsLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(SaveButton, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)))
+                        .addComponent(SaveButton, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         GlobalSettingsLayout.setVerticalGroup(
@@ -325,7 +325,7 @@ public class PailInterface extends javax.swing.JPanel {
             }
         });
 
-        DeleteWorldButton.setFont(new java.awt.Font("Arial", 0, 11));
+        DeleteWorldButton.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         DeleteWorldButton.setText("Delete");
         DeleteWorldButton.setToolTipText("Select a spaceworld from the list and click this button to delete the spaceworld. The world data will be saved.");
         DeleteWorldButton.addActionListener(new java.awt.event.ActionListener() {
@@ -380,7 +380,7 @@ public class PailInterface extends javax.swing.JPanel {
             }
         });
 
-        Settings_Reset.setText("Reset");
+        Settings_Reset.setText("Revert");
         Settings_Reset.setToolTipText("Resets the changes made to the world's settings.");
         Settings_Reset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
