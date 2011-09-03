@@ -4,7 +4,7 @@
     <artifactId>BananaSpace</artifactId>
     <version>1.3</version>
     <name>BananaSpace</name>
-    <url>http://github.com/BananaCode/BananaSpace</url>
+    <url>http://github.com/iffa/BananaSpace</url>
     <repositories>
         <repository>
             <id>bukkit-repo</id>
