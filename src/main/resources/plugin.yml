@@ -2,7 +2,7 @@
 authors: [iffa, kitskub, Canis85, BR]
 main: me.iffa.bananaspace.BananaSpace
 name: BananaSpace
-url: http://github.com/BananaCode/BananaSpace
+url: http://github.com/iffa/BananaSpace
 version: '1.3 [Wool]'
 softdepend: [Permissions, Spout, Pail]
 #load: startup

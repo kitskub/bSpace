@@ -46,14 +46,10 @@ public class BananaSpace extends JavaPlugin {
     public static SpacePlayerHandler playerHandler;
     public static PailInterface pailInt;
     private SpaceCommand sce = null;
-    private final SpaceWeatherListener weatherListener = new SpaceWeatherListener(
-            this);
-    private final SpaceEntityListener entityListener = new SpaceEntityListener(
-            this);
-    private final SpacePlayerListener playerListener = new SpacePlayerListener(
-            this);
-    private final SpaceSpoutPlayerListener spListener = new SpaceSpoutPlayerListener(
-            this);
+    private final SpaceWeatherListener weatherListener = new SpaceWeatherListener(this);
+    private final SpaceEntityListener entityListener = new SpaceEntityListener(this);
+    private final SpacePlayerListener playerListener = new SpacePlayerListener(this);
+    private final SpaceSpoutPlayerListener spListener = new SpaceSpoutPlayerListener(this);
 
     /**
      * Called when the plugin is disabled.
@@ -101,17 +97,17 @@ public class BananaSpace extends JavaPlugin {
         pm.registerEvent(Event.Type.PLAYER_JOIN, playerListener,
                 Event.Priority.Normal, this);
         debugLog("Registered events (General).");
-        
+
         // Registering events for Spout
         if (pm.getPlugin("Spout") != null && SpaceConfigHandler.isUsingSpout()) {
             pm.registerEvent(Event.Type.PLAYER_TELEPORT, spListener, Event.Priority.Normal, this);
             pm.registerEvent(Event.Type.PLAYER_JOIN, spListener, Event.Priority.Normal, this);
             debugLog("Registered events (Spout).");
         }
-       
+
         // Loading space worlds (startup).
         worldHandler.loadSpaceWorlds();
-        
+
         // Initializing the CommandExecutor
         sce = new SpaceCommand(this);
         getCommand("space").setExecutor(sce);
@@ -157,8 +153,8 @@ public class BananaSpace extends JavaPlugin {
      */
     @Override
     public ChunkGenerator getDefaultWorldGenerator(String worldName, String id) {
-        if(!SpaceConfigHandler.worldIsInConfig(worldName)){
-            worldHandler.createSpaceWorld(this,worldName,true);
+        if (!SpaceConfigHandler.worldIsInConfig(worldName)) {
+            worldHandler.createSpaceWorld(this, worldName, true);
         }
         if (id == null || id.isEmpty()) {
             return new SpaceChunkGenerator();

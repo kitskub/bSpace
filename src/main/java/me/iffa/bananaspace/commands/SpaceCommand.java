@@ -29,7 +29,6 @@ public class SpaceCommand implements CommandExecutor {
     private Map<Player, Location> exitDest;
     private Map<Player, Location> enterDest;
     private BananaSpace plugin;
-    private SpacePlayerHandler spacePlayer = new SpacePlayerHandler();
 
     /**
      * Constructor for SpaceCommand.
@@ -69,9 +68,9 @@ public class SpaceCommand implements CommandExecutor {
             return true;
         }
         Player player = (Player) sender;
-        if (spacePlayer.hasPermission("bananaspace.teleport.enter", player) || spacePlayer.hasPermission("bananaspace.teleport.exit", player)) {
+        if (BananaSpace.getPlayerHandler().hasPermission("bananaspace.teleport.enter", player) || BananaSpace.getPlayerHandler().hasPermission("bananaspace.teleport.exit", player)) {
             if (args.length == 2 && args[0].equalsIgnoreCase("enter")) {
-                if (spacePlayer.hasPermission("bananaspace.teleport.enter", player)) {
+                if (BananaSpace.getPlayerHandler().hasPermission("bananaspace.teleport.enter", player)) {
                     if (BananaSpace.worldHandler.getSpaceWorlds().get(0) == player.getWorld()) {
                         player.sendMessage(ChatColor.RED + "You are already in that space world!");
                         BananaSpace.debugLog("Someone tried to use /space enter, but he was already in that space world.");
@@ -91,7 +90,7 @@ public class SpaceCommand implements CommandExecutor {
                 sender.sendMessage(ChatColor.RED + "You don't have permission!");
                 return true;
             } else if (args.length == 2 && args[0].equalsIgnoreCase("enter")) {
-                if (spacePlayer.hasPermission("bananaspace.teleport.enter", player)) {
+                if (BananaSpace.getPlayerHandler().hasPermission("bananaspace.teleport.enter", player)) {
                     if (plugin.getServer().getWorld(args[1]) == null) {
                         player.sendMessage(ChatColor.RED + "The world was not found!");
                         return true;
@@ -144,7 +143,7 @@ public class SpaceCommand implements CommandExecutor {
                     return true;
                 }
             } else if (args.length == 1 && args[0].equalsIgnoreCase("list") && sender instanceof Player) {
-                if (!spacePlayer.hasPermission("bananaspace.teleport.list", (Player) sender)) {
+                if (!BananaSpace.getPlayerHandler().hasPermission("bananaspace.teleport.list", (Player) sender)) {
                     sender.sendMessage(ChatColor.RED + "You don't have permission!");
                     return true;
                 }

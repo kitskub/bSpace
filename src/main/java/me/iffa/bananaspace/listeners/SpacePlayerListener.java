@@ -37,12 +37,11 @@ public class SpacePlayerListener extends PlayerListener {
     // Variables
     public static Map<Player, Integer> taskid = new HashMap<Player, Integer>();
     public static Map<Player, Boolean> isUsed = new HashMap<Player, Boolean>();
-    private SpacePlayerHandler spacePlayer = new SpacePlayerHandler();
-    private BananaSpace plugin;
     private Map<Player, Boolean> inArea = new HashMap<Player, Boolean>();
     private Map<Player, Boolean> fixDupe = new HashMap<Player, Boolean>();
     private Map<Player, String> armorType = new HashMap<Player, String>();
     private int taskInt;
+    private BananaSpace plugin;
 
     /**
      * Constructor for SpacePlayerListener.
@@ -71,7 +70,7 @@ public class SpacePlayerListener extends PlayerListener {
                             new ItemStack(SpaceConfigHandler.getHelmetBlock(), 1));
                 }
                 if (SpaceConfigHandler.isSuitGiven()) {
-                    spacePlayer.giveSpaceSuit(SpaceConfigHandler.getArmorType(), player);
+                    BananaSpace.getPlayerHandler().giveSpaceSuit(SpaceConfigHandler.getArmorType(), player);
                 }
                 // Notify listeners.
                 TeleportToSpaceEvent e = new TeleportToSpaceEvent("TeleportToSpaceEvent", event.getPlayer(), event.getFrom(), event.getTo());
@@ -87,7 +86,7 @@ public class SpacePlayerListener extends PlayerListener {
                     event.getPlayer().getInventory().setHelmet(new ItemStack(null, 1));
                 }
                 if (SpaceConfigHandler.isSuitGiven()) {
-                    spacePlayer.giveSpaceSuit("null", player);
+                    BananaSpace.getPlayerHandler().giveSpaceSuit("null", player);
                 }
             }
         } else {

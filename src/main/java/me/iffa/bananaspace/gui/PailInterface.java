@@ -11,8 +11,6 @@ import org.bukkit.util.config.Configuration;
 
 // Java Imports
 import java.awt.Desktop;
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import javax.swing.JOptionPane;
 import javax.swing.DefaultListModel;
 import java.io.IOException;
@@ -138,6 +136,7 @@ public class PailInterface extends javax.swing.JPanel {
         CreateWorldButton = new javax.swing.JButton();
         DeleteWorldButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        NewWorld = new javax.swing.JTextField();
         Settings = new javax.swing.JPanel();
         Settings_Save = new javax.swing.JButton();
         Settings_Reset = new javax.swing.JButton();
@@ -161,7 +160,7 @@ public class PailInterface extends javax.swing.JPanel {
         Settings_Night = new javax.swing.JCheckBox();
         jLabel8 = new javax.swing.JLabel();
 
-        setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        setFont(new java.awt.Font("Arial", 0, 11));
         setInheritsPopupMenu(true);
         setMaximumSize(new java.awt.Dimension(850, 450));
         setMinimumSize(new java.awt.Dimension(850, 450));
@@ -293,7 +292,7 @@ public class PailInterface extends javax.swing.JPanel {
         SpaceWorlds.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Spaceworlds", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
         SpaceWorlds.setToolTipText("Panel with buttons to create and delete spaceworlds..");
 
-        SpaceList.setFont(new java.awt.Font("Arial", 0, 12));
+        SpaceList.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         SpaceList.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "No spaceworlds" };
             public int getSize() { return strings.length; }
@@ -316,9 +315,9 @@ public class PailInterface extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(SpaceList);
 
-        CreateWorldButton.setFont(new java.awt.Font("Arial", 0, 11));
+        CreateWorldButton.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         CreateWorldButton.setText("Create");
-        CreateWorldButton.setToolTipText("Opens anew window that allows you to create new spaceworlds.");
+        CreateWorldButton.setToolTipText("Creates a new spaceworld with the name on the box above.");
         CreateWorldButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CreateWorldButtonActionPerformed(evt);
@@ -334,6 +333,9 @@ public class PailInterface extends javax.swing.JPanel {
             }
         });
 
+        NewWorld.setText("World name");
+        NewWorld.setToolTipText("Specify a name for the spaceworld. Must not be a world already, and must not be empty or contain spaces.");
+
         javax.swing.GroupLayout SpaceWorldsLayout = new javax.swing.GroupLayout(SpaceWorlds);
         SpaceWorlds.setLayout(SpaceWorldsLayout);
         SpaceWorldsLayout.setHorizontalGroup(
@@ -343,27 +345,36 @@ public class PailInterface extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(SpaceWorldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(SpaceWorldsLayout.createSequentialGroup()
-                        .addGap(125, 125, 125)
-                        .addComponent(jLabel1))
                     .addComponent(DeleteWorldButton, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(CreateWorldButton))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SpaceWorldsLayout.createSequentialGroup()
+                        .addGroup(SpaceWorldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(NewWorld, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
+                            .addComponent(CreateWorldButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(60, 60, 60)
+                        .addComponent(jLabel1)))
                 .addContainerGap())
         );
         SpaceWorldsLayout.setVerticalGroup(
             SpaceWorldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(SpaceWorldsLayout.createSequentialGroup()
                 .addGroup(SpaceWorldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(SpaceWorldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(SpaceWorldsLayout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(CreateWorldButton)
-                            .addGap(18, 18, 18)
-                            .addComponent(DeleteWorldButton))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SpaceWorldsLayout.createSequentialGroup()
-                            .addComponent(jLabel1)
-                            .addGap(147, 147, 147)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(SpaceWorldsLayout.createSequentialGroup()
+                        .addComponent(NewWorld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(SpaceWorldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(SpaceWorldsLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                                .addGroup(SpaceWorldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SpaceWorldsLayout.createSequentialGroup()
+                                        .addComponent(DeleteWorldButton)
+                                        .addGap(17, 17, 17))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SpaceWorldsLayout.createSequentialGroup()
+                                        .addComponent(jLabel1)
+                                        .addGap(147, 147, 147))))
+                            .addGroup(SpaceWorldsLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(CreateWorldButton)))))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
@@ -589,7 +600,7 @@ public class PailInterface extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(SpaceWorlds, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Settings, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)))
+                    .addComponent(Settings, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -622,16 +633,28 @@ public class PailInterface extends javax.swing.JPanel {
     }//GEN-LAST:event_ResetButtonActionPerformed
 
 private void CreateWorldButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateWorldButtonActionPerformed
-    PailCreateWorld worldbox = new PailCreateWorld(plugin);
-    worldbox.setTitle("New spaceworld");
-    Dimension dims = Toolkit.getDefaultToolkit().getScreenSize();
-    int ws = worldbox.getSize().width;
-    int hs = worldbox.getSize().height;
-    int xs = (dims.width - ws) / 2;
-    int ys = (dims.height - hs) / 2;
-    worldbox.setLocation(xs, ys);
-    worldbox.setVisible(true);
-    //JOptionPane.showMessageDialog(this, "Creating spaceworlds is disabled because the feature doesn't work correctly at the moment. Please check back later with a newer version!", "Feature unfinished", JOptionPane.INFORMATION_MESSAGE);
+    String worldname = NewWorld.getText().trim();
+    if (worldname.equalsIgnoreCase("")) {
+        JOptionPane.showMessageDialog(this, "The world name cannot be empty!", "Invalid world name", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+    if (plugin.getServer().getWorld(worldname) != null) {
+        JOptionPane.showMessageDialog(this, "A world with the given name already exists!", "Invalid world name", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+    if (worldname.contains(" ")) {
+        JOptionPane.showMessageDialog(this, "The world name cannot contain spaces!", "Invalid world name", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+    BananaSpace.scheduler.scheduleSyncDelayedTask(plugin, new Runnable() {
+
+        public void run() {
+            BananaSpace.worldHandler.createSpaceWorld(plugin, NewWorld.getText().trim(), false);
+        }
+    }, 1L);
+    BananaSpace.debugLog("Created spaceworld '" + worldname + "' through Pail.");
+    JOptionPane.showMessageDialog(this, "A new spaceworld called '" + worldname + "' has been created!", "Spaceworld created", JOptionPane.INFORMATION_MESSAGE);
+    NewWorld.setText("World name");
 }//GEN-LAST:event_CreateWorldButtonActionPerformed
 
 private void DeleteWorldButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteWorldButtonActionPerformed
@@ -711,6 +734,7 @@ private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
     private javax.swing.JButton DeleteWorldButton;
     private javax.swing.JPanel GlobalSettings;
     private javax.swing.JTextField HelmetBlockIdBox;
+    private javax.swing.JTextField NewWorld;
     private javax.swing.JButton ResetButton;
     private javax.swing.JButton SaveButton;
     private javax.swing.JPanel Settings;
