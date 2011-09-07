@@ -189,6 +189,6 @@ public class BananaSpace extends JavaPlugin {
      * @return SpacePlayerHandler
      */
     public static SpacePlayerHandler getPlayerHandler() {
-        return null;
+        return playerHandler;
     }
 }
