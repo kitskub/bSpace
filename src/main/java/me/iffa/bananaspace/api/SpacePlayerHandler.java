@@ -13,7 +13,6 @@ import org.bukkit.inventory.ItemStack;
  * 
  */
 public class SpacePlayerHandler {
-
     /**
      * Checks if a player has the specified permission node.
      * 

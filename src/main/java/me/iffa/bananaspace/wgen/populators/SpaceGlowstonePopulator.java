@@ -23,8 +23,7 @@ import org.bukkit.generator.BlockPopulator;
  */
 public class SpaceGlowstonePopulator extends BlockPopulator {
     // Variables
-    private static final BlockFace[] faces = {BlockFace.DOWN, BlockFace.EAST,
-        BlockFace.NORTH, BlockFace.SOUTH, BlockFace.UP, BlockFace.WEST};
+    private static final BlockFace[] faces = {BlockFace.DOWN, BlockFace.EAST, BlockFace.NORTH, BlockFace.SOUTH, BlockFace.UP, BlockFace.WEST};
 
     /**
      * Populates a world with glowstone patches.
@@ -48,7 +47,7 @@ public class SpaceGlowstonePopulator extends BlockPopulator {
             }
             if (random.nextInt(200) <= SpaceConfigHandler.getGlowstoneChance(world)) {
                 block.setTypeId(89);
-                
+
                 for (int j = 0; j < 1500; j++) {
                     Block current = block.getRelative(random.nextInt(8) - random.nextInt(8),
                             random.nextInt(12),

@@ -23,7 +23,7 @@ import org.bukkit.util.config.Configuration;
  */
 public class SpaceConfig {
     // Variables
-    private static Configuration myConfig; //TODO convert all uses to getter method
+    private static Configuration myConfig;
     private static boolean loaded = false;
 
     /**

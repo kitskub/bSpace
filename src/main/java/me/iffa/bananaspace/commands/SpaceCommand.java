@@ -8,7 +8,6 @@ import java.util.Map;
 // BananaSpace Imports
 import me.iffa.bananaspace.BananaSpace;
 import me.iffa.bananaspace.api.event.misc.SpaceCommandEvent;
-import me.iffa.bananaspace.api.SpacePlayerHandler;
 
 // Bukkit Imports
 import org.bukkit.ChatColor;
@@ -118,11 +117,11 @@ public class SpaceCommand implements CommandExecutor {
                 return true;
             } else if (args.length == 1 && args[0].equalsIgnoreCase("back") && sender instanceof Player) {
                 if (BananaSpace.worldHandler.isInAnySpace(player)) {
-                    if (BananaSpace.playerHandler.hasPermission("bananaspace.teleport.exit", player)) {
+                    if (BananaSpace.getPlayerHandler().hasPermission("bananaspace.teleport.exit", player)) {
                         enterDest.put(player, player.getLocation());
                     }
                     Location location;
-                    if (BananaSpace.playerHandler.hasPermission("bananaspace.teleport.exit", player)) {
+                    if (BananaSpace.getPlayerHandler().hasPermission("bananaspace.teleport.exit", player)) {
                         if (exitDest.containsKey(player)) {
                             location = exitDest.get(player);
                             BananaSpace.debugLog("Teleported player '" + player.getName() + "' out of space.");

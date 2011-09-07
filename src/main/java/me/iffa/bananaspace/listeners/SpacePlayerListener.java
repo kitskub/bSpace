@@ -12,7 +12,6 @@ import me.iffa.bananaspace.api.event.area.AreaEnterEvent;
 import me.iffa.bananaspace.api.event.area.AreaLeaveEvent;
 import me.iffa.bananaspace.api.event.misc.SpaceSuffocationEvent;
 import me.iffa.bananaspace.api.event.misc.TeleportToSpaceEvent;
-import me.iffa.bananaspace.api.SpacePlayerHandler;
 import me.iffa.bananaspace.runnable.SpaceRunnable2;
 
 // Bukkit Imports

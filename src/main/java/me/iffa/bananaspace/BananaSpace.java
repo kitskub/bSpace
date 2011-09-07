@@ -45,6 +45,7 @@ public class BananaSpace extends JavaPlugin {
     public static SpaceWorldHandler worldHandler;
     public static SpacePlayerHandler playerHandler;
     public static PailInterface pailInt;
+    public static PluginManager pm;
     private SpaceCommand sce = null;
     private final SpaceWeatherListener weatherListener = new SpaceWeatherListener(this);
     private final SpaceEntityListener entityListener = new SpaceEntityListener(this);
@@ -65,12 +66,7 @@ public class BananaSpace extends JavaPlugin {
     @Override
     public void onEnable() {
         // Initializing variables
-        PluginManager pm = getServer().getPluginManager();
-        version = getDescription().getVersion();
-        prefix = "[" + getDescription().getName() + "]";
-        scheduler = getServer().getScheduler();
-        worldHandler = new SpaceWorldHandler(this);
-        playerHandler = new SpacePlayerHandler();
+        initVariables();
 
         // Loading configuration files
         SpaceConfig.loadConfig();
@@ -130,6 +126,18 @@ public class BananaSpace extends JavaPlugin {
 
         log.info(prefix + " Enabled version " + version);
     }
+    
+    /**
+     * Initializes variables (used on startup).
+     */
+    private void initVariables() {
+        pm = getServer().getPluginManager();
+        version = getDescription().getVersion();
+        prefix = "[" + getDescription().getName() + "]";
+        scheduler = getServer().getScheduler();
+        worldHandler = new SpaceWorldHandler(this);
+        playerHandler = new SpacePlayerHandler();
+    }
 
     /**
      * Prints a debug message to the server log.
@@ -181,6 +189,6 @@ public class BananaSpace extends JavaPlugin {
      * @return SpacePlayerHandler
      */
     public static SpacePlayerHandler getPlayerHandler() {
-        return playerHandler;
+        return null;
     }
 }
