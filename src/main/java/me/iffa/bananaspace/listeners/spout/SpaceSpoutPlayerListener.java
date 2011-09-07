@@ -91,9 +91,9 @@ public class SpaceSpoutPlayerListener extends PlayerListener {
                     BananaSpace.debugLog("Made zombie '" + entity.getEntityId() + "' have an alien skin for player '" + player.getName() + "'.");
                 }
             }
-            player.setAirSpeedMultiplier(0.5);
-            player.setGravityMultiplier(6);
-            player.setJumpingMultiplier(6);
+            player.setAirSpeedMultiplier(10);
+            player.setGravityMultiplier(10);
+            player.setJumpingMultiplier(10);
             BananaSpace.debugLog("Changed player '" + player.getName() + "'s gravity settings.");
         }
     }

@@ -60,7 +60,6 @@ public class SpaceEntityListener extends EntityListener {
                         return;
                     }
                     event.setCancelled(true);
-                    BananaSpace.debugLog("Cancelled creature spawn event, entity '" + event.getCreatureType() + "'.");
                     
                 }
             }
@@ -78,7 +77,6 @@ public class SpaceEntityListener extends EntityListener {
                         return;
                     }
                     event.setCancelled(true);
-                    BananaSpace.debugLog("Cancelled creature spawn event, entity '" + event.getCreatureType() + "'.");
                 }
             }
         }
