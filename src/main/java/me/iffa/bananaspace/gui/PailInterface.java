@@ -720,7 +720,6 @@ private void Settings_NightActionPerformed(java.awt.event.ActionEvent evt) {//GE
 
 private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
     try {
-
         Desktop.getDesktop().browse(java.net.URI.create("http://forums.bukkit.org/threads/32546/"));
     } catch (IOException ex) {
         BananaSpace.log.warning(BananaSpace.prefix + " Something went wrong while opening a page on your web browser!");
