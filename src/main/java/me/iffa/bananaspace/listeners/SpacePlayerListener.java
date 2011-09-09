@@ -5,7 +5,6 @@ package me.iffa.bananaspace.listeners;
 import java.util.HashMap;
 import java.util.Map;
 
-// BananaSpace Imports
 import me.iffa.bananaspace.BananaSpace;
 import me.iffa.bananaspace.api.SpaceConfigHandler;
 import me.iffa.bananaspace.api.event.area.AreaEnterEvent;
@@ -14,7 +13,6 @@ import me.iffa.bananaspace.api.event.misc.SpaceSuffocationEvent;
 import me.iffa.bananaspace.api.event.misc.TeleportToSpaceEvent;
 import me.iffa.bananaspace.runnable.SpaceRunnable2;
 
-// Bukkit Imports
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -36,11 +34,11 @@ public class SpacePlayerListener extends PlayerListener {
     // Variables
     public static Map<Player, Integer> taskid = new HashMap<Player, Integer>();
     public static Map<Player, Boolean> isUsed = new HashMap<Player, Boolean>();
-    private Map<Player, Boolean> inArea = new HashMap<Player, Boolean>();
-    private Map<Player, Boolean> fixDupe = new HashMap<Player, Boolean>();
-    private Map<Player, String> armorType = new HashMap<Player, String>();
+    private final Map<Player, Boolean> inArea = new HashMap<Player, Boolean>();
+    private final Map<Player, Boolean> fixDupe = new HashMap<Player, Boolean>();
+    private final Map<Player, String> armorType = new HashMap<Player, String>();
     private int taskInt;
-    private BananaSpace plugin;
+    private final BananaSpace plugin;
 
     /**
      * Constructor for SpacePlayerListener.
