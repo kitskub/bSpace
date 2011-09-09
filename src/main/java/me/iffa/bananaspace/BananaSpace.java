@@ -4,31 +4,29 @@ package me.iffa.bananaspace;
 // Java imports
 import java.util.logging.Logger;
 
-// BananaSpace imports
+import me.escapeNT.pail.Pail;
+import me.iffa.bananaspace.api.SpaceConfigHandler;
+import me.iffa.bananaspace.api.SpacePlayerHandler;
+import me.iffa.bananaspace.api.SpaceWorldHandler;
+import me.iffa.bananaspace.commands.SpaceCommand;
+import me.iffa.bananaspace.config.SpaceConfig;
+import me.iffa.bananaspace.config.SpacePlanetConfig;
+import me.iffa.bananaspace.gui.PailInterface;
 import me.iffa.bananaspace.listeners.SpaceEntityListener;
 import me.iffa.bananaspace.listeners.SpacePlayerListener;
 import me.iffa.bananaspace.listeners.misc.SpaceWeatherListener;
+import me.iffa.bananaspace.listeners.spout.SpaceSpoutCraftListener;
+import me.iffa.bananaspace.listeners.spout.SpaceSpoutEntityListener;
 import me.iffa.bananaspace.listeners.spout.SpaceSpoutPlayerListener;
-import me.iffa.bananaspace.commands.SpaceCommand;
-import me.iffa.bananaspace.config.SpaceConfig;
-import me.iffa.bananaspace.api.SpaceWorldHandler;
-import me.iffa.bananaspace.api.SpaceConfigHandler;
-import me.iffa.bananaspace.api.SpacePlayerHandler;
-import me.iffa.bananaspace.config.SpacePlanetConfig;
-import me.iffa.bananaspace.gui.PailInterface;
 import me.iffa.bananaspace.wgen.SpaceChunkGenerator;
 import me.iffa.bananaspace.wgen.planets.PlanetsChunkGenerator;
 
-// Bukkit imports
 import org.bukkit.World;
 import org.bukkit.event.Event;
-import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.plugin.PluginManager;
-import org.bukkit.scheduler.BukkitScheduler;
 import org.bukkit.generator.ChunkGenerator;
-
-// Pail Imports
-import me.escapeNT.pail.Pail;
+import org.bukkit.plugin.PluginManager;
+import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitScheduler;
 
 /**
  * Main class of BananaSpace
@@ -51,6 +49,8 @@ public class BananaSpace extends JavaPlugin {
     private final SpaceEntityListener entityListener = new SpaceEntityListener(this);
     private final SpacePlayerListener playerListener = new SpacePlayerListener(this);
     private final SpaceSpoutPlayerListener spListener = new SpaceSpoutPlayerListener(this);
+    private final SpaceSpoutCraftListener spcListener = new SpaceSpoutCraftListener(this);
+    private final SpaceSpoutEntityListener speListener = new SpaceSpoutEntityListener(this);
 
     /**
      * Called when the plugin is disabled.
@@ -97,7 +97,9 @@ public class BananaSpace extends JavaPlugin {
         // Registering events for Spout
         if (pm.getPlugin("Spout") != null && SpaceConfigHandler.isUsingSpout()) {
             pm.registerEvent(Event.Type.PLAYER_TELEPORT, spListener, Event.Priority.Normal, this);
-            pm.registerEvent(Event.Type.PLAYER_JOIN, spListener, Event.Priority.Normal, this);
+            //pm.registerEvent(Event.Type.PLAYER_JOIN, spListener, Event.Priority.Normal, this); //moved this into a Custom Listener
+            pm.registerEvent(Event.Type.ENTITY_DAMAGE, speListener, Event.Priority.Normal, this);
+            pm.registerEvent(Event.Type.CUSTOM_EVENT, spcListener, Event.Priority.Normal, this);
             debugLog("Registered events (Spout).");
         }
 

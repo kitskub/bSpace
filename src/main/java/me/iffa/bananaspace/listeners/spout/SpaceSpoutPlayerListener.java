@@ -3,15 +3,12 @@ package me.iffa.bananaspace.listeners.spout;
 
 // BananaSpace Imports
 import me.iffa.bananaspace.BananaSpace;
+import me.iffa.bananaspace.runnable.SpaceRunnable3;
 
-// Bukkit Imports
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Zombie;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerListener;
 import org.bukkit.event.player.PlayerTeleportEvent;
-
-// Spout Imports
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.player.AppearanceManager;
 import org.getspout.spoutapi.player.EntitySkinType;
@@ -25,9 +22,9 @@ import org.getspout.spoutapi.player.SpoutPlayer;
  */
 public class SpaceSpoutPlayerListener extends PlayerListener {
     // Variables
-    private SkyManager sky = SpoutManager.getSkyManager();
-    private AppearanceManager app = SpoutManager.getAppearanceManager();
-    private BananaSpace plugin;
+    private final SkyManager sky = SpoutManager.getSkyManager();
+    private final AppearanceManager app = SpoutManager.getAppearanceManager();
+    private final BananaSpace plugin;
 
     /**
      * Constructor for SpaceSpoutPlayerListener.
@@ -35,7 +32,7 @@ public class SpaceSpoutPlayerListener extends PlayerListener {
      * @param plugin BananaSpace
      */
     public SpaceSpoutPlayerListener(BananaSpace plugin) {
-        this.plugin = plugin;
+	this.plugin = plugin;
     }
 
     /**
@@ -45,56 +42,34 @@ public class SpaceSpoutPlayerListener extends PlayerListener {
      */
     @Override
     public void onPlayerTeleport(PlayerTeleportEvent event) {
-        SpoutPlayer player = SpoutManager.getPlayer(event.getPlayer());
-        if (event.isCancelled()) {
-            return;
-        }
-        /* Player teleports to spaceworld */
-        if (BananaSpace.worldHandler.isSpaceWorld(event.getTo().getWorld())) {
-            sky.setCloudsVisible(player, false);
-            BananaSpace.debugLog("Made clouds invisible for player '" + player.getName() + "'.");
-            for (LivingEntity entity : player.getWorld().getLivingEntities()) {
-                if (entity instanceof Zombie) {
-                    app.setEntitySkin(player, entity, "http://dl.dropbox.com/u/16261496/bananaspace_alien.png", EntitySkinType.DEFAULT);
-                    BananaSpace.debugLog("Made zombie '" + entity.getEntityId() + "' have an alien skin for player '" + player.getName() + "'.");
-                }
-            }
-            player.setAirSpeedMultiplier(0.5);
-            player.setGravityMultiplier(6);
-            player.setJumpingMultiplier(6);
-            BananaSpace.debugLog("Changed player '" + player.getName() + "'s gravity settings.");
-        }
-        /* Player teleports out of spaceworld */
-        if (BananaSpace.worldHandler.isSpaceWorld(event.getFrom().getWorld()) && !BananaSpace.worldHandler.isSpaceWorld(event.getTo().getWorld())) {
-            sky.setCloudsVisible(player, true);
-            BananaSpace.debugLog("Made clouds visible for player '" + player.getName() + "'.");
-            player.resetMovement();
-            BananaSpace.debugLog("Reset player '" + player.getName() + "'s gravity settings.");
-        }
-    }
-
-    /**
-     * Called when a player joins the game.
-     * 
-     * @param event Event data 
-     */
-    @Override
-    public void onPlayerJoin(PlayerJoinEvent event) {
-        SpoutPlayer player = SpoutManager.getPlayer(event.getPlayer());
-        /* Player joins to spaceworld */
-        if (BananaSpace.worldHandler.isSpaceWorld(player.getWorld())) {
-            sky.setCloudsVisible(player, false);
-            BananaSpace.debugLog("Made clouds invisible for player '" + player.getName() + "'.");
-            for (LivingEntity entity : player.getWorld().getLivingEntities()) {
-                if (entity instanceof Zombie) {
-                    app.setEntitySkin(player, entity, "http://dl.dropbox.com/u/16261496/bananaspace_alien.png", EntitySkinType.DEFAULT);
-                    BananaSpace.debugLog("Made zombie '" + entity.getEntityId() + "' have an alien skin for player '" + player.getName() + "'.");
-                }
-            }
-            player.setAirSpeedMultiplier(10);
-            player.setGravityMultiplier(10);
-            player.setJumpingMultiplier(10);
-            BananaSpace.debugLog("Changed player '" + player.getName() + "'s gravity settings.");
-        }
+	SpoutPlayer player = SpoutManager.getPlayer(event.getPlayer());
+	if (event.isCancelled() || !player.isSpoutCraftEnabled()) {
+	    return;
+	}
+	/* Player teleports to spaceworld */
+	if (BananaSpace.worldHandler.isSpaceWorld(event.getTo().getWorld())) {
+	    sky.setCloudsVisible(player, false);
+	    BananaSpace.debugLog("Made clouds invisible for player '" + player.getName() + "'.");
+	    for (LivingEntity entity : player.getWorld().getLivingEntities()) {
+		if (entity instanceof Zombie) {
+		    app.setEntitySkin(player, entity, "http://dl.dropbox.com/u/16261496/bananaspace_alien.png", EntitySkinType.DEFAULT);
+		    BananaSpace.debugLog("Made zombie '" + entity.getEntityId() + "' have an alien skin for player '" + player.getName() + "'.");
+		}
+	    }
+	    
+	    sky.setMoonVisible(player, false);
+	    sky.setCloudsVisible(player, false);
+	    sky.setStarFrequency(player, 20000);
+	    
+	    int task = BananaSpace.scheduler.scheduleSyncDelayedTask(plugin, new SpaceRunnable3(event.getPlayer()), 20L);
+	}
+	/* Player teleports out of spaceworld */
+	if (BananaSpace.worldHandler.isSpaceWorld(event.getFrom().getWorld()) && !BananaSpace.worldHandler.isSpaceWorld(event.getTo().getWorld())) {
+	    sky.setCloudsVisible(player, true);
+	    BananaSpace.debugLog("Made clouds visible for player '" + player.getName() + "'.");
+	    player.setCanFly(false);
+	    player.resetMovement();
+	    BananaSpace.debugLog("Reset player '" + player.getName() + "'s gravity settings.");
+	}
     }
 }
