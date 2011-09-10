@@ -44,7 +44,7 @@ public class SpaceSpoutCraftListener extends SpoutListener {
 	    //Set the sky properties
 	    sky.setMoonVisible(player, false);
 	    sky.setCloudsVisible(player, false);
-	    sky.setStarFrequency(player, 10000);
+	    sky.setStarFrequency(player, 5000);
 	    //Set the player properties
 	    player.setAirSpeedMultiplier(1.2);
 	    player.setGravityMultiplier(0.3);

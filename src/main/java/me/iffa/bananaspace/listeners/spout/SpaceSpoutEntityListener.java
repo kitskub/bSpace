@@ -2,6 +2,7 @@ package me.iffa.bananaspace.listeners.spout;
 
 import me.iffa.bananaspace.BananaSpace;
 
+import org.bukkit.Location;
 import org.bukkit.entity.CreatureType;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -34,7 +35,29 @@ public class SpaceSpoutEntityListener extends EntityListener {
 	if(entity instanceof Player) {
 	    SpoutPlayer player = SpoutManager.getPlayer((Player)entity);
 	    if(BananaSpace.getWorldHandler().isInAnySpace(player) && event.getCause().equals(DamageCause.FALL) && player.isSpoutCraftEnabled()) {
-		event.setDamage(0); //Fuck math
+		if(BananaSpace.locCache.containsKey(player)) {
+		    Location landing = player.getLocation(); //The landing point
+		    Location starting = BananaSpace.locCache.get(player); //The starting point
+		    if(landing.getWorld().equals(starting.getWorld())) { //moar idiot proofing
+			int startY = starting.getBlockY();
+			int endY = landing.getBlockY();
+			int offset = 15; //The offset (needs configuration node)
+			
+			//Simple Math
+			if((startY+offset) <= endY) {
+			    //I'm going to be adding more advanced math soon, this is to get it working
+			    event.setDamage(1); //half heart of damage
+			} else {
+			    event.setDamage(0); //no damage!
+			}
+		    } else {
+			BananaSpace.debugLog("Worlds are not the same! Canceling event!");
+			event.setCancelled(true);
+		    }
+		} else {
+		    BananaSpace.debugLog("Player "+player.getName()+" wasn't in the Location Cache! Canceling event!");
+		    event.setCancelled(true);
+		}
 	    }
 	}
     }

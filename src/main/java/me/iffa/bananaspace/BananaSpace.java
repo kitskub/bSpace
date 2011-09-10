@@ -2,12 +2,14 @@
 package me.iffa.bananaspace;
 
 // Java imports
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Logger;
 
-// Pail Imports
+//Pail Imports
 import me.escapeNT.pail.Pail;
 
-// BananaSpace
+//BananaSpace
 import me.iffa.bananaspace.api.SpaceConfigHandler;
 import me.iffa.bananaspace.api.SpacePlayerHandler;
 import me.iffa.bananaspace.api.SpaceWorldHandler;
@@ -21,15 +23,18 @@ import me.iffa.bananaspace.listeners.misc.SpaceWeatherListener;
 import me.iffa.bananaspace.listeners.spout.SpaceSpoutAreaListener;
 import me.iffa.bananaspace.listeners.spout.SpaceSpoutCraftListener;
 import me.iffa.bananaspace.listeners.spout.SpaceSpoutEntityListener;
+import me.iffa.bananaspace.listeners.spout.SpaceSpoutKeyListener;
 import me.iffa.bananaspace.listeners.spout.SpaceSpoutPlayerListener;
 import me.iffa.bananaspace.wgen.SpaceChunkGenerator;
 import me.iffa.bananaspace.wgen.planets.PlanetsChunkGenerator;
 
-// BukkitStats Imports
+//BukkitStats Imports
 import org.blockface.bukkitstats.CallHome;
 
-// Bukkit Imports
+//Bukkit Imports
+import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.plugin.PluginManager;
@@ -53,6 +58,7 @@ public class BananaSpace extends JavaPlugin {
     public static PailInterface pailInt;
     public static PluginManager pm;
     private SpaceCommand sce = null;
+    public static Map<Player, Location> locCache = null;
     //Basic Listeners
     private final SpaceWeatherListener weatherListener = new SpaceWeatherListener(this);
     private final SpaceEntityListener entityListener = new SpaceEntityListener(this);
@@ -62,6 +68,7 @@ public class BananaSpace extends JavaPlugin {
     private final SpaceSpoutCraftListener spcListener = new SpaceSpoutCraftListener(this);
     private final SpaceSpoutEntityListener speListener = new SpaceSpoutEntityListener(this);
     private final SpaceSpoutAreaListener spaListener = new SpaceSpoutAreaListener(this);
+    private final SpaceSpoutKeyListener spkListener = new SpaceSpoutKeyListener(this);
 
     /**
      * Called when the plugin is disabled.
@@ -111,12 +118,13 @@ public class BananaSpace extends JavaPlugin {
 
         // Registering events for Spout
         if (pm.getPlugin("Spout") != null && SpaceConfigHandler.isUsingSpout()) {
-            pm.registerEvent(Event.Type.PLAYER_TELEPORT, spListener, Event.Priority.Normal, this);
+            pm.registerEvent(Event.Type.PLAYER_TELEPORT, spListener, Event.Priority.Normal, this); //Player listener
             //pm.registerEvent(Event.Type.PLAYER_JOIN, spListener, Event.Priority.Normal, this); //moved this into a Custom Listener
-            pm.registerEvent(Event.Type.ENTITY_DAMAGE, speListener, Event.Priority.Normal, this);
+            pm.registerEvent(Event.Type.ENTITY_DAMAGE, speListener, Event.Priority.Normal, this); //Entity Listener
             //pm.registerEvent(Event.Type.CREATURE_SPAWN, speListener, Event.Priority.Normal, this); //Disabled until Limitations in Spout is fixed
-            pm.registerEvent(Event.Type.CUSTOM_EVENT, spcListener, Event.Priority.Normal, this);
+            pm.registerEvent(Event.Type.CUSTOM_EVENT, spcListener, Event.Priority.Normal, this); //SpoutCraft Listener
             pm.registerEvent(Event.Type.CUSTOM_EVENT, spaListener, Event.Priority.Normal, this); //Area Listener
+            pm.registerEvent(Event.Type.CUSTOM_EVENT, spkListener, Event.Priority.Normal, this); //Key Listener
             debugLog("Registered events (Spout).");
         }
 
@@ -156,6 +164,10 @@ public class BananaSpace extends JavaPlugin {
         scheduler = getServer().getScheduler();
         worldHandler = new SpaceWorldHandler(this);
         playerHandler = new SpacePlayerHandler();
+        //Init the Variables Spout needs
+        if (pm.getPlugin("Spout") != null && SpaceConfigHandler.isUsingSpout()) {
+            locCache = new HashMap<Player, Location>();
+        }
     }
 
     /**
