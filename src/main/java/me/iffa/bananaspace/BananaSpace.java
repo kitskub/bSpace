@@ -15,6 +15,7 @@ import me.iffa.bananaspace.gui.PailInterface;
 import me.iffa.bananaspace.listeners.SpaceEntityListener;
 import me.iffa.bananaspace.listeners.SpacePlayerListener;
 import me.iffa.bananaspace.listeners.misc.SpaceWeatherListener;
+import me.iffa.bananaspace.listeners.spout.SpaceSpoutAreaListener;
 import me.iffa.bananaspace.listeners.spout.SpaceSpoutCraftListener;
 import me.iffa.bananaspace.listeners.spout.SpaceSpoutEntityListener;
 import me.iffa.bananaspace.listeners.spout.SpaceSpoutPlayerListener;
@@ -45,12 +46,15 @@ public class BananaSpace extends JavaPlugin {
     public static PailInterface pailInt;
     public static PluginManager pm;
     private SpaceCommand sce = null;
+    //Basic Listeners
     private final SpaceWeatherListener weatherListener = new SpaceWeatherListener(this);
     private final SpaceEntityListener entityListener = new SpaceEntityListener(this);
     private final SpacePlayerListener playerListener = new SpacePlayerListener(this);
+    //Spout Listeners
     private final SpaceSpoutPlayerListener spListener = new SpaceSpoutPlayerListener(this);
     private final SpaceSpoutCraftListener spcListener = new SpaceSpoutCraftListener(this);
     private final SpaceSpoutEntityListener speListener = new SpaceSpoutEntityListener(this);
+    private final SpaceSpoutAreaListener spaListener = new SpaceSpoutAreaListener(this);
 
     /**
      * Called when the plugin is disabled.
@@ -99,7 +103,9 @@ public class BananaSpace extends JavaPlugin {
             pm.registerEvent(Event.Type.PLAYER_TELEPORT, spListener, Event.Priority.Normal, this);
             //pm.registerEvent(Event.Type.PLAYER_JOIN, spListener, Event.Priority.Normal, this); //moved this into a Custom Listener
             pm.registerEvent(Event.Type.ENTITY_DAMAGE, speListener, Event.Priority.Normal, this);
+            //pm.registerEvent(Event.Type.CREATURE_SPAWN, speListener, Event.Priority.Normal, this); //Disabled until Limitations in Spout is fixed
             pm.registerEvent(Event.Type.CUSTOM_EVENT, spcListener, Event.Priority.Normal, this);
+            pm.registerEvent(Event.Type.CUSTOM_EVENT, spaListener, Event.Priority.Normal, this); //Area Listener
             debugLog("Registered events (Spout).");
         }
 
@@ -125,7 +131,7 @@ public class BananaSpace extends JavaPlugin {
             pailInt = new PailInterface(this);
             ((Pail) pm.getPlugin("Pail")).loadInterfaceComponent("BananaSpace", pailInt);
         }
-
+        
         log.info(prefix + " Enabled version " + version);
     }
     

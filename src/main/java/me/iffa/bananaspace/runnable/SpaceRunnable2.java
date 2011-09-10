@@ -5,7 +5,6 @@ package me.iffa.bananaspace.runnable;
 import me.iffa.bananaspace.BananaSpace;
 import me.iffa.bananaspace.listeners.SpacePlayerListener;
 
-// Bukkit Imports
 import org.bukkit.entity.Player;
 
 /**
@@ -15,7 +14,7 @@ import org.bukkit.entity.Player;
  */
 public class SpaceRunnable2 implements Runnable {
     // Variables
-    private Player player;
+    private final Player player;
 
     /**
      * Constructor for SpaceRunnable2.
@@ -23,7 +22,7 @@ public class SpaceRunnable2 implements Runnable {
      * @param player Player
      */
     public SpaceRunnable2(Player player) {
-        this.player = player;
+	this.player = player;
     }
 
     /**
@@ -31,10 +30,16 @@ public class SpaceRunnable2 implements Runnable {
      */
     @Override
     public void run() {
-        if (player.getHealth() < 2 && player.getHealth() > 0) {
-            player.setHealth(0);
-            BananaSpace.scheduler.cancelTask(SpacePlayerListener.taskid.get(player));
-        }
-        player.setHealth(player.getHealth() - 2);
+	if(!player.isDead()) {
+	    if (player.getHealth() < 2 && player.getHealth() > 0) {
+		player.setHealth(0);
+		BananaSpace.scheduler.cancelTask(SpacePlayerListener.taskid.get(player));
+		return;
+	    } else if(player.getHealth() <= 0) {
+		BananaSpace.scheduler.cancelTask(SpacePlayerListener.taskid.get(player));
+		return;
+	    }
+	    player.setHealth(player.getHealth() - 2);
+	}
     }
 }
