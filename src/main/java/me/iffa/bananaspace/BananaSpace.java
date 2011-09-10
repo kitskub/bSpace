@@ -4,7 +4,10 @@ package me.iffa.bananaspace;
 // Java imports
 import java.util.logging.Logger;
 
+// Pail Imports
 import me.escapeNT.pail.Pail;
+
+// BananaSpace
 import me.iffa.bananaspace.api.SpaceConfigHandler;
 import me.iffa.bananaspace.api.SpacePlayerHandler;
 import me.iffa.bananaspace.api.SpaceWorldHandler;
@@ -21,6 +24,10 @@ import me.iffa.bananaspace.listeners.spout.SpaceSpoutPlayerListener;
 import me.iffa.bananaspace.wgen.SpaceChunkGenerator;
 import me.iffa.bananaspace.wgen.planets.PlanetsChunkGenerator;
 
+// BukkitStats Imports
+import org.blockface.bukkitstats.CallHome;
+
+// Bukkit Imports
 import org.bukkit.World;
 import org.bukkit.event.Event;
 import org.bukkit.generator.ChunkGenerator;
@@ -72,6 +79,10 @@ public class BananaSpace extends JavaPlugin {
         SpaceConfig.loadConfig();
         SpacePlanetConfig.loadConfig();
         debugLog("Initialized startup variables and loaded configuration files.");
+        
+        // BukkitStats
+        log.warning(prefix + " BananaSpace will now send usage statistics. NOTE: You can turn this off in plugins/stats.");
+        CallHome.load(this);
 
         // Registering other events
         pm.registerEvent(Event.Type.WEATHER_CHANGE, weatherListener,
