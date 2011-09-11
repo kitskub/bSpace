@@ -4,7 +4,7 @@ main: me.iffa.bananaspace.BananaSpace
 name: BananaSpace
 url: http://github.com/iffa/BananaSpace
 version: '1.3 [Wool]'
-softdepend: [Permissions, Spout, Pail]
+softdepend: [Permissions, Spout, Pail,iConomy]
 #load: startup
 commands:
   space:

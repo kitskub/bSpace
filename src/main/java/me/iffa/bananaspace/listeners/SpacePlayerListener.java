@@ -62,6 +62,11 @@ public class SpacePlayerListener extends PlayerListener {
         Player player = event.getPlayer();
         if (!fixDupe.containsKey(event.getPlayer())) {
             if (BananaSpace.worldHandler.isSpaceWorld(event.getTo().getWorld()) && event.getTo().getWorld() != player.getWorld()) {
+                if(!plugin.getEconomy().enter(player)){
+                    player.sendMessage("You don't have enough money");
+                    event.setCancelled(true);
+                    return;
+                }
                 if (SpaceConfigHandler.isHelmetGiven()) {
                     event.getPlayer().getInventory().setHelmet(
                             new ItemStack(SpaceConfigHandler.getHelmetBlock(), 1));
@@ -79,6 +84,10 @@ public class SpacePlayerListener extends PlayerListener {
                 fixDupe.put(event.getPlayer(), true);
             } else if (!BananaSpace.worldHandler.isSpaceWorld(event.getTo().getWorld())
                     && BananaSpace.worldHandler.isSpaceWorld(event.getFrom().getWorld())) {
+                if(!plugin.getEconomy().exit(player)){
+                    event.setCancelled(true);
+                    return;
+                }
                 if (SpaceConfigHandler.isHelmetGiven()) {
                     event.getPlayer().getInventory().setHelmet(new ItemStack(null, 1));
                 }

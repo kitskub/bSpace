@@ -45,5 +45,10 @@
             <artifactId>bukkit</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>com.iCo6.system</groupId>
+            <artifactId>iconomy</artifactId>
+            <version>5.0.1</version>
+        </dependency>
     </dependencies>
 </project>

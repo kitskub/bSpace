@@ -69,27 +69,12 @@ public class SpaceCommand implements CommandExecutor {
         Player player = (Player) sender;
         if (BananaSpace.getPlayerHandler().hasPermission("bananaspace.teleport.enter", player) || BananaSpace.getPlayerHandler().hasPermission("bananaspace.teleport.exit", player)) {
             if (args.length == 2 && args[0].equalsIgnoreCase("enter")) {
+                if (args.length == 2 && args[0].equalsIgnoreCase("enter")) {
                 if (BananaSpace.getPlayerHandler().hasPermission("bananaspace.teleport.enter", player)) {
-                    if (BananaSpace.worldHandler.getSpaceWorlds().get(0) == player.getWorld()) {
-                        player.sendMessage(ChatColor.RED + "You are already in that space world!");
-                        BananaSpace.debugLog("Someone tried to use /space enter, but he was already in that space world.");
+                    if(!plugin.getEconomy().enterCommand(player)){
+                        player.sendMessage("You don't have enough money");
                         return true;
                     }
-                    exitDest.put(player, player.getLocation());
-                    Location location;
-                    if (enterDest.containsKey(player)) {
-                        location = enterDest.get(player);
-                    } else {
-                        location = BananaSpace.worldHandler.getSpaceWorlds().get(0).getSpawnLocation();
-                    }
-                    BananaSpace.debugLog("Teleported player '" + player.getName() + "' to space.");
-                    player.teleport(location);
-                    return true;
-                }
-                sender.sendMessage(ChatColor.RED + "You don't have permission!");
-                return true;
-            } else if (args.length == 2 && args[0].equalsIgnoreCase("enter")) {
-                if (BananaSpace.getPlayerHandler().hasPermission("bananaspace.teleport.enter", player)) {
                     if (plugin.getServer().getWorld(args[1]) == null) {
                         player.sendMessage(ChatColor.RED + "The world was not found!");
                         return true;
@@ -117,11 +102,15 @@ public class SpaceCommand implements CommandExecutor {
                 return true;
             } else if (args.length == 1 && args[0].equalsIgnoreCase("back") && sender instanceof Player) {
                 if (BananaSpace.worldHandler.isInAnySpace(player)) {
-                    if (BananaSpace.getPlayerHandler().hasPermission("bananaspace.teleport.exit", player)) {
-                        enterDest.put(player, player.getLocation());
-                    }
                     Location location;
+                
                     if (BananaSpace.getPlayerHandler().hasPermission("bananaspace.teleport.exit", player)) {
+                        if(!plugin.getEconomy().exitCommand(player)){
+                            player.sendMessage("You don't have enough money");
+                            return true;
+                        }
+                    }
+                        enterDest.put(player, player.getLocation());
                         if (exitDest.containsKey(player)) {
                             location = exitDest.get(player);
                             BananaSpace.debugLog("Teleported player '" + player.getName() + "' out of space.");

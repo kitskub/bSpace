@@ -7,6 +7,9 @@ import java.util.logging.Logger;
 // Pail Imports
 import me.escapeNT.pail.Pail;
 
+// Economy Imports
+import me.iffa.economy.Economy;
+
 // BananaSpace
 import me.iffa.bananaspace.api.SpaceConfigHandler;
 import me.iffa.bananaspace.api.SpacePlayerHandler;
@@ -58,6 +61,7 @@ public class BananaSpace extends JavaPlugin {
     private final SpaceSpoutPlayerListener spListener = new SpaceSpoutPlayerListener(this);
     private final SpaceSpoutCraftListener spcListener = new SpaceSpoutCraftListener(this);
     private final SpaceSpoutEntityListener speListener = new SpaceSpoutEntityListener(this);
+    private Economy economy;
 
     /**
      * Called when the plugin is disabled.
@@ -129,7 +133,12 @@ public class BananaSpace extends JavaPlugin {
                 debugLog("Started night forcing task for world '" + world.getName() + "'.");
             }
         }
-
+        //Economy //TODO add more than iconomy
+        if(economy==null){
+            if(Economy.checkEconomy(this)){
+            economy = new Economy(this);
+            }
+        }
         // Pail interface
         if (pm.getPlugin("Pail") != null) {
             debugLog("Starting up the Pail tab.");
@@ -203,5 +212,12 @@ public class BananaSpace extends JavaPlugin {
      */
     public static SpacePlayerHandler getPlayerHandler() {
         return playerHandler;
+    }
+
+    /**
+     * @return the economy
+     */
+    public Economy getEconomy() {
+        return economy;
     }
 }

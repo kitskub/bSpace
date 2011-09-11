@@ -17,6 +17,12 @@ global:
     givehelmet: false
     givesuit: false
     usespout: true
+economy:
+  enabled: false
+  entercommandcost: 20
+  exitcommandcost: 20
+  entercost: 20
+  exitcost: 20
 # Space worlds
 worlds:
     world_space:
