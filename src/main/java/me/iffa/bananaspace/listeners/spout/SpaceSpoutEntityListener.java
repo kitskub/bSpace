@@ -19,11 +19,11 @@ import org.getspout.spoutapi.player.SpoutPlayer;
 public class SpaceSpoutEntityListener extends EntityListener {
     private final AppearanceManager app = SpoutManager.getAppearanceManager();
     private final BananaSpace plugin;
-    
+
     public SpaceSpoutEntityListener(BananaSpace plugin) {
 	this.plugin = plugin;
     }
-    
+
     /**
      * Called when an entity takes damage
      * 
@@ -42,13 +42,20 @@ public class SpaceSpoutEntityListener extends EntityListener {
 			int startY = starting.getBlockY();
 			int endY = landing.getBlockY();
 			int offset = 15; //The offset (needs configuration node)
-			
+
 			//Simple Math
 			if((startY+offset) <= endY) {
 			    //I'm going to be adding more advanced math soon, this is to get it working
 			    event.setDamage(1); //half heart of damage
 			} else {
 			    event.setDamage(0); //no damage!
+			}
+			BananaSpace.locCache.remove(player); //Remove the player reference
+			//BananaSpace.debugLog("Removing "+player.getName()+" from the cache.");
+			if(BananaSpace.jumpPressed) {
+			    Location jumpLocation = player.getLocation();
+			    BananaSpace.locCache.put(player, jumpLocation); //readd the player is the jump key is pressed
+			    //BananaSpace.debugLog("Added player "+player.getName()+" to the Location Cache");
 			}
 		    } else {
 			BananaSpace.debugLog("Worlds are not the same! Canceling event!");
@@ -61,7 +68,7 @@ public class SpaceSpoutEntityListener extends EntityListener {
 	    }
 	}
     }
-    
+
     /**
      * Called when an entity spawns
      * This should correctly set all zombies skin to an alien skin when they spawn
@@ -80,6 +87,6 @@ public class SpaceSpoutEntityListener extends EntityListener {
 		}
 	    }
 	}
-	
+
     }
 }

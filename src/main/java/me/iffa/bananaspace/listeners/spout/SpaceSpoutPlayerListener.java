@@ -15,6 +15,7 @@ import org.getspout.spoutapi.player.SpoutPlayer;
  * PlayerListener for things which require Spout.
  * 
  * @author iffa
+ * @author HACKhalo2
  */
 public class SpaceSpoutPlayerListener extends PlayerListener {
     // Variables
@@ -38,18 +39,20 @@ public class SpaceSpoutPlayerListener extends PlayerListener {
     @Override
     public void onPlayerTeleport(PlayerTeleportEvent event) {
 	SpoutPlayer player = SpoutManager.getPlayer(event.getPlayer());
-	if (event.isCancelled() || !player.isSpoutCraftEnabled() || event.getFrom().getWorld().equals(event.getTo().getWorld())) {
+	if (event.isCancelled() || !player.isSpoutCraftEnabled() || event.getFrom().getWorld().equals(event.getTo().getWorld())
+		|| (BananaSpace.getWorldHandler().isSpaceWorld(event.getFrom().getWorld()) && BananaSpace.getWorldHandler().isSpaceWorld(event.getTo().getWorld()))) {
+	    //Return if the event is canceled, if player doesn't have spoutcraft, if teleporting interworld, or it teleporting between space worlds
 	    return;
 	}
 	/* Player teleports to spaceworld */
 	if (BananaSpace.worldHandler.isSpaceWorld(event.getTo().getWorld())) {
 	    sky.setCloudsVisible(player, false);
-	    BananaSpace.debugLog("Made clouds invisible for player '" + player.getName() + "'.");
 	    
-	    sky.setMoonVisible(player, false);
-	    sky.setCloudsVisible(player, false);
-	    sky.setStarFrequency(player, 5000);
-	    BananaSpace.scheduler.scheduleSyncDelayedTask(plugin, new SpaceSpoutRunnable(event.getPlayer()), 20L);
+	    sky.setMoonVisible(player, false); //set the moon invisible
+	    sky.setCloudsVisible(player, false); //set clouds invisible
+	    sky.setStarFrequency(player, 5000); //set star frequency higher
+	    BananaSpace.scheduler.scheduleSyncDelayedTask(plugin, new SpaceSpoutRunnable(event.getPlayer()), 10L);
+	    BananaSpace.debugLog("Made clouds and the moon invisible for player '" + player.getName() + "'. Starting runnable thread to setup Player movements...");
 	}
 	/* Player teleports out of spaceworld */
 	if (BananaSpace.worldHandler.isSpaceWorld(event.getFrom().getWorld()) && !BananaSpace.worldHandler.isSpaceWorld(event.getTo().getWorld())) {
@@ -59,7 +62,7 @@ public class SpaceSpoutPlayerListener extends PlayerListener {
 	    BananaSpace.debugLog("Made clouds visible for player '" + player.getName() + "'.");
 	    player.setCanFly(false);
 	    player.resetMovement();
-	    BananaSpace.debugLog("Reset player '" + player.getName() + "'s gravity settings.");
+	    BananaSpace.debugLog("Reset player '" + player.getName() + "'s gravity and visual settings.");
 	}
     }
 }

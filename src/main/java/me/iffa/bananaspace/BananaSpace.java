@@ -58,7 +58,9 @@ public class BananaSpace extends JavaPlugin {
     public static PailInterface pailInt;
     public static PluginManager pm;
     private SpaceCommand sce = null;
+    //Spout Variables
     public static Map<Player, Location> locCache = null;
+    public static boolean jumpPressed = false;
     //Basic Listeners
     private final SpaceWeatherListener weatherListener = new SpaceWeatherListener(this);
     private final SpaceEntityListener entityListener = new SpaceEntityListener(this);
