@@ -11,10 +11,10 @@ import org.getspout.spoutapi.player.SpoutPlayer;
  * 
  * @author HACKhalo2
  */
-public class SpaceRunnable3 implements Runnable {
+public class SpaceSpoutRunnable implements Runnable {
     private final Player player;
 
-    public SpaceRunnable3(Player player) {
+    public SpaceSpoutRunnable(Player player) {
 	this.player = player;
     }
 
@@ -24,7 +24,7 @@ public class SpaceRunnable3 implements Runnable {
 	    //Set the player properties
 	    p.setAirSpeedMultiplier(1.2);
 	    p.setGravityMultiplier(0.3);
-	    p.setWalkingMultiplier(0.5);
+	    p.setWalkingMultiplier(0.7);
 	    //Debug stuffs
 	    BananaSpace.debugLog("Changed player '" + p.getName() + "'s gravity settings ("+p.getAirSpeedMultiplier()+
 		    ", "+p.getGravityMultiplier()+", "+p.getJumpingMultiplier()+").");

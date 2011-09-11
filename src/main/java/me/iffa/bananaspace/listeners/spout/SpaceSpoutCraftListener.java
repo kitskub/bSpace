@@ -3,13 +3,10 @@ package me.iffa.bananaspace.listeners.spout;
 import me.iffa.bananaspace.BananaSpace;
 
 import org.bukkit.World;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Zombie;
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.event.spout.SpoutCraftEnableEvent;
 import org.getspout.spoutapi.event.spout.SpoutListener;
 import org.getspout.spoutapi.player.AppearanceManager;
-import org.getspout.spoutapi.player.EntitySkinType;
 import org.getspout.spoutapi.player.SkyManager;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
@@ -37,20 +34,21 @@ public class SpaceSpoutCraftListener extends SpoutListener {
 	    //Just in case
 	    player.setCanFly(true);
 	    //Change Zombies skin
-	    for (LivingEntity entity : space.getLivingEntities()) {
+	    //Disabled due to limitations in Spout
+	    /*for (LivingEntity entity : space.getLivingEntities()) {
                 if (entity instanceof Zombie) {
                     app.setEntitySkin(player, entity, "http://dl.dropbox.com/u/16261496/bananaspace_alien.png", EntitySkinType.DEFAULT);
                     BananaSpace.debugLog("Made zombie '" + entity.getEntityId() + "' have an alien skin for player '" + player.getName() + "'.");
                 }
-            }
+            }*/
 	    //Set the sky properties
 	    sky.setMoonVisible(player, false);
 	    sky.setCloudsVisible(player, false);
-	    sky.setStarFrequency(player, 20000);
+	    sky.setStarFrequency(player, 5000);
 	    //Set the player properties
 	    player.setAirSpeedMultiplier(1.2);
 	    player.setGravityMultiplier(0.3);
-	    player.setWalkingMultiplier(0.5);
+	    player.setWalkingMultiplier(0.7);
 	    //Debug stuffs
 	    BananaSpace.debugLog("Made clouds invisible for player '" + player.getName() + "'.");
 	    BananaSpace.debugLog("Made zombies have an alien skin for player '" + player.getName() + "'.");
