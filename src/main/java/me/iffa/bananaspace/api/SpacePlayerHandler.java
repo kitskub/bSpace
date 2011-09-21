@@ -20,7 +20,7 @@ public class SpacePlayerHandler {
      * @return true if the player has permission
      */
     public boolean hasPermission(String permission, Player player) {
-        if (player.hasPermission(permission)) {
+        if (player.hasPermission(permission)) {//Add OP fallback?
             return true;
         }
         return false;

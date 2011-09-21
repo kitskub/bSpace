@@ -17,7 +17,7 @@ public class Economy {
     private boolean use;
 
     /**
-     * 
+     * currently only supports iconomy
      * @param plugin
      */
     public Economy(BananaSpace plugin) {
@@ -50,14 +50,11 @@ public class Economy {
             }
         return false;
     }
-    //TODO add negative value checking
     public boolean enter(Player player) {
         if (use==false) return true;
             if(iConomy.hasAccount(player.getName())) {
                 int amount =SpaceConfig.getConfig().getInt("economy.entercost",20);
-                Holdings balance = iConomy.getAccount(player.getName()).getHoldings();
-                balance.subtract(amount);
-                return true;
+                return subtract(player,amount);
             } else {
                 return false;
             }   
@@ -69,9 +66,7 @@ public class Economy {
         if (use==false) return true;
             if(iConomy.hasAccount(player.getName())) {
                 int amount =SpaceConfig.getConfig().getInt("economy.exitcost",20);
-                Holdings balance = iConomy.getAccount(player.getName()).getHoldings();
-                balance.subtract(amount);
-                return true;
+                return subtract(player,amount);
             } else {
                 return false;
             }   
@@ -81,9 +76,7 @@ public class Economy {
         if (use==false) return true;
             if(iConomy.hasAccount(player.getName())) {
                 int amount =SpaceConfig.getConfig().getInt("economy.entercommandcost",20);
-                Holdings balance = iConomy.getAccount(player.getName()).getHoldings();
-                balance.subtract(amount);
-                return true;
+                return subtract(player,amount);
             } else {
                 return false;
             }   
@@ -93,11 +86,17 @@ public class Economy {
         if (use==false) return true;
             if(iConomy.hasAccount(player.getName())) {
                 int amount =SpaceConfig.getConfig().getInt("economy.exitcommandcost",20);
-                Holdings balance = iConomy.getAccount(player.getName()).getHoldings();
-                balance.subtract(amount);
-                return true;
+                return subtract(player,amount);
             } else {
                 return false;
             }   
-    }   
+    }
+
+    private boolean subtract(Player player, int amount) {
+        if(BananaSpace.getPlayerHandler().hasPermission("bananspace.economy.exempt",player)) return true;
+        Holdings balance = iConomy.getAccount(player.getName()).getHoldings();
+        if(!balance.hasEnough(amount)) return false;
+        balance.subtract(amount);
+        return true;
+    }
 }
