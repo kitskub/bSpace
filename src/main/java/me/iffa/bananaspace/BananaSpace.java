@@ -85,6 +85,7 @@ public class BananaSpace extends JavaPlugin {
      */
     @Override
     public void onEnable() {
+        // Hi!
         // Initializing variables
         initVariables();
 
