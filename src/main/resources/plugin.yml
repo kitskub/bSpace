@@ -6,7 +6,6 @@ name: BananaSpace
 url: http://github.com/iffa/BananaSpace
 version: '1.4 [Gordon Ramsay]'
 softdepend: [Permissions, Spout, Pail]
-#load: startup
 commands:
   space:
     description: Go to space, back to earth etc.

@@ -1,18 +1,11 @@
 // Package Declaration
 package me.iffa.bananaspace.commands;
 
-// Java Imports
-import java.util.HashMap;
-import java.util.Map;
-
 // BananaSpace Imports
 import me.iffa.bananaspace.BananaSpace;
 import me.iffa.bananaspace.api.event.misc.SpaceCommandEvent;
 
 // Bukkit Imports
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

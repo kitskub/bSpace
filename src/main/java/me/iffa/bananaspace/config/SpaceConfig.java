@@ -57,7 +57,7 @@ public class SpaceConfig {
                 loaded = true;
                 BananaSpace.log.info(BananaSpace.prefix + " Generated configuration file for version " + BananaSpace.version);
             } catch (Exception e) {
-                System.out.println(e.toString());
+                BananaSpace.log.severe(e.toString());
             }
         }
     }
@@ -89,5 +89,11 @@ public class SpaceConfig {
                 fos.close();
             }
         }
+    }
+
+    /**
+     * Constructor of SpaceConfig.
+     */
+    private SpaceConfig() {
     }
 }

@@ -16,7 +16,6 @@ import org.bukkit.entity.Player;
  * @author iffa
  */
 public class SpaceListCommand extends SpaceCommand {
-
     /**
      * Constructor of SpaceListCommand.
      * 

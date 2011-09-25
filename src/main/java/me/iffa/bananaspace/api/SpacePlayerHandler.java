@@ -17,6 +17,8 @@ public class SpacePlayerHandler {
      * Checks if a player has the specified permission node.
      * 
      * @param permission Permission node to check
+     * @param player Player to check
+     * 
      * @return true if the player has permission
      */
     public boolean hasPermission(String permission, Player player) {
@@ -30,6 +32,7 @@ public class SpacePlayerHandler {
      * Gives a player the specified space suit
      * 
      * @param armortype Diamond, chainmail, gold, iron, leather or null
+     * @param player Player to give 
      */
     public void giveSpaceSuit(String armortype, Player player) {
         if (armortype.equalsIgnoreCase("diamond")) {

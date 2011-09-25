@@ -167,7 +167,6 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
                     ois.close();
                     fis.close();
                 } catch (Exception ex) {
-                    ex.printStackTrace();
                 }
             } else {
                 // generate, save, and cache
@@ -182,7 +181,6 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
                     fos.flush();
                     fos.close();
                 } catch (Exception ex) {
-                    ex.printStackTrace();
                 }
                 cache.put(new Point(sysX, sysZ), curSystem);
             }
@@ -262,16 +260,40 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
         return retVal;
     }
 
+    /**
+     * Gets the world's populators.
+     * 
+     * @param world World
+     * 
+     * @return Populators
+     */
     @Override
     public List<BlockPopulator> getDefaultPopulators(World world) {
         return Arrays.asList((BlockPopulator) new SpaceGlowstonePopulator(), new SpaceStonePopulator());
     }
 
+    /**
+     * Gets the can spawn-state.
+     * 
+     * @param world World
+     * @param x X-location
+     * @param z Z-location
+     * 
+     * @return True if can spawn
+     */
     @Override
     public boolean canSpawn(World world, int x, int z) {
         return true;
     }
 
+    /**
+     * Gets the fixed spawn location.
+     * 
+     * @param world World
+     * @param random Random
+     * 
+     * @return Spawn location
+     */
     @Override
     public Location getFixedSpawnLocation(World world, Random random) {
         return new Location(world, 7, 77, 7);
@@ -285,6 +307,7 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
      * 
      * @return List of Planetoids
      */
+    @SuppressWarnings("fallthrough")
     private List<Planetoid> generatePlanets(int x, int z) {
         List<Planetoid> planetoids = new ArrayList<Planetoid>();
 
@@ -303,7 +326,7 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
 
         // if X is negative, left shift seed by one
         if (x < 0) {
-            seed = seed << 1;
+            seed <<= 1;
         } // if Z is negative, change sign on seed.
         if (z < 0) {
             seed = -seed;
@@ -371,8 +394,7 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
                 planetoids.add(curPl);
             }
         }
-        System.out.println(BananaSpace.prefix + " Made " + planetoids.size()
-                + " planets in this region."); // DEBUG
+        BananaSpace.log.info(BananaSpace.prefix + " Made " + planetoids.size() + " planets in this region.");
         return planetoids;
     }
 

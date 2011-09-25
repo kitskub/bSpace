@@ -187,4 +187,10 @@ public class SpaceConfigHandler {
         }
         return false;
     }
+
+    /**
+     * Constructor of SpaceConfigHandler.
+     */
+    private SpaceConfigHandler() {
+    }
 }

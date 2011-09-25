@@ -61,7 +61,7 @@ public class SpacePlanetConfig {
                     }
                     BananaSpace.log.info(BananaSpace.prefix + " Generated planet configuration for version " + BananaSpace.version);
                 } catch (Exception e) {
-                    System.out.println(e.toString());
+                    BananaSpace.log.severe(e.toString());
                 }
             }
         }
@@ -94,5 +94,11 @@ public class SpacePlanetConfig {
                 fos.close();
             }
         }
+    }
+
+    /**
+     * Constructor of SpacePlanetConfig.
+     */
+    private SpacePlanetConfig() {
     }
 }
