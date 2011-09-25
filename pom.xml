@@ -32,7 +32,7 @@
     <dependencies>
         <dependency>
             <groupId>org.getspout</groupId>
-            <artifactId>spout</artifactId>
+            <artifactId>spoutapi</artifactId>
             <version>dev-SNAPSHOT</version>
             <type>jar</type>
         </dependency>
