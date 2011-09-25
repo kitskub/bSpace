@@ -1,4 +1,5 @@
 # BananaSpace - plugin.yml
+# All authors, in some sort of order - everyone who contributes gets here!
 authors: [iffa, kitskub, HACKhalo2, Canis85, BR]
 main: me.iffa.bananaspace.BananaSpace
 name: BananaSpace
@@ -13,7 +14,7 @@ commands:
           /<command> <enter> [spaceworld] - Go to a space world
           /<command> <back> - Go back where you were
           /<command> <help>
-    permission: [bananaspace.teleport.enter, bananaspace.teleport.exit]
+    permission: bananaspace.teleport.*
 # Permission nodes
 permissions:
   # Permission groups

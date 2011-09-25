@@ -15,7 +15,7 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.generator.BlockPopulator;
 
 /**
- * SpaceStonePopulator
+ * SpaceStonePopulator, populates a world with Notch's original stone (glowstone) patches.
  *
  * @author Markus 'Notch' Persson
  * @author iffa

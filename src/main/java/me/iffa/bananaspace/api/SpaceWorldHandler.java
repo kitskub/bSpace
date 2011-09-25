@@ -35,7 +35,7 @@ public class SpaceWorldHandler {
     private boolean usingMV;
 
     /**
-     * Constructor for SpaceWorldHandler.
+     * Constructor of SpaceWorldHandler.
      * 
      * @param plugin BananaSpace
      */
@@ -47,7 +47,7 @@ public class SpaceWorldHandler {
     }
 
     /**
-     * Loads the space worlds into <code>spaceWorlds</code> and creates them if MultiVerse is not there
+     * Loads the space worlds into <code>spaceWorlds</code> and creates them if Multiverse is not there.
      */
     public void loadSpaceWorlds() {
         List<String> worlds = SpaceConfig.getConfig().getKeys("worlds");
@@ -247,7 +247,8 @@ public class SpaceWorldHandler {
      * Gets the space world a player is in.
      * 
      * @param player Player
-     * @return null if not in a space world
+     * 
+     * @return Null if not in a space world
      */
     public World getSpaceWorld(Player player) {
         if (getSpaceWorlds().contains(player.getWorld())) {

@@ -21,7 +21,7 @@ public class SpaceWeatherListener extends WeatherListener {
     /**
      * Constructor for SpaceWeatherListener.
      * 
-     * @param plugin BananaSpace
+     * @param plugin BananaSpace instance
      */
     public SpaceWeatherListener(BananaSpace plugin) {
         this.plugin = plugin;

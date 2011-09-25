@@ -1,7 +1,10 @@
+// Package Declaration
 package me.iffa.bananaspace.listeners.spout;
 
+// BananaSpace Imports
 import me.iffa.bananaspace.BananaSpace;
 
+// Bukkit Imports
 import org.bukkit.Location;
 import org.bukkit.entity.CreatureType;
 import org.bukkit.entity.Entity;
@@ -11,21 +14,35 @@ import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.EntityListener;
+
+// Spout Imports
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.player.AppearanceManager;
 import org.getspout.spoutapi.player.EntitySkinType;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
+/**
+ * EntityListener for Spout features.
+ * 
+ * @author HACKhalo2
+ * @author iffa
+ */
 public class SpaceSpoutEntityListener extends EntityListener {
+    // Variables
     private final AppearanceManager app = SpoutManager.getAppearanceManager();
     private final BananaSpace plugin;
 
+    /**
+     * Constructor of SpaceSpoutEntityListener.
+     * 
+     * @param plugin BananaSpace instance
+     */
     public SpaceSpoutEntityListener(BananaSpace plugin) {
 	this.plugin = plugin;
     }
 
     /**
-     * Called when an entity takes damage
+     * Called when an entity takes damage.
      * 
      * @param event Event data
      */
@@ -70,8 +87,7 @@ public class SpaceSpoutEntityListener extends EntityListener {
     }
 
     /**
-     * Called when an entity spawns
-     * This should correctly set all zombies skin to an alien skin when they spawn
+     * Called when an entity spawns. This should correctly set all zombies skin to an alien skin when they spawn.
      * **This code is currently disabled**
      * 
      * @param event Event data

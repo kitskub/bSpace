@@ -1,12 +1,17 @@
+// Package Declaration
 package me.iffa.bananaspace.listeners.spout;
 
+// BananaSpace Imports
 import me.iffa.bananaspace.BananaSpace;
 
+// Bukkit Imports
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+
+// Spout Imports
 import org.getspout.spoutapi.event.input.InputListener;
 import org.getspout.spoutapi.event.input.KeyPressedEvent;
 import org.getspout.spoutapi.event.input.KeyReleasedEvent;
@@ -14,18 +19,25 @@ import org.getspout.spoutapi.gui.ScreenType;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
 /**
- * Catches Key press events for SpoutCraft enabled Clients
+ * Catches key press events for SpoutCraft enabled clients.
+ * 
  * @author HACKhalo2
  */
 public class SpaceSpoutKeyListener extends InputListener {
+    // Variables
     private final BananaSpace plugin;
 
+    /**
+     * Constructor of SpaceSpoutKeyListener.
+     * 
+     * @param plugin BananaSpace instance
+     */
     public SpaceSpoutKeyListener(BananaSpace plugin) {
 	this.plugin = plugin;
     }
 
     /**
-     * Called when a key is pressed on the SpoutCraft Client
+     * Called when a key is pressed on a SpoutCraft client.
      * 
      * @param event Event data
      */
@@ -64,7 +76,7 @@ public class SpaceSpoutKeyListener extends InputListener {
     }
 
     /**
-     * Called when a key is released on the SpoutCraft Client
+     * Called when a key is released on a SpoutCraft client.
      * 
      * @param event Event data
      */

@@ -1,10 +1,11 @@
 // Package Declaration
 package me.iffa.bananaspace.runnable;
 
-// Bukkit Imports
+// BananaSpace Imports
 import me.iffa.bananaspace.BananaSpace;
 import me.iffa.bananaspace.listeners.SpacePlayerListener;
 
+// Bukkit Imports
 import org.bukkit.entity.Player;
 
 /**

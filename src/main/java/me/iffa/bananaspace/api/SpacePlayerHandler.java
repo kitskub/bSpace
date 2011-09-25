@@ -33,40 +33,25 @@ public class SpacePlayerHandler {
      */
     public void giveSpaceSuit(String armortype, Player player) {
         if (armortype.equalsIgnoreCase("diamond")) {
-            player.getInventory().setBoots(
-                    new ItemStack(Material.DIAMOND_BOOTS, 1));
-            player.getInventory().setChestplate(
-                    new ItemStack(Material.DIAMOND_CHESTPLATE, 1));
-            player.getInventory().setLeggings(
-                    new ItemStack(Material.DIAMOND_LEGGINGS, 1));
+            player.getInventory().setBoots(new ItemStack(Material.DIAMOND_BOOTS, 1));
+            player.getInventory().setChestplate(new ItemStack(Material.DIAMOND_CHESTPLATE, 1));
+            player.getInventory().setLeggings(new ItemStack(Material.DIAMOND_LEGGINGS, 1));
         } else if (armortype.equalsIgnoreCase("chainmail")) {
-            player.getInventory().setBoots(
-                    new ItemStack(Material.CHAINMAIL_BOOTS, 1));
-            player.getInventory().setChestplate(
-                    new ItemStack(Material.CHAINMAIL_CHESTPLATE, 1));
-            player.getInventory().setLeggings(
-                    new ItemStack(Material.CHAINMAIL_LEGGINGS, 1));
+            player.getInventory().setBoots(new ItemStack(Material.CHAINMAIL_BOOTS, 1));
+            player.getInventory().setChestplate(new ItemStack(Material.CHAINMAIL_CHESTPLATE, 1));
+            player.getInventory().setLeggings(new ItemStack(Material.CHAINMAIL_LEGGINGS, 1));
         } else if (armortype.equalsIgnoreCase("gold")) {
-            player.getInventory().setBoots(
-                    new ItemStack(Material.GOLD_BOOTS, 1));
-            player.getInventory().setChestplate(
-                    new ItemStack(Material.GOLD_CHESTPLATE, 1));
-            player.getInventory().setLeggings(
-                    new ItemStack(Material.GOLD_LEGGINGS, 1));
+            player.getInventory().setBoots(new ItemStack(Material.GOLD_BOOTS, 1));
+            player.getInventory().setChestplate(new ItemStack(Material.GOLD_CHESTPLATE, 1));
+            player.getInventory().setLeggings(new ItemStack(Material.GOLD_LEGGINGS, 1));
         } else if (armortype.equalsIgnoreCase("iron")) {
-            player.getInventory().setBoots(
-                    new ItemStack(Material.IRON_BOOTS, 1));
-            player.getInventory().setChestplate(
-                    new ItemStack(Material.IRON_CHESTPLATE, 1));
-            player.getInventory().setLeggings(
-                    new ItemStack(Material.IRON_LEGGINGS, 1));
+            player.getInventory().setBoots(new ItemStack(Material.IRON_BOOTS, 1));
+            player.getInventory().setChestplate(new ItemStack(Material.IRON_CHESTPLATE, 1));
+            player.getInventory().setLeggings(new ItemStack(Material.IRON_LEGGINGS, 1));
         } else if (armortype.equalsIgnoreCase("leather")) {
-            player.getInventory().setBoots(
-                    new ItemStack(Material.LEATHER_BOOTS, 1));
-            player.getInventory().setChestplate(
-                    new ItemStack(Material.LEATHER_CHESTPLATE, 1));
-            player.getInventory().setLeggings(
-                    new ItemStack(Material.LEATHER_LEGGINGS, 1));
+            player.getInventory().setBoots(new ItemStack(Material.LEATHER_BOOTS, 1));
+            player.getInventory().setChestplate(new ItemStack(Material.LEATHER_CHESTPLATE, 1));
+            player.getInventory().setLeggings(new ItemStack(Material.LEATHER_LEGGINGS, 1));
         } else if (armortype.equalsIgnoreCase("null")) {
             player.getInventory().setBoots(new ItemStack(Material.AIR, 1));
             player.getInventory().setChestplate(new ItemStack(Material.AIR, 1));

@@ -53,12 +53,13 @@ public class SpaceEntityListener extends EntityListener {
                         || event.getCreatureType() == CreatureType.SPIDER
                         || event.getCreatureType() == CreatureType.ZOMBIE
                         || event.getCreatureType() == CreatureType.SLIME) {
-                    // Notify listeners.
+                    /* Notify listeners start */
                     AntiMobSpawnEvent e = new AntiMobSpawnEvent("AntiMobSpawnEvent", event.getEntity());
                     Bukkit.getServer().getPluginManager().callEvent(e);
                     if (e.isCancelled()) {
                         return;
                     }
+                    /* Notify listeners end */
                     event.setCancelled(true);
                     
                 }
@@ -70,12 +71,13 @@ public class SpaceEntityListener extends EntityListener {
                         || event.getCreatureType() == CreatureType.SHEEP
                         || event.getCreatureType() == CreatureType.SQUID
                         || event.getCreatureType() == CreatureType.WOLF) {
-                    // Notify listeners.
+                    /* Notify listeners start */
                     AntiMobSpawnEvent e = new AntiMobSpawnEvent("AntiMobSpawnEvent", event.getEntity());
                     Bukkit.getServer().getPluginManager().callEvent(e);
                     if (e.isCancelled()) {
                         return;
                     }
+                    /* Notify listeners end */
                     event.setCancelled(true);
                 }
             }

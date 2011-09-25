@@ -5,8 +5,11 @@ package me.iffa.bananaspace.listeners.spout;
 import me.iffa.bananaspace.BananaSpace;
 import me.iffa.bananaspace.runnable.SpaceSpoutRunnable;
 
+// Bukkit Imports
 import org.bukkit.event.player.PlayerListener;
 import org.bukkit.event.player.PlayerTeleportEvent;
+
+// Spout Imports
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.player.SkyManager;
 import org.getspout.spoutapi.player.SpoutPlayer;
@@ -25,7 +28,7 @@ public class SpaceSpoutPlayerListener extends PlayerListener {
     /**
      * Constructor for SpaceSpoutPlayerListener.
      * 
-     * @param plugin BananaSpace
+     * @param plugin BananaSpace instance
      */
     public SpaceSpoutPlayerListener(BananaSpace plugin) {
 	this.plugin = plugin;

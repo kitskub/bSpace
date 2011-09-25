@@ -13,7 +13,7 @@ import me.escapeNT.pail.Pail;
 import me.iffa.bananaspace.api.SpaceConfigHandler;
 import me.iffa.bananaspace.api.SpacePlayerHandler;
 import me.iffa.bananaspace.api.SpaceWorldHandler;
-import me.iffa.bananaspace.commands.SpaceCommand;
+import me.iffa.bananaspace.commands.SpaceCommandHandler;
 import me.iffa.bananaspace.config.SpaceConfig;
 import me.iffa.bananaspace.config.SpacePlanetConfig;
 import me.iffa.bananaspace.gui.PailInterface;
@@ -27,9 +27,6 @@ import me.iffa.bananaspace.listeners.spout.SpaceSpoutKeyListener;
 import me.iffa.bananaspace.listeners.spout.SpaceSpoutPlayerListener;
 import me.iffa.bananaspace.wgen.SpaceChunkGenerator;
 import me.iffa.bananaspace.wgen.planets.PlanetsChunkGenerator;
-
-//BukkitStats Imports
-import org.blockface.bukkitstats.CallHome;
 
 //Bukkit Imports
 import org.bukkit.Location;
@@ -57,7 +54,7 @@ public class BananaSpace extends JavaPlugin {
     public static SpacePlayerHandler playerHandler;
     public static PailInterface pailInt;
     public static PluginManager pm;
-    private SpaceCommand sce = null;
+    private SpaceCommandHandler sce = null;
     //Spout Variables
     public static Map<Player, Location> locCache = null;
     public static boolean jumpPressed = false;
@@ -93,10 +90,6 @@ public class BananaSpace extends JavaPlugin {
         SpaceConfig.loadConfig();
         SpacePlanetConfig.loadConfig();
         debugLog("Initialized startup variables and loaded configuration files.");
-        
-        // BukkitStats
-        log.warning(prefix + " BananaSpace will now send usage statistics. NOTE: You can turn this off in plugins/stats.");
-        CallHome.load(this);
 
         // Registering other events
         pm.registerEvent(Event.Type.WEATHER_CHANGE, weatherListener,
@@ -135,7 +128,7 @@ public class BananaSpace extends JavaPlugin {
         worldHandler.loadSpaceWorlds();
 
         // Initializing the CommandExecutor
-        sce = new SpaceCommand(this);
+        sce = new SpaceCommandHandler(this);
         getCommand("space").setExecutor(sce);
         debugLog("Initialized CommandExecutors.");
 
@@ -176,7 +169,7 @@ public class BananaSpace extends JavaPlugin {
     /**
      * Prints a debug message to the server log.
      * 
-     * @param msg Message
+     * @param msg Message to print
      */
     public static void debugLog(String msg) {
         if (!SpaceConfigHandler.getDebugging()) {
@@ -195,7 +188,7 @@ public class BananaSpace extends JavaPlugin {
      */
     @Override
     public ChunkGenerator getDefaultWorldGenerator(String worldName, String id) {
-        if (!SpaceConfigHandler.worldIsInConfig(worldName)) {
+        if (!SpaceConfigHandler.isWorldInConfig(worldName)) {
             worldHandler.createSpaceWorld(this, worldName, true);
         }
         if (id == null || id.isEmpty()) {

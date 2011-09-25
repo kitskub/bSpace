@@ -1,8 +1,13 @@
+// Package Declaration
 package me.iffa.bananaspace.runnable;
 
+// BananaSpace Imports
 import me.iffa.bananaspace.BananaSpace;
 
+// Bukkit Imports
 import org.bukkit.entity.Player;
+
+// Spout Imports
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
@@ -12,12 +17,21 @@ import org.getspout.spoutapi.player.SpoutPlayer;
  * @author HACKhalo2
  */
 public class SpaceSpoutRunnable implements Runnable {
+    // Variables
     private final Player player;
 
+    /**
+     * Constructor of SpaceSpoutRunnable.
+     * 
+     * @param player Player
+     */
     public SpaceSpoutRunnable(Player player) {
 	this.player = player;
     }
 
+    /**
+     * Sets a player's gravity settings. (hacky solution!!)
+     */
     public void run() {
 	if(BananaSpace.worldHandler.isInAnySpace(player)) { //idiot proofing
 	    SpoutPlayer p = SpoutManager.getPlayer(player); //refresh the SpoutPlayer reference (workaround to a bug in the Spout Client)
