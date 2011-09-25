@@ -23,6 +23,7 @@ import java.io.IOException;
 public class PailInterface extends javax.swing.JPanel {
     // Variables
     public static Configuration config = SpaceConfig.getConfig();
+    private static final long serialVersionUID = 1L;
     private BananaSpace plugin;
 
     /**

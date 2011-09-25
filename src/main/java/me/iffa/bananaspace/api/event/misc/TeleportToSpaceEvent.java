@@ -15,10 +15,10 @@ import org.bukkit.event.Event;
 public class TeleportToSpaceEvent extends Event implements Cancellable {
     // Variables
     private static final long serialVersionUID = 8744071438699676557L;
-    protected boolean canceled = false;
-    protected Player player = null;
-    protected Location to = null;
-    protected Location from = null;
+    private boolean canceled = false;
+    private Player player = null;
+    private Location to = null;
+    private Location from = null;
 
     /**
      * Constructor for

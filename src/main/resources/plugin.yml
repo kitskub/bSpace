@@ -1,11 +1,12 @@
 # BananaSpace - plugin.yml
-authors: [iffa, kitskub, Canis85, BR]
+# All authors, in some sort of order - everyone who contributes gets here!
+authors: [iffa, kitskub, HACKhalo2, Canis85, BR]
 main: me.iffa.bananaspace.BananaSpace
 name: BananaSpace
 url: http://github.com/iffa/BananaSpace
-version: '1.3 [Wool]'
-softdepend: [Permissions, Spout, Pail,iConomy]
 #load: startup
+version: '1.4 [Gordon Ramsay]'
+softdepend: [Permissions, Spout, Pail]
 commands:
   space:
     description: Go to space, back to earth etc.
@@ -13,7 +14,7 @@ commands:
           /<command> <enter> [spaceworld] - Go to a space world
           /<command> <back> - Go back where you were
           /<command> <help>
-    permission: [bananaspace.teleport.enter, bananaspace.teleport.exit]
+    permission: bananaspace.teleport.*
 # Permission nodes
 permissions:
   # Permission groups

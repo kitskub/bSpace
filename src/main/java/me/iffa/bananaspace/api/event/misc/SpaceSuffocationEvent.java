@@ -14,8 +14,8 @@ import org.bukkit.event.Event;
 public class SpaceSuffocationEvent extends Event implements Cancellable {
     // Variables
     private static final long serialVersionUID = 8772846319048911013L;
-    protected boolean canceled = false;
-    protected Player player = null;
+    private boolean canceled = false;
+    private Player player = null;
 
     /**
      * Constructor for SpaceSuffocationEvent.

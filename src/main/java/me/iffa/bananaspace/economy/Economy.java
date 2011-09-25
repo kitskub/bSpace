@@ -1,4 +1,4 @@
-package me.iffa.economy;
+package me.iffa.bananaspace.economy;
 
 import com.iConomy.iConomy;
 import com.iConomy.system.Holdings;
