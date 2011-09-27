@@ -4,7 +4,7 @@ package me.iffa.bananaspace;
 // Java imports
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
+import java.util.logging.Level;
 
 //Pail Imports
 import me.escapeNT.pail.Pail;
@@ -12,8 +12,9 @@ import me.escapeNT.pail.Pail;
 //Economy Imports
 import me.iffa.bananaspace.economy.Economy;
 
-//BananaSpace
+//BananaSpace Imports
 import me.iffa.bananaspace.api.SpaceConfigHandler;
+import me.iffa.bananaspace.api.SpaceMessageHandler;
 import me.iffa.bananaspace.api.SpacePlayerHandler;
 import me.iffa.bananaspace.api.SpaceWorldHandler;
 import me.iffa.bananaspace.commands.SpaceCommandHandler;
@@ -45,31 +46,29 @@ import org.bukkit.scheduler.BukkitScheduler;
  * Main class of BananaSpace
  * 
  * @author iffa
- * 
  */
 public class BananaSpace extends JavaPlugin {
     // Variables
+
     public static String prefix;
     public static String version;
-    public static final Logger log = Logger.getLogger("Minecraft");
+    //public static final Logger log = Logger.getLogger("Minecraft");
     public static BukkitScheduler scheduler;
     public static SpaceWorldHandler worldHandler;
     public static SpacePlayerHandler playerHandler;
+    public static SpaceMessageHandler messageHandler;
     public static PailInterface pailInt;
     public static PluginManager pm;
     private SpaceCommandHandler sce = null;
-    //Spout Variables
+    private Economy economy;
     public static Map<Player, Location> locCache = null;
     public static boolean jumpPressed = false;
-    //Basic Listeners
     private final SpaceWeatherListener weatherListener = new SpaceWeatherListener(this);
     private final SpaceEntityListener entityListener = new SpaceEntityListener(this);
     private final SpacePlayerListener playerListener = new SpacePlayerListener(this);
-    //Spout Listeners
     private final SpaceSpoutPlayerListener spListener = new SpaceSpoutPlayerListener(this);
     private final SpaceSpoutCraftListener spcListener = new SpaceSpoutCraftListener(this);
     private final SpaceSpoutEntityListener speListener = new SpaceSpoutEntityListener(this);
-    private Economy economy;
     private final SpaceSpoutAreaListener spaListener = new SpaceSpoutAreaListener(this);
     private final SpaceSpoutKeyListener spkListener = new SpaceSpoutKeyListener(this);
 
@@ -78,7 +77,7 @@ public class BananaSpace extends JavaPlugin {
      */
     @Override
     public void onDisable() {
-        log.info(prefix + " Disabled version " + version);
+        messageHandler.print(Level.INFO, "Disabled version " + version);
     }
 
     /**
@@ -86,35 +85,26 @@ public class BananaSpace extends JavaPlugin {
      */
     @Override
     public void onEnable() {
-        // Hi!
         // Initializing variables
         initVariables();
 
         // Loading configuration files
         SpaceConfig.loadConfig();
         SpacePlanetConfig.loadConfig();
-        debugLog("Initialized startup variables and loaded configuration files.");
+        messageHandler.debugPrint(Level.INFO, "Initialized startup variables and loaded configuration files.");
 
         // Registering other events
-        pm.registerEvent(Event.Type.WEATHER_CHANGE, weatherListener,
-                Event.Priority.Normal, this);
+        pm.registerEvent(Event.Type.WEATHER_CHANGE, weatherListener, Event.Priority.Normal, this);
 
         // Registering entity & player events
-        pm.registerEvent(Event.Type.ENTITY_DAMAGE, entityListener,
-                Event.Priority.Normal, this);
-        pm.registerEvent(Event.Type.CREATURE_SPAWN, entityListener,
-                Event.Priority.Highest, this);
-        pm.registerEvent(Event.Type.PLAYER_TELEPORT, playerListener,
-                Event.Priority.Normal, this);
-        pm.registerEvent(Event.Type.PLAYER_MOVE, playerListener,
-                Event.Priority.Normal, this);
-        pm.registerEvent(Event.Type.PLAYER_RESPAWN, playerListener,
-                Event.Priority.Normal, this);
-        pm.registerEvent(Event.Type.PLAYER_QUIT, playerListener,
-                Event.Priority.Normal, this);
-        pm.registerEvent(Event.Type.PLAYER_JOIN, playerListener,
-                Event.Priority.Normal, this);
-        debugLog("Registered events (General).");
+        pm.registerEvent(Event.Type.ENTITY_DAMAGE, entityListener, Event.Priority.Normal, this);
+        pm.registerEvent(Event.Type.CREATURE_SPAWN, entityListener, Event.Priority.Highest, this);
+        pm.registerEvent(Event.Type.PLAYER_TELEPORT, playerListener, Event.Priority.Normal, this);
+        pm.registerEvent(Event.Type.PLAYER_MOVE, playerListener, Event.Priority.Normal, this);
+        pm.registerEvent(Event.Type.PLAYER_RESPAWN, playerListener, Event.Priority.Normal, this);
+        pm.registerEvent(Event.Type.PLAYER_QUIT, playerListener, Event.Priority.Normal, this);
+        pm.registerEvent(Event.Type.PLAYER_JOIN, playerListener, Event.Priority.Normal, this);
+        messageHandler.debugPrint(Level.INFO, "Registered events (General).");
 
         // Registering events for Spout
         if (pm.getPlugin("Spout") != null && SpaceConfigHandler.isUsingSpout()) {
@@ -125,7 +115,7 @@ public class BananaSpace extends JavaPlugin {
             pm.registerEvent(Event.Type.CUSTOM_EVENT, spcListener, Event.Priority.Normal, this); //SpoutCraft Listener
             pm.registerEvent(Event.Type.CUSTOM_EVENT, spaListener, Event.Priority.Normal, this); //Area Listener
             pm.registerEvent(Event.Type.CUSTOM_EVENT, spkListener, Event.Priority.Normal, this); //Key Listener
-            debugLog("Registered events (Spout).");
+            messageHandler.debugPrint(Level.INFO, "Registered events (Spout).");
         }
 
         // Loading space worlds (startup).
@@ -134,31 +124,31 @@ public class BananaSpace extends JavaPlugin {
         // Initializing the CommandExecutor
         sce = new SpaceCommandHandler(this);
         getCommand("space").setExecutor(sce);
-        debugLog("Initialized CommandExecutors.");
+        messageHandler.debugPrint(Level.INFO, "Initialized CommandExecutors.");
 
         // Checking if it should always be night in space
         for (World world : worldHandler.getSpaceWorlds()) {
             if (SpaceConfigHandler.forceNight(world)) {
                 worldHandler.startForceNightTask(world);
-                debugLog("Started night forcing task for world '" + world.getName() + "'.");
+                messageHandler.debugPrint(Level.INFO, "Started night forcing task for world '" + world.getName() + "'.");
             }
         }
         //Economy //TODO add more than iconomy
-        if(economy==null){
-            if(Economy.checkEconomy(this)){
-            economy = new Economy(this);
+        if (economy == null) {
+            if (Economy.checkEconomy(this)) {
+                economy = new Economy(this);
             }
         }
         // Pail interface
         if (pm.getPlugin("Pail") != null) {
-            debugLog("Starting up the Pail tab.");
+            messageHandler.debugPrint(Level.INFO, "Starting up the Pail tab.");
             pailInt = new PailInterface(this);
             ((Pail) pm.getPlugin("Pail")).loadInterfaceComponent("BananaSpace", pailInt);
         }
-        
-        log.info(prefix + " Enabled version " + version);
+
+        messageHandler.print(Level.INFO, "Enabled version " + version);
     }
-    
+
     /**
      * Initializes variables (used on startup).
      */
@@ -169,22 +159,10 @@ public class BananaSpace extends JavaPlugin {
         scheduler = getServer().getScheduler();
         worldHandler = new SpaceWorldHandler(this);
         playerHandler = new SpacePlayerHandler();
-        //Init the Variables Spout needs
+        messageHandler = new SpaceMessageHandler(this, prefix);
         if (pm.getPlugin("Spout") != null && SpaceConfigHandler.isUsingSpout()) {
             locCache = new HashMap<Player, Location>();
         }
-    }
-
-    /**
-     * Prints a debug message to the server log.
-     * 
-     * @param msg Message to print
-     */
-    public static void debugLog(String msg) {
-        if (!SpaceConfigHandler.getDebugging()) {
-            return;
-        }
-        log.info(prefix + " " + msg);
     }
 
     /**
@@ -227,9 +205,20 @@ public class BananaSpace extends JavaPlugin {
     public static SpacePlayerHandler getPlayerHandler() {
         return playerHandler;
     }
-
+    
     /**
-     * @return the economy
+     * Gets the SpaceMessageHandler.
+     * 
+     * @return SpaceMessageHandler
+     */
+    public static SpaceMessageHandler getMessageHandler() {
+        return messageHandler;
+    }
+    
+    /**
+     * Gets the Economy-class.
+     * 
+     * @return Economy
      */
     public Economy getEconomy() {
         return economy;
