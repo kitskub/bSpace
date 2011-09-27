@@ -46,10 +46,34 @@
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>com.iCo6.system</groupId>
-            <artifactId>iconomy</artifactId>
-            <version>5.0.1</version>
+            <groupId>cosine</groupId>
+            <artifactId>boseconomy</artifactId>
+            <version>dev-SNAPSHOT</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.earth2me</groupId>
+            <artifactId>essentials</artifactId>
+            <version>dev-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>me.ashtheking</groupId>
+            <artifactId>currency</artifactId>
+            <version>dev-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.nijiko.coelho</groupId>
+            <artifactId>iConomy</artifactId>
+            <version>dev-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com</groupId>
+            <artifactId>iConomy</artifactId>
+            <version>dev-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com</groupId>
+            <artifactId>iCo6</artifactId>
+            <version>dev-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 </project>
