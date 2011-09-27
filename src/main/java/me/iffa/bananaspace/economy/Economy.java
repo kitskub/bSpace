@@ -1,19 +1,18 @@
 package me.iffa.bananaspace.economy;
 
-import com.iConomy.iConomy;
-import com.iConomy.system.Holdings;
+import com.nijikokun.register.payment.Method.MethodAccount;
 import me.iffa.bananaspace.BananaSpace;
 import me.iffa.bananaspace.config.SpaceConfig;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
+import com.nijikokun.register.payment.*;
 
 /**
  *
  * @author kitskub
  */
 public class Economy {
-    private iConomy iConomy = null;
-    private BananaSpace plugin;
+    private static Method method;
+    private static BananaSpace plugin;
     private boolean use;
 
     /**
@@ -23,15 +22,8 @@ public class Economy {
     public Economy(BananaSpace plugin) {
         this.plugin = plugin;
         use=true;
-        if(iConomy==null){
-            Plugin iConomy2 = plugin.getServer().getPluginManager().getPlugin("iConomy");
-            if (iConomy2 != null) {
-            if (iConomy2.isEnabled() && iConomy2.getClass().getName().equals("com.iConomy.iConomy")) {
-                iConomy = (iConomy)iConomy2;
-                BananaSpace.debugLog("Hooked into iConomy.");
-            }
-            }
-        }
+        getMethod();
+        BananaSpace.debugLog("Hooked into "+method.getName());
     }
     /**
      * 
@@ -41,18 +33,13 @@ public class Economy {
     }
     public static boolean checkEconomy(BananaSpace plugin){
             if(SpaceConfig.getConfig().getBoolean("economy.enabled", true)){
-                Plugin iConomy2 = plugin.getServer().getPluginManager().getPlugin("iConomy");
-                if (iConomy2 != null) {
-                if (iConomy2.isEnabled() && iConomy2.getClass().getName().equals("com.iConomy.iConomy")) {
-                    return true;
-                }
-                }
+                return (getMethod()!=null);
             }
         return false;
     }
     public boolean enter(Player player) {
         if (use==false) return true;
-            if(iConomy.hasAccount(player.getName())) {
+            if(method.hasAccount(player.getName())) {
                 int amount =SpaceConfig.getConfig().getInt("economy.entercost",20);
                 return subtract(player,amount);
             } else {
@@ -64,7 +51,7 @@ public class Economy {
     }
     public boolean exit(Player player){
         if (use==false) return true;
-            if(iConomy.hasAccount(player.getName())) {
+            if(method.hasAccount(player.getName())) {
                 int amount =SpaceConfig.getConfig().getInt("economy.exitcost",20);
                 return subtract(player,amount);
             } else {
@@ -74,7 +61,7 @@ public class Economy {
     }
     public boolean enterCommand(Player player){
         if (use==false) return true;
-            if(iConomy.hasAccount(player.getName())) {
+            if(method.hasAccount(player.getName())) {
                 int amount =SpaceConfig.getConfig().getInt("economy.entercommandcost",20);
                 return subtract(player,amount);
             } else {
@@ -84,7 +71,7 @@ public class Economy {
     }
     public boolean exitCommand(Player player){
         if (use==false) return true;
-            if(iConomy.hasAccount(player.getName())) {
+            if(method.hasAccount(player.getName())) {
                 int amount =SpaceConfig.getConfig().getInt("economy.exitcommandcost",20);
                 return subtract(player,amount);
             } else {
@@ -94,9 +81,20 @@ public class Economy {
 
     private boolean subtract(Player player, int amount) {
         if(BananaSpace.getPlayerHandler().hasPermission("bananspace.economy.exempt",player)) return true;
-        Holdings balance = iConomy.getAccount(player.getName()).getHoldings();
+        MethodAccount balance = method.getAccount(player.getName());
         if(!balance.hasEnough(amount)) return false;
         balance.subtract(amount);
         return true;
+    }
+
+    /**
+     * @return method
+     */
+    public static Method getMethod() {
+        if(method==null){
+            Methods.setMethod(plugin.getServer().getPluginManager());
+            method = Methods.getMethod();
+        }
+        return method;
     }
 }
