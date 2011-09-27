@@ -1,6 +1,9 @@
 // Package Declaration
 package me.iffa.bananaspace.runnable;
 
+// Java Imports
+import java.util.logging.Level;
+
 // BananaSpace Imports
 import me.iffa.bananaspace.BananaSpace;
 
@@ -40,7 +43,7 @@ public class SpaceSpoutRunnable implements Runnable {
 	    p.setGravityMultiplier(0.3);
 	    p.setWalkingMultiplier(0.7);
 	    //Debug stuffs
-	    BananaSpace.debugLog("Changed player '" + p.getName() + "'s gravity settings ("+p.getAirSpeedMultiplier()+
+	    BananaSpace.getMessageHandler().debugPrint(Level.INFO, "Changed player '" + p.getName() + "'s gravity settings ("+p.getAirSpeedMultiplier()+
 		    ", "+p.getGravityMultiplier()+", "+p.getJumpingMultiplier()+").");
 	}
 

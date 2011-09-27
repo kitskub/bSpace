@@ -1,6 +1,9 @@
 // Package Declaration
 package me.iffa.bananaspace.listeners.spout;
 
+// Java Imports
+import java.util.logging.Level;
+
 // BananaSpace Imports
 import me.iffa.bananaspace.BananaSpace;
 
@@ -63,9 +66,9 @@ public class SpaceSpoutCraftListener extends SpoutListener {
             player.setGravityMultiplier(0.3);
             player.setWalkingMultiplier(0.7);
             //Debug stuffs
-            BananaSpace.debugLog("Made clouds invisible for player '" + player.getName() + "'.");
-            BananaSpace.debugLog("Made zombies have an alien skin for player '" + player.getName() + "'.");
-            BananaSpace.debugLog("Changed player '" + player.getName() + "'s gravity settings (" + player.getAirSpeedMultiplier() + ", " + player.getGravityMultiplier() + ", " + player.getJumpingMultiplier() + ").");
+            BananaSpace.getMessageHandler().debugPrint(Level.INFO, "Made clouds invisible for player '" + player.getName() + "'.");
+            BananaSpace.getMessageHandler().debugPrint(Level.INFO, "Made zombies have an alien skin for player '" + player.getName() + "'.");
+            BananaSpace.getMessageHandler().debugPrint(Level.INFO, "Changed player '" + player.getName() + "'s gravity settings (" + player.getAirSpeedMultiplier() + ", " + player.getGravityMultiplier() + ", " + player.getJumpingMultiplier() + ").");
         }
     }
 }

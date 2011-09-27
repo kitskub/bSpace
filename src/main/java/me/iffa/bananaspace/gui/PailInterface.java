@@ -14,6 +14,7 @@ import java.awt.Desktop;
 import javax.swing.JOptionPane;
 import javax.swing.DefaultListModel;
 import java.io.IOException;
+import java.util.logging.Level;
 
 /**
  * Interface for Pail, a Bukkit GUI.
@@ -48,7 +49,7 @@ public class PailInterface extends javax.swing.JPanel {
         SpaceList.setModel(new DefaultListModel());
         for (World world : BananaSpace.worldHandler.getSpaceWorlds()) {
             ((DefaultListModel) SpaceList.getModel()).addElement(world.getName());
-            BananaSpace.debugLog("Added spaceworld '" + world.getName() + "' to list of spaceworlds (Pail).");
+            BananaSpace.getMessageHandler().debugPrint(Level.INFO, "Added spaceworld '" + world.getName() + "' to list of spaceworlds (Pail).");
         }
     }
 
@@ -59,7 +60,7 @@ public class PailInterface extends javax.swing.JPanel {
      */
     private void loadSpaceListConfig(String worldname) {
         if (config.getProperty("worlds." + worldname) == null) {
-            BananaSpace.log.warning(BananaSpace.prefix + " A world with the name '" + worldname + "' does not exist in the config!");
+            BananaSpace.getMessageHandler().print(Level.WARNING, "A world with the name '" + worldname + "' does not exist in the config!");
             return;
         }
         Settings_WorldName.setText(worldname);
@@ -75,7 +76,7 @@ public class PailInterface extends javax.swing.JPanel {
         Settings_RoomHeight.setValue(config.getInt("worlds." + worldname + ".breathingarea.maxroomheight", 5));
         Settings_Neutral.setSelected(config.getBoolean("worlds." + worldname + ".neutralmobs", true));
         Settings_Hostile.setSelected(config.getBoolean("worlds." + worldname + ".hostilemobs", false));
-        BananaSpace.debugLog("Loaded settings for spaceworld '" + worldname + "'.");
+        BananaSpace.getMessageHandler().debugPrint(Level.INFO, "Loaded settings for spaceworld '" + worldname + "'.");
     }
 
     /**
@@ -85,7 +86,7 @@ public class PailInterface extends javax.swing.JPanel {
      */
     private void saveSpaceListConfig(String worldname) {
         if (config.getProperty("worlds." + worldname) == null) {
-            BananaSpace.log.warning(BananaSpace.prefix + " A world with the name '" + worldname + "' does not exist in the config!");
+            BananaSpace.getMessageHandler().print(Level.WARNING, "A world with the name '" + worldname + "' does not exist in the config!");
             return;
         }
         config.setProperty("worlds." + worldname + ".generation.generateplanets", Settings_Planets.isSelected());
@@ -100,7 +101,7 @@ public class PailInterface extends javax.swing.JPanel {
         config.setProperty("worlds." + worldname + ".suit.required", Settings_SuitRequired.isSelected());
         config.setProperty("worlds" + worldname + ".helmet.required", Settings_HelmetRequired.isSelected());
         config.save();
-        BananaSpace.debugLog("Saved settings for spaceworld '" + worldname + "'.");
+        BananaSpace.getMessageHandler().debugPrint(Level.INFO, "Saved settings for spaceworld '" + worldname + "'.");
     }
 
     /**
@@ -653,7 +654,7 @@ private void CreateWorldButtonActionPerformed(java.awt.event.ActionEvent evt) {/
             BananaSpace.worldHandler.createSpaceWorld(plugin, NewWorld.getText().trim(), false);
         }
     }, 1L);
-    BananaSpace.debugLog("Created spaceworld '" + worldname + "' through Pail.");
+    BananaSpace.getMessageHandler().debugPrint(Level.INFO, "Created spaceworld '" + worldname + "' through Pail.");
     JOptionPane.showMessageDialog(this, "A new spaceworld called '" + worldname + "' has been created!", "Spaceworld created", JOptionPane.INFORMATION_MESSAGE);
     NewWorld.setText("World name");
 }//GEN-LAST:event_CreateWorldButtonActionPerformed
@@ -723,7 +724,7 @@ private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
     try {
         Desktop.getDesktop().browse(java.net.URI.create("http://forums.bukkit.org/threads/32546/"));
     } catch (IOException ex) {
-        BananaSpace.log.warning(BananaSpace.prefix + " Something went wrong while opening a page on your web browser!");
+        BananaSpace.getMessageHandler().print(Level.WARNING, "Something went wrong while opening a page on your web browser!");
     }
 }//GEN-LAST:event_jLabel8MouseClicked
     // Variables declaration - do not modify//GEN-BEGIN:variables

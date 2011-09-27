@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.logging.Level;
 
 // BananaSpace Imports
 import me.iffa.bananaspace.BananaSpace;
@@ -103,15 +104,11 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
         minSize = planetConfig.getInt("minSize", 4);
         maxSize = planetConfig.getInt("maxSize", 20);
         minDistance = planetConfig.getInt("minDistance", 10);
-        floorBlock = Material.matchMaterial(planetConfig.getString(
-                "floorBlock", "STATIONARY_WATER"));
-        this.floorHeight = planetConfig.getInt("floorHeight",
-                0);
+        floorBlock = Material.matchMaterial(planetConfig.getString("floorBlock", "STATIONARY_WATER"));
+        this.floorHeight = planetConfig.getInt("floorHeight", 0);
         minShellSize = planetConfig.getInt("minShellSize", 3);
         maxShellSize = planetConfig.getInt("maxShellSize", 5);
-
         loadAllowedBlocks();
-
         cache = new HashMap<Point, List<Planetoid>>();
     }
 
@@ -123,29 +120,25 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
      * @param x X-coord
      * @param z Z-coord
      * 
-     * @return byte[] Byte
+     * @return byte[] Bytes
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked", "unchecked"})
     @Override
     public byte[] generate(World world, Random random, int x, int z) {
         byte[] retVal = new byte[32768];
-
         Arrays.fill(retVal, (byte) 0);
-
         int sysX;
         if (x >= 0) {
             sysX = x / SYSTEM_SIZE;
         } else {
             sysX = (int) Math.floor((x / (float) SYSTEM_SIZE));
         }
-
         int sysZ;
         if (z >= 0) {
             sysZ = z / SYSTEM_SIZE;
         } else {
             sysZ = (int) Math.floor((z / (float) SYSTEM_SIZE));
         }
-
         // check if the "system" this chunk is in is cached
         List<Planetoid> curSystem = cache.get(new Point(sysX, sysZ));
 
@@ -155,8 +148,7 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
             if (!systemFolder.exists()) {
                 systemFolder.mkdir();
             }
-            File systemFile = new File(systemFolder, "system_" + sysX + "."
-                    + sysZ + ".dat");
+            File systemFile = new File(systemFolder, "system_" + sysX + "." + sysZ + ".dat");
             if (systemFile.exists()) {
                 try {
                     // load and cache
@@ -394,7 +386,7 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
                 planetoids.add(curPl);
             }
         }
-        BananaSpace.log.info(BananaSpace.prefix + " Made " + planetoids.size() + " planets in this region.");
+        BananaSpace.getMessageHandler().print(Level.INFO, "Made " + planetoids.size() + " planets in this region.");
         return planetoids;
     }
 

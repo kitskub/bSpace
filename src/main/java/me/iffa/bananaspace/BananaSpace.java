@@ -49,7 +49,6 @@ import org.bukkit.scheduler.BukkitScheduler;
  */
 public class BananaSpace extends JavaPlugin {
     // Variables
-
     public static String prefix;
     public static String version;
     //public static final Logger log = Logger.getLogger("Minecraft");

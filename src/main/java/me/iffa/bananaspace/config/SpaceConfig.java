@@ -5,6 +5,7 @@ package me.iffa.bananaspace.config;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.util.logging.Level;
 
 //BananaSpace Import
 import me.iffa.bananaspace.BananaSpace;
@@ -55,9 +56,9 @@ public class SpaceConfig {
                 myConfig = new Configuration(configFile);
                 myConfig.load();
                 loaded = true;
-                BananaSpace.log.info(BananaSpace.prefix + " Generated configuration file for version " + BananaSpace.version);
+                BananaSpace.getMessageHandler().print(Level.INFO, "Generated configuration file for version " + BananaSpace.version);
             } catch (Exception e) {
-                BananaSpace.log.severe(e.toString());
+                BananaSpace.getMessageHandler().print(Level.SEVERE, e.toString());
             }
         }
     }

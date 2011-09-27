@@ -1,6 +1,9 @@
 // Package Declaration
 package me.iffa.bananaspace.listeners.spout;
 
+// Java Imports
+import java.util.logging.Level;
+
 // BananaSpace Imports
 import me.iffa.bananaspace.BananaSpace;
 
@@ -75,11 +78,11 @@ public class SpaceSpoutEntityListener extends EntityListener {
 			    //BananaSpace.debugLog("Added player "+player.getName()+" to the Location Cache");
 			}
 		    } else {
-			BananaSpace.debugLog("Worlds are not the same! Canceling event!");
+			BananaSpace.getMessageHandler().debugPrint(Level.WARNING, "Worlds are not the same! Canceling event!");
 			event.setCancelled(true);
 		    }
 		} else {
-		    BananaSpace.debugLog("Player "+player.getName()+" wasn't in the Location Cache! Canceling event!");
+		    BananaSpace.getMessageHandler().debugPrint(Level.WARNING, "Player "+player.getName()+" wasn't in the Location Cache! Canceling event!");
 		    event.setCancelled(true);
 		}
 	    }
@@ -99,7 +102,7 @@ public class SpaceSpoutEntityListener extends EntityListener {
 		SpoutPlayer p = SpoutManager.getPlayer(player);
 		if(p.isSpoutCraftEnabled()) {
 		    app.setEntitySkin(p, (LivingEntity)event.getEntity(), "http://dl.dropbox.com/u/16261496/bananaspace_alien.png", EntitySkinType.DEFAULT);
-		    BananaSpace.debugLog("Made zombie '" + event.getEntity().getEntityId() + "' have an alien skin for player '" + player.getName() + "'.");
+		    BananaSpace.getMessageHandler().debugPrint(Level.INFO, "Made zombie '" + event.getEntity().getEntityId() + "' have an alien skin for player '" + player.getName() + "'.");
 		}
 	    }
 	}

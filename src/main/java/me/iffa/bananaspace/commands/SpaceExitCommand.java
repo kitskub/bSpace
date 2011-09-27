@@ -4,6 +4,7 @@ package me.iffa.bananaspace.commands;
 // Java Imports
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
 
 // BananaSpace Imports
 import me.iffa.bananaspace.BananaSpace;
@@ -44,14 +45,14 @@ public class SpaceExitCommand extends SpaceCommand {
         if (BananaSpace.worldHandler.isInAnySpace(player)) {
             if (BananaSpace.getPlayerHandler().hasPermission("bananaspace.teleport.exit", player)) {
                 if(!plugin.getEconomy().exitCommand(player)){
-                            player.sendMessage("You don't have enough money");
+                            BananaSpace.getMessageHandler().sendNotEnoughMoneyMessage(player);
                             return;
                 }
                 enterDest.put(player, player.getLocation());
                 Location location;
                 if (SpaceEnterCommand.exitDest.containsKey(player)) {
                     location = SpaceEnterCommand.exitDest.get(player);
-                    BananaSpace.debugLog("Teleported player '" + player.getName() + "' out of space.");
+                    BananaSpace.getMessageHandler().debugPrint(Level.INFO, "Teleported player '" + player.getName() + "' out of space.");
                     player.teleport(location);
                     return;
                 } else {
@@ -61,7 +62,7 @@ public class SpaceExitCommand extends SpaceCommand {
                     return;
                 }
             } else {
-                sender.sendMessage(ChatColor.RED + "You don't have permission!");
+                BananaSpace.getMessageHandler().sendNoPermissionMessage(player);
                 return;
             }
         } else {

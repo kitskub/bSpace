@@ -5,6 +5,7 @@ package me.iffa.bananaspace.config;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.util.logging.Level;
 
 //BananaSpace Import
 import me.iffa.bananaspace.BananaSpace;
@@ -59,9 +60,9 @@ public class SpacePlanetConfig {
                     if ((long) myConfig.getDouble("seed", -1.0) == -1) {
                         myConfig.setProperty("seed", Bukkit.getServer().getWorlds().get(0).getSeed());
                     }
-                    BananaSpace.log.info(BananaSpace.prefix + " Generated planet configuration for version " + BananaSpace.version);
+                    BananaSpace.getMessageHandler().print(Level.INFO, "Generated planet configuration for version " + BananaSpace.version);
                 } catch (Exception e) {
-                    BananaSpace.log.severe(e.toString());
+                    BananaSpace.getMessageHandler().print(Level.SEVERE, e.toString());
                 }
             }
         }

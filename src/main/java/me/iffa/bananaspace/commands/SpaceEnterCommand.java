@@ -4,6 +4,7 @@ package me.iffa.bananaspace.commands;
 // Java Imports
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
 
 // BananaSpace Imports
 import me.iffa.bananaspace.BananaSpace;
@@ -45,11 +46,11 @@ public class SpaceEnterCommand extends SpaceCommand {
             if (BananaSpace.getPlayerHandler().hasPermission("bananaspace.teleport.enter", player)) {
                 if (BananaSpace.worldHandler.getSpaceWorlds().get(0) == player.getWorld()) {
                     player.sendMessage(ChatColor.RED + "You are already in that space world!");
-                    BananaSpace.debugLog("Someone tried to use /space enter, but he was already in that space world.");
+                    BananaSpace.getMessageHandler().debugPrint(Level.INFO, "Someone tried to use /space enter, but he was already in that space world.");
                     return;
                 }
                 if(!plugin.getEconomy().enterCommand(player)){
-                        player.sendMessage("You don't have enough money");
+                        BananaSpace.getMessageHandler().sendNotEnoughMoneyMessage(player);
                         return;
                 }
                 exitDest.put(player, player.getLocation());
@@ -59,16 +60,16 @@ public class SpaceEnterCommand extends SpaceCommand {
                 } else {
                     location = BananaSpace.worldHandler.getSpaceWorlds().get(0).getSpawnLocation();
                 }
-                BananaSpace.debugLog("Teleported player '" + player.getName() + "' to space.");
+                BananaSpace.getMessageHandler().debugPrint(Level.INFO, "Teleported player '" + player.getName() + "' to space.");
                 player.teleport(location);
                 return;
             }
-            sender.sendMessage(ChatColor.RED + "You don't have permission!");
+            BananaSpace.getMessageHandler().sendNoPermissionMessage(player);
             return;
         } else if (args.length == 2) {
             if (BananaSpace.getPlayerHandler().hasPermission("bananaspace.teleport.enter", player)) {
                 if(!plugin.getEconomy().enterCommand(player)){
-                        player.sendMessage("You don't have enough money");
+                        BananaSpace.getMessageHandler().sendNotEnoughMoneyMessage(player);
                         return;
                 }
                 if (plugin.getServer().getWorld(args[1]) == null) {
@@ -90,12 +91,12 @@ public class SpaceEnterCommand extends SpaceCommand {
                 } else {
                     location = plugin.getServer().getWorld(args[1]).getSpawnLocation();
                 }
-                BananaSpace.debugLog("Teleported player '" + player.getName() + "' to space.");
+                BananaSpace.getMessageHandler().debugPrint(Level.INFO, "Teleported player '" + player.getName() + "' to space.");
                 player.teleport(location);
                 return;
             }
         }
-        sender.sendMessage(ChatColor.RED + "You don't have permission!");
+        BananaSpace.getMessageHandler().sendNoPermissionMessage(player);
         return;
     }
 }

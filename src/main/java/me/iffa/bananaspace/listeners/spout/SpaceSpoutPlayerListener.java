@@ -1,6 +1,9 @@
 // Package Declaration
 package me.iffa.bananaspace.listeners.spout;
 
+// Java Imports
+import java.util.logging.Level;
+
 // BananaSpace Imports
 import me.iffa.bananaspace.BananaSpace;
 import me.iffa.bananaspace.runnable.SpaceSpoutRunnable;
@@ -55,17 +58,17 @@ public class SpaceSpoutPlayerListener extends PlayerListener {
 	    sky.setCloudsVisible(player, false); //set clouds invisible
 	    sky.setStarFrequency(player, 5000); //set star frequency higher
 	    BananaSpace.scheduler.scheduleSyncDelayedTask(plugin, new SpaceSpoutRunnable(event.getPlayer()), 10L);
-	    BananaSpace.debugLog("Made clouds and the moon invisible for player '" + player.getName() + "'. Starting runnable thread to setup Player movements...");
+	    BananaSpace.getMessageHandler().debugPrint(Level.INFO, "Made clouds and the moon invisible for player '" + player.getName() + "'. Starting runnable thread to setup Player movements...");
 	}
 	/* Player teleports out of spaceworld */
 	if (BananaSpace.worldHandler.isSpaceWorld(event.getFrom().getWorld()) && !BananaSpace.worldHandler.isSpaceWorld(event.getTo().getWorld())) {
 	    sky.setCloudsVisible(player, true);
 	    sky.setMoonVisible(player, true);
 	    sky.setStarFrequency(player, 500);
-	    BananaSpace.debugLog("Made clouds visible for player '" + player.getName() + "'.");
+	    BananaSpace.getMessageHandler().debugPrint(Level.INFO, "Made clouds visible for player '" + player.getName() + "'.");
 	    player.setCanFly(false);
 	    player.resetMovement();
-	    BananaSpace.debugLog("Reset player '" + player.getName() + "'s gravity and visual settings.");
+	    BananaSpace.getMessageHandler().debugPrint(Level.INFO, "Reset player '" + player.getName() + "'s gravity and visual settings.");
 	}
     }
 }

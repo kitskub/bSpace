@@ -33,7 +33,7 @@ public class SpaceListCommand extends SpaceCommand {
     @Override
     public void command() {
         if (!BananaSpace.getPlayerHandler().hasPermission("bananaspace.teleport.list", (Player) sender)) {
-            sender.sendMessage(ChatColor.RED + "You don't have permission!");
+            BananaSpace.getMessageHandler().sendNoPermissionMessage((Player) sender);
             return;
         }
         sender.sendMessage(ChatColor.GREEN + BananaSpace.prefix + " List of spaceworlds:");

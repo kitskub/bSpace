@@ -7,6 +7,7 @@ import com.nijikokun.register.payment.Method.MethodAccount;
 import com.nijikokun.register.payment.Methods;
 
 // BananaSpace Imports
+import java.util.logging.Level;
 import me.iffa.bananaspace.BananaSpace;
 import me.iffa.bananaspace.config.SpaceConfig;
 
@@ -34,7 +35,7 @@ public class Economy {
         Economy.plugin = plugin;
         use = true;
         getMethod();
-        BananaSpace.debugLog("Hooked into " + method.getName());
+        BananaSpace.getMessageHandler().debugPrint(Level.INFO, "Hooked into " + method.getName());
     }
     
     /**
