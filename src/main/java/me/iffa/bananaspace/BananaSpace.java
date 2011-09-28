@@ -49,9 +49,9 @@ import org.bukkit.scheduler.BukkitScheduler;
  */
 public class BananaSpace extends JavaPlugin {
     // Variables
+
     public static String prefix;
     public static String version;
-    //public static final Logger log = Logger.getLogger("Minecraft");
     public static BukkitScheduler scheduler;
     public static SpaceWorldHandler worldHandler;
     public static SpacePlayerHandler playerHandler;
@@ -90,7 +90,7 @@ public class BananaSpace extends JavaPlugin {
         // Loading configuration files
         SpaceConfig.loadConfig();
         SpacePlanetConfig.loadConfig();
-        messageHandler.debugPrint(Level.INFO, "Initialized startup variables and loaded configuration files.");
+        SpaceMessageHandler.debugPrint(Level.INFO, "Initialized startup variables and loaded configuration files.");
 
         // Registering other events
         pm.registerEvent(Event.Type.WEATHER_CHANGE, weatherListener, Event.Priority.Normal, this);
@@ -103,7 +103,7 @@ public class BananaSpace extends JavaPlugin {
         pm.registerEvent(Event.Type.PLAYER_RESPAWN, playerListener, Event.Priority.Normal, this);
         pm.registerEvent(Event.Type.PLAYER_QUIT, playerListener, Event.Priority.Normal, this);
         pm.registerEvent(Event.Type.PLAYER_JOIN, playerListener, Event.Priority.Normal, this);
-        messageHandler.debugPrint(Level.INFO, "Registered events (General).");
+        SpaceMessageHandler.debugPrint(Level.INFO, "Registered events (General).");
 
         // Registering events for Spout
         if (pm.getPlugin("Spout") != null && SpaceConfigHandler.isUsingSpout()) {
@@ -114,7 +114,7 @@ public class BananaSpace extends JavaPlugin {
             pm.registerEvent(Event.Type.CUSTOM_EVENT, spcListener, Event.Priority.Normal, this); //SpoutCraft Listener
             pm.registerEvent(Event.Type.CUSTOM_EVENT, spaListener, Event.Priority.Normal, this); //Area Listener
             pm.registerEvent(Event.Type.CUSTOM_EVENT, spkListener, Event.Priority.Normal, this); //Key Listener
-            messageHandler.debugPrint(Level.INFO, "Registered events (Spout).");
+            SpaceMessageHandler.debugPrint(Level.INFO, "Registered events (Spout).");
         }
 
         // Loading space worlds (startup).
@@ -123,25 +123,28 @@ public class BananaSpace extends JavaPlugin {
         // Initializing the CommandExecutor
         sce = new SpaceCommandHandler(this);
         getCommand("space").setExecutor(sce);
-        messageHandler.debugPrint(Level.INFO, "Initialized CommandExecutors.");
+        SpaceMessageHandler.debugPrint(Level.INFO, "Initialized CommandExecutors.");
 
         // Checking if it should always be night in space
         for (World world : worldHandler.getSpaceWorlds()) {
             if (SpaceConfigHandler.forceNight(world)) {
                 worldHandler.startForceNightTask(world);
-                messageHandler.debugPrint(Level.INFO, "Started night forcing task for world '" + world.getName() + "'.");
+                SpaceMessageHandler.debugPrint(Level.INFO, "Started night forcing task for world '" + world.getName() + "'.");
             }
         }
-        //Economy //TODO add more than iconomy
+        
+        //Economy
         if (economy == null) {
             if (Economy.checkEconomy(this)) {
                 economy = new Economy(this);
+            } else {
+                economy = new Economy();
             }
-            else economy = new Economy();//Used to get rid of nullpointerexception
         }
+        
         // Pail interface
         if (pm.getPlugin("Pail") != null) {
-            messageHandler.debugPrint(Level.INFO, "Starting up the Pail tab.");
+            SpaceMessageHandler.debugPrint(Level.INFO, "Starting up the Pail tab.");
             pailInt = new PailInterface(this);
             ((Pail) pm.getPlugin("Pail")).loadInterfaceComponent("BananaSpace", pailInt);
         }
@@ -175,7 +178,7 @@ public class BananaSpace extends JavaPlugin {
      */
     @Override
     public ChunkGenerator getDefaultWorldGenerator(String worldName, String id) {
-        SpaceMessageHandler.debugPrint(Level.INFO,"Getting generator for"+worldName+" "+id);
+        SpaceMessageHandler.debugPrint(Level.INFO, "Getting generator for" + worldName + " " + id);
         if (!SpaceConfigHandler.isWorldInConfig(worldName)) {
             worldHandler.createSpaceWorld(this, worldName, true);
         }
@@ -185,7 +188,7 @@ public class BananaSpace extends JavaPlugin {
         if (id.equalsIgnoreCase("planets")) {
             return new PlanetsChunkGenerator(SpacePlanetConfig.getConfig(), this);
         }
-  
+
         return new SpaceChunkGenerator();
     }
 
@@ -207,7 +210,7 @@ public class BananaSpace extends JavaPlugin {
     public static SpacePlayerHandler getPlayerHandler() {
         return playerHandler;
     }
-    
+
     /**
      * Gets the SpaceMessageHandler.
      * 
@@ -216,7 +219,7 @@ public class BananaSpace extends JavaPlugin {
     public static SpaceMessageHandler getMessageHandler() {
         return messageHandler;
     }
-    
+
     /**
      * Gets the Economy-class.
      * 
