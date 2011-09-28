@@ -43,13 +43,14 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
 
 /**
- * Main class of BananaSpace
+ * Main class of BananaSpace.
  * 
  * @author iffa
+ * @author kitskub
+ * @author HACKhalo2
  */
 public class BananaSpace extends JavaPlugin {
     // Variables
-
     public static String prefix;
     public static String version;
     public static BukkitScheduler scheduler;
@@ -58,10 +59,10 @@ public class BananaSpace extends JavaPlugin {
     public static SpaceMessageHandler messageHandler;
     public static PailInterface pailInt;
     public static PluginManager pm;
-    private SpaceCommandHandler sce = null;
-    private Economy economy;
     public static Map<Player, Location> locCache = null;
     public static boolean jumpPressed = false;
+    private SpaceCommandHandler sce = null;
+    private Economy economy;
     private final SpaceWeatherListener weatherListener = new SpaceWeatherListener(this);
     private final SpaceEntityListener entityListener = new SpaceEntityListener(this);
     private final SpacePlayerListener playerListener = new SpacePlayerListener(this);

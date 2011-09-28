@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import me.iffa.bananaspace.BananaSpace;
 
 // Bukkit Imports
+import me.iffa.bananaspace.api.SpaceMessageHandler;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
@@ -46,7 +47,7 @@ public class SpaceEnterCommand extends SpaceCommand {
             if (BananaSpace.getPlayerHandler().hasPermission("bananaspace.teleport.enter", player)) {
                 if (BananaSpace.worldHandler.getSpaceWorlds().get(0) == player.getWorld()) {
                     player.sendMessage(ChatColor.RED + "You are already in that space world!");
-                    BananaSpace.getMessageHandler().debugPrint(Level.INFO, "Someone tried to use /space enter, but he was already in that space world.");
+                    SpaceMessageHandler.debugPrint(Level.INFO, "Someone tried to use /space enter, but he was already in that space world.");
                     return;
                 }
                 if(!plugin.getEconomy().enterCommand(player)){
@@ -60,7 +61,7 @@ public class SpaceEnterCommand extends SpaceCommand {
                 } else {
                     location = BananaSpace.worldHandler.getSpaceWorlds().get(0).getSpawnLocation();
                 }
-                BananaSpace.getMessageHandler().debugPrint(Level.INFO, "Teleported player '" + player.getName() + "' to space.");
+                SpaceMessageHandler.debugPrint(Level.INFO, "Teleported player '" + player.getName() + "' to space.");
                 player.teleport(location);
                 return;
             }
@@ -91,7 +92,7 @@ public class SpaceEnterCommand extends SpaceCommand {
                 } else {
                     location = plugin.getServer().getWorld(args[1]).getSpawnLocation();
                 }
-                BananaSpace.getMessageHandler().debugPrint(Level.INFO, "Teleported player '" + player.getName() + "' to space.");
+                SpaceMessageHandler.debugPrint(Level.INFO, "Teleported player '" + player.getName() + "' to space.");
                 player.teleport(location);
                 return;
             }

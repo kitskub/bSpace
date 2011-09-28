@@ -8,6 +8,7 @@ import java.util.logging.Level;
 import me.iffa.bananaspace.BananaSpace;
 
 // Bukkit Imports
+import me.iffa.bananaspace.api.SpaceMessageHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -62,7 +63,7 @@ public class SpaceSpoutKeyListener extends InputListener {
 		    Location temp2 = event.getPlayer().getLocation();
 		    if((temp1.getBlock().getX() == temp2.getBlock().getX()) && (temp1.getBlock().getY() == temp2.getBlock().getY()) &&
 			    (temp1.getBlock().getZ() == temp2.getBlock().getZ()) && (temp1.getWorld().equals(temp2.getWorld()))) {
-			BananaSpace.getMessageHandler().debugPrint(Level.WARNING, "Player "+temp.getName()+" is in the Location Cache already! Skipping...");
+			SpaceMessageHandler.debugPrint(Level.WARNING, "Player "+temp.getName()+" is in the Location Cache already! Skipping...");
 		    } else {
 			Block under = Bukkit.getServer().getWorld(player.getWorld().getName()).getBlockAt(
 				temp2.getBlockX(), temp2.getBlockY()-1, temp2.getBlockZ());
@@ -70,7 +71,7 @@ public class SpaceSpoutKeyListener extends InputListener {
 			    //Update the cached reference
 			    BananaSpace.locCache.remove(player);
 			    BananaSpace.locCache.put(temp, temp2);
-			    BananaSpace.getMessageHandler().debugPrint(Level.INFO, "Updated Player "+temp.getName()+" in the Location Cache.");
+			    SpaceMessageHandler.debugPrint(Level.INFO, "Updated Player "+temp.getName()+" in the Location Cache.");
 			}
 		    }
 		}

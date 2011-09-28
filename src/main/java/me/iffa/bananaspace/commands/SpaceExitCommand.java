@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import me.iffa.bananaspace.BananaSpace;
 
 // Bukkit Imports
+import me.iffa.bananaspace.api.SpaceMessageHandler;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
@@ -52,7 +53,7 @@ public class SpaceExitCommand extends SpaceCommand {
                 Location location;
                 if (SpaceEnterCommand.exitDest.containsKey(player)) {
                     location = SpaceEnterCommand.exitDest.get(player);
-                    BananaSpace.getMessageHandler().debugPrint(Level.INFO, "Teleported player '" + player.getName() + "' out of space.");
+                    SpaceMessageHandler.debugPrint(Level.INFO, "Teleported player '" + player.getName() + "' out of space.");
                     player.teleport(location);
                     return;
                 } else {

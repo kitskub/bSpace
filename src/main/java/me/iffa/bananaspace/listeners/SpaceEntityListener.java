@@ -7,6 +7,7 @@ import java.util.logging.Level;
 // BananaSpace Imports
 import me.iffa.bananaspace.BananaSpace;
 import me.iffa.bananaspace.api.SpaceConfigHandler;
+import me.iffa.bananaspace.api.SpaceMessageHandler;
 import me.iffa.bananaspace.api.event.misc.AntiMobSpawnEvent;
 
 // Bukkit Imports
@@ -100,7 +101,7 @@ public class SpaceEntityListener extends EntityListener {
         if (event.getEntity() instanceof Player && BananaSpace.worldHandler.isInAnySpace((Player) event.getEntity()) && event.getCause() == DamageCause.VOID) {
             Player player = (Player) event.getEntity();
             player.setHealth(0);
-            BananaSpace.getMessageHandler().debugPrint(Level.INFO, "Killed player '" + player.getName() + "' in void.");
+            SpaceMessageHandler.debugPrint(Level.INFO, "Killed player '" + player.getName() + "' in void.");
         }
     }
 
@@ -116,7 +117,7 @@ public class SpaceEntityListener extends EntityListener {
             if (SpacePlayerListener.taskid.containsKey(p)) {
                 if (BananaSpace.scheduler.isCurrentlyRunning(SpacePlayerListener.taskid.get(p))) {
                     BananaSpace.scheduler.cancelTask(SpacePlayerListener.taskid.get(p));
-                    BananaSpace.getMessageHandler().debugPrint(Level.INFO, "Cancelled suffocating task for player '" + p.getName() + "' because (s)he died.");
+                    SpaceMessageHandler.debugPrint(Level.INFO, "Cancelled suffocating task for player '" + p.getName() + "' because (s)he died.");
                 }
             }
         }

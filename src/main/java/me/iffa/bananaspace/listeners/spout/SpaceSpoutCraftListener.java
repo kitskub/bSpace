@@ -8,6 +8,7 @@ import java.util.logging.Level;
 import me.iffa.bananaspace.BananaSpace;
 
 // Bukkit Imports
+import me.iffa.bananaspace.api.SpaceMessageHandler;
 import org.bukkit.World;
 
 // Spout Imports
@@ -57,18 +58,16 @@ public class SpaceSpoutCraftListener extends SpoutListener {
             BananaSpace.debugLog("Made zombie '" + entity.getEntityId() + "' have an alien skin for player '" + player.getName() + "'.");
             }
             }*/
+            //SpaceMessageHandler.debugPrint(Level.INFO, "Made zombies have an alien skin for player '" + player.getName() + "'.");
             //Set the sky properties
             sky.setMoonVisible(player, false);
             sky.setCloudsVisible(player, false);
-            sky.setStarFrequency(player, 5000);
+            SpaceMessageHandler.debugPrint(Level.INFO, "Made clouds invisible for player '" + player.getName() + "'.");
             //Set the player properties
             player.setAirSpeedMultiplier(1.2);
             player.setGravityMultiplier(0.3);
             player.setWalkingMultiplier(0.7);
-            //Debug stuffs
-            BananaSpace.getMessageHandler().debugPrint(Level.INFO, "Made clouds invisible for player '" + player.getName() + "'.");
-            BananaSpace.getMessageHandler().debugPrint(Level.INFO, "Made zombies have an alien skin for player '" + player.getName() + "'.");
-            BananaSpace.getMessageHandler().debugPrint(Level.INFO, "Changed player '" + player.getName() + "'s gravity settings (" + player.getAirSpeedMultiplier() + ", " + player.getGravityMultiplier() + ", " + player.getJumpingMultiplier() + ").");
+            SpaceMessageHandler.debugPrint(Level.INFO, "Changed player '" + player.getName() + "'s gravity settings (" + player.getAirSpeedMultiplier() + ", " + player.getGravityMultiplier() + ", " + player.getJumpingMultiplier() + ").");
         }
     }
 }

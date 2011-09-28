@@ -77,7 +77,7 @@ public class PailInterface extends javax.swing.JPanel {
         Settings_RoomHeight.setValue(config.getInt("worlds." + worldname + ".breathingarea.maxroomheight", 5));
         Settings_Neutral.setSelected(config.getBoolean("worlds." + worldname + ".neutralmobs", true));
         Settings_Hostile.setSelected(config.getBoolean("worlds." + worldname + ".hostilemobs", false));
-        BananaSpace.getMessageHandler().debugPrint(Level.INFO, "Loaded settings for spaceworld '" + worldname + "'.");
+        SpaceMessageHandler.debugPrint(Level.INFO, "Loaded settings for spaceworld '" + worldname + "'.");
     }
 
     /**
@@ -102,7 +102,7 @@ public class PailInterface extends javax.swing.JPanel {
         config.setProperty("worlds." + worldname + ".suit.required", Settings_SuitRequired.isSelected());
         config.setProperty("worlds" + worldname + ".helmet.required", Settings_HelmetRequired.isSelected());
         config.save();
-        BananaSpace.getMessageHandler().debugPrint(Level.INFO, "Saved settings for spaceworld '" + worldname + "'.");
+        SpaceMessageHandler.debugPrint(Level.INFO, "Saved settings for spaceworld '" + worldname + "'.");
     }
 
     /**
@@ -655,7 +655,7 @@ private void CreateWorldButtonActionPerformed(java.awt.event.ActionEvent evt) {/
             BananaSpace.worldHandler.createSpaceWorld(plugin, NewWorld.getText().trim(), false);
         }
     }, 1L);
-    BananaSpace.getMessageHandler().debugPrint(Level.INFO, "Created spaceworld '" + worldname + "' through Pail.");
+        SpaceMessageHandler.debugPrint(Level.INFO, "Created spaceworld '" + worldname + "' through Pail.");
     JOptionPane.showMessageDialog(this, "A new spaceworld called '" + worldname + "' has been created!", "Spaceworld created", JOptionPane.INFORMATION_MESSAGE);
     NewWorld.setText("World name");
 }//GEN-LAST:event_CreateWorldButtonActionPerformed

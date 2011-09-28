@@ -9,6 +9,7 @@ import java.util.logging.Level;
 // BananaSpace Imports
 import me.iffa.bananaspace.BananaSpace;
 import me.iffa.bananaspace.api.SpaceConfigHandler;
+import me.iffa.bananaspace.api.SpaceMessageHandler;
 import me.iffa.bananaspace.api.event.area.AreaEnterEvent;
 import me.iffa.bananaspace.api.event.area.AreaLeaveEvent;
 import me.iffa.bananaspace.api.event.misc.SpaceSuffocationEvent;
@@ -84,7 +85,7 @@ public class SpacePlayerListener extends PlayerListener {
                     event.setCancelled(true);
                 }
                 /* Notify listeners end */
-                BananaSpace.getMessageHandler().debugPrint(Level.INFO, "Player '" + event.getPlayer().getName() + "' teleported to space.");
+                SpaceMessageHandler.debugPrint(Level.INFO, "Player '" + event.getPlayer().getName() + "' teleported to space.");
                 fixDupe.put(event.getPlayer(), true);
             } else if (!BananaSpace.worldHandler.isSpaceWorld(event.getTo().getWorld())
                     && BananaSpace.worldHandler.isSpaceWorld(event.getFrom().getWorld())) {
@@ -136,7 +137,7 @@ public class SpacePlayerListener extends PlayerListener {
                         AreaEnterEvent e = new AreaEnterEvent(event.getPlayer());
                         Bukkit.getServer().getPluginManager().callEvent(e);
                         /* Notify listeners end */
-                        BananaSpace.getMessageHandler().debugPrint(Level.INFO, "Player '" + event.getPlayer().getName() + "' entered an area.");
+                        SpaceMessageHandler.debugPrint(Level.INFO, "Player '" + event.getPlayer().getName() + "' entered an area.");
                     }
                 } else {
                     inArea.put(event.getPlayer(), true);
@@ -161,7 +162,7 @@ public class SpacePlayerListener extends PlayerListener {
                         AreaLeaveEvent e = new AreaLeaveEvent(event.getPlayer());
                         Bukkit.getServer().getPluginManager().callEvent(e);
                         /* Notify listeners end */
-                        BananaSpace.getMessageHandler().debugPrint(Level.INFO, "Player '" + event.getPlayer().getName() + "' left an area.");
+                        SpaceMessageHandler.debugPrint(Level.INFO, "Player '" + event.getPlayer().getName() + "' left an area.");
                     }
                 } else {
                     inArea.put(event.getPlayer(), false);
@@ -185,7 +186,7 @@ public class SpacePlayerListener extends PlayerListener {
                                 return;
                             }
                             /* Notify listeners end */
-                            BananaSpace.getMessageHandler().debugPrint(Level.INFO, "Player '" + event.getPlayer().getName() + "' started suffocating in space.");
+                            SpaceMessageHandler.debugPrint(Level.INFO, "Player '" + event.getPlayer().getName() + "' started suffocating in space.");
                             SpaceRunnable2 task = new SpaceRunnable2(event.getPlayer());
                             taskInt = BananaSpace.scheduler.scheduleSyncRepeatingTask(plugin, task, 20L, 20L);
                             taskid.put(event.getPlayer(), taskInt);
@@ -202,7 +203,7 @@ public class SpacePlayerListener extends PlayerListener {
                                 return;
                             }
                             /* Notify listeners end */
-                            BananaSpace.getMessageHandler().debugPrint(Level.INFO, "Player '" + event.getPlayer().getName() + "' started suffocating in space.");
+                            SpaceMessageHandler.debugPrint(Level.INFO, "Player '" + event.getPlayer().getName() + "' started suffocating in space.");
                             SpaceRunnable2 task = new SpaceRunnable2(event.getPlayer());
                             taskInt = BananaSpace.scheduler.scheduleSyncRepeatingTask(plugin, task, 20L, 20L);
                             taskid.put(event.getPlayer(), taskInt);
@@ -223,7 +224,7 @@ public class SpacePlayerListener extends PlayerListener {
                                 return;
                             }
                             /* Notify listeners end */
-                            BananaSpace.getMessageHandler().debugPrint(Level.INFO, "Player '" + event.getPlayer().getName() + "' started suffocating in space.");
+                            SpaceMessageHandler.debugPrint(Level.INFO, "Player '" + event.getPlayer().getName() + "' started suffocating in space.");
                             SpaceRunnable2 task = new SpaceRunnable2(event.getPlayer());
                             taskInt = BananaSpace.scheduler.scheduleSyncRepeatingTask(plugin, task, 20L, 20L);
                             taskid.put(event.getPlayer(), taskInt);
@@ -241,7 +242,7 @@ public class SpacePlayerListener extends PlayerListener {
                                 return;
                             }
                             /* Notify listeners end */
-                            BananaSpace.getMessageHandler().debugPrint(Level.INFO, "Player '" + event.getPlayer().getName() + "' started suffocating in space.");
+                            SpaceMessageHandler.debugPrint(Level.INFO, "Player '" + event.getPlayer().getName() + "' started suffocating in space.");
                             SpaceRunnable2 task = new SpaceRunnable2(event.getPlayer());
                             taskInt = BananaSpace.scheduler.scheduleSyncRepeatingTask(plugin, task, 20L, 20L);
                             taskid.put(event.getPlayer(), taskInt);
@@ -263,7 +264,7 @@ public class SpacePlayerListener extends PlayerListener {
                                 return;
                             }
                             /* Notify listeners end */
-                            BananaSpace.getMessageHandler().debugPrint(Level.INFO, "Player '" + event.getPlayer().getName() + "' started suffocating in space.");
+                            SpaceMessageHandler.debugPrint(Level.INFO, "Player '" + event.getPlayer().getName() + "' started suffocating in space.");
                             SpaceRunnable2 task = new SpaceRunnable2(event.getPlayer());
                             taskInt = BananaSpace.scheduler.scheduleSyncRepeatingTask(plugin, task, 20L, 20L);
                             taskid.put(event.getPlayer(), taskInt);
@@ -281,7 +282,7 @@ public class SpacePlayerListener extends PlayerListener {
                                 return;
                             }
                             /* Notify listeners end */
-                            BananaSpace.getMessageHandler().debugPrint(Level.INFO, "Player '" + event.getPlayer().getName() + "' started suffocating in space.");
+                            SpaceMessageHandler.debugPrint(Level.INFO, "Player '" + event.getPlayer().getName() + "' started suffocating in space.");
                             SpaceRunnable2 task = new SpaceRunnable2(event.getPlayer());
                             taskInt = BananaSpace.scheduler.scheduleSyncRepeatingTask(plugin, task, 20L, 20L);
                             taskid.put(event.getPlayer(), taskInt);
@@ -363,7 +364,7 @@ public class SpacePlayerListener extends PlayerListener {
         if (taskid.containsKey(event.getPlayer())) {
             if (BananaSpace.scheduler.isCurrentlyRunning(taskid.get(event.getPlayer()))) {
                 BananaSpace.scheduler.cancelTask(taskid.get(event.getPlayer()));
-                BananaSpace.getMessageHandler().debugPrint(Level.INFO, "Cancelled suffocation task for player '" + event.getPlayer().getName() + "'.");
+                SpaceMessageHandler.debugPrint(Level.INFO, "Cancelled suffocation task for player '" + event.getPlayer().getName() + "'.");
             }
         }
     }

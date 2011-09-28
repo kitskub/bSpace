@@ -4,6 +4,7 @@ package me.iffa.bananaspace.commands;
 // BananaSpace Imports
 import java.util.logging.Level;
 import me.iffa.bananaspace.BananaSpace;
+import me.iffa.bananaspace.api.SpaceMessageHandler;
 import me.iffa.bananaspace.api.event.misc.SpaceCommandEvent;
 
 // Bukkit Imports
@@ -44,7 +45,7 @@ public class SpaceCommandHandler implements CommandExecutor {
         /* Notify listeners start */
         SpaceCommandEvent e = new SpaceCommandEvent("SpaceCommandEvent", sender, args);
         if (e.isCancelled()) {
-            BananaSpace.getMessageHandler().debugPrint(Level.INFO, "External plugin cancelled SpaceCommandEvent using the API.");
+            SpaceMessageHandler.debugPrint(Level.INFO, "External plugin cancelled SpaceCommandEvent using the API.");
             return true;
         }
         /* Notify listeners end */
@@ -52,11 +53,11 @@ public class SpaceCommandHandler implements CommandExecutor {
         //  - Commands not available if no worlds are loaded or Multiverse is used
         //  - Sender must be a player
         if (!BananaSpace.worldHandler.getStartupLoaded() || BananaSpace.worldHandler.getUsingMV()) {
-            BananaSpace.getMessageHandler().debugPrint(Level.INFO, "Cancelled event because no worlds were loaded on startup or MV is being used.");
+            SpaceMessageHandler.debugPrint(Level.INFO, "Cancelled event because no worlds were loaded on startup or MV is being used.");
             return true;
         }
         if (!(sender instanceof Player)) {
-            BananaSpace.getMessageHandler().debugPrint(Level.INFO, "An unknown person tried to use the command.");
+            SpaceMessageHandler.debugPrint(Level.INFO, "An unknown person tried to use the command.");
             return true;
         }
         Player player = (Player) sender;
