@@ -3,6 +3,7 @@ package me.iffa.bananaspace.gui;
 
 // BananaSpace Imports
 import me.iffa.bananaspace.BananaSpace;
+import me.iffa.bananaspace.api.SpaceMessageHandler;
 import me.iffa.bananaspace.config.SpaceConfig;
 
 // Bukkit Imports
@@ -49,7 +50,7 @@ public class PailInterface extends javax.swing.JPanel {
         SpaceList.setModel(new DefaultListModel());
         for (World world : BananaSpace.worldHandler.getSpaceWorlds()) {
             ((DefaultListModel) SpaceList.getModel()).addElement(world.getName());
-            BananaSpace.getMessageHandler().debugPrint(Level.INFO, "Added spaceworld '" + world.getName() + "' to list of spaceworlds (Pail).");
+            SpaceMessageHandler.debugPrint(Level.INFO, "Added spaceworld '" + world.getName() + "' to list of spaceworlds (Pail).");
         }
     }
 

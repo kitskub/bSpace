@@ -53,6 +53,7 @@ public class Economy {
      * @return True if economy is enabled
      */
     public static boolean checkEconomy(BananaSpace plugin) {
+        if(Economy.plugin==null) Economy.plugin = plugin;
         if (SpaceConfig.getConfig().getBoolean("economy.enabled", true)) {
             return (getMethod() != null);
         }

@@ -137,6 +137,7 @@ public class BananaSpace extends JavaPlugin {
             if (Economy.checkEconomy(this)) {
                 economy = new Economy(this);
             }
+            else economy = new Economy();//Used to get rid of nullpointerexception
         }
         // Pail interface
         if (pm.getPlugin("Pail") != null) {
@@ -174,6 +175,7 @@ public class BananaSpace extends JavaPlugin {
      */
     @Override
     public ChunkGenerator getDefaultWorldGenerator(String worldName, String id) {
+        SpaceMessageHandler.debugPrint(Level.INFO,"Getting generator for"+worldName+" "+id);
         if (!SpaceConfigHandler.isWorldInConfig(worldName)) {
             worldHandler.createSpaceWorld(this, worldName, true);
         }
@@ -183,6 +185,7 @@ public class BananaSpace extends JavaPlugin {
         if (id.equalsIgnoreCase("planets")) {
             return new PlanetsChunkGenerator(SpacePlanetConfig.getConfig(), this);
         }
+  
         return new SpaceChunkGenerator();
     }
 

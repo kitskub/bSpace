@@ -18,7 +18,7 @@ import org.bukkit.plugin.Plugin;
 public class SpaceMessageHandler {
     // Variables
     private static final Logger log = Logger.getLogger("Minecraft");
-    private String printPrefix;
+    private static String printPrefix = "BananaSpace"; //default,just in case
     private Plugin plugin;
     
     /**
@@ -48,7 +48,7 @@ public class SpaceMessageHandler {
      * @param level Logging level (INFO, WARNING etc)
      * @param message Message to print
      */
-    public void debugPrint(Level level, String message) {
+    public static void debugPrint(Level level, String message) {
         if (SpaceConfigHandler.getDebugging()) {
             log.log(level, printPrefix + " " + message);
         }
