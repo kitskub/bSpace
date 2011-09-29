@@ -18,7 +18,7 @@ import java.util.Random;
 import java.util.logging.Level;
 
 // BananaSpace Imports
-import me.iffa.bananaspace.BananaSpace;
+import me.iffa.bananaspace.api.SpaceMessageHandler;
 import me.iffa.bananaspace.wgen.populators.SpaceStonePopulator;
 import me.iffa.bananaspace.wgen.populators.SpaceGlowstonePopulator;
 
@@ -386,7 +386,7 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
                 planetoids.add(curPl);
             }
         }
-        BananaSpace.getMessageHandler().print(Level.INFO, "Made " + planetoids.size() + " planets in this region.");
+        SpaceMessageHandler.print(Level.INFO, "Made " + planetoids.size() + " planets in this region.");
         return planetoids;
     }
 

@@ -38,7 +38,7 @@ public class SpaceMessageHandler {
      * @param level Logging level (INFO, WARNING etc)
      * @param message Message to print
      */
-    public void print(Level level, String message) {
+    public static void print(Level level, String message) {
         log.log(level, printPrefix + " " + message);
     }
    
@@ -59,7 +59,7 @@ public class SpaceMessageHandler {
      * 
      * @param player Player
      */
-    public void sendNoPermissionMessage(Player player) {
+    public static void sendNoPermissionMessage(Player player) {
         player.sendMessage(ChatColor.RED + "You don't have permission!");
     }
     
@@ -68,7 +68,7 @@ public class SpaceMessageHandler {
      * 
      * @param player Player
      */
-    public void sendNotEnoughMoneyMessage(Player player) {
+    public static void sendNotEnoughMoneyMessage(Player player) {
         player.sendMessage(ChatColor.RED + "You don't have enough money!");
     }
 }

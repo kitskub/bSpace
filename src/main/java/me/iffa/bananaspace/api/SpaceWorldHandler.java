@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 
 // BananaSpace Imports
-import java.util.logging.Level;
 import me.iffa.bananaspace.BananaSpace;
 import me.iffa.bananaspace.wgen.planets.PlanetsChunkGenerator;
 import me.iffa.bananaspace.runnable.SpaceRunnable;
@@ -53,7 +53,7 @@ public class SpaceWorldHandler {
     public void loadSpaceWorlds() {
         List<String> worlds = SpaceConfig.getConfig().getKeys("worlds");
         if (worlds == null) {
-            BananaSpace.getMessageHandler().print(Level.SEVERE, "Your configuration file has no worlds! Cancelling world generation process.");
+            SpaceMessageHandler.print(Level.SEVERE, "Your configuration file has no worlds! Cancelling world generation process.");
             startupLoaded = false;
             return;
         }
@@ -116,7 +116,7 @@ public class SpaceWorldHandler {
      */
     public void createSpaceWorld(Plugin plugin, String worldname, boolean log) {
         if (plugin.getServer().getWorld(worldname) != null) {
-            BananaSpace.getMessageHandler().print(Level.WARNING, "Plugin '" + plugin.getDescription().getName() + "' tried to create a new spaceworld with a name that is already a world! Nag to author(s) '" + plugin.getDescription().getAuthors() + "'!");
+            SpaceMessageHandler.print(Level.WARNING, "Plugin '" + plugin.getDescription().getName() + "' tried to create a new spaceworld with a name that is already a world! Nag to author(s) '" + plugin.getDescription().getAuthors() + "'!");
             return;
         }
         SpaceConfig.getConfig().setProperty("worlds." + worldname + ".generation.generateplanets", true);
@@ -132,14 +132,14 @@ public class SpaceWorldHandler {
         SpaceConfig.getConfig().setProperty("worlds." + worldname + ".hostilemobs", false);
         SpaceConfig.getConfig().save();
         if (log) {
-            BananaSpace.getMessageHandler().print(Level.INFO, "Plugin '" + plugin.getDescription().getName() + "' starting to create spaceworld '" + worldname + "'");
+            SpaceMessageHandler.print(Level.INFO, "Plugin '" + plugin.getDescription().getName() + "' starting to create spaceworld '" + worldname + "'");
         }
         plugin.getServer().createWorld(worldname, World.Environment.NORMAL, new PlanetsChunkGenerator(SpacePlanetConfig.getConfig(), plugin));
         World world = plugin.getServer().getWorld(worldname);
         spaceWorlds.add(world);
         BananaSpace.pailInt.addSpaceList(worldname);
         if (log) {
-            BananaSpace.getMessageHandler().print(Level.INFO, "Plugin '" + plugin.getDescription().getName() + "' created spaceworld '" + worldname + "'");
+            SpaceMessageHandler.print(Level.INFO, "Plugin '" + plugin.getDescription().getName() + "' created spaceworld '" + worldname + "'");
         }
     }
 
@@ -152,11 +152,11 @@ public class SpaceWorldHandler {
      */
     public void removeSpaceWorld(Plugin plugin, String worldname, boolean log) {
         if (plugin.getServer().getWorld(worldname) == null) {
-            BananaSpace.getMessageHandler().print(Level.WARNING, "Plugin '" + plugin.getDescription().getName() + "' tried to remove a spaceworld with a name that doesn't exist! Nag to author(s) '" + plugin.getDescription().getAuthors() + "'!");
+            SpaceMessageHandler.print(Level.WARNING, "Plugin '" + plugin.getDescription().getName() + "' tried to remove a spaceworld with a name that doesn't exist! Nag to author(s) '" + plugin.getDescription().getAuthors() + "'!");
             return;
         }
         if (!this.isSpaceWorld(plugin.getServer().getWorld(worldname))) {
-            BananaSpace.getMessageHandler().print(Level.WARNING, "Plugin '" + plugin.getDescription().getName() + "' tried to remove a spaceworld that is not a spaceworld! Nag to author(s) '" + plugin.getDescription().getAuthors() + "'!");
+            SpaceMessageHandler.print(Level.WARNING, "Plugin '" + plugin.getDescription().getName() + "' tried to remove a spaceworld that is not a spaceworld! Nag to author(s) '" + plugin.getDescription().getAuthors() + "'!");
             return;
         }
         spaceWorlds.remove(plugin.getServer().getWorld(worldname));
@@ -170,7 +170,7 @@ public class SpaceWorldHandler {
         SpaceConfig.getConfig().save();
         plugin.getServer().unloadWorld(worldname, true);
         if (log) {
-            BananaSpace.getMessageHandler().print(Level.INFO, "Plugin '" + plugin.getDescription().getName() + "' removed spaceworld '" + worldname + "'");
+            SpaceMessageHandler.print(Level.INFO, "Plugin '" + plugin.getDescription().getName() + "' removed spaceworld '" + worldname + "'");
         }
     }
 

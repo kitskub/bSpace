@@ -9,6 +9,7 @@ import com.nijikokun.register.payment.Methods;
 // BananaSpace Imports
 import java.util.logging.Level;
 import me.iffa.bananaspace.BananaSpace;
+import me.iffa.bananaspace.api.SpaceMessageHandler;
 import me.iffa.bananaspace.config.SpaceConfig;
 
 // Bukkit Imports
@@ -35,7 +36,7 @@ public class Economy {
         Economy.plugin = plugin;
         use = true;
         getMethod();
-        BananaSpace.getMessageHandler().debugPrint(Level.INFO, "Hooked into " + method.getName());
+        SpaceMessageHandler.debugPrint(Level.INFO, "Hooked into " + method.getName());
     }
     
     /**

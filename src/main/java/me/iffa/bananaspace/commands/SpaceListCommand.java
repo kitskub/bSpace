@@ -3,6 +3,7 @@ package me.iffa.bananaspace.commands;
 
 // BananaSpace Imports
 import me.iffa.bananaspace.BananaSpace;
+import me.iffa.bananaspace.api.SpaceMessageHandler;
 
 // Bukkit Imports
 import org.bukkit.ChatColor;
@@ -33,7 +34,7 @@ public class SpaceListCommand extends SpaceCommand {
     @Override
     public void command() {
         if (!BananaSpace.getPlayerHandler().hasPermission("bananaspace.teleport.list", (Player) sender)) {
-            BananaSpace.getMessageHandler().sendNoPermissionMessage((Player) sender);
+            SpaceMessageHandler.sendNoPermissionMessage((Player) sender);
             return;
         }
         sender.sendMessage(ChatColor.GREEN + BananaSpace.prefix + " List of spaceworlds:");

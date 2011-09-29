@@ -61,7 +61,7 @@ public class PailInterface extends javax.swing.JPanel {
      */
     private void loadSpaceListConfig(String worldname) {
         if (config.getProperty("worlds." + worldname) == null) {
-            BananaSpace.getMessageHandler().print(Level.WARNING, "A world with the name '" + worldname + "' does not exist in the config!");
+            SpaceMessageHandler.print(Level.WARNING, "A world with the name '" + worldname + "' does not exist in the config!");
             return;
         }
         Settings_WorldName.setText(worldname);
@@ -87,7 +87,7 @@ public class PailInterface extends javax.swing.JPanel {
      */
     private void saveSpaceListConfig(String worldname) {
         if (config.getProperty("worlds." + worldname) == null) {
-            BananaSpace.getMessageHandler().print(Level.WARNING, "A world with the name '" + worldname + "' does not exist in the config!");
+            SpaceMessageHandler.print(Level.WARNING, "A world with the name '" + worldname + "' does not exist in the config!");
             return;
         }
         config.setProperty("worlds." + worldname + ".generation.generateplanets", Settings_Planets.isSelected());
@@ -725,7 +725,7 @@ private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
     try {
         Desktop.getDesktop().browse(java.net.URI.create("http://forums.bukkit.org/threads/32546/"));
     } catch (IOException ex) {
-        BananaSpace.getMessageHandler().print(Level.WARNING, "Something went wrong while opening a page on your web browser!");
+            SpaceMessageHandler.print(Level.WARNING, "Something went wrong while opening a page on your web browser!");
     }
 }//GEN-LAST:event_jLabel8MouseClicked
     // Variables declaration - do not modify//GEN-BEGIN:variables

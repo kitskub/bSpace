@@ -9,6 +9,7 @@ import java.util.logging.Level;
 
 //BananaSpace Import
 import me.iffa.bananaspace.BananaSpace;
+import me.iffa.bananaspace.api.SpaceMessageHandler;
 
 // Bukkit Imports
 import org.bukkit.Bukkit;
@@ -56,9 +57,9 @@ public class SpaceConfig {
                 myConfig = new Configuration(configFile);
                 myConfig.load();
                 loaded = true;
-                BananaSpace.getMessageHandler().print(Level.INFO, "Generated configuration file for version " + BananaSpace.version);
+                SpaceMessageHandler.print(Level.INFO, "Generated configuration file for version " + BananaSpace.version);
             } catch (Exception e) {
-                BananaSpace.getMessageHandler().print(Level.SEVERE, e.toString());
+                SpaceMessageHandler.print(Level.SEVERE, e.toString());
             }
         }
     }

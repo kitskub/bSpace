@@ -8,9 +8,9 @@ import java.util.logging.Level;
 
 // BananaSpace Imports
 import me.iffa.bananaspace.BananaSpace;
+import me.iffa.bananaspace.api.SpaceMessageHandler;
 
 // Bukkit Imports
-import me.iffa.bananaspace.api.SpaceMessageHandler;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
@@ -51,7 +51,7 @@ public class SpaceEnterCommand extends SpaceCommand {
                     return;
                 }
                 if(!plugin.getEconomy().enterCommand(player)){
-                        BananaSpace.getMessageHandler().sendNotEnoughMoneyMessage(player);
+                        SpaceMessageHandler.sendNotEnoughMoneyMessage(player);
                         return;
                 }
                 exitDest.put(player, player.getLocation());
@@ -65,12 +65,12 @@ public class SpaceEnterCommand extends SpaceCommand {
                 player.teleport(location);
                 return;
             }
-            BananaSpace.getMessageHandler().sendNoPermissionMessage(player);
+            SpaceMessageHandler.sendNoPermissionMessage(player);
             return;
         } else if (args.length == 2) {
             if (BananaSpace.getPlayerHandler().hasPermission("bananaspace.teleport.enter", player)) {
                 if(!plugin.getEconomy().enterCommand(player)){
-                        BananaSpace.getMessageHandler().sendNotEnoughMoneyMessage(player);
+                        SpaceMessageHandler.sendNotEnoughMoneyMessage(player);
                         return;
                 }
                 if (plugin.getServer().getWorld(args[1]) == null) {
@@ -97,7 +97,7 @@ public class SpaceEnterCommand extends SpaceCommand {
                 return;
             }
         }
-        BananaSpace.getMessageHandler().sendNoPermissionMessage(player);
+        SpaceMessageHandler.sendNoPermissionMessage(player);
         return;
     }
 }

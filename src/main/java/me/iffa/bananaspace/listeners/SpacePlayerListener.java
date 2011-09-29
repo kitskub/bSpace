@@ -67,7 +67,7 @@ public class SpacePlayerListener extends PlayerListener {
         if (!fixDupe.containsKey(event.getPlayer())) {
             if (BananaSpace.worldHandler.isSpaceWorld(event.getTo().getWorld()) && event.getTo().getWorld() != player.getWorld()) {
                 if(!plugin.getEconomy().enter(player)){
-                    BananaSpace.getMessageHandler().sendNotEnoughMoneyMessage(player);
+                    SpaceMessageHandler.sendNotEnoughMoneyMessage(player);
                     event.setCancelled(true);
                     return;
                 }
