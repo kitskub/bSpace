@@ -38,7 +38,7 @@ public class Economy {
         getMethod();
         SpaceMessageHandler.debugPrint(Level.INFO, "Hooked into " + method.getName());
     }
-    
+
     /**
      * Constructor of Economy #2.
      */
@@ -54,7 +54,9 @@ public class Economy {
      * @return True if economy is enabled
      */
     public static boolean checkEconomy(BananaSpace plugin) {
-        if(Economy.plugin==null) Economy.plugin = plugin;
+        if (Economy.plugin == null) {
+            Economy.plugin = plugin;
+        }
         if (SpaceConfig.getConfig().getBoolean("economy.enabled", true)) {
             return (getMethod() != null);
         }
@@ -138,7 +140,7 @@ public class Economy {
             return false;
         }
     }
-    
+
     /**
      * Subtracts from a player's balance if possible.
      * 
@@ -158,7 +160,7 @@ public class Economy {
         balance.subtract(amount);
         return true;
     }
-    
+
     /**
      * Gets the payment method.
      * 

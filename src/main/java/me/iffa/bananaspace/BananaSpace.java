@@ -77,7 +77,7 @@ public class BananaSpace extends JavaPlugin {
      */
     @Override
     public void onDisable() {
-        messageHandler.print(Level.INFO, "Disabled version " + version);
+        SpaceMessageHandler.print(Level.INFO, "Disabled version " + version);
     }
 
     /**
@@ -150,7 +150,7 @@ public class BananaSpace extends JavaPlugin {
             ((Pail) pm.getPlugin("Pail")).loadInterfaceComponent("BananaSpace", pailInt);
         }
 
-        messageHandler.print(Level.INFO, "Enabled version " + version);
+        SpaceMessageHandler.print(Level.INFO, "Enabled version " + version);
     }
 
     /**
