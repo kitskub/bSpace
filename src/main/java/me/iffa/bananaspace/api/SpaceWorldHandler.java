@@ -11,7 +11,7 @@ import java.util.logging.Level;
 // BananaSpace Imports
 import me.iffa.bananaspace.BananaSpace;
 import me.iffa.bananaspace.wgen.planets.PlanetsChunkGenerator;
-import me.iffa.bananaspace.runnable.SpaceRunnable;
+import me.iffa.bananaspace.runnables.SpaceRunnable;
 import me.iffa.bananaspace.wgen.SpaceChunkGenerator;
 import me.iffa.bananaspace.config.SpaceConfig;
 import me.iffa.bananaspace.config.SpacePlanetConfig;

@@ -7,7 +7,7 @@ import java.util.logging.Level;
 // BananaSpace Imports
 import me.iffa.bananaspace.BananaSpace;
 import me.iffa.bananaspace.api.SpaceMessageHandler;
-import me.iffa.bananaspace.runnable.SpaceSpoutRunnable;
+import me.iffa.bananaspace.runnables.SpaceSpoutRunnable;
 
 // Bukkit Imports
 import org.bukkit.event.player.PlayerListener;
