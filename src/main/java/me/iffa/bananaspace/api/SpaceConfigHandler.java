@@ -193,7 +193,7 @@ public class SpaceConfigHandler {
     }
     
     public static int getSatelliteChance(World world) {
-        return SpaceConfig.getConfig().getInt("worlds." + world.getName() + ".generation.satellitechance", 5);
+        return SpaceConfig.getConfig().getInt("worlds." + world.getName() + ".generation.satellitechance", 1);
     }
 
     /**

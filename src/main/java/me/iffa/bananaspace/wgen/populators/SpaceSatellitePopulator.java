@@ -15,6 +15,7 @@ import org.bukkit.generator.BlockPopulator;
  * Populates a world with satellites.
  * 
  * @author iffa
+ * @author NeonMaster (thanks for the original satellite design, too bad my mathematics blew it up!)
  */
 public class SpaceSatellitePopulator extends BlockPopulator {
 
@@ -30,40 +31,33 @@ public class SpaceSatellitePopulator extends BlockPopulator {
         if (!SpaceConfigHandler.getSatellitesEnabled(world)) {
             return;
         }
-        if (random.nextInt(200) <= SpaceConfigHandler.getSatelliteChance(world)) {
+        if (random.nextInt(1337) <= SpaceConfigHandler.getSatelliteChance(world)) {
             int height = random.nextInt(128);
-            // TODO: Satellite code
-            buildGlassPane1(world, height, source);
+            buildSatellite(world, height, source);
+            return;
         }
     }
 
     /**
-     * Builds the first glass pane "wing".
+     * Builds a satellite.
      * 
      * @param world World
      * @param height Height
      * @param source Source chunk
      */
-    private void buildGlassPane1(World world, int height, Chunk source) {
-        // GLASS PANE
+    private void buildSatellite(World world, int height, Chunk source) {
         for (int x = 0; x < 5; x++) {
             for (int y = 0; y < 3; y++) {
                 source.getBlock(y, height, x).setTypeId(102);
             }
         }
-        // GLASS
-        for (int y = 0; y < 3; y++) {
-            source.getBlock(y, height, 5).setType(Material.GLASS);
+        for (int x = 6; x < 11; x++) {
+            for (int y = 0; y < 3; y++) {
+                source.getBlock(y, height, x).setTypeId(102);
+            }
         }
-        source.getBlock(1, height, 6).setType(Material.FENCE_GATE);
-    }
-
-    /**
-     * Builds the second glass pane "wing".
-     * 
-     * @param world World
-     * @param source Source chunk
-     */
-    private void buildGlassPane2(World world, Chunk source) {
+        for (int y = 0; y < 3; y++) {
+            source.getBlock(y, height, 5).setType(Material.IRON_BLOCK);
+        }
     }
 }

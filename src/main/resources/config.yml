@@ -36,7 +36,8 @@ worlds:
             # From 1-200. These can be turned off with the generateasteroids-setting.
             glowstonechance: 1
             stonechance: 3
-            satellitechance: 5
+            # From 1-1337. This can be turned off with the generatesatellites-setting.
+            satellitechance: 1
         # Spacesuit options
         suit:
             required: false
