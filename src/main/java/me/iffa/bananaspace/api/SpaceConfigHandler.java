@@ -187,6 +187,14 @@ public class SpaceConfigHandler {
         }
         return false;
     }
+    
+    public static boolean getSatellitesEnabled(World world) {
+        return SpaceConfig.getConfig().getBoolean("worlds." + world.getName() + ".generation.generatesatellites", true);
+    }
+    
+    public static int getSatelliteChance(World world) {
+        return SpaceConfig.getConfig().getInt("worlds." + world.getName() + ".generation.satellitechance", 5);
+    }
 
     /**
      * Constructor of SpaceConfigHandler.

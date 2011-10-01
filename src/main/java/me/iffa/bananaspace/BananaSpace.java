@@ -29,7 +29,6 @@ import me.iffa.bananaspace.listeners.spout.SpaceSpoutKeyListener;
 import me.iffa.bananaspace.listeners.spout.SpaceSpoutPlayerListener;
 import me.iffa.bananaspace.wgen.SpaceChunkGenerator;
 import me.iffa.bananaspace.wgen.planets.PlanetsChunkGenerator;
-import me.iffa.bananaspace.wgen.populators.spaceships.Spaceship;
 
 // Bukkit Imports
 import org.bukkit.Location;
@@ -62,7 +61,6 @@ public class BananaSpace extends JavaPlugin {
     public static boolean jumpPressed = false;
     private SpaceCommandHandler sce = null;
     private Economy economy;
-    private Spaceship spaceship;
     private final SpaceWeatherListener weatherListener = new SpaceWeatherListener(this);
     private final SpaceEntityListener entityListener = new SpaceEntityListener(this);
     private final SpacePlayerListener playerListener = new SpacePlayerListener(this);
@@ -166,7 +164,6 @@ public class BananaSpace extends JavaPlugin {
         worldHandler = new SpaceWorldHandler(this);
         playerHandler = new SpacePlayerHandler();
         messageHandler = new SpaceMessageHandler(this, prefix);
-        spaceship = new Spaceship();
         if (pm.getPlugin("Spout") != null && SpaceConfigHandler.isUsingSpout()) {
             locCache = new HashMap<Player, Location>();
         }
