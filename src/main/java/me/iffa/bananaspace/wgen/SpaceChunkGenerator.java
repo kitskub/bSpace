@@ -15,6 +15,7 @@ import org.bukkit.generator.BlockPopulator;
 // BananaSpace Imports
 import me.iffa.bananaspace.wgen.populators.SpaceStonePopulator;
 import me.iffa.bananaspace.wgen.populators.SpaceGlowstonePopulator;
+import me.iffa.bananaspace.wgen.populators.SpaceSatellitePopulator;
 
 /**
  * Generates space world (without planets).
@@ -46,7 +47,7 @@ public class SpaceChunkGenerator extends ChunkGenerator {
      */
     @Override
     public List<BlockPopulator> getDefaultPopulators(World world) {
-        return Arrays.asList((BlockPopulator) new SpaceGlowstonePopulator(), new SpaceStonePopulator());
+        return Arrays.asList((BlockPopulator) new SpaceGlowstonePopulator(), new SpaceStonePopulator(), new SpaceSatellitePopulator());
     }
 
     /**
