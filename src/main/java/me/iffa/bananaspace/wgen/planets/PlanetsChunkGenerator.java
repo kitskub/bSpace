@@ -23,6 +23,7 @@ import me.iffa.bananaspace.wgen.populators.SpaceStonePopulator;
 import me.iffa.bananaspace.wgen.populators.SpaceGlowstonePopulator;
 
 // Bukkit Imports
+import me.iffa.bananaspace.wgen.populators.spaceships.Spaceship;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -261,7 +262,7 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
      */
     @Override
     public List<BlockPopulator> getDefaultPopulators(World world) {
-        return Arrays.asList((BlockPopulator) new SpaceGlowstonePopulator(), new SpaceStonePopulator());
+        return Arrays.asList((BlockPopulator) new SpaceGlowstonePopulator(), new SpaceStonePopulator()/*, Spaceship.getRandomShip()*/);
     }
 
     /**

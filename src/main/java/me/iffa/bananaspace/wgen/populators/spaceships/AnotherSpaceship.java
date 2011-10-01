@@ -14,11 +14,11 @@ import org.bukkit.World;
  * 
  * @author iffa
  */
-public class TestSpaceship extends Spaceship {
+public class AnotherSpaceship extends Spaceship {
     /**
      * Constructor of TestSpaceship.
      */
-    public TestSpaceship() {
+    public AnotherSpaceship() {
         Spaceship.addSpaceship(this);
     }
     
@@ -32,6 +32,6 @@ public class TestSpaceship extends Spaceship {
     @Override
     public void populate(World world, Random random, Chunk source) {
         // TODO: Test populating code
-        source.getBlock(0, 64, 0).setType(Material.DIAMOND_BLOCK);
+        source.getBlock(0, 64, 0).setType(Material.IRON_BLOCK);
     }
 }

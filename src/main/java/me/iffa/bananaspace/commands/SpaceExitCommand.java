@@ -23,7 +23,7 @@ import org.bukkit.entity.Player;
  */
 public class SpaceExitCommand extends SpaceCommand {
     // Variables
-    public static Map<Player, Location> enterDest;
+    public static Map<Player, Location> enterDest = new HashMap<Player, Location>();;
 
     /**
      * Constructor of SpaceExitCommand.
@@ -34,7 +34,6 @@ public class SpaceExitCommand extends SpaceCommand {
      */
     public SpaceExitCommand(BananaSpace plugin, CommandSender sender, String[] args) {
         super(plugin, sender, args);
-        enterDest = new HashMap<Player, Location>();
     }
 
     /**

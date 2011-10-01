@@ -23,7 +23,7 @@ import org.bukkit.entity.Player;
  */
 public class SpaceEnterCommand extends SpaceCommand {
     // Variables
-    public static Map<Player, Location> exitDest;
+    public static Map<Player, Location> exitDest = new HashMap<Player, Location>();;
 
     /**
      * Constructor of SpaceEnterCommand.
@@ -34,7 +34,6 @@ public class SpaceEnterCommand extends SpaceCommand {
      */
     public SpaceEnterCommand(BananaSpace plugin, CommandSender sender, String[] args) {
         super(plugin, sender, args);
-        exitDest = new HashMap<Player, Location>();
     }
 
     /**
@@ -42,7 +41,7 @@ public class SpaceEnterCommand extends SpaceCommand {
      */
     @Override
     public void command() {
-        Player player = (Player) sender;
+        Player player = (Player) this.sender;
         if (args.length == 1) {
             if (BananaSpace.getPlayerHandler().hasPermission("bananaspace.teleport.enter", player)) {
                 if (BananaSpace.worldHandler.getSpaceWorlds().get(0) == player.getWorld()) {
