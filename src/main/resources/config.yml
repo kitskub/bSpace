@@ -27,29 +27,30 @@ economy:
   exitcost: 20
 # Space worlds
 worlds:
-    world_space:
-        # World generation options
-        generation:
-            generateplanets: true
-            generateasteroids: true
-            generatesatellites: true
-            # From 1-200. These can be turned off with the generateasteroids-setting.
-            glowstonechance: 1
-            stonechance: 3
-            # From 1-1337. This can be turned off with the generatesatellites-setting.
-            satellitechance: 1
-        # Spacesuit options
-        suit:
-            required: false
-        # Spacehelmet options
-        helmet:
-            required: false
-        # Breathing area options
-        breathingarea:
-            maxroomheight: 5
-        # Miscellaneous options
-        weather: false
-        nethermode: false
-        alwaysnight: true
-        neutralmobs: true
-        hostilemobs: false
+    # Example world
+#    world_space:
+#        # World generation options
+#        generation:
+#            generateplanets: true
+#            generateasteroids: true
+#            generatesatellites: true
+#            # From 1-200. These can be turned off with the generateasteroids-setting.
+#            glowstonechance: 1
+#            stonechance: 3
+#            # From 1-1337. This can be turned off with the generatesatellites-setting.
+#            satellitechance: 1
+#        # Spacesuit options
+#        suit:
+#            required: false
+#        # Spacehelmet options
+#        helmet:
+#            required: false
+#        # Breathing area options
+#        breathingarea:
+#            maxroomheight: 5
+#        # Miscellaneous options
+#        weather: false
+#        nethermode: false
+#        alwaysnight: true
+#        neutralmobs: true
+#        hostilemobs: false
