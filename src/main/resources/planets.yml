@@ -3,8 +3,7 @@
 #            This configuration has a pretty                   
 #           huge amount of documentation, but                  
 #          if you still have questions, please                 
-#         ask on our bukkit.org thread! Thanks.              
-#########################################################
+#                ask on BukkitDev! Thanks.              
 # Remember, these settings affect all space worlds with 
 # planet generation turned on!
 seed: 4394682821756678415
