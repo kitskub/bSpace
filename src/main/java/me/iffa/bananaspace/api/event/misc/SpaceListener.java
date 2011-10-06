@@ -39,14 +39,6 @@ public class SpaceListener extends CustomEventListener implements Listener {
     }
 
     /**
-     * Called when an entity is not allowed to spawn in space.
-     * 
-     * @param event Event data
-     */
-    public void onAntiMobSpawn(AntiMobSpawnEvent event) {
-    }
-
-    /**
      * Handles the events that are called.
      * 
      * @param event Event
@@ -57,8 +49,6 @@ public class SpaceListener extends CustomEventListener implements Listener {
             onTeleportToSpace((TeleportToSpaceEvent) event);
         } else if (event instanceof SpaceCommandEvent) {
             onSpaceCommand((SpaceCommandEvent) event);
-        } else if (event instanceof AntiMobSpawnEvent) {
-            onAntiMobSpawn((AntiMobSpawnEvent) event);
         } else if (event instanceof SpaceSuffocationEvent) {
             onSpaceSuffocation((SpaceSuffocationEvent) event);
         }

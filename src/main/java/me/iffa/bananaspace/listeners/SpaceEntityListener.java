@@ -8,7 +8,6 @@ import java.util.logging.Level;
 import me.iffa.bananaspace.BananaSpace;
 import me.iffa.bananaspace.api.SpaceConfigHandler;
 import me.iffa.bananaspace.api.SpaceMessageHandler;
-import me.iffa.bananaspace.api.event.misc.AntiMobSpawnEvent;
 
 // Bukkit Imports
 import org.bukkit.Bukkit;
@@ -57,13 +56,6 @@ public class SpaceEntityListener extends EntityListener {
                         || event.getCreatureType() == CreatureType.SPIDER
                         || event.getCreatureType() == CreatureType.ZOMBIE
                         || event.getCreatureType() == CreatureType.SLIME) {
-                    /* Notify listeners start */
-                    AntiMobSpawnEvent e = new AntiMobSpawnEvent("AntiMobSpawnEvent", event.getEntity());
-                    Bukkit.getServer().getPluginManager().callEvent(e);
-                    if (e.isCancelled()) {
-                        return;
-                    }
-                    /* Notify listeners end */
                     event.setCancelled(true);
                     
                 }
@@ -75,13 +67,6 @@ public class SpaceEntityListener extends EntityListener {
                         || event.getCreatureType() == CreatureType.SHEEP
                         || event.getCreatureType() == CreatureType.SQUID
                         || event.getCreatureType() == CreatureType.WOLF) {
-                    /* Notify listeners start */
-                    AntiMobSpawnEvent e = new AntiMobSpawnEvent("AntiMobSpawnEvent", event.getEntity());
-                    Bukkit.getServer().getPluginManager().callEvent(e);
-                    if (e.isCancelled()) {
-                        return;
-                    }
-                    /* Notify listeners end */
                     event.setCancelled(true);
                 }
             }
