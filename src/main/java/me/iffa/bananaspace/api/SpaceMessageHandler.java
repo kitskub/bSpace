@@ -29,6 +29,7 @@ public class SpaceMessageHandler {
      */
     public SpaceMessageHandler(Plugin plugin, String printPrefix) {
         this.plugin = plugin;
+        if (printPrefix != null)
         SpaceMessageHandler.printPrefix = printPrefix;
     }
     
