@@ -18,7 +18,7 @@ import org.bukkit.plugin.Plugin;
 public class SpaceMessageHandler {
     // Variables
     private static final Logger log = Logger.getLogger("Minecraft");
-    private static String printPrefix = "BananaSpace"; // Default, just in case
+    private static String printPrefix = "[BananaSpace]"; // Default, just in case
     private Plugin plugin;
     
     /**

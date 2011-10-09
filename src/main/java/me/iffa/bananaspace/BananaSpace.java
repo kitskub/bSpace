@@ -49,6 +49,7 @@ import org.bukkit.scheduler.BukkitScheduler;
  */
 public class BananaSpace extends JavaPlugin {
     // Variables
+
     public static String prefix;
     public static String version;
     public static BukkitScheduler scheduler;
@@ -85,56 +86,34 @@ public class BananaSpace extends JavaPlugin {
      */
     @Override
     public void onEnable() {
-        // Initializing variables
+        // Initializing variables.
         initVariables();
 
-        // Loading configuration files
+        // Loading configuration files.
         SpaceConfig.loadConfig();
         SpacePlanetConfig.loadConfig();
         SpaceMessageHandler.debugPrint(Level.INFO, "Initialized startup variables and loaded configuration files.");
 
-        // Registering other events
-        pm.registerEvent(Event.Type.WEATHER_CHANGE, weatherListener, Event.Priority.Normal, this);
-
-        // Registering entity & player events
-        pm.registerEvent(Event.Type.ENTITY_DAMAGE, entityListener, Event.Priority.Normal, this);
-        pm.registerEvent(Event.Type.CREATURE_SPAWN, entityListener, Event.Priority.Highest, this);
-        pm.registerEvent(Event.Type.PLAYER_TELEPORT, playerListener, Event.Priority.Normal, this);
-        pm.registerEvent(Event.Type.PLAYER_MOVE, playerListener, Event.Priority.Normal, this);
-        pm.registerEvent(Event.Type.PLAYER_RESPAWN, playerListener, Event.Priority.Normal, this);
-        pm.registerEvent(Event.Type.PLAYER_QUIT, playerListener, Event.Priority.Normal, this);
-        pm.registerEvent(Event.Type.PLAYER_JOIN, playerListener, Event.Priority.Normal, this);
-        SpaceMessageHandler.debugPrint(Level.INFO, "Registered events (General).");
-
-        // Registering events for Spout
-        if (pm.getPlugin("Spout") != null && SpaceConfigHandler.isUsingSpout()) {
-            pm.registerEvent(Event.Type.PLAYER_TELEPORT, new SpaceSpoutPlayerListener(this), Event.Priority.Normal, this); //Player listener
-            //pm.registerEvent(Event.Type.PLAYER_JOIN, spListener, Event.Priority.Normal, this); //moved this into a Custom Listener
-            pm.registerEvent(Event.Type.ENTITY_DAMAGE, new SpaceSpoutEntityListener(this), Event.Priority.Normal, this); //Entity Listener
-            //pm.registerEvent(Event.Type.CREATURE_SPAWN, speListener, Event.Priority.Normal, this); //Disabled until Limitations in Spout is fixed
-            pm.registerEvent(Event.Type.CUSTOM_EVENT, new SpaceSpoutCraftListener(this), Event.Priority.Normal, this); //SpoutCraft Listener
-            pm.registerEvent(Event.Type.CUSTOM_EVENT, new SpaceSpoutAreaListener(this), Event.Priority.Normal, this); //Area Listener
-            pm.registerEvent(Event.Type.CUSTOM_EVENT, new SpaceSpoutKeyListener(this), Event.Priority.Normal, this); //Key Listener
-            SpaceMessageHandler.debugPrint(Level.INFO, "Registered events (Spout).");
-        }
+        // Registering events.
+        registerEvents();
 
         // Loading space worlds (startup).
         worldHandler.loadSpaceWorlds();
 
-        // Initializing the CommandExecutor
+        // Initializing the CommandExecutor for /space.
         sce = new SpaceCommandHandler(this);
         getCommand("space").setExecutor(sce);
         SpaceMessageHandler.debugPrint(Level.INFO, "Initialized CommandExecutors.");
 
-        // Checking if it should always be night in space
+        // Checking if it should always be night in space worlds.
         for (World world : worldHandler.getSpaceWorlds()) {
             if (SpaceConfigHandler.forceNight(world)) {
                 worldHandler.startForceNightTask(world);
                 SpaceMessageHandler.debugPrint(Level.INFO, "Started night forcing task for world '" + world.getName() + "'.");
             }
         }
-        
-        //Economy
+
+        // Economy.
         if (economy == null) {
             if (Economy.checkEconomy(this)) {
                 economy = new Economy(this);
@@ -142,8 +121,8 @@ public class BananaSpace extends JavaPlugin {
                 economy = new Economy();
             }
         }
-        
-        // Pail interface
+
+        // Pail interface.
         if (pm.getPlugin("Pail") != null) {
             SpaceMessageHandler.debugPrint(Level.INFO, "Starting up the Pail tab.");
             pailInt = new PailInterface(this);
@@ -166,6 +145,36 @@ public class BananaSpace extends JavaPlugin {
         messageHandler = new SpaceMessageHandler(this, prefix);
         if (pm.getPlugin("Spout") != null && SpaceConfigHandler.isUsingSpout()) {
             locCache = new HashMap<Player, Location>();
+        }
+    }
+
+    /**
+     * Registers events for BananaSpace.
+     */
+    private void registerEvents() {
+        // Registering other events.
+        pm.registerEvent(Event.Type.WEATHER_CHANGE, weatherListener, Event.Priority.Normal, this);
+
+        // Registering entity & player events.
+        pm.registerEvent(Event.Type.ENTITY_DAMAGE, entityListener, Event.Priority.Normal, this);
+        pm.registerEvent(Event.Type.CREATURE_SPAWN, entityListener, Event.Priority.Highest, this);
+        pm.registerEvent(Event.Type.PLAYER_TELEPORT, playerListener, Event.Priority.Normal, this);
+        pm.registerEvent(Event.Type.PLAYER_MOVE, playerListener, Event.Priority.Normal, this);
+        pm.registerEvent(Event.Type.PLAYER_RESPAWN, playerListener, Event.Priority.Normal, this);
+        pm.registerEvent(Event.Type.PLAYER_QUIT, playerListener, Event.Priority.Normal, this);
+        pm.registerEvent(Event.Type.PLAYER_JOIN, playerListener, Event.Priority.Normal, this);
+        SpaceMessageHandler.debugPrint(Level.INFO, "Registered events (General).");
+
+        // Registering events for Spout.
+        if (pm.getPlugin("Spout") != null && SpaceConfigHandler.isUsingSpout()) {
+            pm.registerEvent(Event.Type.PLAYER_TELEPORT, new SpaceSpoutPlayerListener(this), Event.Priority.Normal, this); //Player listener
+            //pm.registerEvent(Event.Type.PLAYER_JOIN, spListener, Event.Priority.Normal, this); //moved this into a Custom Listener
+            pm.registerEvent(Event.Type.ENTITY_DAMAGE, new SpaceSpoutEntityListener(this), Event.Priority.Normal, this); //Entity Listener
+            //pm.registerEvent(Event.Type.CREATURE_SPAWN, speListener, Event.Priority.Normal, this); //Disabled until Limitations in Spout is fixed
+            pm.registerEvent(Event.Type.CUSTOM_EVENT, new SpaceSpoutCraftListener(this), Event.Priority.Normal, this); //SpoutCraft Listener
+            pm.registerEvent(Event.Type.CUSTOM_EVENT, new SpaceSpoutAreaListener(this), Event.Priority.Normal, this); //Area Listener
+            pm.registerEvent(Event.Type.CUSTOM_EVENT, new SpaceSpoutKeyListener(this), Event.Priority.Normal, this); //Key Listener
+            SpaceMessageHandler.debugPrint(Level.INFO, "Registered events (Spout).");
         }
     }
 
