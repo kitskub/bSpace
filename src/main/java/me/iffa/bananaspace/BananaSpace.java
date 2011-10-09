@@ -49,13 +49,11 @@ import org.bukkit.scheduler.BukkitScheduler;
  */
 public class BananaSpace extends JavaPlugin {
     // Variables
-
     public static String prefix;
     public static String version;
     public static BukkitScheduler scheduler;
     public static SpaceWorldHandler worldHandler;
     public static SpacePlayerHandler playerHandler;
-    public static SpaceMessageHandler messageHandler;
     public static PailInterface pailInt;
     public static PluginManager pm;
     public static Map<Player, Location> locCache = null;
@@ -142,7 +140,6 @@ public class BananaSpace extends JavaPlugin {
         scheduler = getServer().getScheduler();
         worldHandler = new SpaceWorldHandler(this);
         playerHandler = new SpacePlayerHandler();
-        messageHandler = new SpaceMessageHandler(this, prefix);
         if (pm.getPlugin("Spout") != null && SpaceConfigHandler.isUsingSpout()) {
             locCache = new HashMap<Player, Location>();
         }
@@ -219,15 +216,6 @@ public class BananaSpace extends JavaPlugin {
      */
     public static SpacePlayerHandler getPlayerHandler() {
         return playerHandler;
-    }
-
-    /**
-     * Gets the SpaceMessageHandler.
-     * 
-     * @return SpaceMessageHandler
-     */
-    public static SpaceMessageHandler getMessageHandler() {
-        return messageHandler;
     }
 
     /**

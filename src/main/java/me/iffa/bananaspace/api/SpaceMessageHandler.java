@@ -8,31 +8,16 @@ import java.util.logging.Logger;
 // Bukkit Imports
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 
 /**
- * Useful methods to send messages to players and console. Feel free to use this for your own plugins.
+ * Useful methods to send messages to players and console.
  * 
  * @author iffa
  */
 public class SpaceMessageHandler {
     // Variables
     private static final Logger log = Logger.getLogger("Minecraft");
-    private static String printPrefix = "[BananaSpace]"; // Default, just in case
-    private Plugin plugin;
-    
-    /**
-     * Constructor of SpaceMessageHandler.
-     * 
-     * @param plugin Plugin using the class
-     * @param printPrefix Prefix to use when printing to console (can be left null) 
-     */
-    public SpaceMessageHandler(Plugin plugin, String printPrefix) {
-        this.plugin = plugin;
-        if (printPrefix != null) {
-            SpaceMessageHandler.printPrefix = printPrefix;
-        }
-    }
+    private static String printPrefix = "[BananaSpace]";
     
     /**
      * Prints a message to the console.
@@ -72,5 +57,11 @@ public class SpaceMessageHandler {
      */
     public static void sendNotEnoughMoneyMessage(Player player) {
         player.sendMessage(ChatColor.RED + "You don't have enough money!");
+    }
+
+    /**
+     * Constructor of SpaceMessageHandler.
+     */
+    private SpaceMessageHandler() {
     }
 }
