@@ -8,7 +8,6 @@ import me.iffa.bananaspace.config.SpaceConfig;
 
 // Bukkit Imports
 import org.bukkit.World;
-import org.bukkit.util.config.Configuration;
 
 // Java Imports
 import java.awt.Desktop;
@@ -16,6 +15,9 @@ import javax.swing.JOptionPane;
 import javax.swing.DefaultListModel;
 import java.io.IOException;
 import java.util.logging.Level;
+
+// bPermissions Imports
+import de.bananaco.permissions.oldschool.Configuration;
 
 /**
  * Interface for Pail, a Bukkit GUI.
@@ -60,7 +62,7 @@ public class PailInterface extends javax.swing.JPanel {
      * @param worldname Spaceworld name
      */
     private void loadSpaceListConfig(String worldname) {
-        if (config.getProperty("worlds." + worldname) == null) {
+        if (config.get("worlds." + worldname) == null) {
             SpaceMessageHandler.print(Level.WARNING, "A world with the name '" + worldname + "' does not exist in the config!");
             return;
         }
@@ -86,7 +88,7 @@ public class PailInterface extends javax.swing.JPanel {
      * @param worldname Spaceworld name
      */
     private void saveSpaceListConfig(String worldname) {
-        if (config.getProperty("worlds." + worldname) == null) {
+        if (config.get("worlds." + worldname) == null) {
             SpaceMessageHandler.print(Level.WARNING, "A world with the name '" + worldname + "' does not exist in the config!");
             return;
         }

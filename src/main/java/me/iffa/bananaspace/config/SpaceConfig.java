@@ -7,13 +7,15 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.logging.Level;
 
-//BananaSpace Import
+//BananaSpace Imports
 import me.iffa.bananaspace.BananaSpace;
 import me.iffa.bananaspace.api.SpaceMessageHandler;
 
 // Bukkit Imports
 import org.bukkit.Bukkit;
-import org.bukkit.util.config.Configuration;
+
+// bPermissions Imports
+import de.bananaco.permissions.oldschool.Configuration;
 
 /**
  * A class that handles the configuration file.

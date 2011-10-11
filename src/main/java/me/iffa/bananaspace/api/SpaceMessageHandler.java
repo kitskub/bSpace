@@ -62,6 +62,6 @@ public class SpaceMessageHandler {
     /**
      * Constructor of SpaceMessageHandler.
      */
-    private SpaceMessageHandler() {
+    public SpaceMessageHandler() {
     }
 }
