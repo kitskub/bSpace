@@ -52,7 +52,7 @@ public class Configuration extends YamlConfiguration {
     public Configuration(File file) {
         super();
         if (file == null) {
-            System.err.println("File should not be null!");
+            log.warning("File should not be null!");
         }
         this.file = file;
     }
