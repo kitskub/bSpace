@@ -14,7 +14,6 @@ commands:
           /<command> <enter> [spaceworld] - Go to a space world
           /<command> <back> - Go back where you were
           /<command> <help>
-    permission: bananaspace.teleport.*
 # Permission nodes
 permissions:
   # Permission groups
