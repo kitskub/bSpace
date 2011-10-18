@@ -1,4 +1,4 @@
-## [We have moved to BukkitDev! See you there. (but our source is still here!)](http://dev.bukkit.org/server-mods/bananaspace/pages/)
+## [BananaSpace on BukkitDev](http://dev.bukkit.org/server-mods/bananaspace/pages/)
 ![Moved!](http://hrblog.typepad.com/.a/6a00d83451c94169e2014e8af539ea970d-800wi)
 
 Coding and Pull Request Conventions
