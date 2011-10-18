@@ -63,13 +63,6 @@ public class BananaSpace extends JavaPlugin {
     private final SpaceWeatherListener weatherListener = new SpaceWeatherListener(this);
     private final SpaceEntityListener entityListener = new SpaceEntityListener(this);
     private final SpacePlayerListener playerListener = new SpacePlayerListener(this);
-    // Initializing these variables here throws exceptions if Spout is not enabled.
-    // (nag at HACKhalo2)
-    // private final SpaceSpoutPlayerListener spListener = new SpaceSpoutPlayerListener(this);
-    // private final SpaceSpoutCraftListener spcListener = new SpaceSpoutCraftListener(this);
-    // private final SpaceSpoutEntityListener speListener = new SpaceSpoutEntityListener(this);
-    // private final SpaceSpoutAreaListener spaListener = new SpaceSpoutAreaListener(this);
-    // private final SpaceSpoutKeyListener spkListener = new SpaceSpoutKeyListener(this);
 
     /**
      * Called when the plugin is disabled.
