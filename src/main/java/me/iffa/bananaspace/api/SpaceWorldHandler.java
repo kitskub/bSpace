@@ -2,10 +2,12 @@
 package me.iffa.bananaspace.api;
 
 // Java Imports
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.logging.Level;
 
 // BananaSpace Imports
@@ -52,8 +54,8 @@ public class SpaceWorldHandler {
      * Loads the space worlds into <code>spaceWorlds</code> and creates them if Multiverse is not there.
      */
     public void loadSpaceWorlds() {
-        List<String> worlds = SpaceConfig.getConfig().getKeys("worlds");
-        if (worlds == null) {
+        Set<String> worlds = SpaceConfig.getConfig().getConfigurationSection("worlds").getKeys(false);
+        if (worlds.isEmpty()) {
             SpaceMessageHandler.print(Level.SEVERE, "Your configuration file has no worlds! Cancelling world generation process.");
             startupLoaded = false;
             return;
@@ -120,18 +122,22 @@ public class SpaceWorldHandler {
             SpaceMessageHandler.print(Level.WARNING, "Plugin '" + plugin.getDescription().getName() + "' tried to create a new spaceworld with a name that is already a world! Nag to author(s) '" + plugin.getDescription().getAuthors() + "'!");
             return;
         }
-        SpaceConfig.getConfig().setProperty("worlds." + worldname + ".generation.generateplanets", true);
-        SpaceConfig.getConfig().setProperty("worlds." + worldname + ".generation.glowstonechance", 1);
-        SpaceConfig.getConfig().setProperty("worlds." + worldname + ".generation.asteroidchance", 3);
-        SpaceConfig.getConfig().setProperty("worlds." + worldname + ".suit.required", false);
-        SpaceConfig.getConfig().setProperty("worlds." + worldname + ".helmet.required", false);
-        SpaceConfig.getConfig().setProperty("worlds." + worldname + ".breathingarea.maxroomheight", 5);
-        SpaceConfig.getConfig().setProperty("worlds." + worldname + ".weather", false);
-        SpaceConfig.getConfig().setProperty("worlds." + worldname + ".nethermode", false);
-        SpaceConfig.getConfig().setProperty("worlds." + worldname + ".alwaysnight", true);
-        SpaceConfig.getConfig().setProperty("worlds." + worldname + ".neutralmobs", true);
-        SpaceConfig.getConfig().setProperty("worlds." + worldname + ".hostilemobs", false);
-        SpaceConfig.getConfig().save();
+        SpaceConfig.getConfig().set("worlds." + worldname + ".generation.generateplanets", true);
+        SpaceConfig.getConfig().set("worlds." + worldname + ".generation.glowstonechance", 1);
+        SpaceConfig.getConfig().set("worlds." + worldname + ".generation.asteroidchance", 3);
+        SpaceConfig.getConfig().set("worlds." + worldname + ".suit.required", false);
+        SpaceConfig.getConfig().set("worlds." + worldname + ".helmet.required", false);
+        SpaceConfig.getConfig().set("worlds." + worldname + ".breathingarea.maxroomheight", 5);
+        SpaceConfig.getConfig().set("worlds." + worldname + ".weather", false);
+        SpaceConfig.getConfig().set("worlds." + worldname + ".nethermode", false);
+        SpaceConfig.getConfig().set("worlds." + worldname + ".alwaysnight", true);
+        SpaceConfig.getConfig().set("worlds." + worldname + ".neutralmobs", true);
+        SpaceConfig.getConfig().set("worlds." + worldname + ".hostilemobs", false);
+        try {
+            SpaceConfig.getConfig().save(SpaceConfig.getConfigFile());
+        } catch (IOException ex) {
+            SpaceMessageHandler.print(Level.WARNING, ex.getMessage());
+        }
         if (log) {
             SpaceMessageHandler.print(Level.INFO, "Plugin '" + plugin.getDescription().getName() + "' starting to create spaceworld '" + worldname + "'");
         }
@@ -162,14 +168,22 @@ public class SpaceWorldHandler {
             return;
         }
         spaceWorlds.remove(plugin.getServer().getWorld(worldname));
-        SpaceConfig.getConfig().removeProperty("worlds." + worldname);
-        SpaceConfig.getConfig().save();
+        SpaceConfig.getConfig().set("worlds." + worldname, null);
+        try {
+            SpaceConfig.getConfig().save(SpaceConfig.getConfigFile());
+        } catch (IOException ex) {
+            SpaceMessageHandler.print(Level.WARNING, ex.getMessage());
+        }
         /*
          * Removing a few properties that in most cases WILL be left over because of the Configuration-class.
          */
-        SpaceConfig.getConfig().removeProperty("worlds." + worldname + "generation");
-        SpaceConfig.getConfig().removeProperty("worlds" + worldname);
-        SpaceConfig.getConfig().save();
+        SpaceConfig.getConfig().set("worlds." + worldname + "generation", null);
+        SpaceConfig.getConfig().set("worlds" + worldname, null);
+        try {
+            SpaceConfig.getConfig().save(SpaceConfig.getConfigFile());
+        } catch (IOException ex) {
+            SpaceMessageHandler.print(Level.WARNING, ex.getMessage());
+        }
         plugin.getServer().unloadWorld(worldname, true);
         if (log) {
             SpaceMessageHandler.print(Level.INFO, "Plugin '" + plugin.getDescription().getName() + "' removed spaceworld '" + worldname + "'");
