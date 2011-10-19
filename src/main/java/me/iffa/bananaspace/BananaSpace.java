@@ -63,6 +63,7 @@ public class BananaSpace extends JavaPlugin {
     private final SpaceWeatherListener weatherListener = new SpaceWeatherListener(this);
     private final SpaceEntityListener entityListener = new SpaceEntityListener(this);
     private final SpacePlayerListener playerListener = new SpacePlayerListener(this);
+    public final static String TEXTURE_PACK="https://github.com/downloads/iffa/BananaSpace/spacetexture.zip";
     // Initializing these variables here throws exceptions if Spout is not enabled.
     // (nag at HACKhalo2)
     // private final SpaceSpoutPlayerListener spListener = new SpaceSpoutPlayerListener(this);

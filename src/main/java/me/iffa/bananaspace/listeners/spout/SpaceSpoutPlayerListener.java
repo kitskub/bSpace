@@ -6,6 +6,7 @@ import java.util.logging.Level;
 
 // BananaSpace Imports
 import me.iffa.bananaspace.BananaSpace;
+import me.iffa.bananaspace.api.SpaceConfigHandler;
 import me.iffa.bananaspace.api.SpaceMessageHandler;
 import me.iffa.bananaspace.runnables.SpaceSpoutRunnable;
 
@@ -14,6 +15,7 @@ import org.bukkit.event.player.PlayerListener;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
 // Spout Imports
+import org.bukkit.plugin.Plugin;
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.player.SkyManager;
 import org.getspout.spoutapi.player.SpoutPlayer;
@@ -54,10 +56,11 @@ public class SpaceSpoutPlayerListener extends PlayerListener {
 	/* Player teleports to spaceworld */
 	if (BananaSpace.worldHandler.isSpaceWorld(event.getTo().getWorld())) {
 	    sky.setCloudsVisible(player, false);
-	    
 	    sky.setMoonVisible(player, false); //set the moon invisible
 	    sky.setCloudsVisible(player, false); //set clouds invisible
 	    sky.setStarFrequency(player, 5000); //set star frequency higher
+            player.setTexturePack(BananaSpace.TEXTURE_PACK);
+            SpaceMessageHandler.debugPrint(Level.INFO, "Set " + player.getName() + "'s texture pack");
 	    BananaSpace.scheduler.scheduleSyncDelayedTask(plugin, new SpaceSpoutRunnable(event.getPlayer()), 10L);
 	    SpaceMessageHandler.debugPrint(Level.INFO, "Made clouds and the moon invisible for player '" + player.getName() + "'. Starting runnable thread to setup Player movements...");
 	}
@@ -67,6 +70,8 @@ public class SpaceSpoutPlayerListener extends PlayerListener {
 	    sky.setMoonVisible(player, true);
 	    sky.setStarFrequency(player, 500);
 	    SpaceMessageHandler.debugPrint(Level.INFO, "Made clouds visible for player '" + player.getName() + "'.");
+            player.resetTexturePack();
+            SpaceMessageHandler.debugPrint(Level.INFO, "Reset " + player.getName() + "'s texture pack");
 	    player.setCanFly(false);
 	    player.resetMovement();
 	    SpaceMessageHandler.debugPrint(Level.INFO, "Reset player '" + player.getName() + "'s gravity and visual settings.");
