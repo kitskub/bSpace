@@ -32,6 +32,7 @@ import org.bukkit.plugin.Plugin;
  */
 public class SpaceWorldHandler {
     // Variables
+
     public static List<World> spaceWorlds = new ArrayList<World>();
     private BananaSpace plugin;
     private Map<World, Integer> forcenightId = new HashMap<World, Integer>();
@@ -54,8 +55,13 @@ public class SpaceWorldHandler {
      * Loads the space worlds into <code>spaceWorlds</code> and creates them if Multiverse is not there.
      */
     public void loadSpaceWorlds() {
-        Set<String> worlds = SpaceConfig.getConfig().getConfigurationSection("worlds").getKeys(false);
-        if (worlds.isEmpty()) {
+        Set<String> worlds;
+        try {
+            worlds = SpaceConfig.getConfig().getConfigurationSection("worlds").getKeys(false);
+        } catch (NullPointerException ex) {
+            worlds = null;
+        }
+        if (worlds == null) {
             SpaceMessageHandler.print(Level.SEVERE, "Your configuration file has no worlds! Cancelling world generation process.");
             startupLoaded = false;
             return;
@@ -97,7 +103,7 @@ public class SpaceWorldHandler {
         }
         return false;
     }
-    
+
     /**
      * Checks if MultiVerse is being used for world generation.
      * 
@@ -141,7 +147,7 @@ public class SpaceWorldHandler {
         if (log) {
             SpaceMessageHandler.print(Level.INFO, "Plugin '" + plugin.getDescription().getName() + "' starting to create spaceworld '" + worldname + "'");
         }
-        
+
         WorldCreator.name(worldname).environment(World.Environment.NORMAL).generator(new PlanetsChunkGenerator(SpacePlanetConfig.getConfig(), plugin));
         World world = plugin.getServer().getWorld(worldname);
         spaceWorlds.add(world);
