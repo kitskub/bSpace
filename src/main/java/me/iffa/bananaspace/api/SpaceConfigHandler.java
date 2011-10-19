@@ -189,10 +189,24 @@ public class SpaceConfigHandler {
         return false;
     }
     
+    /**
+     * Checks if satellites are enabled.
+     * 
+     * @param world World
+     * 
+     * @return True if satellites are enabled
+     */
     public static boolean getSatellitesEnabled(World world) {
         return SpaceConfig.getConfig().getBoolean("worlds." + world.getName() + ".generation.generatesatellites", true);
     }
 
+    /**
+     * Gets the satellite spawn chance.
+     * 
+     * @param world World
+     * 
+     * @return Spawn chance
+     */
     public static int getSatelliteChance(World world) {
         return SpaceConfig.getConfig().getInt("worlds." + world.getName() + ".generation.satellitechance", 1);
     }
