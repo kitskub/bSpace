@@ -78,10 +78,10 @@ public class SpaceWorldHandler {
                     // Choosing which chunk generator to use
                     if (!SpaceConfig.getConfig().getBoolean("worlds." + world + ".generation.generateplanets", true)) {
                         SpaceMessageHandler.debugPrint(Level.INFO, "Creating startup world '" + world + "' with normal generator.");
-                        WorldCreator.name(world).environment(env).generator(new SpaceChunkGenerator());
+                        plugin.getServer().createWorld(WorldCreator.name(world).environment(env).generator(new SpaceChunkGenerator()));
                     } else {
                         SpaceMessageHandler.debugPrint(Level.INFO, "Creating startup world '" + world + "' with planet generator.");
-                        WorldCreator.name(world).environment(env).generator(new PlanetsChunkGenerator(SpacePlanetConfig.getConfig(), plugin));
+                        plugin.getServer().createWorld(WorldCreator.name(world).environment(env).generator(new PlanetsChunkGenerator(SpacePlanetConfig.getConfig(), plugin)));
                     }
                 }
             }

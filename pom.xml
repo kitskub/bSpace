@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>me.iffa.bananaspace</groupId>
     <artifactId>BananaSpace</artifactId>
-    <version>1.4</version>
+    <version>1.4_1</version>
     <name>BananaSpace</name>
     <url>http://github.com/iffa/BananaSpace</url>
     <!-- Repositories -->
