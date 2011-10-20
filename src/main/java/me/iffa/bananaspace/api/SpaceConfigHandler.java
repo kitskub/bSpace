@@ -179,19 +179,34 @@ public class SpaceConfigHandler {
      * Checks if a world is in the configuration file.
      * 
      * @param name Name of the world
+     * 
      * @return True if the world is in the config file
      */
     public static boolean isWorldInConfig(String name){
-        if (SpaceConfig.getConfig().getKeys("worlds." + name)!=null) {
+        if (SpaceConfig.getConfig().get("worlds." + name) != null) {
             return true;
         }
         return false;
     }
     
+    /**
+     * Checks if satellites are enabled.
+     * 
+     * @param world World
+     * 
+     * @return True if satellites are enabled
+     */
     public static boolean getSatellitesEnabled(World world) {
         return SpaceConfig.getConfig().getBoolean("worlds." + world.getName() + ".generation.generatesatellites", true);
     }
-    
+
+    /**
+     * Gets the satellite spawn chance.
+     * 
+     * @param world World
+     * 
+     * @return Spawn chance
+     */
     public static int getSatelliteChance(World world) {
         return SpaceConfig.getConfig().getInt("worlds." + world.getName() + ".generation.satellitechance", 1);
     }

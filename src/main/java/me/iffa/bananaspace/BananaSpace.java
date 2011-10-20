@@ -183,9 +183,6 @@ public class BananaSpace extends JavaPlugin {
         if (!SpaceConfigHandler.isWorldInConfig(worldName)) {
             worldHandler.createSpaceWorld(this, worldName, true);
         }
-        if (id == null || id.isEmpty()) {
-            return new SpaceChunkGenerator();
-        }
         if (id.equalsIgnoreCase("planets")) {
             return new PlanetsChunkGenerator(SpacePlanetConfig.getConfig(), this);
         }

@@ -18,7 +18,6 @@ import java.util.Random;
 import java.util.logging.Level;
 
 // BananaSpace Imports
-import me.iffa.bananaspace.BananaSpace;
 import me.iffa.bananaspace.api.SpaceMessageHandler;
 import me.iffa.bananaspace.wgen.populators.SpaceStonePopulator;
 import me.iffa.bananaspace.wgen.populators.SpaceGlowstonePopulator;
@@ -28,10 +27,10 @@ import me.iffa.bananaspace.wgen.populators.SpaceSatellitePopulator;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.generator.BlockPopulator;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.util.config.Configuration;
 
 /**
  * Generates a Planetoids world.
@@ -47,7 +46,7 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
     private Map<Material, Float> allowedShells;
     private Map<Material, Float> allowedCores;
     private Map<Point, List<Planetoid>> cache;
-    private Configuration planetConfig;
+    private YamlConfiguration planetConfig;
     private static final int SYSTEM_SIZE = 100;
     private long seed; // Seed for generating planetoids
     private int density; // Number of planetoids it will try to create per
@@ -66,7 +65,7 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
     private void loadAllowedBlocks() {
         allowedCores = new EnumMap<Material, Float>(Material.class);
         allowedShells = new EnumMap<Material, Float>(Material.class);
-        for (String s : planetConfig.getStringList(
+        for (String s : (List<String>)planetConfig.getList(
                 "blocks.cores", null)) {
             String[] sSplit = s.split("-");
             Material newMat = Material.matchMaterial(sSplit[0]);
@@ -78,7 +77,7 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
                 }
             }
         }
-        for (String s : planetConfig.getStringList(
+        for (String s : (List<String>)planetConfig.getList(
                 "blocks.shells", null)) {
             String[] sSplit = s.split("-");
             Material newMat = Material.matchMaterial(sSplit[0]);
@@ -98,7 +97,7 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
      * @param planetConfig Configuration
      * @param plugin Plugin
      */
-    public PlanetsChunkGenerator(Configuration planetConfig, Plugin plugin) {
+    public PlanetsChunkGenerator(YamlConfiguration planetConfig, Plugin plugin) {
         this.plugin = plugin;
         this.planetConfig = planetConfig;
         this.seed = (long) planetConfig.getDouble("seed", 0.0);

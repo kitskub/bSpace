@@ -3,7 +3,9 @@ package me.iffa.bananaspace.config;
 
 // Java Imports
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.logging.Level;
 
@@ -13,9 +15,8 @@ import me.iffa.bananaspace.api.SpaceMessageHandler;
 
 // Bukkit Imports
 import org.bukkit.Bukkit;
-
-// bPermissions Imports
-import de.bananaco.permissions.oldschool.Configuration;
+import org.bukkit.configuration.InvalidConfigurationException;
+import org.bukkit.configuration.file.YamlConfiguration;
 
 /**
  * A class that handles the configuration file.
@@ -27,7 +28,8 @@ import de.bananaco.permissions.oldschool.Configuration;
  */
 public class SpaceConfig {
     // Variables
-    private static Configuration myConfig;
+    private static YamlConfiguration myConfig;
+    private static File configFile;
     private static boolean loaded = false;
 
     /**
@@ -35,29 +37,46 @@ public class SpaceConfig {
      * 
      * @return the myConfig
      */
-    public static Configuration getConfig() {
+    public static YamlConfiguration getConfig() {
         if (!loaded) {
             loadConfig();
         }
         return myConfig;
+    }
+    
+    /**
+     * Gets the configuration file.
+     * 
+     * @return Configuration file
+     */
+    public static File getConfigFile() {
+        return configFile;
     }
 
     /**
      * Loads the configuration file from the .jar.
      */
     public static void loadConfig() {
-        File configFile = new File(Bukkit.getServer().getPluginManager().getPlugin("BananaSpace").getDataFolder(), "config.yml");
+        configFile = new File(Bukkit.getServer().getPluginManager().getPlugin("BananaSpace").getDataFolder(), "config.yml");
         if (configFile.exists()) {
-            myConfig = new Configuration(configFile);
-            myConfig.load();
+            myConfig = new YamlConfiguration();
+            try {
+                myConfig.load(configFile);
+            } catch (FileNotFoundException ex) {
+                SpaceMessageHandler.print(Level.WARNING, ex.getMessage());
+            } catch (IOException ex) {
+                SpaceMessageHandler.print(Level.WARNING, ex.getMessage());
+            } catch (InvalidConfigurationException ex) {
+                SpaceMessageHandler.print(Level.WARNING, ex.getMessage());
+            }
             loaded = true;
         } else {
             try {
                 Bukkit.getServer().getPluginManager().getPlugin("BananaSpace").getDataFolder().mkdir();
                 InputStream jarURL = SpaceConfig.class.getResourceAsStream("/config.yml");
                 copyFile(jarURL, configFile);
-                myConfig = new Configuration(configFile);
-                myConfig.load();
+                myConfig = new YamlConfiguration();
+                myConfig.load(configFile);
                 loaded = true;
                 SpaceMessageHandler.print(Level.INFO, "Generated configuration file for version " + BananaSpace.version);
             } catch (Exception e) {

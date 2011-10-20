@@ -8,6 +8,7 @@ import me.iffa.bananaspace.config.SpaceConfig;
 
 // Bukkit Imports
 import org.bukkit.World;
+import org.bukkit.configuration.file.YamlConfiguration;
 
 // Java Imports
 import java.awt.Desktop;
@@ -16,9 +17,6 @@ import javax.swing.DefaultListModel;
 import java.io.IOException;
 import java.util.logging.Level;
 
-// bPermissions Imports
-import de.bananaco.permissions.oldschool.Configuration;
-
 /**
  * Interface for Pail, a Bukkit GUI.
  * 
@@ -26,7 +24,7 @@ import de.bananaco.permissions.oldschool.Configuration;
  */
 public class PailInterface extends javax.swing.JPanel {
     // Variables
-    public static Configuration config = SpaceConfig.getConfig();
+    public static YamlConfiguration config = SpaceConfig.getConfig();
     private static final long serialVersionUID = 1L;
     private BananaSpace plugin;
 
@@ -92,18 +90,22 @@ public class PailInterface extends javax.swing.JPanel {
             SpaceMessageHandler.print(Level.WARNING, "A world with the name '" + worldname + "' does not exist in the config!");
             return;
         }
-        config.setProperty("worlds." + worldname + ".generation.generateplanets", Settings_Planets.isSelected());
-        config.setProperty("worlds." + worldname + ".generation.generateasteroids", Settings_Asteroids.isSelected());
-        config.setProperty("worlds." + worldname + ".generation.glowstonechance", (Integer) Settings_GlowstoneChance.getValue());
-        config.setProperty("worlds." + worldname + ".generation.stonechance", (Integer) Settings_StoneChance.getValue());
-        config.setProperty("worlds." + worldname + ".weather", Settings_Weather.isSelected());
-        config.setProperty("worlds." + worldname + ".hostilemobs", Settings_Hostile.isSelected());
-        config.setProperty("worlds." + worldname + ".neutralmobs", Settings_Neutral.isSelected());
-        config.setProperty("worlds." + worldname + ".alwaysnight", Settings_Night.isSelected());
-        config.setProperty("worlds." + worldname + ".nethermode", Settings_Nether.isSelected());
-        config.setProperty("worlds." + worldname + ".suit.required", Settings_SuitRequired.isSelected());
-        config.setProperty("worlds" + worldname + ".helmet.required", Settings_HelmetRequired.isSelected());
-        config.save();
+        config.set("worlds." + worldname + ".generation.generateplanets", Settings_Planets.isSelected());
+        config.set("worlds." + worldname + ".generation.generateasteroids", Settings_Asteroids.isSelected());
+        config.set("worlds." + worldname + ".generation.glowstonechance", (Integer) Settings_GlowstoneChance.getValue());
+        config.set("worlds." + worldname + ".generation.stonechance", (Integer) Settings_StoneChance.getValue());
+        config.set("worlds." + worldname + ".weather", Settings_Weather.isSelected());
+        config.set("worlds." + worldname + ".hostilemobs", Settings_Hostile.isSelected());
+        config.set("worlds." + worldname + ".neutralmobs", Settings_Neutral.isSelected());
+        config.set("worlds." + worldname + ".alwaysnight", Settings_Night.isSelected());
+        config.set("worlds." + worldname + ".nethermode", Settings_Nether.isSelected());
+        config.set("worlds." + worldname + ".suit.required", Settings_SuitRequired.isSelected());
+        config.set("worlds" + worldname + ".helmet.required", Settings_HelmetRequired.isSelected());
+        try {
+            config.save(SpaceConfig.getConfigFile());
+        } catch (IOException ex) {
+            SpaceMessageHandler.print(Level.WARNING, ex.getMessage());
+        }
         SpaceMessageHandler.debugPrint(Level.INFO, "Saved settings for spaceworld '" + worldname + "'.");
     }
 
@@ -623,12 +625,16 @@ public class PailInterface extends javax.swing.JPanel {
 
     private void SaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveButtonActionPerformed
 
-        config.setProperty("global.givesuit", CheckBoxSuit.isSelected());
-        config.setProperty("global.givehelmet", CheckBoxHelmet.isSelected());
-        config.setProperty("global.armortype", ArmorTypeBox.getText());
-        config.setProperty("global.blockid", Integer.parseInt(HelmetBlockIdBox.getText()));
-        config.setProperty("global.usespout", SpoutEnabled.isSelected());
-        config.save();
+        config.set("global.givesuit", CheckBoxSuit.isSelected());
+        config.set("global.givehelmet", CheckBoxHelmet.isSelected());
+        config.set("global.armortype", ArmorTypeBox.getText());
+        config.set("global.blockid", Integer.parseInt(HelmetBlockIdBox.getText()));
+        config.set("global.usespout", SpoutEnabled.isSelected());
+        try {
+            config.save(SpaceConfig.getConfigFile());
+        } catch (IOException ex) {
+            SpaceMessageHandler.print(Level.WARNING, ex.getMessage());
+        }
         JOptionPane.showMessageDialog(this, "Your general settings have been saved!", "Settings saved!", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_SaveButtonActionPerformed
 
