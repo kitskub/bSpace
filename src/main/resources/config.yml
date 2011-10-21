@@ -34,6 +34,7 @@ worlds:
 #            generateplanets: true
 #            generateasteroids: true
 #            generatesatellites: true
+#            generatefloor: true
 #            # From 1-200. These can be turned off with the generateasteroids-setting.
 #            glowstonechance: 1
 #            stonechance: 3
