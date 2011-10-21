@@ -14,7 +14,7 @@
         </repository>
         <repository>
             <id>spout-repo</id>
-            <url>http://ci.craftfire.com/plugin/repository/everything/</url>
+            <url>http://ci.getspout.org/plugin/repository/everything</url>
         </repository>
     </repositories>
     <build>
@@ -36,6 +36,7 @@
             <groupId>org.getspout</groupId>
             <artifactId>spoutapi</artifactId>
             <version>dev-SNAPSHOT</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>me.escapeNT.pail</groupId>
@@ -46,6 +47,7 @@
             <groupId>org.bukkit</groupId>
             <artifactId>bukkit</artifactId>
             <version>0.0.1-SNAPSHOT</version>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>cosine</groupId>
