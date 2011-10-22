@@ -31,6 +31,7 @@ import me.iffa.bananaspace.wgen.SpaceChunkGenerator;
 import me.iffa.bananaspace.wgen.planets.PlanetsChunkGenerator;
 
 // Bukkit Imports
+import org.blockface.bukkitstats.CallHome;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -121,6 +122,9 @@ public class BananaSpace extends JavaPlugin {
             ((Pail) pm.getPlugin("Pail")).loadInterfaceComponent("BananaSpace", pailInt);
         }
 
+        // Finishing up enablation.
+        SpaceMessageHandler.print(Level.INFO, "The plugin will now start sending usage stats. You can disable this in plugins/stats!");
+        CallHome.load(this);
         SpaceMessageHandler.print(Level.INFO, "Enabled version " + version);
     }
 
