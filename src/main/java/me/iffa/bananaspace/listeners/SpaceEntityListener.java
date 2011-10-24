@@ -97,13 +97,12 @@ public class SpaceEntityListener extends EntityListener {
      */
     @Override
     public void onEntityDeath(EntityDeathEvent event) {
+        // TODO: Test this code as someone reported this does not work.
         if (event.getEntity() instanceof Player) {
             Player p = (Player) event.getEntity();
-            if (SpacePlayerListener.taskid.containsKey(p)) {
-                if (BananaSpace.scheduler.isCurrentlyRunning(SpacePlayerListener.taskid.get(p))) {
+            if (SpacePlayerListener.taskid.containsKey(p) && BananaSpace.scheduler.isCurrentlyRunning(SpacePlayerListener.taskid.get(p))) {
                     BananaSpace.scheduler.cancelTask(SpacePlayerListener.taskid.get(p));
                     SpaceMessageHandler.debugPrint(Level.INFO, "Cancelled suffocating task for player '" + p.getName() + "' because (s)he died.");
-                }
             }
         }
     }

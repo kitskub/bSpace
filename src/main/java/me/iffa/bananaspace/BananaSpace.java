@@ -59,12 +59,12 @@ public class BananaSpace extends JavaPlugin {
     public static PluginManager pm;
     public static Map<Player, Location> locCache = null;
     public static boolean jumpPressed = false;
+    public final static String TEXTURE_PACK="https://github.com/downloads/iffa/BananaSpace/spacetexture.zip";
     private SpaceCommandHandler sce = null;
     private Economy economy;
     private final SpaceWeatherListener weatherListener = new SpaceWeatherListener(this);
     private final SpaceEntityListener entityListener = new SpaceEntityListener(this);
     private final SpacePlayerListener playerListener = new SpacePlayerListener(this);
-    public final static String TEXTURE_PACK="https://github.com/downloads/iffa/BananaSpace/spacetexture.zip";
 
     /**
      * Called when the plugin is disabled.
@@ -149,16 +149,18 @@ public class BananaSpace extends JavaPlugin {
     private void registerEvents() {
         // Registering other events.
         pm.registerEvent(Event.Type.WEATHER_CHANGE, weatherListener, Event.Priority.Normal, this);
+        SpaceMessageHandler.debugPrint(Level.INFO, "Registered events (other).");
 
         // Registering entity & player events.
         pm.registerEvent(Event.Type.ENTITY_DAMAGE, entityListener, Event.Priority.Normal, this);
+        pm.registerEvent(Event.Type.ENTITY_DEATH, entityListener, Event.Priority.Normal, this);
         pm.registerEvent(Event.Type.CREATURE_SPAWN, entityListener, Event.Priority.Highest, this);
         pm.registerEvent(Event.Type.PLAYER_TELEPORT, playerListener, Event.Priority.Normal, this);
         pm.registerEvent(Event.Type.PLAYER_MOVE, playerListener, Event.Priority.Normal, this);
         pm.registerEvent(Event.Type.PLAYER_RESPAWN, playerListener, Event.Priority.Normal, this);
         pm.registerEvent(Event.Type.PLAYER_QUIT, playerListener, Event.Priority.Normal, this);
         pm.registerEvent(Event.Type.PLAYER_JOIN, playerListener, Event.Priority.Normal, this);
-        SpaceMessageHandler.debugPrint(Level.INFO, "Registered events (General).");
+        SpaceMessageHandler.debugPrint(Level.INFO, "Registered events (entity & player).");
 
         // Registering events for Spout.
         if (pm.getPlugin("Spout") != null && SpaceConfigHandler.isUsingSpout()) {
@@ -186,6 +188,9 @@ public class BananaSpace extends JavaPlugin {
         SpaceMessageHandler.debugPrint(Level.INFO, "Getting generator for" + worldName + " " + id);
         if (!SpaceConfigHandler.isWorldInConfig(worldName)) {
             worldHandler.createSpaceWorld(this, worldName, true);
+        }
+        if (id.isEmpty() || id.length() == 0 || id == null) { // Readded safety check :)
+            return new SpaceChunkGenerator();
         }
         if (id.equalsIgnoreCase("planets")) {
             return new PlanetsChunkGenerator(SpacePlanetConfig.getConfig(), this);
