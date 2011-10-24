@@ -92,7 +92,7 @@ public class SpacePlayerListener extends PlayerListener {
                     return;
                 }
                 if (SpaceConfigHandler.isHelmetGiven()) {
-                    event.getPlayer().getInventory().setHelmet(new ItemStack(null, 1));
+                    event.getPlayer().getInventory().setHelmet(new ItemStack(0, 1));
                 }
                 if (SpaceConfigHandler.isSuitGiven()) {
                     BananaSpace.getPlayerHandler().giveSpaceSuit("null", player);
