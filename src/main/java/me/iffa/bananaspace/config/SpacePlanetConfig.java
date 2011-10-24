@@ -28,22 +28,22 @@ import org.bukkit.configuration.file.YamlConfiguration;
  */
 public class SpacePlanetConfig {
     // Variables
-    private static YamlConfiguration myConfig;
+    private static YamlConfiguration config;
     private static File configFile;
     private static boolean loaded = false;
 
     /**
      * Gets the configuration file.
      * 
-     * @return the myConfig
+     * @return YamlConfiguration object
      */
     public static YamlConfiguration getConfig() {
         if (!loaded) {
             loadConfig();
         }
-        return myConfig;
+        return config;
     }
-    
+
     /**
      * Gets the configuration file.
      * 
@@ -54,15 +54,24 @@ public class SpacePlanetConfig {
     }
 
     /**
+     * Checks if the configuration file is loaded.
+     * 
+     * @return True if configuraton file is loaded
+     */
+    public static boolean getLoaded() {
+        return loaded;
+    }
+
+    /**
      * Loads the configuration file from the .jar.
      */
     public static void loadConfig() {
         if (!loaded) {
-            File configFile = new File(Bukkit.getServer().getPluginManager().getPlugin("BananaSpace").getDataFolder(), "planets.yml");
+            configFile = new File(Bukkit.getServer().getPluginManager().getPlugin("BananaSpace").getDataFolder(), "planets.yml");
             if (configFile.exists()) {
-                myConfig = new YamlConfiguration();
+                config = new YamlConfiguration();
                 try {
-                    myConfig.load(configFile);
+                    config.load(configFile);
                 } catch (FileNotFoundException ex) {
                     SpaceMessageHandler.print(Level.WARNING, ex.getMessage());
                 } catch (IOException ex) {
@@ -76,11 +85,11 @@ public class SpacePlanetConfig {
                     Bukkit.getServer().getPluginManager().getPlugin("BananaSpace").getDataFolder().mkdir();
                     InputStream jarURL = SpacePlanetConfig.class.getResourceAsStream("/planets.yml");
                     copyFile(jarURL, configFile);
-                    myConfig = new YamlConfiguration();
-                    myConfig.load(configFile);
+                    config = new YamlConfiguration();
+                    config.load(configFile);
                     loaded = true;
-                    if ((long) myConfig.getDouble("seed", -1.0) == -1) {
-                        myConfig.set("seed", Bukkit.getServer().getWorlds().get(0).getSeed());
+                    if ((long) config.getDouble("seed", -1.0) == -1) {
+                        config.set("seed", Bukkit.getServer().getWorlds().get(0).getSeed());
                     }
                     SpaceMessageHandler.print(Level.INFO, "Generated planet configuration for version " + BananaSpace.version);
                 } catch (Exception e) {

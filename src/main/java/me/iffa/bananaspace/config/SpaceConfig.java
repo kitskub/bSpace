@@ -28,20 +28,20 @@ import org.bukkit.configuration.file.YamlConfiguration;
  */
 public class SpaceConfig {
     // Variables
-    private static YamlConfiguration myConfig;
+    private static YamlConfiguration config;
     private static File configFile;
     private static boolean loaded = false;
 
     /**
      * Gets the configuration file.
      * 
-     * @return the myConfig
+     * @return YamlConfiguration object
      */
     public static YamlConfiguration getConfig() {
         if (!loaded) {
             loadConfig();
         }
-        return myConfig;
+        return config;
     }
     
     /**
@@ -52,6 +52,15 @@ public class SpaceConfig {
     public static File getConfigFile() {
         return configFile;
     }
+    
+    /**
+     * Checks if the configuration file is loaded.
+     * 
+     * @return True if configuraton file is loaded
+     */
+    public static boolean getLoaded() {
+        return loaded;
+    }
 
     /**
      * Loads the configuration file from the .jar.
@@ -59,9 +68,9 @@ public class SpaceConfig {
     public static void loadConfig() {
         configFile = new File(Bukkit.getServer().getPluginManager().getPlugin("BananaSpace").getDataFolder(), "config.yml");
         if (configFile.exists()) {
-            myConfig = new YamlConfiguration();
+            config = new YamlConfiguration();
             try {
-                myConfig.load(configFile);
+                config.load(configFile);
             } catch (FileNotFoundException ex) {
                 SpaceMessageHandler.print(Level.WARNING, ex.getMessage());
             } catch (IOException ex) {
@@ -75,8 +84,8 @@ public class SpaceConfig {
                 Bukkit.getServer().getPluginManager().getPlugin("BananaSpace").getDataFolder().mkdir();
                 InputStream jarURL = SpaceConfig.class.getResourceAsStream("/config.yml");
                 copyFile(jarURL, configFile);
-                myConfig = new YamlConfiguration();
-                myConfig.load(configFile);
+                config = new YamlConfiguration();
+                config.load(configFile);
                 loaded = true;
                 SpaceMessageHandler.print(Level.INFO, "Generated configuration file for version " + BananaSpace.version);
             } catch (Exception e) {
