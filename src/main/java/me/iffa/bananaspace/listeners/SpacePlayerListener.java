@@ -167,13 +167,15 @@ public class SpacePlayerListener extends PlayerListener {
                     Bukkit.getServer().getPluginManager().callEvent(e);
                     /* Notify listeners end */
                 }
-                if (SpaceConfigHandler.getRequireHelmet(event.getPlayer().getWorld()) && SpaceConfigHandler.getRequireSuit(event.getPlayer().getWorld())) {
-                    checkNeedsSuffocation(SuitCheck.BOTH, event.getPlayer());
-                    return;
-                } else if (SpaceConfigHandler.getRequireHelmet(event.getPlayer().getWorld())) {
-                    checkNeedsSuffocation(SuitCheck.HELMET_ONLY, event.getPlayer());
-                } else if (SpaceConfigHandler.getRequireSuit(event.getPlayer().getWorld())) {
-                    checkNeedsSuffocation(SuitCheck.SUIT_ONLY, event.getPlayer());
+                if (!event.getPlayer().hasPermission("bananaspace.ignoresuitchecks")) {
+                    if (SpaceConfigHandler.getRequireHelmet(event.getPlayer().getWorld()) && SpaceConfigHandler.getRequireSuit(event.getPlayer().getWorld())) {
+                        checkNeedsSuffocation(SuitCheck.BOTH, event.getPlayer());
+                        return;
+                    } else if (SpaceConfigHandler.getRequireHelmet(event.getPlayer().getWorld())) {
+                        checkNeedsSuffocation(SuitCheck.HELMET_ONLY, event.getPlayer());
+                    } else if (SpaceConfigHandler.getRequireSuit(event.getPlayer().getWorld())) {
+                        checkNeedsSuffocation(SuitCheck.SUIT_ONLY, event.getPlayer());
+                    }
                 }
             }
         } else {

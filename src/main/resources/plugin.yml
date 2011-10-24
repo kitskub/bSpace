@@ -19,7 +19,7 @@ commands:
 permissions:
   # Permission groups
       # All permissions group
-  bananaspace.*:
+  bananaspace.commands.*:
     description: Access to all BananaSpace commands.
     children:
       bananaspace.teleport.*: true
@@ -40,3 +40,6 @@ permissions:
   bananaspace.teleport.list:
     description: Allows requesting list of spaceworlds.
     default: op
+  bananaspace.ignoresuitchecks:
+    description: Ignores all suit and helmet checks for the player.
+    default: false
