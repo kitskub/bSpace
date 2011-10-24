@@ -35,7 +35,6 @@ import org.bukkit.inventory.ItemStack;
  */
 public class SpacePlayerListener extends PlayerListener {
     // Variables
-
     public static Map<Player, Integer> taskid = new HashMap<Player, Integer>();
     public static Map<Player, Boolean> isUsed = new HashMap<Player, Boolean>();
     private final Map<Player, Boolean> inArea = new HashMap<Player, Boolean>();
