@@ -7,6 +7,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.EnumMap;
+import java.util.Map;
 import java.util.logging.Level;
 
 //BananaSpace Imports
@@ -28,49 +30,66 @@ import org.bukkit.configuration.file.YamlConfiguration;
  */
 public class SpaceConfig {
     // Variables
-    private static YamlConfiguration config;
-    private static File configFile;
-    private static boolean loaded = false;
+    private static Map<ConfigFile, YamlConfiguration> config = new EnumMap<ConfigFile, YamlConfiguration>(ConfigFile.class);
+    private static Map<ConfigFile, File> configFile = new EnumMap<ConfigFile, File>(ConfigFile.class);
+    private static Map<ConfigFile, Boolean> loaded = new EnumMap<ConfigFile, Boolean>(ConfigFile.class);
 
     /**
      * Gets the configuration file.
      * 
+     * @param configfile ConfigFile to get
+     * 
      * @return YamlConfiguration object
      */
-    public static YamlConfiguration getConfig() {
-        if (!loaded) {
-            loadConfig();
+    public static YamlConfiguration getConfig(ConfigFile configfile) {
+        if (!loaded.get(configfile)) {
+            loadConfig(configfile);
         }
-        return config;
+        return config.get(configfile);
     }
     
     /**
      * Gets the configuration file.
      * 
+     * @param configfile ConfigFile to get
+     * 
      * @return Configuration file
      */
-    public static File getConfigFile() {
-        return configFile;
+    public static File getConfigFile(ConfigFile configfile) {
+        return configFile.get(configfile);
     }
     
     /**
      * Checks if the configuration file is loaded.
      * 
+     * @param configfile ConfigFile to get
+     * 
      * @return True if configuraton file is loaded
      */
-    public static boolean getLoaded() {
-        return loaded;
+    public static boolean getLoaded(ConfigFile configfile) {
+        return loaded.get(configfile);
+    }
+    
+    /**
+     * Loads all configuration files. (can be used to save a total of 2 lines!)
+     */
+    public static void loadConfigs() {
+        for (ConfigFile configfile : ConfigFile.values()) {
+            loadConfig(configfile);
+        }
     }
 
     /**
      * Loads the configuration file from the .jar.
+     * 
+     * @param configfile ConfigFile to load
      */
-    public static void loadConfig() {
-        configFile = new File(Bukkit.getServer().getPluginManager().getPlugin("BananaSpace").getDataFolder(), "config.yml");
-        if (configFile.exists()) {
-            config = new YamlConfiguration();
+    public static void loadConfig(ConfigFile configfile) {
+        configFile.put(configfile, new File(Bukkit.getServer().getPluginManager().getPlugin("BananaSpace").getDataFolder(), configfile.getFile()));
+        if (configFile.get(configfile).exists()) {
+            config.put(configfile, new YamlConfiguration());
             try {
-                config.load(configFile);
+                config.get(configfile).load(configFile.get(configfile));
             } catch (FileNotFoundException ex) {
                 SpaceMessageHandler.print(Level.WARNING, ex.getMessage());
             } catch (IOException ex) {
@@ -78,16 +97,16 @@ public class SpaceConfig {
             } catch (InvalidConfigurationException ex) {
                 SpaceMessageHandler.print(Level.WARNING, ex.getMessage());
             }
-            loaded = true;
+            loaded.put(configfile, true);
         } else {
             try {
                 Bukkit.getServer().getPluginManager().getPlugin("BananaSpace").getDataFolder().mkdir();
-                InputStream jarURL = SpaceConfig.class.getResourceAsStream("/config.yml");
-                copyFile(jarURL, configFile);
-                config = new YamlConfiguration();
-                config.load(configFile);
-                loaded = true;
-                SpaceMessageHandler.print(Level.INFO, "Generated configuration file for version " + BananaSpace.version);
+                InputStream jarURL = SpaceConfig.class.getResourceAsStream("/" + configfile.getFile());
+                copyFile(jarURL, configFile.get(configfile));
+                config.put(configfile, new YamlConfiguration());
+                config.get(configfile).load(configFile.get(configfile));
+                loaded.put(configfile, true);
+                SpaceMessageHandler.print(Level.INFO, "Generated " + configfile.getFile() + " file for version " + BananaSpace.version);
             } catch (Exception e) {
                 SpaceMessageHandler.print(Level.SEVERE, e.toString());
             }
@@ -127,5 +146,35 @@ public class SpaceConfig {
      * Constructor of SpaceConfig.
      */
     private SpaceConfig() {
+    }
+    
+    /**
+     * All config files.
+     */
+    public enum ConfigFile {
+        // Enums
+        PLANETS("planets.yml"),
+        CONFIG("config.yml"),
+        IDS("ids.yml");
+        
+        // Variables
+        private String file;
+        
+        /**
+         * Constructor of ConfigFile.
+         * @param file 
+         */
+        ConfigFile(String file) {
+            this.file = file;
+        }
+        
+        /**
+         * Gets the file associated with the enum.
+         * 
+         * @return File associated wiht the enum
+         */
+        public String getFile() {
+            return this.file;
+        }
     }
 }

@@ -5,6 +5,7 @@ package me.iffa.bananaspace.gui;
 import me.iffa.bananaspace.BananaSpace;
 import me.iffa.bananaspace.api.SpaceMessageHandler;
 import me.iffa.bananaspace.config.SpaceConfig;
+import me.iffa.bananaspace.config.SpaceConfig.ConfigFile;
 
 // Bukkit Imports
 import org.bukkit.World;
@@ -24,7 +25,7 @@ import java.util.logging.Level;
  */
 public class PailInterface extends javax.swing.JPanel {
     // Variables
-    public static YamlConfiguration config = SpaceConfig.getConfig();
+    public static YamlConfiguration config = SpaceConfig.getConfig(ConfigFile.CONFIG);
     private static final long serialVersionUID = 1L;
     private BananaSpace plugin;
 
@@ -102,7 +103,7 @@ public class PailInterface extends javax.swing.JPanel {
         config.set("worlds." + worldname + ".suit.required", Settings_SuitRequired.isSelected());
         config.set("worlds" + worldname + ".helmet.required", Settings_HelmetRequired.isSelected());
         try {
-            config.save(SpaceConfig.getConfigFile());
+            config.save(SpaceConfig.getConfigFile(ConfigFile.CONFIG));
         } catch (IOException ex) {
             SpaceMessageHandler.print(Level.WARNING, ex.getMessage());
         }
@@ -631,7 +632,7 @@ public class PailInterface extends javax.swing.JPanel {
         config.set("global.blockid", Integer.parseInt(HelmetBlockIdBox.getText()));
         config.set("global.usespout", SpoutEnabled.isSelected());
         try {
-            config.save(SpaceConfig.getConfigFile());
+            config.save(SpaceConfig.getConfigFile(ConfigFile.CONFIG));
         } catch (IOException ex) {
             SpaceMessageHandler.print(Level.WARNING, ex.getMessage());
         }

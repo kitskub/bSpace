@@ -12,14 +12,13 @@ import java.util.logging.Level;
 
 // BananaSpace Imports
 import me.iffa.bananaspace.BananaSpace;
-import me.iffa.bananaspace.wgen.planets.PlanetsChunkGenerator;
 import me.iffa.bananaspace.runnables.SpaceRunnable;
 import me.iffa.bananaspace.wgen.SpaceChunkGenerator;
 import me.iffa.bananaspace.config.SpaceConfig;
-import me.iffa.bananaspace.config.SpacePlanetConfig;
+import me.iffa.bananaspace.config.SpaceConfig.ConfigFile;
+import me.iffa.bananaspace.wgen.planets.PlanetsChunkGenerator;
 
 // Bukkit Imports
-import me.iffa.bananaspace.wgen.planets.PlanetsChunkGenerator;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
@@ -58,7 +57,7 @@ public class SpaceWorldHandler {
     public void loadSpaceWorlds() {
         Set<String> worlds;
         try {
-            worlds = SpaceConfig.getConfig().getConfigurationSection("worlds").getKeys(false);
+            worlds = SpaceConfig.getConfig(ConfigFile.CONFIG).getConfigurationSection("worlds").getKeys(false);
         } catch (NullPointerException ex) {
             worlds = null;
         }
@@ -71,13 +70,13 @@ public class SpaceWorldHandler {
             if (plugin.getServer().getWorld(world) == null) {
                 if (!usingMV) {
                     World.Environment env;
-                    if (SpaceConfig.getConfig().getBoolean("worlds." + world + ".nethermode", false)) {
+                    if (SpaceConfig.getConfig(ConfigFile.CONFIG).getBoolean("worlds." + world + ".nethermode", false)) {
                         env = World.Environment.NETHER;
                     } else {
                         env = World.Environment.NORMAL;
                     }
                     // Choosing which chunk generator to use
-                    if (!SpaceConfig.getConfig().getBoolean("worlds." + world + ".generation.generateplanets", true)) {
+                    if (!SpaceConfig.getConfig(ConfigFile.CONFIG).getBoolean("worlds." + world + ".generation.generateplanets", true)) {
                         SpaceMessageHandler.debugPrint(Level.INFO, "Creating startup world '" + world + "' with normal generator.");
                         plugin.getServer().createWorld(WorldCreator.name(world).environment(env).generator(new SpaceChunkGenerator()));
                     } else {
@@ -129,19 +128,19 @@ public class SpaceWorldHandler {
             SpaceMessageHandler.print(Level.WARNING, "Plugin '" + plugin.getDescription().getName() + "' tried to create a new spaceworld with a name that is already a world! Nag to author(s) '" + plugin.getDescription().getAuthors() + "'!");
             return;
         }
-        SpaceConfig.getConfig().set("worlds." + worldname + ".generation.generateplanets", true);
-        SpaceConfig.getConfig().set("worlds." + worldname + ".generation.glowstonechance", 1);
-        SpaceConfig.getConfig().set("worlds." + worldname + ".generation.asteroidchance", 3);
-        SpaceConfig.getConfig().set("worlds." + worldname + ".suit.required", false);
-        SpaceConfig.getConfig().set("worlds." + worldname + ".helmet.required", false);
-        SpaceConfig.getConfig().set("worlds." + worldname + ".breathingarea.maxroomheight", 5);
-        SpaceConfig.getConfig().set("worlds." + worldname + ".weather", false);
-        SpaceConfig.getConfig().set("worlds." + worldname + ".nethermode", false);
-        SpaceConfig.getConfig().set("worlds." + worldname + ".alwaysnight", true);
-        SpaceConfig.getConfig().set("worlds." + worldname + ".neutralmobs", true);
-        SpaceConfig.getConfig().set("worlds." + worldname + ".hostilemobs", false);
+        SpaceConfig.getConfig(ConfigFile.CONFIG).set("worlds." + worldname + ".generation.generateplanets", true);
+        SpaceConfig.getConfig(ConfigFile.CONFIG).set("worlds." + worldname + ".generation.glowstonechance", 1);
+        SpaceConfig.getConfig(ConfigFile.CONFIG).set("worlds." + worldname + ".generation.asteroidchance", 3);
+        SpaceConfig.getConfig(ConfigFile.CONFIG).set("worlds." + worldname + ".suit.required", false);
+        SpaceConfig.getConfig(ConfigFile.CONFIG).set("worlds." + worldname + ".helmet.required", false);
+        SpaceConfig.getConfig(ConfigFile.CONFIG).set("worlds." + worldname + ".breathingarea.maxroomheight", 5);
+        SpaceConfig.getConfig(ConfigFile.CONFIG).set("worlds." + worldname + ".weather", false);
+        SpaceConfig.getConfig(ConfigFile.CONFIG).set("worlds." + worldname + ".nethermode", false);
+        SpaceConfig.getConfig(ConfigFile.CONFIG).set("worlds." + worldname + ".alwaysnight", true);
+        SpaceConfig.getConfig(ConfigFile.CONFIG).set("worlds." + worldname + ".neutralmobs", true);
+        SpaceConfig.getConfig(ConfigFile.CONFIG).set("worlds." + worldname + ".hostilemobs", false);
         try {
-            SpaceConfig.getConfig().save(SpaceConfig.getConfigFile());
+            SpaceConfig.getConfig(ConfigFile.CONFIG).save(SpaceConfig.getConfigFile(ConfigFile.CONFIG));
         } catch (IOException ex) {
             SpaceMessageHandler.print(Level.WARNING, ex.getMessage());
         }
@@ -175,19 +174,19 @@ public class SpaceWorldHandler {
             return;
         }
         spaceWorlds.remove(plugin.getServer().getWorld(worldname));
-        SpaceConfig.getConfig().set("worlds." + worldname, null);
+        SpaceConfig.getConfig(ConfigFile.CONFIG).set("worlds." + worldname, null);
         try {
-            SpaceConfig.getConfig().save(SpaceConfig.getConfigFile());
+            SpaceConfig.getConfig(ConfigFile.CONFIG).save(SpaceConfig.getConfigFile(ConfigFile.CONFIG));
         } catch (IOException ex) {
             SpaceMessageHandler.print(Level.WARNING, ex.getMessage());
         }
         /*
          * Removing a few properties that in most cases WILL be left over because of the Configuration-class.
          */
-        SpaceConfig.getConfig().set("worlds." + worldname + "generation", null);
-        SpaceConfig.getConfig().set("worlds" + worldname, null);
+        SpaceConfig.getConfig(ConfigFile.CONFIG).set("worlds." + worldname + "generation", null);
+        SpaceConfig.getConfig(ConfigFile.CONFIG).set("worlds" + worldname, null);
         try {
-            SpaceConfig.getConfig().save(SpaceConfig.getConfigFile());
+            SpaceConfig.getConfig(ConfigFile.CONFIG).save(SpaceConfig.getConfigFile(ConfigFile.CONFIG));
         } catch (IOException ex) {
             SpaceMessageHandler.print(Level.WARNING, ex.getMessage());
         }
