@@ -29,6 +29,7 @@ import me.iffa.bananaspace.listeners.spout.SpaceSpoutKeyListener;
 import me.iffa.bananaspace.listeners.spout.SpaceSpoutPlayerListener;
 import me.iffa.bananaspace.wgen.SpaceChunkGenerator;
 import me.iffa.bananaspace.wgen.planets.PlanetsChunkGenerator;
+import me.iffa.bananaspace.wgen.planets.PlanetsChunkGenerator;
 
 // Bukkit Imports
 import org.blockface.bukkitstats.CallHome;
@@ -193,7 +194,7 @@ public class BananaSpace extends JavaPlugin {
             return new SpaceChunkGenerator();
         }
         if (id.equalsIgnoreCase("planets")) {
-            return new PlanetsChunkGenerator(SpacePlanetConfig.getConfig(), this);
+            return new PlanetsChunkGenerator();
         }
 
         return new SpaceChunkGenerator();
