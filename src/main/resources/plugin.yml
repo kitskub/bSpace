@@ -5,7 +5,7 @@ main: me.iffa.bananaspace.BananaSpace
 name: BananaSpace
 url: http://github.com/iffa/BananaSpace
 #load: startup
-version: '1.4_1'
+version: '1.4_2'
 softdepend: [Permissions, Spout, Pail]
 commands:
   space:
@@ -13,12 +13,13 @@ commands:
     usage: |
           /<command> <enter> [spaceworld] - Go to a space world
           /<command> <back> - Go back where you were
-          /<command> <help>
+          /<command> <list> - Lists all spaceworlds (loaded with config.yml)
+          /<command> <help> - Shows help (usage)
 # Permission nodes
 permissions:
   # Permission groups
       # All permissions group
-  bananaspace.*:
+  bananaspace.commands.*:
     description: Access to all BananaSpace commands.
     children:
       bananaspace.teleport.*: true
@@ -39,3 +40,6 @@ permissions:
   bananaspace.teleport.list:
     description: Allows requesting list of spaceworlds.
     default: op
+  bananaspace.ignoresuitchecks:
+    description: Ignores all suit and helmet checks for the player.
+    default: false
