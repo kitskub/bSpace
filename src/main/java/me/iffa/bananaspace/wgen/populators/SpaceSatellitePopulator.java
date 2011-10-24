@@ -4,8 +4,10 @@ package me.iffa.bananaspace.wgen.populators;
 // Java Imports
 import java.util.Random;
 
-// Bukkit Imports
+// BananaSpace Imports
 import me.iffa.bananaspace.api.SpaceConfigHandler;
+
+// Bukkit Imports
 import org.bukkit.Chunk;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -18,7 +20,6 @@ import org.bukkit.generator.BlockPopulator;
  * @author NeonMaster (thanks for the original satellite design, too bad my mathematics blew it up!)
  */
 public class SpaceSatellitePopulator extends BlockPopulator {
-
     /**
      * Populates a world with satellites.
      * 

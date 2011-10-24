@@ -7,9 +7,9 @@ import java.util.logging.Level;
 // BananaSpace Imports
 import me.iffa.bananaspace.BananaSpace;
 import me.iffa.bananaspace.api.SpaceConfigHandler;
+import me.iffa.bananaspace.api.SpaceMessageHandler;
 
 // Bukkit Imports
-import me.iffa.bananaspace.api.SpaceMessageHandler;
 import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.event.weather.WeatherListener;
 
@@ -19,16 +19,10 @@ import org.bukkit.event.weather.WeatherListener;
  * @author iffa
  */
 public class SpaceWeatherListener extends WeatherListener {
-    // Variables
-    private BananaSpace plugin;
-
     /**
      * Constructor for SpaceWeatherListener.
-     * 
-     * @param plugin BananaSpace instance
      */
-    public SpaceWeatherListener(BananaSpace plugin) {
-        this.plugin = plugin;
+    public SpaceWeatherListener() {
     }
 
     /**

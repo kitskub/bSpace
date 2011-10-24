@@ -27,17 +27,13 @@ import org.getspout.spoutapi.player.SpoutPlayer;
  */
 public class SpaceSpoutCraftListener extends SpoutListener {
     // Variables
-    private final BananaSpace plugin;
     private final SkyManager sky = SpoutManager.getSkyManager();
     private final AppearanceManager app = SpoutManager.getAppearanceManager();
 
     /**
      * Constructor of SpaceSpoutCraftListener.
-     * 
-     * @param plugin BananaSpace instance
      */
-    public SpaceSpoutCraftListener(BananaSpace plugin) {
-        this.plugin = plugin;
+    public SpaceSpoutCraftListener() {
     }
 
     /**

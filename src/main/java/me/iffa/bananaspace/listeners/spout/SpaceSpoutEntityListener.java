@@ -6,9 +6,9 @@ import java.util.logging.Level;
 
 // BananaSpace Imports
 import me.iffa.bananaspace.BananaSpace;
+import me.iffa.bananaspace.api.SpaceMessageHandler;
 
 // Bukkit Imports
-import me.iffa.bananaspace.api.SpaceMessageHandler;
 import org.bukkit.Location;
 import org.bukkit.entity.CreatureType;
 import org.bukkit.entity.Entity;
@@ -34,15 +34,11 @@ import org.getspout.spoutapi.player.SpoutPlayer;
 public class SpaceSpoutEntityListener extends EntityListener {
     // Variables
     private final AppearanceManager app = SpoutManager.getAppearanceManager();
-    private final BananaSpace plugin;
 
     /**
      * Constructor of SpaceSpoutEntityListener.
-     * 
-     * @param plugin BananaSpace instance
      */
-    public SpaceSpoutEntityListener(BananaSpace plugin) {
-	this.plugin = plugin;
+    public SpaceSpoutEntityListener() {
     }
 
     /**

@@ -64,7 +64,7 @@ public class BananaSpace extends JavaPlugin {
     public final static String TEXTURE_PACK="https://github.com/downloads/iffa/BananaSpace/spacetexture.zip";
     private SpaceCommandHandler sce = null;
     private Economy economy;
-    private final SpaceWeatherListener weatherListener = new SpaceWeatherListener(this);
+    private final SpaceWeatherListener weatherListener = new SpaceWeatherListener();
     private final SpaceEntityListener entityListener = new SpaceEntityListener();
     private final SpacePlayerListener playerListener = new SpacePlayerListener(this);
 
@@ -168,11 +168,11 @@ public class BananaSpace extends JavaPlugin {
         if (pm.getPlugin("Spout") != null && SpaceConfigHandler.isUsingSpout()) {
             pm.registerEvent(Event.Type.PLAYER_TELEPORT, new SpaceSpoutPlayerListener(this), Event.Priority.Normal, this); //Player listener
             //pm.registerEvent(Event.Type.PLAYER_JOIN, spListener, Event.Priority.Normal, this); //moved this into a Custom Listener
-            pm.registerEvent(Event.Type.ENTITY_DAMAGE, new SpaceSpoutEntityListener(this), Event.Priority.Normal, this); //Entity Listener
+            pm.registerEvent(Event.Type.ENTITY_DAMAGE, new SpaceSpoutEntityListener(), Event.Priority.Normal, this); //Entity Listener
             //pm.registerEvent(Event.Type.CREATURE_SPAWN, speListener, Event.Priority.Normal, this); //Disabled until Limitations in Spout is fixed
-            pm.registerEvent(Event.Type.CUSTOM_EVENT, new SpaceSpoutCraftListener(this), Event.Priority.Normal, this); //SpoutCraft Listener
-            pm.registerEvent(Event.Type.CUSTOM_EVENT, new SpaceSpoutAreaListener(this), Event.Priority.Normal, this); //Area Listener
-            pm.registerEvent(Event.Type.CUSTOM_EVENT, new SpaceSpoutKeyListener(this), Event.Priority.Normal, this); //Key Listener
+            pm.registerEvent(Event.Type.CUSTOM_EVENT, new SpaceSpoutCraftListener(), Event.Priority.Normal, this); //SpoutCraft Listener
+            pm.registerEvent(Event.Type.CUSTOM_EVENT, new SpaceSpoutAreaListener(), Event.Priority.Normal, this); //Area Listener
+            pm.registerEvent(Event.Type.CUSTOM_EVENT, new SpaceSpoutKeyListener(), Event.Priority.Normal, this); //Key Listener
             SpaceMessageHandler.debugPrint(Level.INFO, "Registered events (Spout).");
         }
     }

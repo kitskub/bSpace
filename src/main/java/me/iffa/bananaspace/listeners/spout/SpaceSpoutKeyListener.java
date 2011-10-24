@@ -6,9 +6,9 @@ import java.util.logging.Level;
 
 // BananaSpace Imports
 import me.iffa.bananaspace.BananaSpace;
+import me.iffa.bananaspace.api.SpaceMessageHandler;
 
 // Bukkit Imports
-import me.iffa.bananaspace.api.SpaceMessageHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -28,16 +28,10 @@ import org.getspout.spoutapi.player.SpoutPlayer;
  * @author HACKhalo2
  */
 public class SpaceSpoutKeyListener extends InputListener {
-    // Variables
-    private final BananaSpace plugin;
-
     /**
      * Constructor of SpaceSpoutKeyListener.
-     * 
-     * @param plugin BananaSpace instance
      */
-    public SpaceSpoutKeyListener(BananaSpace plugin) {
-	this.plugin = plugin;
+    public SpaceSpoutKeyListener() {
     }
 
     /**

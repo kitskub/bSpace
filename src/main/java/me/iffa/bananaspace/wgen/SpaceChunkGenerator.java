@@ -57,7 +57,7 @@ public class SpaceChunkGenerator extends ChunkGenerator {
      * @param x X-location
      * @param z Z-location
      * 
-     * @return True if can spawn
+     * @return True
      */
     @Override
     public boolean canSpawn(World world, int x, int z) {

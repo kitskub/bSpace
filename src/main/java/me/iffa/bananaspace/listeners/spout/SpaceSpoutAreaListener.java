@@ -2,7 +2,6 @@
 package me.iffa.bananaspace.listeners.spout;
 
 // BananaSpace Imports
-import me.iffa.bananaspace.BananaSpace;
 import me.iffa.bananaspace.api.event.area.AreaEnterEvent;
 import me.iffa.bananaspace.api.event.area.AreaLeaveEvent;
 import me.iffa.bananaspace.api.event.area.SpaceAreaListener;
@@ -24,16 +23,10 @@ import org.getspout.spoutapi.player.SpoutPlayer;
  * @author iffa
  */
 public class SpaceSpoutAreaListener extends SpaceAreaListener {
-    // Variables
-    private final BananaSpace plugin;
-
     /**
      * Constructor of SpaceSpoutAreaListener.
-     * 
-     * @param plugin BananaSpace instance
      */
-    public SpaceSpoutAreaListener(BananaSpace plugin) {
-	this.plugin = plugin;
+    public SpaceSpoutAreaListener() {
     }
 
     /**

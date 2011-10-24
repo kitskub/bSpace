@@ -6,7 +6,6 @@ import java.util.logging.Level;
 
 // BananaSpace Imports
 import me.iffa.bananaspace.BananaSpace;
-import me.iffa.bananaspace.api.SpaceConfigHandler;
 import me.iffa.bananaspace.api.SpaceMessageHandler;
 import me.iffa.bananaspace.runnables.SpaceSpoutRunnable;
 
@@ -15,7 +14,6 @@ import org.bukkit.event.player.PlayerListener;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
 // Spout Imports
-import org.bukkit.plugin.Plugin;
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.player.SkyManager;
 import org.getspout.spoutapi.player.SpoutPlayer;
