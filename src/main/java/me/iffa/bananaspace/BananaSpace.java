@@ -31,7 +31,6 @@ import me.iffa.bananaspace.wgen.SpaceChunkGenerator;
 import me.iffa.bananaspace.wgen.planets.PlanetsChunkGenerator;
 
 // Bukkit Imports
-import org.blockface.bukkitstats.CallHome;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -40,6 +39,9 @@ import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
+
+// BukkitStats Imports
+import org.blockface.bukkitstats.CallHome;
 
 /**
  * Main class of BananaSpace.
@@ -63,7 +65,7 @@ public class BananaSpace extends JavaPlugin {
     private SpaceCommandHandler sce = null;
     private Economy economy;
     private final SpaceWeatherListener weatherListener = new SpaceWeatherListener(this);
-    private final SpaceEntityListener entityListener = new SpaceEntityListener(this);
+    private final SpaceEntityListener entityListener = new SpaceEntityListener();
     private final SpacePlayerListener playerListener = new SpacePlayerListener(this);
 
     /**
