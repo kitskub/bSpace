@@ -29,7 +29,6 @@ import me.iffa.bananaspace.listeners.spout.SpaceSpoutKeyListener;
 import me.iffa.bananaspace.listeners.spout.SpaceSpoutPlayerListener;
 import me.iffa.bananaspace.wgen.SpaceChunkGenerator;
 import me.iffa.bananaspace.wgen.planets.PlanetsChunkGenerator;
-import me.iffa.bananaspace.wgen.planets.PlanetsChunkGenerator;
 
 // Bukkit Imports
 import org.bukkit.Location;

@@ -10,7 +10,6 @@ import me.iffa.bananaspace.api.SpaceConfigHandler;
 import me.iffa.bananaspace.api.SpaceMessageHandler;
 
 // Bukkit Imports
-import org.bukkit.Bukkit;
 import org.bukkit.entity.CreatureType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.CreatureSpawnEvent;
@@ -23,19 +22,12 @@ import org.bukkit.event.entity.EntityListener;
  * EntityListener.
  * 
  * @author iffa
- * 
  */
 public class SpaceEntityListener extends EntityListener {
-    // Variables
-    private BananaSpace plugin;
-
     /**
      * Constructor for SpaceEntityListener.
-     * 
-     * @param plugin BananaSpace 
      */
-    public SpaceEntityListener(BananaSpace plugin) {
-        this.plugin = plugin;
+    public SpaceEntityListener() {
     }
 
     /**
