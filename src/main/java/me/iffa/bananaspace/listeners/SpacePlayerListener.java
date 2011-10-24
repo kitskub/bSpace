@@ -172,8 +172,10 @@ public class SpacePlayerListener extends PlayerListener {
                         return;
                     } else if (SpaceConfigHandler.getRequireHelmet(event.getPlayer().getWorld())) {
                         checkNeedsSuffocation(SuitCheck.HELMET_ONLY, event.getPlayer());
+                        return;
                     } else if (SpaceConfigHandler.getRequireSuit(event.getPlayer().getWorld())) {
                         checkNeedsSuffocation(SuitCheck.SUIT_ONLY, event.getPlayer());
+                        return;
                     }
                 }
             }
