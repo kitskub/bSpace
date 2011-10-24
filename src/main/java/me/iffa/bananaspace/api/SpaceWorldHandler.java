@@ -19,6 +19,7 @@ import me.iffa.bananaspace.config.SpaceConfig;
 import me.iffa.bananaspace.config.SpacePlanetConfig;
 
 // Bukkit Imports
+import me.iffa.bananaspace.wgen.planets.PlanetsChunkGenerator;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
@@ -81,7 +82,7 @@ public class SpaceWorldHandler {
                         plugin.getServer().createWorld(WorldCreator.name(world).environment(env).generator(new SpaceChunkGenerator()));
                     } else {
                         SpaceMessageHandler.debugPrint(Level.INFO, "Creating startup world '" + world + "' with planet generator.");
-                        plugin.getServer().createWorld(WorldCreator.name(world).environment(env).generator(new PlanetsChunkGenerator(SpacePlanetConfig.getConfig(), plugin)));
+                        plugin.getServer().createWorld(WorldCreator.name(world).environment(env).generator(new PlanetsChunkGenerator()));
                     }
                 }
             }
@@ -148,7 +149,7 @@ public class SpaceWorldHandler {
             SpaceMessageHandler.print(Level.INFO, "Plugin '" + plugin.getDescription().getName() + "' starting to create spaceworld '" + worldname + "'");
         }
 
-        WorldCreator.name(worldname).environment(World.Environment.NORMAL).generator(new PlanetsChunkGenerator(SpacePlanetConfig.getConfig(), plugin));
+        WorldCreator.name(worldname).environment(World.Environment.NORMAL).generator(new PlanetsChunkGenerator());
         World world = plugin.getServer().getWorld(worldname);
         spaceWorlds.add(world);
         BananaSpace.pailInt.addSpaceList(worldname);
