@@ -16,7 +16,6 @@ import me.iffa.bananaspace.api.SpacePlayerHandler;
 import me.iffa.bananaspace.api.SpaceWorldHandler;
 import me.iffa.bananaspace.commands.SpaceCommandHandler;
 import me.iffa.bananaspace.config.SpaceConfig;
-import me.iffa.bananaspace.config.SpacePlanetConfig;
 import me.iffa.bananaspace.economy.Economy;
 import me.iffa.bananaspace.gui.PailInterface;
 import me.iffa.bananaspace.listeners.SpaceEntityListener;
@@ -61,7 +60,7 @@ public class BananaSpace extends JavaPlugin {
     public static PluginManager pm;
     public static Map<Player, Location> locCache = null;
     public static boolean jumpPressed = false;
-    public final static String TEXTURE_PACK="https://github.com/downloads/iffa/BananaSpace/spacetexture.zip";
+    public final static String TEXTURE_PACK = "https://github.com/downloads/iffa/BananaSpace/spacetexture.zip";
     private SpaceCommandHandler sce = null;
     private Economy economy;
     private final SpaceWeatherListener weatherListener = new SpaceWeatherListener();
@@ -85,8 +84,7 @@ public class BananaSpace extends JavaPlugin {
         initVariables();
 
         // Loading configuration files.
-        SpaceConfig.loadConfig();
-        SpacePlanetConfig.loadConfig();
+        SpaceConfig.loadConfigs();
         SpaceMessageHandler.debugPrint(Level.INFO, "Initialized startup variables and loaded configuration files.");
 
         // Registering events.

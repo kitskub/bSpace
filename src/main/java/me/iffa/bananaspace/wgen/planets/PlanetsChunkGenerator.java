@@ -1,7 +1,7 @@
-/*
- */
+// Package Declaration
 package me.iffa.bananaspace.wgen.planets;
 
+// Java Imports
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumMap;
@@ -10,40 +10,63 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import me.iffa.bananaspace.api.SpaceConfigHandler;
-import me.iffa.bananaspace.config.SpacePlanetConfig;
 import me.iffa.bananaspace.wgen.populators.SpaceAsteroidPopulator;
+
+// BananaSpace Imports
+import me.iffa.bananaspace.config.SpaceConfig;
+import me.iffa.bananaspace.config.SpaceConfig.ConfigFile;
 import me.iffa.bananaspace.wgen.populators.SpaceSatellitePopulator;
+
+// Bukkit Imports
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.generator.BlockPopulator;
 import org.bukkit.generator.ChunkGenerator;
 
 /**
- *
- * @author Jack
+ * Generates a space world with planets.
+ * 
+ * @author kitskub
+ * @author Canis85
+ * @author iffa
  */
 public class PlanetsChunkGenerator extends ChunkGenerator {
     // Variables
     private Map<Material, Float> allowedShells;
     private Map<Material, Float> allowedCores;
-    private long seed = (long) SpacePlanetConfig.getConfig().getDouble("seed", 0.0);; // Seed for generating planetoids
-    private int density = SpacePlanetConfig.getConfig().getInt("density", 15000); // Number of planetoids it will try to create per
-    private int minSize = SpacePlanetConfig.getConfig().getInt("minSize", 4); // Minimum radius
-    private int maxSize = SpacePlanetConfig.getConfig().getInt("maxSize", 20); // Maximum radius
-    private int minDistance = SpacePlanetConfig.getConfig().getInt("minDistance", 10); // Minimum distance between planets, in blocks
-    private int floorHeight = SpacePlanetConfig.getConfig().getInt("floorHeight", 0); // Floor height
-    private int maxShellSize = SpacePlanetConfig.getConfig().getInt("maxShellSize", 5); // Maximum shell thickness
-    private int minShellSize = SpacePlanetConfig.getConfig().getInt("minShellSize", 3); // Minimum shell thickness, should be at least 3
-    private Material floorBlock = Material.matchMaterial(SpacePlanetConfig.getConfig().getString("floorBlock", "STATIONARY_WATER"));// BlockID for the floor 
+    private long seed = (long) SpaceConfig.getConfig(ConfigFile.PLANETS).getDouble("seed", 0.0);; // Seed for generating planetoids
+    private int density = SpaceConfig.getConfig(ConfigFile.PLANETS).getInt("density", 15000); // Number of planetoids it will try to create per
+    private int minSize = SpaceConfig.getConfig(ConfigFile.PLANETS).getInt("minSize", 4); // Minimum radius
+    private int maxSize = SpaceConfig.getConfig(ConfigFile.PLANETS).getInt("maxSize", 20); // Maximum radius
+    private int minDistance = SpaceConfig.getConfig(ConfigFile.PLANETS).getInt("minDistance", 10); // Minimum distance between planets, in blocks
+    private int floorHeight = SpaceConfig.getConfig(ConfigFile.PLANETS).getInt("floorHeight", 0); // Floor height
+    private int maxShellSize = SpaceConfig.getConfig(ConfigFile.PLANETS).getInt("maxShellSize", 5); // Maximum shell thickness
+    private int minShellSize = SpaceConfig.getConfig(ConfigFile.PLANETS).getInt("minShellSize", 3); // Minimum shell thickness, should be at least 3
+    private Material floorBlock = Material.matchMaterial(SpaceConfig.getConfig(ConfigFile.PLANETS).getString("floorBlock", "STATIONARY_WATER"));// BlockID for the floor 
     private static HashMap<World,List<Planetoid>> planets = new HashMap<World,List<Planetoid>>();
 
+    /**
+     * Constructor of PlanetsChunkGenerator.
+     */
     public PlanetsChunkGenerator() {
         loadAllowedBlocks();
     }
     
+    /**
+     * Generates a world.
+     * 
+     * @param world World
+     * @param random Random
+     * @param x X-pos
+     * @param z Z-pos
+     * 
+     * @return Byte array
+     */
     @Override
     public byte[] generate(World world, Random random, int x, int z) {
-        if(!planets.containsKey(world)) planets.put(world, new ArrayList<Planetoid>());
+        if(!planets.containsKey(world)) {
+            planets.put(world, new ArrayList<Planetoid>());
+        }
         byte[] retVal = new byte[32768];
         Arrays.fill(retVal, (byte) 0);
         generatePlanetoids(world,x,z);
@@ -111,6 +134,15 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
         }
         return retVal;
     }
+    
+    /**
+     * Generates planets(toids).
+     * 
+     * @param world World
+     * @param x X-pos
+     * @param z Z-pos
+     */
+    @SuppressWarnings("fallthrough")
     private void generatePlanetoids(World world, int x, int z){
         List<Planetoid> planetoids = new ArrayList<Planetoid>();
         int chunkDistance = minDistance%16==0?minDistance/16:1+(minDistance/16);
@@ -229,7 +261,7 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
     private void loadAllowedBlocks() {
         allowedCores = new EnumMap<Material, Float>(Material.class);
         allowedShells = new EnumMap<Material, Float>(Material.class);
-        for (String s : (List<String>)SpacePlanetConfig.getConfig().getList(
+        for (String s : (List<String>)SpaceConfig.getConfig(ConfigFile.PLANETS).getList(
                 "blocks.cores", null)) {
             String[] sSplit = s.split("-");
             Material newMat = Material.matchMaterial(sSplit[0]);
@@ -241,7 +273,7 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
                 }
             }
         }
-        for (String s : (List<String>)SpacePlanetConfig.getConfig().getList(
+        for (String s : (List<String>)SpaceConfig.getConfig(ConfigFile.PLANETS).getList(
                 "blocks.shells", null)) {
             String[] sSplit = s.split("-");
             Material newMat = Material.matchMaterial(sSplit[0]);

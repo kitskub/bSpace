@@ -6,11 +6,14 @@ import com.nijikokun.register.payment.Method;
 import com.nijikokun.register.payment.Method.MethodAccount;
 import com.nijikokun.register.payment.Methods;
 
-// BananaSpace Imports
+// Java Imports
 import java.util.logging.Level;
+
+// BananaSpace Imports
 import me.iffa.bananaspace.BananaSpace;
 import me.iffa.bananaspace.api.SpaceMessageHandler;
 import me.iffa.bananaspace.config.SpaceConfig;
+import me.iffa.bananaspace.config.SpaceConfig.ConfigFile;
 
 // Bukkit Imports
 import org.bukkit.entity.Player;
@@ -57,7 +60,7 @@ public class Economy {
         if (Economy.plugin == null) {
             Economy.plugin = plugin;
         }
-        if (SpaceConfig.getConfig().getBoolean("economy.enabled", true)) {
+        if (SpaceConfig.getConfig(ConfigFile.CONFIG).getBoolean("economy.enabled", true)) {
             return (getMethod() != null);
         }
         return false;
@@ -75,7 +78,7 @@ public class Economy {
             return true;
         }
         if (method.hasAccount(player.getName())) {
-            int amount = SpaceConfig.getConfig().getInt("economy.entercost", 20);
+            int amount = SpaceConfig.getConfig(ConfigFile.CONFIG).getInt("economy.entercost", 20);
             return subtract(player, amount);
         } else {
             return false;
@@ -94,7 +97,7 @@ public class Economy {
             return true;
         }
         if (method.hasAccount(player.getName())) {
-            int amount = SpaceConfig.getConfig().getInt("economy.exitcost", 20);
+            int amount = SpaceConfig.getConfig(ConfigFile.CONFIG).getInt("economy.exitcost", 20);
             return subtract(player, amount);
         } else {
             return false;
@@ -114,7 +117,7 @@ public class Economy {
             return true;
         }
         if (method.hasAccount(player.getName())) {
-            int amount = SpaceConfig.getConfig().getInt("economy.entercommandcost", 20);
+            int amount = SpaceConfig.getConfig(ConfigFile.CONFIG).getInt("economy.entercommandcost", 20);
             return subtract(player, amount);
         } else {
             return false;
@@ -134,7 +137,7 @@ public class Economy {
             return true;
         }
         if (method.hasAccount(player.getName())) {
-            int amount = SpaceConfig.getConfig().getInt("economy.exitcommandcost", 20);
+            int amount = SpaceConfig.getConfig(ConfigFile.CONFIG).getInt("economy.exitcommandcost", 20);
             return subtract(player, amount);
         } else {
             return false;
