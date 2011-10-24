@@ -15,13 +15,13 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.generator.BlockPopulator;
 
 /**
- * SpaceStonePopulator, populates a world with Notch's original stone (glowstone) patches.
+ * SpaceAsteroidPopulator, populates a world with Notch's original stone (glowstone) patches.
  *
  * @author Markus 'Notch' Persson
  * @author iffa
  * @author Nightgunner5
  */
-public class SpaceStonePopulator extends BlockPopulator {
+public class SpaceAsteroidPopulator extends BlockPopulator {
     // Variables
     private static final BlockFace[] faces = {BlockFace.DOWN, BlockFace.EAST, BlockFace.NORTH, BlockFace.SOUTH, BlockFace.UP, BlockFace.WEST};
 
@@ -34,9 +34,6 @@ public class SpaceStonePopulator extends BlockPopulator {
      */
     @Override
     public void populate(World world, Random random, Chunk source) {
-        if (!SpaceConfigHandler.getAsteroidsEnabled(world)) {
-            return;
-        }
         for (int i = 0; i < 2; i++) {
             int x = random.nextInt(16);
             int y = random.nextInt(128);
@@ -63,6 +60,27 @@ public class SpaceStonePopulator extends BlockPopulator {
                     }
                     if (count == 1) {
                         current.setTypeId(1);
+                    }
+                }
+            }
+            if (random.nextInt(200) <= SpaceConfigHandler.getGlowstoneChance(world)) {
+                block.setTypeId(89);
+
+                for (int j = 0; j < 1500; j++) {
+                    Block current = block.getRelative(random.nextInt(8) - random.nextInt(8),
+                            random.nextInt(12),
+                            random.nextInt(8) - random.nextInt(8));
+                    if (current.getTypeId() != 0) {
+                        continue;
+                    }
+                    int count = 0;
+                    for (BlockFace face : faces) {
+                        if (current.getRelative(face).getTypeId() == 89) {
+                            count++;
+                        }
+                    }
+                    if (count == 1) {
+                        current.setTypeId(89);
                     }
                 }
             }

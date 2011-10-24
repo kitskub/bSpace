@@ -9,12 +9,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import java.util.logging.Level;
-import me.iffa.bananaspace.api.SpaceMessageHandler;
+import me.iffa.bananaspace.api.SpaceConfigHandler;
 import me.iffa.bananaspace.config.SpacePlanetConfig;
-import me.iffa.bananaspace.wgen.populators.SpaceGlowstonePopulator;
+import me.iffa.bananaspace.wgen.populators.SpaceAsteroidPopulator;
 import me.iffa.bananaspace.wgen.populators.SpaceSatellitePopulator;
-import me.iffa.bananaspace.wgen.populators.SpaceStonePopulator;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.generator.BlockPopulator;
@@ -216,10 +214,14 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
     }
     @Override
     public List<BlockPopulator> getDefaultPopulators(World world) {
-        return Arrays.asList((BlockPopulator) 
-                new SpaceGlowstonePopulator(), 
-                new SpaceStonePopulator(), 
-                new SpaceSatellitePopulator());
+        ArrayList<BlockPopulator> populators= new ArrayList<BlockPopulator>();
+        if(SpaceConfigHandler.getSatellitesEnabled(world)){
+            populators.add(new SpaceSatellitePopulator());
+        }
+        if(SpaceConfigHandler.getAsteroidsEnabled(world)){
+            populators.add(new SpaceAsteroidPopulator());
+        }
+        return populators;
     }
     /**
      * Loads allowed blocks

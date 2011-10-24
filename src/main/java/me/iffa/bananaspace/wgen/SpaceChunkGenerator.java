@@ -2,7 +2,7 @@
 package me.iffa.bananaspace.wgen;
 
 // Java Imports
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -13,9 +13,9 @@ import org.bukkit.World;
 import org.bukkit.generator.BlockPopulator;
 
 // BananaSpace Imports
-import me.iffa.bananaspace.wgen.populators.SpaceStonePopulator;
-import me.iffa.bananaspace.wgen.populators.SpaceGlowstonePopulator;
 import me.iffa.bananaspace.wgen.populators.SpaceSatellitePopulator;
+import me.iffa.bananaspace.api.SpaceConfigHandler;
+import me.iffa.bananaspace.wgen.populators.SpaceAsteroidPopulator;
 
 /**
  * Generates space world (without planets).
@@ -47,7 +47,14 @@ public class SpaceChunkGenerator extends ChunkGenerator {
      */
     @Override
     public List<BlockPopulator> getDefaultPopulators(World world) {
-        return Arrays.asList((BlockPopulator) new SpaceGlowstonePopulator(), new SpaceStonePopulator(), new SpaceSatellitePopulator());
+        ArrayList<BlockPopulator> populators= new ArrayList<BlockPopulator>();
+        if(SpaceConfigHandler.getSatellitesEnabled(world)){
+            populators.add(new SpaceSatellitePopulator());
+        }
+        if(SpaceConfigHandler.getAsteroidsEnabled(world)){
+            populators.add(new SpaceAsteroidPopulator());
+        }
+        return populators;
     }
 
     /**
