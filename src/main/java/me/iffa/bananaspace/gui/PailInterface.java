@@ -21,6 +21,7 @@ import java.util.logging.Level;
  * Interface for Pail, a Bukkit GUI.
  * 
  * @author iffa
+ * @author Jack
  */
 public class PailInterface extends javax.swing.JPanel {
     // Variables
@@ -33,8 +34,7 @@ public class PailInterface extends javax.swing.JPanel {
      * 
      * @param plugin BananaSpace
      */
-    public PailInterface(BananaSpace plugin) {
-        this.plugin = plugin;
+    public PailInterface() {
         initComponents();
         readConfigs();
     }

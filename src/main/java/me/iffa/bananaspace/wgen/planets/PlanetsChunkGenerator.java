@@ -26,7 +26,7 @@ import org.bukkit.generator.ChunkGenerator;
 /**
  * Generates a space world with planets.
  * 
- * @author kitskub
+ * @author Jack
  * @author Canis85
  * @author iffa
  */
@@ -44,11 +44,14 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
     private int minShellSize = SpaceConfig.getConfig(ConfigFile.PLANETS).getInt("minShellSize", 3); // Minimum shell thickness, should be at least 3
     private Material floorBlock = Material.matchMaterial(SpaceConfig.getConfig(ConfigFile.PLANETS).getString("floorBlock", "STATIONARY_WATER"));// BlockID for the floor 
     private static HashMap<World,List<Planetoid>> planets = new HashMap<World,List<Planetoid>>();
+    public final String ID;
 
     /**
      * Constructor of PlanetsChunkGenerator.
+     * @param id 
      */
-    public PlanetsChunkGenerator() {
+    public PlanetsChunkGenerator(String id) {
+        this.ID=id.toLowerCase();
         loadAllowedBlocks();
     }
     

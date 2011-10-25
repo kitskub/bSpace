@@ -118,7 +118,7 @@ public class BananaSpace extends JavaPlugin {
         // Pail interface.
         if (pm.getPlugin("Pail") != null) {
             SpaceMessageHandler.debugPrint(Level.INFO, "Starting up the Pail tab.");
-            pailInt = new PailInterface(this);
+            pailInt = new PailInterface();
             ((Pail) pm.getPlugin("Pail")).loadInterfaceComponent("BananaSpace", pailInt);
         }
 
@@ -186,17 +186,11 @@ public class BananaSpace extends JavaPlugin {
     @Override
     public ChunkGenerator getDefaultWorldGenerator(String worldName, String id) {
         SpaceMessageHandler.debugPrint(Level.INFO, "Getting generator for" + worldName + " " + id);
-        if (!SpaceConfigHandler.isWorldInConfig(worldName)) {
-            worldHandler.createSpaceWorld(this, worldName, true);
-        }
+        worldHandler.checkWorld(worldName);
         if (id.isEmpty() || id.length() == 0 || id == null) { // Readded safety check :)
             return new SpaceChunkGenerator();
         }
-        if (id.equalsIgnoreCase("planets")) {
-            return new PlanetsChunkGenerator();
-        }
-
-        return new SpaceChunkGenerator();
+        return new PlanetsChunkGenerator(id);
     }
 
     /* Some API methods */

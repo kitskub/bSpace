@@ -49,13 +49,6 @@ public class SpaceCommandHandler implements CommandExecutor {
             return true;
         }
         /* Notify listeners end */
-        // Safety checks:
-        //  - Commands not available if no worlds are loaded or Multiverse is used
-        //  - Sender must be a player
-        if (!BananaSpace.worldHandler.getStartupLoaded() || BananaSpace.worldHandler.getUsingMV()) {
-            SpaceMessageHandler.debugPrint(Level.INFO, "Cancelled event because no worlds were loaded on startup or MV is being used.");
-            return true;
-        }
         if (!(sender instanceof Player)) {
             SpaceMessageHandler.debugPrint(Level.INFO, "An unknown person tried to use the command.");
             return true;

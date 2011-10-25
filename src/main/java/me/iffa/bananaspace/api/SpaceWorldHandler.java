@@ -2,33 +2,26 @@
 package me.iffa.bananaspace.api;
 
 // Java Imports
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.logging.Level;
 
 // BananaSpace Imports
 import me.iffa.bananaspace.BananaSpace;
 import me.iffa.bananaspace.runnables.SpaceRunnable;
 import me.iffa.bananaspace.wgen.SpaceChunkGenerator;
-import me.iffa.bananaspace.config.SpaceConfig;
-import me.iffa.bananaspace.config.SpaceConfig.ConfigFile;
 import me.iffa.bananaspace.wgen.planets.PlanetsChunkGenerator;
 
 // Bukkit Imports
-import org.bukkit.Bukkit;
 import org.bukkit.World;
-import org.bukkit.WorldCreator;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 
 /**
  * Class that handles space worlds.
  * 
  * @author iffa
+ * @author Jack
  */
 public class SpaceWorldHandler {
     // Variables
@@ -36,7 +29,6 @@ public class SpaceWorldHandler {
     public static List<World> spaceWorlds = new ArrayList<World>();
     private BananaSpace plugin;
     private Map<World, Integer> forcenightId = new HashMap<World, Integer>();
-    private boolean startupLoaded;
     private boolean usingMV;
 
     /**
@@ -52,56 +44,14 @@ public class SpaceWorldHandler {
     }
 
     /**
-     * Loads the space worlds into <code>spaceWorlds</code> and creates them if Multiverse is not there.
+     * Loads the space worlds into <code>spaceWorlds</code.
      */
     public void loadSpaceWorlds() {
-        Set<String> worlds;
-        try {
-            worlds = SpaceConfig.getConfig(ConfigFile.CONFIG).getConfigurationSection("worlds").getKeys(false);
-        } catch (NullPointerException ex) {
-            worlds = null;
-        }
-        if (worlds == null) {
-            SpaceMessageHandler.print(Level.SEVERE, "Your configuration file has no worlds! Cancelling world generation process.");
-            startupLoaded = false;
-            return;
-        }
-        for (String world : worlds) {
-            if (plugin.getServer().getWorld(world) == null) {
-                if (!usingMV) {
-                    World.Environment env;
-                    if (SpaceConfig.getConfig(ConfigFile.CONFIG).getBoolean("worlds." + world + ".nethermode", false)) {
-                        env = World.Environment.NETHER;
-                    } else {
-                        env = World.Environment.NORMAL;
-                    }
-                    // Choosing which chunk generator to use
-                    if (!SpaceConfig.getConfig(ConfigFile.CONFIG).getBoolean("worlds." + world + ".generation.generateplanets", true)) {
-                        SpaceMessageHandler.debugPrint(Level.INFO, "Creating startup world '" + world + "' with normal generator.");
-                        plugin.getServer().createWorld(WorldCreator.name(world).environment(env).generator(new SpaceChunkGenerator()));
-                    } else {
-                        SpaceMessageHandler.debugPrint(Level.INFO, "Creating startup world '" + world + "' with planet generator.");
-                        plugin.getServer().createWorld(WorldCreator.name(world).environment(env).generator(new PlanetsChunkGenerator()));
-                    }
-                }
+        for(World world : plugin.getServer().getWorlds()){
+            if(world.getGenerator() instanceof PlanetsChunkGenerator || world.getGenerator() instanceof SpaceChunkGenerator){
+                spaceWorlds.add(world);
             }
-            if (plugin.getServer().getWorld(world) != null) {
-                spaceWorlds.add(Bukkit.getServer().getWorld(world));
-            }
-            startupLoaded = true;
         }
-    }
-
-    /**
-     * Checks if any worlds were created/loaded on plugin startup.
-     * 
-     * @return true if any spaceworld was loaded from the config
-     */
-    public boolean getStartupLoaded() {
-        if (startupLoaded) {
-            return true;
-        }
-        return false;
     }
 
     /**
@@ -115,87 +65,7 @@ public class SpaceWorldHandler {
         }
         return false;
     }
-
-    /**
-     * Creates a spaceworld with the default settings and the given name. I suggest you to do the if worldname exists-check yourself aswell, <b>if you do not want BananaSpace to nag about it.</b>. I suggest you also turn logging on so users know an error was your fault, not mine.
-     * 
-     * @param plugin Your plugin
-     * @param worldname Name for new spaceworld
-     * @param log True if the console should be informed that an external plugin created a spaceworld.
-     */
-    public void createSpaceWorld(Plugin plugin, String worldname, boolean log) {
-        if (plugin.getServer().getWorld(worldname) != null) {
-            SpaceMessageHandler.print(Level.WARNING, "Plugin '" + plugin.getDescription().getName() + "' tried to create a new spaceworld with a name that is already a world! Nag to author(s) '" + plugin.getDescription().getAuthors() + "'!");
-            return;
-        }
-        SpaceConfig.getConfig(ConfigFile.CONFIG).set("worlds." + worldname + ".generation.generateplanets", true);
-        SpaceConfig.getConfig(ConfigFile.CONFIG).set("worlds." + worldname + ".generation.glowstonechance", 1);
-        SpaceConfig.getConfig(ConfigFile.CONFIG).set("worlds." + worldname + ".generation.asteroidchance", 3);
-        SpaceConfig.getConfig(ConfigFile.CONFIG).set("worlds." + worldname + ".suit.required", false);
-        SpaceConfig.getConfig(ConfigFile.CONFIG).set("worlds." + worldname + ".helmet.required", false);
-        SpaceConfig.getConfig(ConfigFile.CONFIG).set("worlds." + worldname + ".breathingarea.maxroomheight", 5);
-        SpaceConfig.getConfig(ConfigFile.CONFIG).set("worlds." + worldname + ".weather", false);
-        SpaceConfig.getConfig(ConfigFile.CONFIG).set("worlds." + worldname + ".nethermode", false);
-        SpaceConfig.getConfig(ConfigFile.CONFIG).set("worlds." + worldname + ".alwaysnight", true);
-        SpaceConfig.getConfig(ConfigFile.CONFIG).set("worlds." + worldname + ".neutralmobs", true);
-        SpaceConfig.getConfig(ConfigFile.CONFIG).set("worlds." + worldname + ".hostilemobs", false);
-        try {
-            SpaceConfig.getConfig(ConfigFile.CONFIG).save(SpaceConfig.getConfigFile(ConfigFile.CONFIG));
-        } catch (IOException ex) {
-            SpaceMessageHandler.print(Level.WARNING, ex.getMessage());
-        }
-        if (log) {
-            SpaceMessageHandler.print(Level.INFO, "Plugin '" + plugin.getDescription().getName() + "' starting to create spaceworld '" + worldname + "'");
-        }
-
-        WorldCreator.name(worldname).environment(World.Environment.NORMAL).generator(new PlanetsChunkGenerator());
-        World world = plugin.getServer().getWorld(worldname);
-        spaceWorlds.add(world);
-        BananaSpace.pailInt.addSpaceList(worldname);
-        if (log) {
-            SpaceMessageHandler.print(Level.INFO, "Plugin '" + plugin.getDescription().getName() + "' created spaceworld '" + worldname + "'");
-        }
-    }
-
-    /**
-     * Removes a spaceworld with the default settings and the given name. I suggest you to do the if worldname exists-check yourself aswell, <b>if you do not want BananaSpace to nag about it.</b>. I suggest you also turn logging on so users know an error was your fault, not mine.
-     * 
-     * @param plugin Your plugin
-     * @param worldname Name of spaceworld
-     * @param log True if the console should be informed that an external plugin removed a spaceworld.
-     */
-    public void removeSpaceWorld(Plugin plugin, String worldname, boolean log) {
-        if (plugin.getServer().getWorld(worldname) == null) {
-            SpaceMessageHandler.print(Level.WARNING, "Plugin '" + plugin.getDescription().getName() + "' tried to remove a spaceworld with a name that doesn't exist! Nag to author(s) '" + plugin.getDescription().getAuthors() + "'!");
-            return;
-        }
-        if (!this.isSpaceWorld(plugin.getServer().getWorld(worldname))) {
-            SpaceMessageHandler.print(Level.WARNING, "Plugin '" + plugin.getDescription().getName() + "' tried to remove a spaceworld that is not a spaceworld! Nag to author(s) '" + plugin.getDescription().getAuthors() + "'!");
-            return;
-        }
-        spaceWorlds.remove(plugin.getServer().getWorld(worldname));
-        SpaceConfig.getConfig(ConfigFile.CONFIG).set("worlds." + worldname, null);
-        try {
-            SpaceConfig.getConfig(ConfigFile.CONFIG).save(SpaceConfig.getConfigFile(ConfigFile.CONFIG));
-        } catch (IOException ex) {
-            SpaceMessageHandler.print(Level.WARNING, ex.getMessage());
-        }
-        /*
-         * Removing a few properties that in most cases WILL be left over because of the Configuration-class.
-         */
-        SpaceConfig.getConfig(ConfigFile.CONFIG).set("worlds." + worldname + "generation", null);
-        SpaceConfig.getConfig(ConfigFile.CONFIG).set("worlds" + worldname, null);
-        try {
-            SpaceConfig.getConfig(ConfigFile.CONFIG).save(SpaceConfig.getConfigFile(ConfigFile.CONFIG));
-        } catch (IOException ex) {
-            SpaceMessageHandler.print(Level.WARNING, ex.getMessage());
-        }
-        plugin.getServer().unloadWorld(worldname, true);
-        if (log) {
-            SpaceMessageHandler.print(Level.INFO, "Plugin '" + plugin.getDescription().getName() + "' removed spaceworld '" + worldname + "'");
-        }
-    }
-
+    
     /**
      * Starts the force night task if required.
      * 
@@ -278,5 +148,18 @@ public class SpaceWorldHandler {
             return getSpaceWorlds().get(getSpaceWorlds().indexOf(player.getWorld()));
         }
         return null;
+    }
+
+    /**
+     * Checks the world to see if it is <code>spaceWorlds</code>, and adds it if not.
+     * 
+     * @param worldName
+     */
+    public void checkWorld(String worldName) {
+        boolean in = false;
+        for(World world : spaceWorlds){
+        if( world.getName().equals(worldName)) in=true;
+        }
+        if(!in)spaceWorlds.add(plugin.getServer().getWorld(worldName));
     }
 }
