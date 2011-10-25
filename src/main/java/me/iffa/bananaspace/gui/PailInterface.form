@@ -532,7 +532,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="Settings_IDName">
           <Properties>
-            <Property name="text" type="java.lang.String" value="nothing"/>
+            <Property name="text" type="java.lang.String" value="none"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JCheckBox" name="Settings_Planets">

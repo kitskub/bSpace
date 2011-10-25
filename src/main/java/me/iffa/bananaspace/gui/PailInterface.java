@@ -2,7 +2,6 @@
 package me.iffa.bananaspace.gui;
 
 // BananaSpace Imports
-import me.iffa.bananaspace.BananaSpace;
 import me.iffa.bananaspace.api.SpaceMessageHandler;
 import me.iffa.bananaspace.config.SpaceConfig;
 import me.iffa.bananaspace.config.SpaceConfig.ConfigFile;
@@ -31,8 +30,6 @@ public class PailInterface extends javax.swing.JPanel {
 
     /**
      * Constructor for PailInterface.
-     * 
-     * @param plugin BananaSpace
      */
     public PailInterface() {
         initComponents();
@@ -48,11 +45,12 @@ public class PailInterface extends javax.swing.JPanel {
         ArmorTypeBox.setText(spaceConfig.getString("global.armortype", "iron"));
         HelmetBlockIdBox.setText(spaceConfig.getString("global.blockid", "86"));
         SpaceList.setModel(new DefaultListModel());
-        for (String id : idConfig.getConfigurationSection("ids").getKeys(false)){
-            ((DefaultListModel) SpaceList.getModel()).addElement(id);
-            SpaceMessageHandler.debugPrint(Level.INFO, "Added ID '" + id + "' to list of IDs (Pail).");
+        if (idConfig.getConfigurationSection("ids") != null) {
+            for (String id : idConfig.getConfigurationSection("ids").getKeys(false)) {
+                ((DefaultListModel) SpaceList.getModel()).addElement(id);
+                SpaceMessageHandler.debugPrint(Level.INFO, "Added ID '" + id + "' to list of IDs (Pail).");
+            }
         }
-        
     }
 
     /**
@@ -88,7 +86,7 @@ public class PailInterface extends javax.swing.JPanel {
      * 
      * @param idname ID name
      */
-    private void saveSpaceListConfig(String idname) {
+    private void saveIdConfig(String idname) {
         if (idConfig.get("ids." + idname) == null) {
             SpaceMessageHandler.print(Level.WARNING, "A id with the name '" + idname + "' does not exist in the config!");
             return;
@@ -303,7 +301,7 @@ public class PailInterface extends javax.swing.JPanel {
         ids.setToolTipText("Panel with buttons to create and delete IDs.");
         ids.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        SpaceList.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        SpaceList.setFont(new java.awt.Font("Arial", 0, 12));
         SpaceList.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "No user IDs" };
             public int getSize() { return strings.length; }
@@ -326,7 +324,7 @@ public class PailInterface extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(SpaceList);
 
-        createIdButton.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        createIdButton.setFont(new java.awt.Font("Arial", 0, 11));
         createIdButton.setText("Create");
         createIdButton.setToolTipText("Creates a new ID with the name on the box above.");
         createIdButton.addActionListener(new java.awt.event.ActionListener() {
@@ -335,7 +333,7 @@ public class PailInterface extends javax.swing.JPanel {
             }
         });
 
-        deleteIdButton.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        deleteIdButton.setFont(new java.awt.Font("Arial", 0, 11));
         deleteIdButton.setText("Delete");
         deleteIdButton.setToolTipText("Select an ID from the list and click this button to delete the ID.");
         deleteIdButton.addActionListener(new java.awt.event.ActionListener() {
@@ -411,7 +409,7 @@ public class PailInterface extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel2.setText("Currently editing:");
 
-        Settings_IDName.setText("nothing");
+        Settings_IDName.setText("none");
 
         Settings_Planets.setSelected(true);
         Settings_Planets.setText("Generate planets");
@@ -653,12 +651,12 @@ private void createIdButtonActionPerformed(java.awt.event.ActionEvent evt) {//GE
         JOptionPane.showMessageDialog(this, "The ID cannot be empty!", "Invalid ID", JOptionPane.WARNING_MESSAGE);
         return;
     }
-    if (idConfig.getConfigurationSection("ids").contains(idname)){
+    if (idConfig.getConfigurationSection("ids") != null && idConfig.getConfigurationSection("ids").contains(idname)) {
         JOptionPane.showMessageDialog(this, "An ID with the given name already exists!", "Invalid ID", JOptionPane.WARNING_MESSAGE);
         return;
     }
     if (idname.contains(" ")) {
-        JOptionPane.showMessageDialog(this, "The ID cannot contain spaces!", "Invalid ID", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(this, "The ID cannot contain spaces! Replace spaces with underscores.", "Invalid ID", JOptionPane.WARNING_MESSAGE);
         return;
     }
     SpaceMessageHandler.debugPrint(Level.INFO, "Created ID '" + idname + "' through Pail.");
@@ -701,7 +699,7 @@ private void Settings_ResetActionPerformed(java.awt.event.ActionEvent evt) {//GE
 
 private void Settings_SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Settings_SaveActionPerformed
     String idname = (String) SpaceList.getModel().getElementAt(SpaceList.getSelectedIndex());
-    saveSpaceListConfig(idname);
+    saveIdConfig(idname);
     JOptionPane.showMessageDialog(this, "The ID '" + idname + "' has been saved. Please note that most changes take effect after reloading the server.", "ID saved!", JOptionPane.INFORMATION_MESSAGE);
 }//GEN-LAST:event_Settings_SaveActionPerformed
 
@@ -735,7 +733,7 @@ private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
     try {
         Desktop.getDesktop().browse(java.net.URI.create("http://forums.bukkit.org/threads/32546/"));
     } catch (IOException ex) {
-            SpaceMessageHandler.print(Level.WARNING, "Something went wrong while opening a page on your web browser!");
+        SpaceMessageHandler.print(Level.WARNING, "Something went wrong while opening a page on your web browser!");
     }
 }//GEN-LAST:event_jLabel8MouseClicked
     // Variables declaration - do not modify//GEN-BEGIN:variables
