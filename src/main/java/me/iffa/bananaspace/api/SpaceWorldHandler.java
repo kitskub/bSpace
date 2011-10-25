@@ -28,7 +28,6 @@ public class SpaceWorldHandler {
     public static List<World> spaceWorlds = new ArrayList<World>();
     private BananaSpace plugin;
     private Map<World, Integer> forcenightId = new HashMap<World, Integer>();
-    private boolean usingMV;
 
     /**
      * Constructor of SpaceWorldHandler.
@@ -37,9 +36,6 @@ public class SpaceWorldHandler {
      */
     public SpaceWorldHandler(BananaSpace plugin) {
         this.plugin = plugin;
-        if (plugin.getServer().getPluginManager().getPlugin("Multiverse-Core") != null) {
-            usingMV = true;
-        }
     }
 
     /**
