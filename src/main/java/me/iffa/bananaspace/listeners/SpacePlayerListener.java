@@ -92,7 +92,7 @@ public class SpacePlayerListener extends PlayerListener {
                     return;
                 }
                 if (SpaceConfigHandler.isHelmetGiven()) {
-                    event.getPlayer().getInventory().setHelmet(new ItemStack(null, 1));
+                    event.getPlayer().getInventory().setHelmet(new ItemStack(0, 1));
                 }
                 if (SpaceConfigHandler.isSuitGiven()) {
                     BananaSpace.getPlayerHandler().giveSpaceSuit("null", player);
@@ -172,8 +172,10 @@ public class SpacePlayerListener extends PlayerListener {
                         return;
                     } else if (SpaceConfigHandler.getRequireHelmet(event.getPlayer().getWorld())) {
                         checkNeedsSuffocation(SuitCheck.HELMET_ONLY, event.getPlayer());
+                        return;
                     } else if (SpaceConfigHandler.getRequireSuit(event.getPlayer().getWorld())) {
                         checkNeedsSuffocation(SuitCheck.SUIT_ONLY, event.getPlayer());
+                        return;
                     }
                 }
             }
