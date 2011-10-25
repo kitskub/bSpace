@@ -25,33 +25,5 @@ economy:
   entercost: 20
   exitcost: 20
 # Space worlds
-worlds:
-# Example world
-# To use this space world please remove the comments. (if you know how)
-#    world_space:
-#        # World generation options
-#        generation:
-#            generateplanets: true
-#            generateasteroids: true
-#            generatesatellites: true
-#            generatefloor: true
-#            # From 1-200. These can be turned off with the generateasteroids-setting.
-#            glowstonechance: 1
-#            stonechance: 3
-#            # From 1-1337. This can be turned off with the generatesatellites-setting.
-#            satellitechance: 1
-#        # Spacesuit options
-#        suit:
-#            required: false
-#        # Spacehelmet options
-#        helmet:
-#            required: false
-#        # Breathing area options
-#        breathingarea:
-#            maxroomheight: 5
-#        # Miscellaneous options
-#        weather: false
-#        nethermode: false
-#        alwaysnight: true
-#        neutralmobs: true
-#        hostilemobs: false
+# This is NOT needed, but it might help.
+worlds: []

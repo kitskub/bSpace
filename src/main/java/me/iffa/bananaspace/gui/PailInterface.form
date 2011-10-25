@@ -36,7 +36,7 @@
               <EmptySpace max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="SpaceWorlds" min="-2" pref="263" max="-2" attributes="0"/>
+                      <Component id="ids" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                       <Component id="Settings" min="-2" pref="437" max="-2" attributes="0"/>
                   </Group>
@@ -45,7 +45,7 @@
               <EmptySpace min="-2" pref="399" max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="175" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="234" max="-2" attributes="0"/>
               <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="447" max="32767" attributes="0"/>
           </Group>
@@ -60,7 +60,7 @@
               <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="SpaceWorlds" max="32767" attributes="1"/>
+                  <Component id="ids" max="32767" attributes="1"/>
                   <Component id="Settings" alignment="0" pref="248" max="32767" attributes="3"/>
               </Group>
           </Group>
@@ -234,17 +234,23 @@
         </Component>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JPanel" name="SpaceWorlds">
+    <Container class="javax.swing.JPanel" name="ids">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="Spaceworlds">
+            <TitledBorder title="IDs">
               <Font PropertyName="font" name="Tahoma" size="14" style="0"/>
             </TitledBorder>
           </Border>
         </Property>
-        <Property name="toolTipText" type="java.lang.String" value="Panel with buttons to create and delete spaceworlds.."/>
+        <Property name="toolTipText" type="java.lang.String" value="Panel with buttons to create and delete IDs."/>
+        <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+          <Color id="Default Cursor"/>
+        </Property>
       </Properties>
+      <AccessibilityProperties>
+        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Ids"/>
+      </AccessibilityProperties>
 
       <Layout>
         <DimensionLayout dim="0">
@@ -254,11 +260,11 @@
                   <Component id="jScrollPane1" min="-2" pref="159" max="-2" attributes="1"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="DeleteWorldButton" min="-2" pref="65" max="-2" attributes="0"/>
+                      <Component id="deleteIdButton" min="-2" pref="65" max="-2" attributes="0"/>
                       <Group type="102" alignment="1" attributes="0">
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="NewWorld" alignment="0" pref="65" max="32767" attributes="1"/>
-                              <Component id="CreateWorldButton" alignment="1" max="32767" attributes="1"/>
+                              <Component id="newID" alignment="0" pref="65" max="32767" attributes="1"/>
+                              <Component id="createIdButton" alignment="1" max="32767" attributes="1"/>
                           </Group>
                           <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
                           <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
@@ -274,14 +280,14 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jScrollPane1" alignment="0" min="-2" pref="187" max="-2" attributes="0"/>
                       <Group type="102" attributes="0">
-                          <Component id="NewWorld" min="-2" max="-2" attributes="0"/>
+                          <Component id="newID" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <EmptySpace pref="20" max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="1" attributes="1">
-                                          <Component id="DeleteWorldButton" min="-2" max="-2" attributes="0"/>
+                                          <Component id="deleteIdButton" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="1" attributes="1">
@@ -290,7 +296,7 @@
                                       </Group>
                                   </Group>
                               </Group>
-                              <Component id="CreateWorldButton" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="createIdButton" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -314,11 +320,11 @@
                 </Property>
                 <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
                   <StringArray count="1">
-                    <StringItem index="0" value="No spaceworlds"/>
+                    <StringItem index="0" value="No user IDs"/>
                   </StringArray>
                 </Property>
                 <Property name="selectionMode" type="int" value="0"/>
-                <Property name="toolTipText" type="java.lang.String" value="All spaceworlds. Selecting a spaceworld on the list opens its settings on the right."/>
+                <Property name="toolTipText" type="java.lang.String" value="All IDs. Selecting an ID on the list opens its settings on the right."/>
               </Properties>
               <Events>
                 <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="SpaceListValueChanged"/>
@@ -328,36 +334,36 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JButton" name="CreateWorldButton">
+        <Component class="javax.swing.JButton" name="createIdButton">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="11" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Create"/>
-            <Property name="toolTipText" type="java.lang.String" value="Creates a new spaceworld with the name on the box above."/>
+            <Property name="toolTipText" type="java.lang.String" value="Creates a new ID with the name on the box above."/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CreateWorldButtonActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="createIdButtonActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="DeleteWorldButton">
+        <Component class="javax.swing.JButton" name="deleteIdButton">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="11" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Delete"/>
-            <Property name="toolTipText" type="java.lang.String" value="Select a spaceworld from the list and click this button to delete the spaceworld. The world data will be saved."/>
+            <Property name="toolTipText" type="java.lang.String" value="Select an ID from the list and click this button to delete the ID."/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="DeleteWorldButtonActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deleteIdButtonActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">
         </Component>
-        <Component class="javax.swing.JTextField" name="NewWorld">
+        <Component class="javax.swing.JTextField" name="newID">
           <Properties>
-            <Property name="text" type="java.lang.String" value="World name"/>
-            <Property name="toolTipText" type="java.lang.String" value="Specify a name for the spaceworld. Must not be a world already, and must not be empty or contain spaces."/>
+            <Property name="text" type="java.lang.String" value="ID"/>
+            <Property name="toolTipText" type="java.lang.String" value="Specify a name for the ID. Must not be an ID already, and must not be empty or contain spaces."/>
           </Properties>
         </Component>
       </SubComponents>
@@ -366,12 +372,12 @@
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="Spaceworld Settings">
+            <TitledBorder title="ID Settings">
               <Font PropertyName="font" name="Tahoma" size="14" style="0"/>
             </TitledBorder>
           </Border>
         </Property>
-        <Property name="toolTipText" type="java.lang.String" value="Settings for the currently selected spaceworld in the list."/>
+        <Property name="toolTipText" type="java.lang.String" value="Settings for the currently selected ID in the list."/>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[200, 32767]"/>
         </Property>
@@ -394,7 +400,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="Settings_WorldName" min="-2" pref="120" max="-2" attributes="0"/>
+                          <Component id="Settings_IDName" min="-2" pref="120" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -445,7 +451,7 @@
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="Settings_WorldName" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="Settings_IDName" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -501,7 +507,7 @@
         <Component class="javax.swing.JButton" name="Settings_Save">
           <Properties>
             <Property name="text" type="java.lang.String" value="Save"/>
-            <Property name="toolTipText" type="java.lang.String" value="Saves the changes made to the spaceworld&apos;s settings."/>
+            <Property name="toolTipText" type="java.lang.String" value="Saves the changes made to the ID&apos;s settings."/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Settings_SaveActionPerformed"/>
@@ -510,7 +516,7 @@
         <Component class="javax.swing.JButton" name="Settings_Reset">
           <Properties>
             <Property name="text" type="java.lang.String" value="Revert"/>
-            <Property name="toolTipText" type="java.lang.String" value="Resets the changes made to the world&apos;s settings."/>
+            <Property name="toolTipText" type="java.lang.String" value="Resets the changes made to the ID&apos;s settings."/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Settings_ResetActionPerformed"/>
@@ -524,7 +530,7 @@
             <Property name="text" type="java.lang.String" value="Currently editing:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="Settings_WorldName">
+        <Component class="javax.swing.JLabel" name="Settings_IDName">
           <Properties>
             <Property name="text" type="java.lang.String" value="nothing"/>
           </Properties>

@@ -8,7 +8,6 @@ import me.iffa.bananaspace.config.SpaceConfig;
 import me.iffa.bananaspace.config.SpaceConfig.ConfigFile;
 
 // Bukkit Imports
-import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 // Java Imports
@@ -25,9 +24,9 @@ import java.util.logging.Level;
  */
 public class PailInterface extends javax.swing.JPanel {
     // Variables
-    public static YamlConfiguration config = SpaceConfig.getConfig(ConfigFile.CONFIG);
+    public static YamlConfiguration spaceConfig = SpaceConfig.getConfig(ConfigFile.CONFIG);
+    public static YamlConfiguration idConfig = SpaceConfig.getConfig(ConfigFile.IDS);
     private static final long serialVersionUID = 1L;
-    private BananaSpace plugin;
 
     /**
      * Constructor for PailInterface.
@@ -44,79 +43,82 @@ public class PailInterface extends javax.swing.JPanel {
      * Reads the configuration files and changes the interface values to represent the configuration values.
      */
     private void readConfigs() {
-        CheckBoxHelmet.setSelected(config.getBoolean("global.givehelmet", false));
-        CheckBoxSuit.setSelected(config.getBoolean("global.givesuit", false));
-        ArmorTypeBox.setText(config.getString("global.armortype", "iron"));
-        HelmetBlockIdBox.setText(config.getString("global.blockid", "86"));
+        CheckBoxHelmet.setSelected(spaceConfig.getBoolean("global.givehelmet", false));
+        CheckBoxSuit.setSelected(spaceConfig.getBoolean("global.givesuit", false));
+        ArmorTypeBox.setText(spaceConfig.getString("global.armortype", "iron"));
+        HelmetBlockIdBox.setText(spaceConfig.getString("global.blockid", "86"));
         SpaceList.setModel(new DefaultListModel());
-        for (World world : BananaSpace.worldHandler.getSpaceWorlds()) {
-            ((DefaultListModel) SpaceList.getModel()).addElement(world.getName());
-            SpaceMessageHandler.debugPrint(Level.INFO, "Added spaceworld '" + world.getName() + "' to list of spaceworlds (Pail).");
+        for (String id : idConfig.getConfigurationSection("ids").getKeys(false)){
+            ((DefaultListModel) SpaceList.getModel()).addElement(id);
+            SpaceMessageHandler.debugPrint(Level.INFO, "Added ID '" + id + "' to list of IDs (Pail).");
         }
+        
     }
 
     /**
-     * Loads the configuration settings for the world selected in the list. Only one safety check is made (to make sure a world that doesn't exist is not loaded).
+     * Loads the configuration settings for the ID selected in the list. 
+     * Only one safety check is made (to make sure an ID that doesn't exist is not loaded).
      * 
-     * @param worldname Spaceworld name
+     * @param idname ID name
      */
-    private void loadSpaceListConfig(String worldname) {
-        if (config.get("worlds." + worldname) == null) {
-            SpaceMessageHandler.print(Level.WARNING, "A world with the name '" + worldname + "' does not exist in the config!");
+    private void loadSpaceListConfig(String idname) {
+        if (idConfig.get("ids." + idname) == null) {
+            SpaceMessageHandler.print(Level.WARNING, "An id with the name '" + idname + "' does not exist in the config!");
             return;
         }
-        Settings_WorldName.setText(worldname);
-        Settings_Planets.setSelected(config.getBoolean("worlds." + worldname + ".generation.generateplanets", true));
-        Settings_Asteroids.setSelected(config.getBoolean("worlds." + worldname + "generation.generateasteroids", true));
-        Settings_GlowstoneChance.setValue(config.getInt("worlds." + worldname + ".generation.glowstonechance", 1));
-        Settings_StoneChance.setValue(config.getInt("worlds." + worldname + ".generation.stonechance", 3));
-        Settings_Night.setSelected(config.getBoolean("worlds." + worldname + ".alwaysnight", true));
-        Settings_HelmetRequired.setSelected(config.getBoolean("worlds." + worldname + ".helmet.required", false));
-        Settings_SuitRequired.setSelected(config.getBoolean("worlds." + worldname + ".suit.required", false));
-        Settings_Weather.setSelected(config.getBoolean("worlds." + worldname + ".weather", false));
-        Settings_Nether.setSelected(config.getBoolean("worlds." + worldname + ".nethermode", false));
-        Settings_RoomHeight.setValue(config.getInt("worlds." + worldname + ".breathingarea.maxroomheight", 5));
-        Settings_Neutral.setSelected(config.getBoolean("worlds." + worldname + ".neutralmobs", true));
-        Settings_Hostile.setSelected(config.getBoolean("worlds." + worldname + ".hostilemobs", false));
-        SpaceMessageHandler.debugPrint(Level.INFO, "Loaded settings for spaceworld '" + worldname + "'.");
+        Settings_IDName.setText(idname);
+        Settings_Planets.setSelected(idConfig.getBoolean("ids." + idname + ".generation.generateplanets", true));
+        Settings_Asteroids.setSelected(idConfig.getBoolean("ids." + idname + "generation.generateasteroids", true));
+        Settings_GlowstoneChance.setValue(idConfig.getInt("ids." + idname + ".generation.glowstonechance", 1));
+        Settings_StoneChance.setValue(idConfig.getInt("ids." + idname + ".generation.stonechance", 3));
+        Settings_Night.setSelected(idConfig.getBoolean("ids." + idname + ".alwaysnight", true));
+        Settings_HelmetRequired.setSelected(idConfig.getBoolean("ids." + idname + ".helmet.required", false));
+        Settings_SuitRequired.setSelected(idConfig.getBoolean("ids." + idname + ".suit.required", false));
+        Settings_Weather.setSelected(idConfig.getBoolean("ids." + idname + ".weather", false));
+        Settings_Nether.setSelected(idConfig.getBoolean("ids." + idname + ".nethermode", false));
+        Settings_RoomHeight.setValue(idConfig.getInt("ids." + idname + ".breathingarea.maxroomheight", 5));
+        Settings_Neutral.setSelected(idConfig.getBoolean("ids." + idname + ".neutralmobs", true));
+        Settings_Hostile.setSelected(idConfig.getBoolean("ids." + idname + ".hostilemobs", false));
+        SpaceMessageHandler.debugPrint(Level.INFO, "Loaded settings for id '" + idname + "'.");
     }
 
     /**
-     * Saves the configuration settings for the world selected in the list. Only one safety check is made (to make sure a world that doesn't exist is not saved).
+     * Saves the configuration settings for the ID selected in the list. 
+     * Only one safety check is made (to make sure a ID that doesn't exist is not saved).
      * 
-     * @param worldname Spaceworld name
+     * @param idname ID name
      */
-    private void saveSpaceListConfig(String worldname) {
-        if (config.get("worlds." + worldname) == null) {
-            SpaceMessageHandler.print(Level.WARNING, "A world with the name '" + worldname + "' does not exist in the config!");
+    private void saveSpaceListConfig(String idname) {
+        if (idConfig.get("ids." + idname) == null) {
+            SpaceMessageHandler.print(Level.WARNING, "A id with the name '" + idname + "' does not exist in the config!");
             return;
         }
-        config.set("worlds." + worldname + ".generation.generateplanets", Settings_Planets.isSelected());
-        config.set("worlds." + worldname + ".generation.generateasteroids", Settings_Asteroids.isSelected());
-        config.set("worlds." + worldname + ".generation.glowstonechance", (Integer) Settings_GlowstoneChance.getValue());
-        config.set("worlds." + worldname + ".generation.stonechance", (Integer) Settings_StoneChance.getValue());
-        config.set("worlds." + worldname + ".weather", Settings_Weather.isSelected());
-        config.set("worlds." + worldname + ".hostilemobs", Settings_Hostile.isSelected());
-        config.set("worlds." + worldname + ".neutralmobs", Settings_Neutral.isSelected());
-        config.set("worlds." + worldname + ".alwaysnight", Settings_Night.isSelected());
-        config.set("worlds." + worldname + ".nethermode", Settings_Nether.isSelected());
-        config.set("worlds." + worldname + ".suit.required", Settings_SuitRequired.isSelected());
-        config.set("worlds" + worldname + ".helmet.required", Settings_HelmetRequired.isSelected());
+        idConfig.set("ids." + idname + ".generation.generateplanets", Settings_Planets.isSelected());
+        idConfig.set("ids." + idname + ".generation.generateasteroids", Settings_Asteroids.isSelected());
+        idConfig.set("ids." + idname + ".generation.glowstonechance", (Integer) Settings_GlowstoneChance.getValue());
+        idConfig.set("ids." + idname + ".generation.stonechance", (Integer) Settings_StoneChance.getValue());
+        idConfig.set("ids." + idname + ".weather", Settings_Weather.isSelected());
+        idConfig.set("ids." + idname + ".hostilemobs", Settings_Hostile.isSelected());
+        idConfig.set("ids." + idname + ".neutralmobs", Settings_Neutral.isSelected());
+        idConfig.set("ids." + idname + ".alwaysnight", Settings_Night.isSelected());
+        idConfig.set("ids." + idname + ".nethermode", Settings_Nether.isSelected());
+        idConfig.set("ids." + idname + ".suit.required", Settings_SuitRequired.isSelected());
+        idConfig.set("ids" + idname + ".helmet.required", Settings_HelmetRequired.isSelected());
         try {
-            config.save(SpaceConfig.getConfigFile(ConfigFile.CONFIG));
+            idConfig.save(SpaceConfig.getConfigFile(ConfigFile.IDS));
         } catch (IOException ex) {
             SpaceMessageHandler.print(Level.WARNING, ex.getMessage());
         }
-        SpaceMessageHandler.debugPrint(Level.INFO, "Saved settings for spaceworld '" + worldname + "'.");
+        SpaceMessageHandler.debugPrint(Level.INFO, "Saved settings for id '" + idname + "'.");
     }
 
     /**
-     * Adds a world to the list in the GUI.
+     * Adds a ID to the list in the GUI.
      * 
-     * @param worldname World name
+     * @param idname ID name
      */
-    public void addSpaceList(String worldname) {
-        ((DefaultListModel) SpaceList.getModel()).addElement(worldname);
+    public void addSpaceList(String idname) {
+        ((DefaultListModel) SpaceList.getModel()).addElement(idname);
     }
 
     /** This method is called from within the constructor to
@@ -138,18 +140,18 @@ public class PailInterface extends javax.swing.JPanel {
         SpoutEnabled = new javax.swing.JCheckBox();
         ResetButton = new javax.swing.JButton();
         SaveButton = new javax.swing.JButton();
-        SpaceWorlds = new javax.swing.JPanel();
+        ids = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         SpaceList = new javax.swing.JList();
-        CreateWorldButton = new javax.swing.JButton();
-        DeleteWorldButton = new javax.swing.JButton();
+        createIdButton = new javax.swing.JButton();
+        deleteIdButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        NewWorld = new javax.swing.JTextField();
+        newID = new javax.swing.JTextField();
         Settings = new javax.swing.JPanel();
         Settings_Save = new javax.swing.JButton();
         Settings_Reset = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        Settings_WorldName = new javax.swing.JLabel();
+        Settings_IDName = new javax.swing.JLabel();
         Settings_Planets = new javax.swing.JCheckBox();
         Settings_Asteroids = new javax.swing.JCheckBox();
         jLabel3 = new javax.swing.JLabel();
@@ -297,17 +299,18 @@ public class PailInterface extends javax.swing.JPanel {
                         .addContainerGap())))
         );
 
-        SpaceWorlds.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Spaceworlds", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
-        SpaceWorlds.setToolTipText("Panel with buttons to create and delete spaceworlds..");
+        ids.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "IDs", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
+        ids.setToolTipText("Panel with buttons to create and delete IDs.");
+        ids.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         SpaceList.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         SpaceList.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "No spaceworlds" };
+            String[] strings = { "No user IDs" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
         SpaceList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        SpaceList.setToolTipText("All spaceworlds. Selecting a spaceworld on the list opens its settings on the right.");
+        SpaceList.setToolTipText("All IDs. Selecting an ID on the list opens its settings on the right.");
         SpaceList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 SpaceListValueChanged(evt);
@@ -323,76 +326,74 @@ public class PailInterface extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(SpaceList);
 
-        CreateWorldButton.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        CreateWorldButton.setText("Create");
-        CreateWorldButton.setToolTipText("Creates a new spaceworld with the name on the box above.");
-        CreateWorldButton.addActionListener(new java.awt.event.ActionListener() {
+        createIdButton.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        createIdButton.setText("Create");
+        createIdButton.setToolTipText("Creates a new ID with the name on the box above.");
+        createIdButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CreateWorldButtonActionPerformed(evt);
+                createIdButtonActionPerformed(evt);
             }
         });
 
-        DeleteWorldButton.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        DeleteWorldButton.setText("Delete");
-        DeleteWorldButton.setToolTipText("Select a spaceworld from the list and click this button to delete the spaceworld. The world data will be saved.");
-        DeleteWorldButton.addActionListener(new java.awt.event.ActionListener() {
+        deleteIdButton.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        deleteIdButton.setText("Delete");
+        deleteIdButton.setToolTipText("Select an ID from the list and click this button to delete the ID.");
+        deleteIdButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DeleteWorldButtonActionPerformed(evt);
+                deleteIdButtonActionPerformed(evt);
             }
         });
 
-        NewWorld.setText("World name");
-        NewWorld.setToolTipText("Specify a name for the spaceworld. Must not be a world already, and must not be empty or contain spaces.");
+        newID.setText("ID");
+        newID.setToolTipText("Specify a name for the ID. Must not be an ID already, and must not be empty or contain spaces.");
 
-        javax.swing.GroupLayout SpaceWorldsLayout = new javax.swing.GroupLayout(SpaceWorlds);
-        SpaceWorlds.setLayout(SpaceWorldsLayout);
-        SpaceWorldsLayout.setHorizontalGroup(
-            SpaceWorldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(SpaceWorldsLayout.createSequentialGroup()
+        javax.swing.GroupLayout idsLayout = new javax.swing.GroupLayout(ids);
+        ids.setLayout(idsLayout);
+        idsLayout.setHorizontalGroup(
+            idsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(idsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(SpaceWorldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(DeleteWorldButton, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SpaceWorldsLayout.createSequentialGroup()
-                        .addGroup(SpaceWorldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(NewWorld, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
-                            .addComponent(CreateWorldButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(idsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(deleteIdButton, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, idsLayout.createSequentialGroup()
+                        .addGroup(idsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(newID, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
+                            .addComponent(createIdButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(60, 60, 60)
                         .addComponent(jLabel1)))
                 .addContainerGap())
         );
-        SpaceWorldsLayout.setVerticalGroup(
-            SpaceWorldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(SpaceWorldsLayout.createSequentialGroup()
-                .addGroup(SpaceWorldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        idsLayout.setVerticalGroup(
+            idsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(idsLayout.createSequentialGroup()
+                .addGroup(idsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(SpaceWorldsLayout.createSequentialGroup()
-                        .addComponent(NewWorld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(idsLayout.createSequentialGroup()
+                        .addComponent(newID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(SpaceWorldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(SpaceWorldsLayout.createSequentialGroup()
+                        .addGroup(idsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(idsLayout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
-                                .addGroup(SpaceWorldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SpaceWorldsLayout.createSequentialGroup()
-                                        .addComponent(DeleteWorldButton)
+                                .addGroup(idsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, idsLayout.createSequentialGroup()
+                                        .addComponent(deleteIdButton)
                                         .addGap(17, 17, 17))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SpaceWorldsLayout.createSequentialGroup()
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, idsLayout.createSequentialGroup()
                                         .addComponent(jLabel1)
                                         .addGap(147, 147, 147))))
-                            .addGroup(SpaceWorldsLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(CreateWorldButton)))))
+                            .addComponent(createIdButton))))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
-        Settings.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Spaceworld Settings", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
-        Settings.setToolTipText("Settings for the currently selected spaceworld in the list.");
+        Settings.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "ID Settings", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
+        Settings.setToolTipText("Settings for the currently selected ID in the list.");
         Settings.setMaximumSize(new java.awt.Dimension(200, 32767));
         Settings.setPreferredSize(new java.awt.Dimension(200, 250));
 
         Settings_Save.setText("Save");
-        Settings_Save.setToolTipText("Saves the changes made to the spaceworld's settings.");
+        Settings_Save.setToolTipText("Saves the changes made to the ID's settings.");
         Settings_Save.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Settings_SaveActionPerformed(evt);
@@ -400,7 +401,7 @@ public class PailInterface extends javax.swing.JPanel {
         });
 
         Settings_Reset.setText("Revert");
-        Settings_Reset.setToolTipText("Resets the changes made to the world's settings.");
+        Settings_Reset.setToolTipText("Resets the changes made to the ID's settings.");
         Settings_Reset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Settings_ResetActionPerformed(evt);
@@ -410,7 +411,7 @@ public class PailInterface extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel2.setText("Currently editing:");
 
-        Settings_WorldName.setText("nothing");
+        Settings_IDName.setText("nothing");
 
         Settings_Planets.setSelected(true);
         Settings_Planets.setText("Generate planets");
@@ -490,7 +491,7 @@ public class PailInterface extends javax.swing.JPanel {
                     .addGroup(SettingsLayout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(Settings_WorldName, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(Settings_IDName, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(SettingsLayout.createSequentialGroup()
                         .addGroup(SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(Settings_SuitRequired)
@@ -529,7 +530,7 @@ public class PailInterface extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(Settings_WorldName))
+                    .addComponent(Settings_IDName))
                 .addGroup(SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(SettingsLayout.createSequentialGroup()
@@ -588,13 +589,13 @@ public class PailInterface extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(SpaceWorlds, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(ids, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26)
                         .addComponent(Settings, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(GlobalSettings, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(399, 399, 399))
             .addGroup(layout.createSequentialGroup()
-                .addGap(175, 175, 175)
+                .addGap(234, 234, 234)
                 .addComponent(jLabel8)
                 .addContainerGap(447, Short.MAX_VALUE))
         );
@@ -607,9 +608,11 @@ public class PailInterface extends javax.swing.JPanel {
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(SpaceWorlds, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ids, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Settings, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)))
         );
+
+        ids.getAccessibleContext().setAccessibleName("Ids");
     }// </editor-fold>//GEN-END:initComponents
 
     private void CheckBoxHelmetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckBoxHelmetActionPerformed
@@ -626,13 +629,13 @@ public class PailInterface extends javax.swing.JPanel {
 
     private void SaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveButtonActionPerformed
 
-        config.set("global.givesuit", CheckBoxSuit.isSelected());
-        config.set("global.givehelmet", CheckBoxHelmet.isSelected());
-        config.set("global.armortype", ArmorTypeBox.getText());
-        config.set("global.blockid", Integer.parseInt(HelmetBlockIdBox.getText()));
-        config.set("global.usespout", SpoutEnabled.isSelected());
+        spaceConfig.set("global.givesuit", CheckBoxSuit.isSelected());
+        spaceConfig.set("global.givehelmet", CheckBoxHelmet.isSelected());
+        spaceConfig.set("global.armortype", ArmorTypeBox.getText());
+        spaceConfig.set("global.blockid", Integer.parseInt(HelmetBlockIdBox.getText()));
+        spaceConfig.set("global.usespout", SpoutEnabled.isSelected());
         try {
-            config.save(SpaceConfig.getConfigFile(ConfigFile.CONFIG));
+            spaceConfig.save(SpaceConfig.getConfigFile(ConfigFile.CONFIG));
         } catch (IOException ex) {
             SpaceMessageHandler.print(Level.WARNING, ex.getMessage());
         }
@@ -644,64 +647,62 @@ public class PailInterface extends javax.swing.JPanel {
         readConfigs();
     }//GEN-LAST:event_ResetButtonActionPerformed
 
-private void CreateWorldButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateWorldButtonActionPerformed
-    String worldname = NewWorld.getText().trim();
-    if (worldname.equalsIgnoreCase("")) {
-        JOptionPane.showMessageDialog(this, "The world name cannot be empty!", "Invalid world name", JOptionPane.WARNING_MESSAGE);
+private void createIdButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createIdButtonActionPerformed
+    String idname = newID.getText().trim();
+    if (idname.equalsIgnoreCase("")) {
+        JOptionPane.showMessageDialog(this, "The ID cannot be empty!", "Invalid ID", JOptionPane.WARNING_MESSAGE);
         return;
     }
-    if (plugin.getServer().getWorld(worldname) != null) {
-        JOptionPane.showMessageDialog(this, "A world with the given name already exists!", "Invalid world name", JOptionPane.WARNING_MESSAGE);
+    if (idConfig.getConfigurationSection("ids").contains(idname)){
+        JOptionPane.showMessageDialog(this, "An ID with the given name already exists!", "Invalid ID", JOptionPane.WARNING_MESSAGE);
         return;
     }
-    if (worldname.contains(" ")) {
-        JOptionPane.showMessageDialog(this, "The world name cannot contain spaces!", "Invalid world name", JOptionPane.WARNING_MESSAGE);
+    if (idname.contains(" ")) {
+        JOptionPane.showMessageDialog(this, "The ID cannot contain spaces!", "Invalid ID", JOptionPane.WARNING_MESSAGE);
         return;
     }
-    BananaSpace.scheduler.scheduleSyncDelayedTask(plugin, new Runnable() {
+    SpaceMessageHandler.debugPrint(Level.INFO, "Created ID '" + idname + "' through Pail.");
+    JOptionPane.showMessageDialog(this, "A new ID called '" + idname + "' has been created!", "ID created", JOptionPane.INFORMATION_MESSAGE);
+    newID.setText("ID");
+}//GEN-LAST:event_createIdButtonActionPerformed
 
-        public void run() {
-            BananaSpace.worldHandler.createSpaceWorld(plugin, NewWorld.getText().trim(), false);
-        }
-    }, 1L);
-        SpaceMessageHandler.debugPrint(Level.INFO, "Created spaceworld '" + worldname + "' through Pail.");
-    JOptionPane.showMessageDialog(this, "A new spaceworld called '" + worldname + "' has been created!", "Spaceworld created", JOptionPane.INFORMATION_MESSAGE);
-    NewWorld.setText("World name");
-}//GEN-LAST:event_CreateWorldButtonActionPerformed
-
-private void DeleteWorldButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteWorldButtonActionPerformed
+private void deleteIdButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteIdButtonActionPerformed
 
     if (SpaceList.getSelectedIndex() == -1) {
-        JOptionPane.showMessageDialog(this, "You need to choose a world to delete from the list!", "Select a world", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(this, "You need to choose an ID to delete from the list!", "Select an ID", JOptionPane.WARNING_MESSAGE);
         return;
     }
     String s = (String) SpaceList.getModel().getElementAt(SpaceList.getSelectedIndex());
     int n = JOptionPane.showConfirmDialog(
             this,
-            "Deleting a spaceworld will only remove the world from the spaceworlds-list and unload it. The world itself will be saved. Do you want to continue?",
-            "Delete a spaceworld",
+            "Are you sure?",
+            "Delete an ID",
             JOptionPane.YES_NO_OPTION);
     if (n == JOptionPane.YES_OPTION) {
-        BananaSpace.worldHandler.removeSpaceWorld(plugin, s, false);
+        idConfig.set("ids." + s, null);
+        try {
+            idConfig.save(SpaceConfig.getConfigFile(ConfigFile.IDS));
+        } catch (IOException ex) {
+            SpaceMessageHandler.print(Level.WARNING, ex.getMessage());
+        }
         ((DefaultListModel) SpaceList.getModel()).remove(SpaceList.getSelectedIndex());
-        JOptionPane.showMessageDialog(this, "The spaceworld was deleted successfully!", "Spaceworld deleted", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "The ID was deleted successfully!", "ID deleted", JOptionPane.INFORMATION_MESSAGE);
     }
-}//GEN-LAST:event_DeleteWorldButtonActionPerformed
+}//GEN-LAST:event_deleteIdButtonActionPerformed
 
 private void Settings_ResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Settings_ResetActionPerformed
 
     if (SpaceList.getSelectedIndex() != -1) {
-        String worldname = (String) SpaceList.getModel().getElementAt(SpaceList.getSelectedIndex());
-        loadSpaceListConfig(worldname);
+        String idname = (String) SpaceList.getModel().getElementAt(SpaceList.getSelectedIndex());
+        loadSpaceListConfig(idname);
         JOptionPane.showMessageDialog(this, "Your changes have been reset!", "Changes reset!", JOptionPane.INFORMATION_MESSAGE);
     }
 }//GEN-LAST:event_Settings_ResetActionPerformed
 
 private void Settings_SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Settings_SaveActionPerformed
-
-    String worldname = (String) SpaceList.getModel().getElementAt(SpaceList.getSelectedIndex());
-    saveSpaceListConfig(worldname);
-    JOptionPane.showMessageDialog(this, "The spaceworld '" + worldname + "' has been saved. Please note that most changes take effect after reloading the server.", "Spaceworld saved!", JOptionPane.INFORMATION_MESSAGE);
+    String idname = (String) SpaceList.getModel().getElementAt(SpaceList.getSelectedIndex());
+    saveSpaceListConfig(idname);
+    JOptionPane.showMessageDialog(this, "The ID '" + idname + "' has been saved. Please note that most changes take effect after reloading the server.", "ID saved!", JOptionPane.INFORMATION_MESSAGE);
 }//GEN-LAST:event_Settings_SaveActionPerformed
 
 private void Settings_PlanetsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Settings_PlanetsActionPerformed
@@ -719,8 +720,8 @@ private void SpaceListFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:ev
 private void SpaceListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_SpaceListValueChanged
 
     if (SpaceList.getSelectedIndex() != -1) {
-        String worldname = (String) SpaceList.getModel().getElementAt(SpaceList.getSelectedIndex());
-        loadSpaceListConfig(worldname);
+        String idname = (String) SpaceList.getModel().getElementAt(SpaceList.getSelectedIndex());
+        loadSpaceListConfig(idname);
     }
 }//GEN-LAST:event_SpaceListValueChanged
 
@@ -741,11 +742,8 @@ private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
     private javax.swing.JTextField ArmorTypeBox;
     private javax.swing.JCheckBox CheckBoxHelmet;
     private javax.swing.JCheckBox CheckBoxSuit;
-    private javax.swing.JButton CreateWorldButton;
-    private javax.swing.JButton DeleteWorldButton;
     private javax.swing.JPanel GlobalSettings;
     private javax.swing.JTextField HelmetBlockIdBox;
-    private javax.swing.JTextField NewWorld;
     private javax.swing.JButton ResetButton;
     private javax.swing.JButton SaveButton;
     private javax.swing.JPanel Settings;
@@ -753,6 +751,7 @@ private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
     private javax.swing.JSpinner Settings_GlowstoneChance;
     private javax.swing.JCheckBox Settings_HelmetRequired;
     private javax.swing.JCheckBox Settings_Hostile;
+    private javax.swing.JLabel Settings_IDName;
     private javax.swing.JCheckBox Settings_Nether;
     private javax.swing.JCheckBox Settings_Neutral;
     private javax.swing.JCheckBox Settings_Night;
@@ -763,10 +762,11 @@ private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
     private javax.swing.JSpinner Settings_StoneChance;
     private javax.swing.JCheckBox Settings_SuitRequired;
     private javax.swing.JCheckBox Settings_Weather;
-    private javax.swing.JLabel Settings_WorldName;
     private javax.swing.JList SpaceList;
-    private javax.swing.JPanel SpaceWorlds;
     private javax.swing.JCheckBox SpoutEnabled;
+    private javax.swing.JButton createIdButton;
+    private javax.swing.JButton deleteIdButton;
+    private javax.swing.JPanel ids;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -777,5 +777,6 @@ private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTextField newID;
     // End of variables declaration//GEN-END:variables
 }
