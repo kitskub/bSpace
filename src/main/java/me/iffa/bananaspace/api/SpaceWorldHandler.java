@@ -25,7 +25,6 @@ import org.bukkit.entity.Player;
  */
 public class SpaceWorldHandler {
     // Variables
-
     public static List<World> spaceWorlds = new ArrayList<World>();
     private BananaSpace plugin;
     private Map<World, Integer> forcenightId = new HashMap<World, Integer>();
@@ -47,25 +46,13 @@ public class SpaceWorldHandler {
      * Loads the space worlds into <code>spaceWorlds</code.
      */
     public void loadSpaceWorlds() {
-        for(World world : plugin.getServer().getWorlds()){
-            if(world.getGenerator() instanceof PlanetsChunkGenerator || world.getGenerator() instanceof SpaceChunkGenerator){
+        for (World world : plugin.getServer().getWorlds()) {
+            if (world.getGenerator() instanceof PlanetsChunkGenerator || world.getGenerator() instanceof SpaceChunkGenerator) {
                 spaceWorlds.add(world);
             }
         }
     }
 
-    /**
-     * Checks if MultiVerse is being used for world generation.
-     * 
-     * @return true if MultiVerse is used
-     */
-    public boolean getUsingMV() {
-        if (usingMV) {
-            return true;
-        }
-        return false;
-    }
-    
     /**
      * Starts the force night task if required.
      * 
@@ -153,13 +140,17 @@ public class SpaceWorldHandler {
     /**
      * Checks the world to see if it is <code>spaceWorlds</code>, and adds it if not.
      * 
-     * @param worldName
+     * @param worldName World name to check
      */
     public void checkWorld(String worldName) {
         boolean in = false;
-        for(World world : spaceWorlds){
-        if( world.getName().equals(worldName)) in=true;
+        for (World world : spaceWorlds) {
+            if (world.getName().equals(worldName)) {
+                in = true;
+            }
         }
-        if(!in)spaceWorlds.add(plugin.getServer().getWorld(worldName));
+        if (!in) {
+            spaceWorlds.add(plugin.getServer().getWorld(worldName));
+        }
     }
 }
