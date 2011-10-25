@@ -20,6 +20,7 @@ import org.bukkit.generator.BlockPopulator;
  * @author Markus 'Notch' Persson
  * @author iffa
  * @author Nightgunner5
+ * @author kitskub
  */
 public class SpaceAsteroidPopulator extends BlockPopulator {
     // Variables

@@ -4,9 +4,9 @@ package me.iffa.bananaspace.api;
 // BananaSpace Imports
 import me.iffa.bananaspace.config.SpaceConfig;
 import me.iffa.bananaspace.config.SpaceConfig.ConfigFile;
+import me.iffa.bananaspace.wgen.planets.PlanetsChunkGenerator;
 
 // Bukkit Imports
-import me.iffa.bananaspace.wgen.planets.PlanetsChunkGenerator;
 import org.bukkit.World;
 
 /**
@@ -41,11 +41,14 @@ public class SpaceConfigHandler {
     /**
      * Gets the required helmet-state of a world.
      * 
-     * @param id 
+     * @param id Id
+     * 
      * @return true if a helmet is required
      */
     public static boolean getRequireHelmet(String id) {
-        if(id.equalsIgnoreCase("planets")) return false;
+        if(id.equalsIgnoreCase("planets")) {
+            return false;
+        }
         return SpaceConfig.getConfig(ConfigFile.IDS).getBoolean("ids." + id + ".helmet.required", false);
     }
 
@@ -70,7 +73,9 @@ public class SpaceConfigHandler {
      * @return true if a suit is required
      */
     public static boolean getRequireSuit(String id) {
-        if(id.equalsIgnoreCase("planets")) return false;
+        if(id.equalsIgnoreCase("planets")) {
+            return false;
+        }
         return SpaceConfig.getConfig(ConfigFile.IDS).getBoolean("ids." + id + ".suit.required", true);
     }
     /**
@@ -113,7 +118,9 @@ public class SpaceConfigHandler {
      * @return true if hostile mobs are allowed
      */
     public static boolean allowHostileMobs(String id) {
-        if(id.equalsIgnoreCase("planets")) return false;
+        if(id.equalsIgnoreCase("planets")) {
+            return false;
+        }
         return SpaceConfig.getConfig(ConfigFile.IDS).getBoolean("ids." + id + ".hostilemobs", false);
     }
     
@@ -139,7 +146,9 @@ public class SpaceConfigHandler {
      * @return true if neutral mobs are allowed
      */
     public static boolean allowNeutralMobs(String id) {
-        if(id.equalsIgnoreCase("planets")) return true;
+        if(id.equalsIgnoreCase("planets")) {
+            return true;
+        }
         return SpaceConfig.getConfig(ConfigFile.IDS).getBoolean("ids." + id + ".neutralmobs", true);
     }
 
@@ -165,7 +174,9 @@ public class SpaceConfigHandler {
      * @return true if night is forced
      */
     public static boolean forceNight(String id) {
-        if(id.equalsIgnoreCase("planets")) return true;
+        if(id.equalsIgnoreCase("planets")) {
+            return true;
+        }
         return SpaceConfig.getConfig(ConfigFile.IDS).getBoolean("ids." + id + ".alwaysnight", true);
     }
 
@@ -205,11 +216,14 @@ public class SpaceConfigHandler {
     /**
      * Gets the maximum room height of a world.
      * 
-     * @param id 
+     * @param id Id
+     * 
      * @return room height int
      */
     public static int getRoomHeight(String id) {
-        if(id.equalsIgnoreCase("planets")) return 5;
+        if(id.equalsIgnoreCase("planets")) {
+            return 5;
+        }
         return SpaceConfig.getConfig(ConfigFile.IDS).getInt("idss." + id + ".breathingarea.maxroomheight", 5);
     }
     
@@ -231,11 +245,14 @@ public class SpaceConfigHandler {
         /**
      * Gets the weather allowed-state of a world.
      * 
-     * @param id 
+     * @param id Id
+     * 
      * @return true if weather is allowed
      */
     public static boolean allowWeather(String id) {
-        if(id.equalsIgnoreCase("planets")) return false;
+        if(id.equalsIgnoreCase("planets")) {
+            return false;
+        }
         return SpaceConfig.getConfig(ConfigFile.IDS).getBoolean("ids." + id + ".weather", false);
     }
 
@@ -257,11 +274,14 @@ public class SpaceConfigHandler {
     /**
      * Gets the glowstone chance of a world.
      * 
-     * @param id 
+     * @param id Id
+     * 
      * @return glowstone chance int
      */
     public static int getGlowstoneChance(String id) {
-        if(id.equalsIgnoreCase("planets")) return 1;
+        if(id.equalsIgnoreCase("planets")) {
+            return 1;
+        }
         return SpaceConfig.getConfig(ConfigFile.IDS).getInt("ids." + id + ".generation.glowstonechance", 1);
     }
     
@@ -287,7 +307,9 @@ public class SpaceConfigHandler {
      * @return asteroid chance int
      */
     public static int getStoneChance(String id) {
-        if(id.equalsIgnoreCase("planets")) return 3;
+        if(id.equalsIgnoreCase("planets")) {
+            return 3;
+        }
         return SpaceConfig.getConfig(ConfigFile.IDS).getInt("ids." + id + ".generation.stonechance", 3);
     }
     
@@ -314,7 +336,9 @@ public class SpaceConfigHandler {
      * @return true if asteroid generation is enabled
      */
     public static boolean getAsteroidsEnabled(String id) {
-        if(id.equalsIgnoreCase("planets")) return true;
+        if(id.equalsIgnoreCase("planets")) {
+            return true;
+        }
         return SpaceConfig.getConfig(ConfigFile.IDS).getBoolean("ids" + id + ".generation.generateasteroids", true);
     }
     
@@ -364,7 +388,9 @@ public class SpaceConfigHandler {
      * @return True if satellites are enabled
      */
     public static boolean getSatellitesEnabled(String id) {
-        if(id.equalsIgnoreCase("planets")) return true;
+        if(id.equalsIgnoreCase("planets")) {
+            return true;
+        }
         return SpaceConfig.getConfig(ConfigFile.IDS).getBoolean("ids." + id + ".generation.generatesatellites", true);
     }
 
@@ -392,5 +418,11 @@ public class SpaceConfigHandler {
     public static int getSatelliteChance(String id) {
         if(id.equalsIgnoreCase("planets")) return 1;
         return SpaceConfig.getConfig(ConfigFile.IDS).getInt("ids." + id + ".generation.satellitechance", 1);
+    }
+
+    /**
+     * Constructor of SpaceConfigHandler.
+     */
+    private SpaceConfigHandler() {
     }
 }
