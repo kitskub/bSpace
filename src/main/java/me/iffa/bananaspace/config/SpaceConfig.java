@@ -42,7 +42,7 @@ public class SpaceConfig {
      * @return YamlConfiguration object
      */
     public static YamlConfiguration getConfig(ConfigFile configfile) {
-        if (!loaded.get(configfile)) {
+        if (loaded.containsKey(configfile) && !loaded.get(configfile)) {
             loadConfig(configfile);
         }
         return config.get(configfile);
@@ -92,10 +92,16 @@ public class SpaceConfig {
                 config.get(configfile).load(configFile.get(configfile));
             } catch (FileNotFoundException ex) {
                 SpaceMessageHandler.print(Level.WARNING, ex.getMessage());
+                loaded.put(configfile, false);
+                return;
             } catch (IOException ex) {
                 SpaceMessageHandler.print(Level.WARNING, ex.getMessage());
+                loaded.put(configfile, false);
+                return;
             } catch (InvalidConfigurationException ex) {
                 SpaceMessageHandler.print(Level.WARNING, ex.getMessage());
+                loaded.put(configfile, false);
+                return;
             }
             loaded.put(configfile, true);
         } else {
