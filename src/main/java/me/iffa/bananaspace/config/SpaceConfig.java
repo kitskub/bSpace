@@ -12,7 +12,6 @@ import java.util.Map;
 import java.util.logging.Level;
 
 //BananaSpace Imports
-import me.iffa.bananaspace.BananaSpace;
 import me.iffa.bananaspace.api.SpaceMessageHandler;
 
 // Bukkit Imports
