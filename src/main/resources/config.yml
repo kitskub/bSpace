@@ -6,6 +6,8 @@
 #        ask on BukkitDev! Thanks.
 # Debugging mode
 debug: false
+# Indicates that our config file is already on the latest version and does not need updating
+updated: true
 # Global settings
 global:
     # Spacesuit armortype

@@ -16,6 +16,7 @@ import me.iffa.bananaspace.api.SpacePlayerHandler;
 import me.iffa.bananaspace.api.SpaceWorldHandler;
 import me.iffa.bananaspace.commands.SpaceCommandHandler;
 import me.iffa.bananaspace.config.SpaceConfig;
+import me.iffa.bananaspace.config.SpaceConfigUpdater;
 import me.iffa.bananaspace.economy.Economy;
 import me.iffa.bananaspace.gui.PailInterface;
 import me.iffa.bananaspace.listeners.SpaceEntityListener;
@@ -82,10 +83,13 @@ public class BananaSpace extends JavaPlugin {
     public void onEnable() {
         // Initializing variables.
         initVariables();
+        SpaceMessageHandler.debugPrint(Level.INFO, "Initialized startup variables.");
 
         // Loading configuration files.
         SpaceConfig.loadConfigs();
-        SpaceMessageHandler.debugPrint(Level.INFO, "Initialized startup variables and loaded configuration files.");
+        SpaceMessageHandler.debugPrint(Level.INFO, "Loaded configuration files, now checking if they need to be updated...");
+        // Updating configuration files (if needed).
+        SpaceConfigUpdater.updateConfigs();
         
         // Registering events.
         registerEvents();
