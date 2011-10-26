@@ -33,7 +33,7 @@ public class SpaceConfig {
     private static Map<ConfigFile, YamlConfiguration> config = new EnumMap<ConfigFile, YamlConfiguration>(ConfigFile.class);
     private static Map<ConfigFile, File> configFile = new EnumMap<ConfigFile, File>(ConfigFile.class);
     private static Map<ConfigFile, Boolean> loaded = new EnumMap<ConfigFile, Boolean>(ConfigFile.class);
-
+    
     /**
      * Gets the configuration file.
      * 
@@ -42,7 +42,7 @@ public class SpaceConfig {
      * @return YamlConfiguration object
      */
     public static YamlConfiguration getConfig(ConfigFile configfile) {
-        if (loaded.containsKey(configfile) && !loaded.get(configfile)) {
+        if (loaded.get(configfile)==null || !loaded.get(configfile)) {
             loadConfig(configfile);
         }
         return config.get(configfile);
@@ -112,7 +112,7 @@ public class SpaceConfig {
                 config.put(configfile, new YamlConfiguration());
                 config.get(configfile).load(configFile.get(configfile));
                 loaded.put(configfile, true);
-                SpaceMessageHandler.print(Level.INFO, "Generated " + configfile.getFile() + " file for version " + BananaSpace.version);
+                SpaceMessageHandler.print(Level.INFO, "Generated " + configfile.getFile() + " file");
             } catch (Exception e) {
                 SpaceMessageHandler.print(Level.SEVERE, e.toString());
             }

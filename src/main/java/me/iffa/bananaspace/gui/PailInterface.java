@@ -101,7 +101,7 @@ public class PailInterface extends javax.swing.JPanel {
         idConfig.set("ids." + idname + ".alwaysnight", Settings_Night.isSelected());
         idConfig.set("ids." + idname + ".nethermode", Settings_Nether.isSelected());
         idConfig.set("ids." + idname + ".suit.required", Settings_SuitRequired.isSelected());
-        idConfig.set("ids" + idname + ".helmet.required", Settings_HelmetRequired.isSelected());
+        idConfig.set("ids." + idname + ".helmet.required", Settings_HelmetRequired.isSelected());
         try {
             idConfig.save(SpaceConfig.getConfigFile(ConfigFile.IDS));
         } catch (IOException ex) {
@@ -409,7 +409,7 @@ public class PailInterface extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel2.setText("Currently editing:");
 
-        Settings_IDName.setText("none");
+        Settings_IDName.setText("None");
 
         Settings_Planets.setSelected(true);
         Settings_Planets.setText("Generate planets");
@@ -485,8 +485,8 @@ public class PailInterface extends javax.swing.JPanel {
                     .addGroup(SettingsLayout.createSequentialGroup()
                         .addComponent(Settings_Save)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(Settings_Reset))
-                    .addGroup(SettingsLayout.createSequentialGroup()
+                        .addComponent(Settings_Reset)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(Settings_IDName, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -517,18 +517,17 @@ public class PailInterface extends javax.swing.JPanel {
                             .addGroup(SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(Settings_RoomHeight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel7)))))
-                .addGap(107, 107, 107))
+                .addGap(72, 72, 72))
         );
         SettingsLayout.setVerticalGroup(
             SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(SettingsLayout.createSequentialGroup()
                 .addGroup(SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Settings_Save)
-                    .addComponent(Settings_Reset))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Settings_Reset)
                     .addComponent(jLabel2)
                     .addComponent(Settings_IDName))
+                .addGap(26, 26, 26)
                 .addGroup(SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(SettingsLayout.createSequentialGroup()
@@ -659,6 +658,23 @@ private void createIdButtonActionPerformed(java.awt.event.ActionEvent evt) {//GE
         JOptionPane.showMessageDialog(this, "The ID cannot contain spaces! Replace spaces with underscores.", "Invalid ID", JOptionPane.WARNING_MESSAGE);
         return;
     }
+    idConfig.set("ids." + idname + ".generation.generateplanets", true);
+    idConfig.set("ids." + idname + ".generation.generateasteroids", true);
+    idConfig.set("ids." + idname + ".generation.glowstonechance", 1);
+    idConfig.set("ids." + idname + ".generation.stonechance", 3);
+    idConfig.set("ids." + idname + ".weather", false);
+    idConfig.set("ids." + idname + ".hostilemobs", false);
+    idConfig.set("ids." + idname + ".neutralmobs", true);
+    idConfig.set("ids." + idname + ".alwaysnight", true);
+    idConfig.set("ids." + idname + ".nethermode", false);
+    idConfig.set("ids." + idname + ".suit.required", false);
+    idConfig.set("ids." + idname + ".helmet.required", false);
+    try {
+        idConfig.save(SpaceConfig.getConfigFile(ConfigFile.IDS));
+    } catch (IOException ex) {
+        SpaceMessageHandler.print(Level.WARNING, ex.getMessage());
+    }
+    ((DefaultListModel) SpaceList.getModel()).addElement(idname);
     SpaceMessageHandler.debugPrint(Level.INFO, "Created ID '" + idname + "' through Pail.");
     JOptionPane.showMessageDialog(this, "A new ID called '" + idname + "' has been created!", "ID created", JOptionPane.INFORMATION_MESSAGE);
     newID.setText("ID");
@@ -684,12 +700,12 @@ private void deleteIdButtonActionPerformed(java.awt.event.ActionEvent evt) {//GE
             SpaceMessageHandler.print(Level.WARNING, ex.getMessage());
         }
         ((DefaultListModel) SpaceList.getModel()).remove(SpaceList.getSelectedIndex());
+        Settings_IDName.setText("None");
         JOptionPane.showMessageDialog(this, "The ID was deleted successfully!", "ID deleted", JOptionPane.INFORMATION_MESSAGE);
     }
 }//GEN-LAST:event_deleteIdButtonActionPerformed
 
 private void Settings_ResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Settings_ResetActionPerformed
-
     if (SpaceList.getSelectedIndex() != -1) {
         String idname = (String) SpaceList.getModel().getElementAt(SpaceList.getSelectedIndex());
         loadSpaceListConfig(idname);
@@ -698,9 +714,11 @@ private void Settings_ResetActionPerformed(java.awt.event.ActionEvent evt) {//GE
 }//GEN-LAST:event_Settings_ResetActionPerformed
 
 private void Settings_SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Settings_SaveActionPerformed
-    String idname = (String) SpaceList.getModel().getElementAt(SpaceList.getSelectedIndex());
-    saveIdConfig(idname);
-    JOptionPane.showMessageDialog(this, "The ID '" + idname + "' has been saved. Please note that most changes take effect after reloading the server.", "ID saved!", JOptionPane.INFORMATION_MESSAGE);
+    if(SpaceList.getSelectedIndex() != -1){
+        String idname = (String) SpaceList.getModel().getElementAt(SpaceList.getSelectedIndex());
+        saveIdConfig(idname);
+        JOptionPane.showMessageDialog(this, "The ID '" + idname + "' has been saved. Please note that most changes take effect after reloading the server.", "ID saved!", JOptionPane.INFORMATION_MESSAGE);
+    }
 }//GEN-LAST:event_Settings_SaveActionPerformed
 
 private void Settings_PlanetsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Settings_PlanetsActionPerformed
@@ -716,7 +734,6 @@ private void SpaceListFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:ev
 }//GEN-LAST:event_SpaceListFocusGained
 
 private void SpaceListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_SpaceListValueChanged
-
     if (SpaceList.getSelectedIndex() != -1) {
         String idname = (String) SpaceList.getModel().getElementAt(SpaceList.getSelectedIndex());
         loadSpaceListConfig(idname);

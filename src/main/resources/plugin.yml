@@ -4,6 +4,8 @@ authors: [iffa, kitskub, HACKhalo2, Canis85, BR]
 main: me.iffa.bananaspace.BananaSpace
 name: BananaSpace
 url: http://github.com/iffa/BananaSpace
+dev-url: http://dev.bukkit.org/server-mods/bananaspace
+load: startup
 #load: startup
 version: '2-dev'
 softdepend: [Permissions, Spout, Pail]

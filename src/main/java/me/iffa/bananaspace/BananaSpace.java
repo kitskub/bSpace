@@ -86,7 +86,7 @@ public class BananaSpace extends JavaPlugin {
         // Loading configuration files.
         SpaceConfig.loadConfigs();
         SpaceMessageHandler.debugPrint(Level.INFO, "Initialized startup variables and loaded configuration files.");
-
+        
         // Registering events.
         registerEvents();
 
@@ -186,8 +186,8 @@ public class BananaSpace extends JavaPlugin {
     @Override
     public ChunkGenerator getDefaultWorldGenerator(String worldName, String id) {
         SpaceMessageHandler.debugPrint(Level.INFO, "Getting generator for" + worldName + " " + id);
-        worldHandler.checkWorld(worldName);
-        if (id.isEmpty() || id.length() == 0 || id == null) { // Readded safety check :)
+        SpaceWorldHandler.checkWorld(worldName);
+        if (id.isEmpty() || id.length() == 0 || id == null) {
             return new SpaceChunkGenerator();
         }
         return new PlanetsChunkGenerator(id);

@@ -25,7 +25,7 @@ import org.bukkit.entity.Player;
  */
 public class SpaceWorldHandler {
     // Variables
-    public static List<World> spaceWorlds = new ArrayList<World>();
+    private static List<String> spaceWorldNames = new ArrayList<String>();
     private BananaSpace plugin;
     private Map<World, Integer> forcenightId = new HashMap<World, Integer>();
 
@@ -39,12 +39,12 @@ public class SpaceWorldHandler {
     }
 
     /**
-     * Loads the space worlds into <code>spaceWorlds</code.
+     * Loads the space worlds into <code>spaceWorldNames</code.
      */
     public void loadSpaceWorlds() {
         for (World world : plugin.getServer().getWorlds()) {
             if (world.getGenerator() instanceof PlanetsChunkGenerator || world.getGenerator() instanceof SpaceChunkGenerator) {
-                spaceWorlds.add(world);
+                spaceWorldNames.add(world.getName());
             }
         }
     }
@@ -74,7 +74,11 @@ public class SpaceWorldHandler {
      * @return all space worlds as a List
      */
     public List<World> getSpaceWorlds() {
-        return spaceWorlds;
+        List<World> worlds = new ArrayList<World>();
+        for(String world : spaceWorldNames){
+            worlds.add(plugin.getServer().getWorld(world));
+        }
+        return worlds;
     }
 
     /**
@@ -85,7 +89,7 @@ public class SpaceWorldHandler {
      * @return true if the world is a space world
      */
     public boolean isSpaceWorld(World world) {
-        if (spaceWorlds.contains(world)) {
+        if (spaceWorldNames.contains(world.getName())) {
             return true;
         }
         return false;
@@ -100,7 +104,7 @@ public class SpaceWorldHandler {
      * @return true if the player is in the specified space world
      */
     public boolean isInSpace(Player player, World world) {
-        return (spaceWorlds.contains(world) && player.getWorld() == world);
+        return (spaceWorldNames.contains(world.getName()) && player.getWorld() == world);
     }
 
     /**
@@ -111,8 +115,8 @@ public class SpaceWorldHandler {
      * @return true if the player is in a space world
      */
     public boolean isInAnySpace(Player player) {
-        for (World world : spaceWorlds) {
-            if (player.getWorld() == world) {
+        for (String world : spaceWorldNames) {
+            if (player.getWorld().getName().equals(world)) {
                 return true;
             }
         }
@@ -134,19 +138,19 @@ public class SpaceWorldHandler {
     }
 
     /**
-     * Checks the world to see if it is <code>spaceWorlds</code>, and adds it if not.
+     * Checks the world to see if it is <code>spaceWorldNames</code>, and adds it if not.
      * 
      * @param worldName World name to check
      */
-    public void checkWorld(String worldName) {
+    public static void checkWorld(String worldName) {
         boolean in = false;
-        for (World world : spaceWorlds) {
-            if (world.getName().equals(worldName)) {
+        for (String world : spaceWorldNames) {
+            if (world.equals(worldName)) {
                 in = true;
             }
         }
         if (!in) {
-            spaceWorlds.add(plugin.getServer().getWorld(worldName));
+            spaceWorldNames.add(worldName);
         }
     }
 }

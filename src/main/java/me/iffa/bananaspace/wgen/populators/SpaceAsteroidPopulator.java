@@ -36,14 +36,9 @@ public class SpaceAsteroidPopulator extends BlockPopulator {
     @Override
     public void populate(World world, Random random, Chunk source) {
         for (int i = 0; i < 2; i++) {
-            int x = random.nextInt(16);
-            int y = random.nextInt(128);
-            int z = random.nextInt(16);
-            Block block = source.getBlock(x, y, z);
-            if (block.getTypeId() != 0) {
-                return;
-            }
-            if (random.nextInt(200) <= SpaceConfigHandler.getStoneChance(world)) {
+            Block block;
+            block = getRandomBlock(source,random);
+            if (random.nextInt(200) <= SpaceConfigHandler.getStoneChance(world)&&block.getTypeId()==0) {
                 block.setTypeId(1);
 
                 for (int j = 0; j < 1500; j++) {
@@ -64,7 +59,8 @@ public class SpaceAsteroidPopulator extends BlockPopulator {
                     }
                 }
             }
-            if (random.nextInt(200) <= SpaceConfigHandler.getGlowstoneChance(world)) {
+            block = getRandomBlock(source,random);
+            if (random.nextInt(200) <= SpaceConfigHandler.getGlowstoneChance(world)&&block.getTypeId()==0) {
                 block.setTypeId(89);
 
                 for (int j = 0; j < 1500; j++) {
@@ -86,5 +82,12 @@ public class SpaceAsteroidPopulator extends BlockPopulator {
                 }
             }
         }
+    }
+
+    private Block getRandomBlock(Chunk source, Random random) {
+            int x = random.nextInt(16);
+            int y = random.nextInt(128);
+            int z = random.nextInt(16);
+            return source.getBlock(x, y, z);
     }
 }
