@@ -13,8 +13,8 @@
             <url>http://repo.bukkit.org/artifactory/repo</url>
         </repository>
         <repository>
-            <id>spout-repo</id>
-            <url>http://ci.getspout.org/plugin/repository/everything</url>
+            <id>spout-artifact</id>
+            <url>http://spout.artifactoryonline.com/spout/libs-snapshots-local/</url>
         </repository>
     </repositories>
     <build>
