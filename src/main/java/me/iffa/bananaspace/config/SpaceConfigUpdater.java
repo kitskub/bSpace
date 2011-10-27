@@ -38,7 +38,7 @@ public class SpaceConfigUpdater {
      * @return True if needs updating
      */
     private static boolean needsUpdate(ConfigFile configfile) {
-        if (SpaceConfig.getConfig(configfile).contains("updated") && SpaceConfig.getConfig(configfile).getBoolean("updated")) {
+        if (SpaceConfig.getConfig(configfile).contains("worlds.generation")) {
             hadToBeUpdated = true;
             return true;
         }

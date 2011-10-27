@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.DefaultListModel;
 import java.io.IOException;
 import java.util.logging.Level;
+import me.iffa.bananaspace.Defaults;
 
 /**
  * Interface for Pail, a Bukkit GUI.
@@ -40,10 +41,10 @@ public class PailInterface extends javax.swing.JPanel {
      * Reads the configuration files and changes the interface values to represent the configuration values.
      */
     private void readConfigs() {
-        CheckBoxHelmet.setSelected(spaceConfig.getBoolean("global.givehelmet", false));
-        CheckBoxSuit.setSelected(spaceConfig.getBoolean("global.givesuit", false));
-        ArmorTypeBox.setText(spaceConfig.getString("global.armortype", "iron"));
-        HelmetBlockIdBox.setText(spaceConfig.getString("global.blockid", "86"));
+        CheckBoxHelmet.setSelected(spaceConfig.getBoolean("global.givehelmet", (Boolean) Defaults.HELMET_GIVEN.getDefault()));
+        CheckBoxSuit.setSelected(spaceConfig.getBoolean("global.givesuit", (Boolean) Defaults.SUIT_GIVEN.getDefault()));
+        ArmorTypeBox.setText(spaceConfig.getString("global.armortype", (String) Defaults.ARMOR_TYPE.getDefault()));
+        HelmetBlockIdBox.setText(spaceConfig.getString("global.blockid", String.valueOf((Integer) Defaults.HELMET_BLOCK.getDefault())));
         SpaceList.setModel(new DefaultListModel());
         if (idConfig.getConfigurationSection("ids") != null) {
             for (String id : idConfig.getConfigurationSection("ids").getKeys(false)) {
@@ -65,18 +66,18 @@ public class PailInterface extends javax.swing.JPanel {
             return;
         }
         Settings_IDName.setText(idname);
-        Settings_Planets.setSelected(idConfig.getBoolean("ids." + idname + ".generation.generateplanets", true));
-        Settings_Asteroids.setSelected(idConfig.getBoolean("ids." + idname + "generation.generateasteroids", true));
-        Settings_GlowstoneChance.setValue(idConfig.getInt("ids." + idname + ".generation.glowstonechance", 1));
-        Settings_StoneChance.setValue(idConfig.getInt("ids." + idname + ".generation.stonechance", 3));
-        Settings_Night.setSelected(idConfig.getBoolean("ids." + idname + ".alwaysnight", true));
-        Settings_HelmetRequired.setSelected(idConfig.getBoolean("ids." + idname + ".helmet.required", false));
-        Settings_SuitRequired.setSelected(idConfig.getBoolean("ids." + idname + ".suit.required", false));
-        Settings_Weather.setSelected(idConfig.getBoolean("ids." + idname + ".weather", false));
+        Settings_Planets.setSelected(idConfig.getBoolean("ids." + idname + ".generation.generateplanets", (Boolean) Defaults.GENERATE_PLANETS.getDefault()));
+        Settings_Asteroids.setSelected(idConfig.getBoolean("ids." + idname + "generation.generateasteroids", (Boolean) Defaults.ASTEROIDS_ENABLED.getDefault()));
+        Settings_GlowstoneChance.setValue(idConfig.getInt("ids." + idname + ".generation.glowstonechance", (Integer) Defaults.GLOWSTONE_CHANCE.getDefault()));
+        Settings_StoneChance.setValue(idConfig.getInt("ids." + idname + ".generation.stonechance", (Integer) Defaults.STONE_CHANCE.getDefault()));
+        Settings_Night.setSelected(idConfig.getBoolean("ids." + idname + ".alwaysnight", (Boolean) Defaults.FORCE_NIGHT.getDefault()));
+        Settings_HelmetRequired.setSelected(idConfig.getBoolean("ids." + idname + ".helmet.required", (Boolean) Defaults.REQUIRE_HELMET.getDefault()));
+        Settings_SuitRequired.setSelected(idConfig.getBoolean("ids." + idname + ".suit.required", (Boolean) Defaults.REQUIRE_SUIT.getDefault()));
+        Settings_Weather.setSelected(idConfig.getBoolean("ids." + idname + ".weather", (Boolean) Defaults.ALLOW_WEATHER.getDefault()));
         Settings_Nether.setSelected(idConfig.getBoolean("ids." + idname + ".nethermode", false));
-        Settings_RoomHeight.setValue(idConfig.getInt("ids." + idname + ".breathingarea.maxroomheight", 5));
-        Settings_Neutral.setSelected(idConfig.getBoolean("ids." + idname + ".neutralmobs", true));
-        Settings_Hostile.setSelected(idConfig.getBoolean("ids." + idname + ".hostilemobs", false));
+        Settings_RoomHeight.setValue(idConfig.getInt("ids." + idname + ".breathingarea.maxroomheight", (Integer) Defaults.ROOM_HEIGHT.getDefault()));
+        Settings_Neutral.setSelected(idConfig.getBoolean("ids." + idname + ".neutralmobs", (Boolean) Defaults.NEUTRAL_MOBS_ALLOWED.getDefault()));
+        Settings_Hostile.setSelected(idConfig.getBoolean("ids." + idname + ".hostilemobs", (Boolean) Defaults.HOSTILE_MOBS_ALLOWED.getDefault()));
         SpaceMessageHandler.debugPrint(Level.INFO, "Loaded settings for id '" + idname + "'.");
     }
 
@@ -658,17 +659,17 @@ private void createIdButtonActionPerformed(java.awt.event.ActionEvent evt) {//GE
         JOptionPane.showMessageDialog(this, "The ID cannot contain spaces! Replace spaces with underscores.", "Invalid ID", JOptionPane.WARNING_MESSAGE);
         return;
     }
-    idConfig.set("ids." + idname + ".generation.generateplanets", true);
-    idConfig.set("ids." + idname + ".generation.generateasteroids", true);
-    idConfig.set("ids." + idname + ".generation.glowstonechance", 1);
-    idConfig.set("ids." + idname + ".generation.stonechance", 3);
-    idConfig.set("ids." + idname + ".weather", false);
-    idConfig.set("ids." + idname + ".hostilemobs", false);
-    idConfig.set("ids." + idname + ".neutralmobs", true);
-    idConfig.set("ids." + idname + ".alwaysnight", true);
+    idConfig.set("ids." + idname + ".generation.generateplanets", Defaults.GENERATE_PLANETS.getDefault());
+    idConfig.set("ids." + idname + ".generation.generateasteroids",  Defaults.ASTEROIDS_ENABLED.getDefault());
+    idConfig.set("ids." + idname + ".generation.glowstonechance", Defaults.GLOWSTONE_CHANCE.getDefault());
+    idConfig.set("ids." + idname + ".generation.stonechance", Defaults.STONE_CHANCE.getDefault());
+    idConfig.set("ids." + idname + ".weather", Defaults.ALLOW_WEATHER.getDefault());
+    idConfig.set("ids." + idname + ".hostilemobs", Defaults.HOSTILE_MOBS_ALLOWED.getDefault());
+    idConfig.set("ids." + idname + ".neutralmobs", Defaults.NEUTRAL_MOBS_ALLOWED.getDefault());
+    idConfig.set("ids." + idname + ".alwaysnight", Defaults.FORCE_NIGHT);
     idConfig.set("ids." + idname + ".nethermode", false);
-    idConfig.set("ids." + idname + ".suit.required", false);
-    idConfig.set("ids." + idname + ".helmet.required", false);
+    idConfig.set("ids." + idname + ".suit.required", Defaults.REQUIRE_SUIT.getDefault());
+    idConfig.set("ids." + idname + ".helmet.required", Defaults.REQUIRE_HELMET.getDefault());
     try {
         idConfig.save(SpaceConfig.getConfigFile(ConfigFile.IDS));
     } catch (IOException ex) {

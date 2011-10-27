@@ -9,6 +9,7 @@ import java.util.logging.Level;
 // BananaSpace Imports
 import me.iffa.bananaspace.BananaSpace;
 import me.iffa.bananaspace.api.SpaceMessageHandler;
+import me.iffa.bananaspace.api.SpacePlayerHandler;
 
 // Bukkit Imports
 import org.bukkit.ChatColor;
@@ -43,7 +44,7 @@ public class SpaceEnterCommand extends SpaceCommand {
     public void command() {
         Player player = (Player) this.sender;
         if (args.length == 1) {
-            if (BananaSpace.getPlayerHandler().hasPermission("bananaspace.teleport.enter", player)) {
+            if (SpacePlayerHandler.hasPermission("bananaspace.teleport.enter", player)) {
                 if (BananaSpace.worldHandler.getSpaceWorlds().get(0) == player.getWorld()) {
                     player.sendMessage(ChatColor.RED + "You are already in that space world!");
                     SpaceMessageHandler.debugPrint(Level.INFO, "Someone tried to use /space enter, but he was already in that space world.");
@@ -67,7 +68,7 @@ public class SpaceEnterCommand extends SpaceCommand {
             SpaceMessageHandler.sendNoPermissionMessage(player);
             return;
         } else if (args.length == 2) {
-            if (BananaSpace.getPlayerHandler().hasPermission("bananaspace.teleport.enter", player)) {
+            if (SpacePlayerHandler.hasPermission("bananaspace.teleport.enter", player)) {
                 if(!plugin.getEconomy().enterCommand(player)){
                         SpaceMessageHandler.sendNotEnoughMoneyMessage(player);
                         return;

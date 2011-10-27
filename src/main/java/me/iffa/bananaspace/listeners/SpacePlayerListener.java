@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import me.iffa.bananaspace.BananaSpace;
 import me.iffa.bananaspace.api.SpaceConfigHandler;
 import me.iffa.bananaspace.api.SpaceMessageHandler;
+import me.iffa.bananaspace.api.SpacePlayerHandler;
 import me.iffa.bananaspace.api.event.area.AreaEnterEvent;
 import me.iffa.bananaspace.api.event.area.AreaLeaveEvent;
 import me.iffa.bananaspace.api.event.misc.SpaceSuffocationEvent;
@@ -74,7 +75,7 @@ public class SpacePlayerListener extends PlayerListener {
                             new ItemStack(SpaceConfigHandler.getHelmetBlock(), 1));
                 }
                 if (SpaceConfigHandler.isSuitGiven()) {
-                    BananaSpace.getPlayerHandler().giveSpaceSuit(SpaceConfigHandler.getArmorType(), player);
+                    SpacePlayerHandler.giveSpaceSuit(SpaceConfigHandler.getArmorType(), player);
                 }
                 /* Notify listeners start */
                 TeleportToSpaceEvent e = new TeleportToSpaceEvent("TeleportToSpaceEvent", event.getPlayer(), event.getFrom(), event.getTo());
@@ -95,7 +96,7 @@ public class SpacePlayerListener extends PlayerListener {
                     event.getPlayer().getInventory().setHelmet(new ItemStack(0, 1));
                 }
                 if (SpaceConfigHandler.isSuitGiven()) {
-                    BananaSpace.getPlayerHandler().giveSpaceSuit("null", player);
+                    SpacePlayerHandler.giveSpaceSuit("null", player);
                 }
             }
         } else {

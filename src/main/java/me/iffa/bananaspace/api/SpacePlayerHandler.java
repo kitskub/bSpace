@@ -21,7 +21,7 @@ public class SpacePlayerHandler {
      * 
      * @return true if the player has permission
      */
-    public boolean hasPermission(String permission, Player player) {
+    public static boolean hasPermission(String permission, Player player) {
         if (player.hasPermission(permission)) {//Add OP fallback?
             return true;
         }
@@ -34,7 +34,7 @@ public class SpacePlayerHandler {
      * @param armortype Diamond, chainmail, gold, iron, leather or null
      * @param player Player to give 
      */
-    public void giveSpaceSuit(String armortype, Player player) {
+    public static void giveSpaceSuit(String armortype, Player player) {
         if (armortype.equalsIgnoreCase("diamond")) {
             player.getInventory().setBoots(new ItemStack(Material.DIAMOND_BOOTS, 1));
             player.getInventory().setChestplate(new ItemStack(Material.DIAMOND_CHESTPLATE, 1));

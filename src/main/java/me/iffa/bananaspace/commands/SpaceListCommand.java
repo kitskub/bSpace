@@ -4,6 +4,7 @@ package me.iffa.bananaspace.commands;
 // BananaSpace Imports
 import me.iffa.bananaspace.BananaSpace;
 import me.iffa.bananaspace.api.SpaceMessageHandler;
+import me.iffa.bananaspace.api.SpacePlayerHandler;
 
 // Bukkit Imports
 import org.bukkit.ChatColor;
@@ -33,7 +34,7 @@ public class SpaceListCommand extends SpaceCommand {
      */
     @Override
     public void command() {
-        if (!BananaSpace.getPlayerHandler().hasPermission("bananaspace.teleport.list", (Player) sender)) {
+        if (!SpacePlayerHandler.hasPermission("bananaspace.teleport.list", (Player) sender)) {
             SpaceMessageHandler.sendNoPermissionMessage((Player) sender);
             return;
         }

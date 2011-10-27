@@ -211,6 +211,7 @@ public class BananaSpace extends JavaPlugin {
      * Gets the SpacePlayerHandler.
      * 
      * @return SpacePlayerHandler
+     * @deprecated Why do we need it?
      */
     public static SpacePlayerHandler getPlayerHandler() {
         return playerHandler;
