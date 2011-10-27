@@ -36,12 +36,6 @@ public class SpaceSpoutEntityListener extends EntityListener {
     private final AppearanceManager app = SpoutManager.getAppearanceManager();
 
     /**
-     * Constructor of SpaceSpoutEntityListener.
-     */
-    public SpaceSpoutEntityListener() {
-    }
-
-    /**
      * Called when an entity takes damage.
      * 
      * @param event Event data

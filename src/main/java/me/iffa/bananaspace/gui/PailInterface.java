@@ -302,7 +302,7 @@ public class PailInterface extends javax.swing.JPanel {
         ids.setToolTipText("Panel with buttons to create and delete IDs.");
         ids.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        SpaceList.setFont(new java.awt.Font("Arial", 0, 12));
+        SpaceList.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         SpaceList.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "No user IDs" };
             public int getSize() { return strings.length; }
@@ -334,7 +334,7 @@ public class PailInterface extends javax.swing.JPanel {
             }
         });
 
-        deleteIdButton.setFont(new java.awt.Font("Arial", 0, 11));
+        deleteIdButton.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         deleteIdButton.setText("Delete");
         deleteIdButton.setToolTipText("Select an ID from the list and click this button to delete the ID.");
         deleteIdButton.addActionListener(new java.awt.event.ActionListener() {
@@ -355,13 +355,13 @@ public class PailInterface extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(idsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(deleteIdButton, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, idsLayout.createSequentialGroup()
+                    .addGroup(idsLayout.createSequentialGroup()
                         .addGroup(idsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(newID, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
                             .addComponent(createIdButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(60, 60, 60)
-                        .addComponent(jLabel1)))
+                        .addComponent(jLabel1))
+                    .addComponent(deleteIdButton, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         idsLayout.setVerticalGroup(
@@ -375,14 +375,12 @@ public class PailInterface extends javax.swing.JPanel {
                         .addGroup(idsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(idsLayout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
-                                .addGroup(idsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, idsLayout.createSequentialGroup()
-                                        .addComponent(deleteIdButton)
-                                        .addGap(17, 17, 17))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, idsLayout.createSequentialGroup()
-                                        .addComponent(jLabel1)
-                                        .addGap(147, 147, 147))))
-                            .addComponent(createIdButton))))
+                                .addComponent(jLabel1)
+                                .addGap(147, 147, 147))
+                            .addGroup(idsLayout.createSequentialGroup()
+                                .addComponent(createIdButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(deleteIdButton)))))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
@@ -532,7 +530,6 @@ public class PailInterface extends javax.swing.JPanel {
                 .addGroup(SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(SettingsLayout.createSequentialGroup()
-                            .addGap(18, 18, 18)
                             .addComponent(Settings_Planets, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(Settings_Asteroids, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)

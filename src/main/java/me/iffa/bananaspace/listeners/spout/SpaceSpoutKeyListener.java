@@ -29,12 +29,6 @@ import org.getspout.spoutapi.player.SpoutPlayer;
  */
 public class SpaceSpoutKeyListener extends InputListener {
     /**
-     * Constructor of SpaceSpoutKeyListener.
-     */
-    public SpaceSpoutKeyListener() {
-    }
-
-    /**
      * Called when a key is pressed on a SpoutCraft client.
      * 
      * @param event Event data

@@ -24,12 +24,6 @@ import org.getspout.spoutapi.player.SpoutPlayer;
  */
 public class SpaceSpoutAreaListener extends SpaceAreaListener {
     /**
-     * Constructor of SpaceSpoutAreaListener.
-     */
-    public SpaceSpoutAreaListener() {
-    }
-
-    /**
      * Called when a player enters an area.
      * 
      * @param event Event data

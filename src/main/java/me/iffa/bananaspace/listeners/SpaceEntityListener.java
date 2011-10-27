@@ -25,12 +25,6 @@ import org.bukkit.event.entity.EntityListener;
  */
 public class SpaceEntityListener extends EntityListener {
     /**
-     * Constructor for SpaceEntityListener.
-     */
-    public SpaceEntityListener() {
-    }
-
-    /**
      * Called when a creature attempts to spawn.
      * 
      * @param event Event data

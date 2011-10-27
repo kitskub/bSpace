@@ -20,12 +20,6 @@ import org.bukkit.event.weather.WeatherListener;
  */
 public class SpaceWeatherListener extends WeatherListener {
     /**
-     * Constructor for SpaceWeatherListener.
-     */
-    public SpaceWeatherListener() {
-    }
-
-    /**
      * Called when the weather attempts to change.
      * 
      * @param event Event data

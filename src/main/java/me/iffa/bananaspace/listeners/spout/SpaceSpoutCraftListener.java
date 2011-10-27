@@ -31,12 +31,6 @@ public class SpaceSpoutCraftListener extends SpoutListener {
     private final AppearanceManager app = SpoutManager.getAppearanceManager();
 
     /**
-     * Constructor of SpaceSpoutCraftListener.
-     */
-    public SpaceSpoutCraftListener() {
-    }
-
-    /**
      * Called when a player using SpoutCraft joins.
      * 
      * @param event Event data
