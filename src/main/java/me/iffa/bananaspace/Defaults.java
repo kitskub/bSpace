@@ -1,8 +1,11 @@
+// Package Declaration
 package me.iffa.bananaspace;
 
 /**
- *
+ * Default config values.
+ * 
  * @author Jack
+ * @author iffa
  */
 public enum Defaults {
     //Global
@@ -41,24 +44,42 @@ public enum Defaults {
     MIN_SHELL_SIZE(3),
     FLOOR_BLOCK("STATIONARY_WATER");
 
-    
+    // Variables
     private Object value;
     
+    /**
+     * Constructor of Defaults.
+     * 
+     * @param def Boolean
+     */
     Defaults(boolean def){
         this.value = def;
     }
     
+    /**
+     * Constructor of Defaults.
+     * 
+     * @param def Integer
+     */
     Defaults(int def){
         this.value = def;
     }
     
+    /**
+     * Constructor of Defaults.
+     * 
+     * @param def String
+     */
     Defaults(String def){
         this.value = def;
     }
     
+    /**
+     * Gets the default value.
+     * 
+     * @return Default value
+     */
     public Object getDefault(){
         return value;
     }
-    
-    
 }
