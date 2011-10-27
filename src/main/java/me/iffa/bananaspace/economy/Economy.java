@@ -11,7 +11,7 @@ import java.util.logging.Level;
 
 // BananaSpace Imports
 import me.iffa.bananaspace.BananaSpace;
-import me.iffa.bananaspace.Defaults;
+import me.iffa.bananaspace.config.SpaceConfig.Defaults;
 import me.iffa.bananaspace.api.SpaceMessageHandler;
 import me.iffa.bananaspace.api.SpacePlayerHandler;
 import me.iffa.bananaspace.config.SpaceConfig;

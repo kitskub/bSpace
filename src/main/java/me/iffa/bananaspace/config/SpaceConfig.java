@@ -29,10 +29,11 @@ import org.bukkit.configuration.file.YamlConfiguration;
  */
 public class SpaceConfig {
     // Variables
+
     private static Map<ConfigFile, YamlConfiguration> config = new EnumMap<ConfigFile, YamlConfiguration>(ConfigFile.class);
     private static Map<ConfigFile, File> configFile = new EnumMap<ConfigFile, File>(ConfigFile.class);
     private static Map<ConfigFile, Boolean> loaded = new EnumMap<ConfigFile, Boolean>(ConfigFile.class);
-    
+
     /**
      * Gets the configuration file.
      * 
@@ -41,12 +42,12 @@ public class SpaceConfig {
      * @return YamlConfiguration object
      */
     public static YamlConfiguration getConfig(ConfigFile configfile) {
-        if (loaded.get(configfile)==null || !loaded.get(configfile)) {
+        if (loaded.get(configfile) == null || !loaded.get(configfile)) {
             loadConfig(configfile);
         }
         return config.get(configfile);
     }
-    
+
     /**
      * Gets the configuration file.
      * 
@@ -57,7 +58,7 @@ public class SpaceConfig {
     public static File getConfigFile(ConfigFile configfile) {
         return configFile.get(configfile);
     }
-    
+
     /**
      * Checks if the configuration file is loaded.
      * 
@@ -68,7 +69,7 @@ public class SpaceConfig {
     public static boolean getLoaded(ConfigFile configfile) {
         return loaded.get(configfile);
     }
-    
+
     /**
      * Loads all configuration files. (can be used to save a total of 2 lines!)
      */
@@ -152,19 +153,19 @@ public class SpaceConfig {
      */
     private SpaceConfig() {
     }
-    
+
     /**
      * All config files.
      */
     public enum ConfigFile {
         // Enums
+
         PLANETS("planets.yml"),
         CONFIG("config.yml"),
         IDS("ids.yml");
-        
         // Variables
         private String file;
-        
+
         /**
          * Constructor of ConfigFile.
          * @param file 
@@ -172,7 +173,7 @@ public class SpaceConfig {
         ConfigFile(String file) {
             this.file = file;
         }
-        
+
         /**
          * Gets the file associated with the enum.
          * 
@@ -180,6 +181,88 @@ public class SpaceConfig {
          */
         public String getFile() {
             return this.file;
+        }
+    }
+
+    /**
+     * Default config values.
+     * 
+     * @author Jack
+     * @author iffa
+     */
+    public enum Defaults {
+        //Global
+        REQUIRE_HELMET(true),
+        DEBUGGING(false),
+        REQUIRE_SUIT(false),
+        ARMOR_TYPE("iron"),
+        USE_SPOUT(true),
+        HELMET_GIVEN(false),
+        SUIT_GIVEN(false),
+        ECONOMY_ENABLED(false),
+        ENTER_COST(20),
+        EXIT_COST(20),
+        ENTER_COMMAND_COST(20),
+        EXIT_COMMAND_COST(20),
+        //ID
+        HOSTILE_MOBS_ALLOWED(false),
+        NEUTRAL_MOBS_ALLOWED(true),
+        FORCE_NIGHT(true),
+        HELMET_BLOCK(86),
+        ROOM_HEIGHT(5),
+        ALLOW_WEATHER(false),
+        GLOWSTONE_CHANCE(1),
+        STONE_CHANCE(3),
+        ASTEROIDS_ENABLED(true),
+        SATELLITES_ENABLED(true),
+        SATELLITE_CHANCE(1),
+        GENERATE_PLANETS(true),
+        //Planet
+        DENSITY(15000),
+        MIN_SIZE(4),
+        MAX_SIZE(20),
+        MIN_DISTANCE(10),
+        FLOOR_HEIGHT(0),
+        MAX_SHELL_SIZE(5),
+        MIN_SHELL_SIZE(3),
+        FLOOR_BLOCK("STATIONARY_WATER");
+        // Variables
+        private Object value;
+
+        /**
+         * Constructor of Defaults.
+         * 
+         * @param def Boolean
+         */
+        Defaults(boolean def) {
+            this.value = def;
+        }
+
+        /**
+         * Constructor of Defaults.
+         * 
+         * @param def Integer
+         */
+        Defaults(int def) {
+            this.value = def;
+        }
+
+        /**
+         * Constructor of Defaults.
+         * 
+         * @param def String
+         */
+        Defaults(String def) {
+            this.value = def;
+        }
+
+        /**
+         * Gets the default value.
+         * 
+         * @return Default value
+         */
+        public Object getDefault() {
+            return value;
         }
     }
 }

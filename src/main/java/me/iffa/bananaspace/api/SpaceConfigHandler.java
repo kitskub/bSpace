@@ -2,7 +2,7 @@
 package me.iffa.bananaspace.api;
 
 // BananaSpace Imports
-import me.iffa.bananaspace.Defaults;
+import me.iffa.bananaspace.config.SpaceConfig.Defaults;
 import me.iffa.bananaspace.config.SpaceConfig;
 import me.iffa.bananaspace.config.SpaceConfig.ConfigFile;
 import me.iffa.bananaspace.wgen.planets.PlanetsChunkGenerator;

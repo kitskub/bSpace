@@ -5,6 +5,7 @@ package me.iffa.bananaspace.gui;
 import me.iffa.bananaspace.api.SpaceMessageHandler;
 import me.iffa.bananaspace.config.SpaceConfig;
 import me.iffa.bananaspace.config.SpaceConfig.ConfigFile;
+import me.iffa.bananaspace.config.SpaceConfig.Defaults;
 
 // Bukkit Imports
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -15,7 +16,6 @@ import javax.swing.JOptionPane;
 import javax.swing.DefaultListModel;
 import java.io.IOException;
 import java.util.logging.Level;
-import me.iffa.bananaspace.Defaults;
 
 /**
  * Interface for Pail, a Bukkit GUI.
