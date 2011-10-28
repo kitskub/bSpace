@@ -38,9 +38,13 @@ public class SpaceConfigUpdater {
      * @return True if needs updating
      */
     private static boolean needsUpdate(ConfigFile configfile) {
-        if (SpaceConfig.getConfig(configfile).contains("worlds.generation")) {
-            hadToBeUpdated = true;
-            return true;
+        if (SpaceConfig.getConfig(configfile).contains("worlds")) {
+            for(String world : SpaceConfig.getConfig(configfile).getConfigurationSection("worlds").getKeys(false)){
+                if(SpaceConfig.getConfig(configfile).getConfigurationSection("worlds." + world).contains("generation")){
+                    hadToBeUpdated = true;
+                    return true;
+                }
+            }
         }
         return false;
     }
@@ -61,8 +65,10 @@ public class SpaceConfigUpdater {
         for (String world : configFile.getConfigurationSection("worlds").getKeys(false)) {
             // Moving values onto ids.yml
             for (String key : configFile.getConfigurationSection("worlds." + world).getKeys(true)) {
-                idsFile.set("ids." + world + "." + key, configFile.get("worlds." + world + "." + key));
-                SpaceMessageHandler.debugPrint(Level.INFO, "Moved " + key + " of " + world + " to ids.yml.");
+                String value = configFile.getString("worlds." + world + "." + key);
+                
+                idsFile.set("ids." + world + "." + key, value);
+                SpaceMessageHandler.debugPrint(Level.INFO, "Moved " + key + " of " + world + " to ids.yml with a value of " + value);
             }
             // Removing world from config.yml since it's moved to ids.yml already
             configFile.set("worlds." + world, null);
@@ -77,7 +83,7 @@ public class SpaceConfigUpdater {
             // In case of any error.
             SpaceMessageHandler.print(Level.SEVERE, "There was a problem converting configuration files for v2: " + ex.getMessage());
         }
-        SpaceMessageHandler.print(Level.INFO, "Your pre-v2 config.yml was succesfully converted to the new v2 format. Your worlds can now be f");
+        SpaceMessageHandler.print(Level.INFO, "Your pre-v2 config.yml was succesfully converted to the new v2 format. Your worlds can now be found");
     }
 
     /**
