@@ -5,9 +5,10 @@
 #   if you still have questions, please    
 #        ask on BukkitDev! Thanks.
 ids:
-# Example id
-# This is an example id, which is also the default one. 
-# If you create one, do NOT use this one, name it something different, or else it WON'T work
+# Example ID
+# This is an example ID, which is also the default one. 
+# If you create one, do NOT use this one, name it something different, or else it WON'T work.
+############
 #    planets:
 #        # World generation options
 #        generation:
@@ -26,12 +27,12 @@ ids:
 #        # Spacehelmet options
 #        helmet:
 #            required: false
-#        # Breathing area options
-#        breathingarea:
-#            maxroomheight: 5
+#        # Breathing area options (the higher this is, the higher a "breathable" area can be.
+#        maxroomheight: 5
 #        # Miscellaneous options
 #        weather: false
 #        nethermode: false
 #        alwaysnight: true
 #        neutralmobs: true
 #        hostilemobs: false
+############# YOUR ID'S HERE:
