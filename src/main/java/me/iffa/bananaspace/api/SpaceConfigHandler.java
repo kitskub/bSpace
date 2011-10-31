@@ -10,6 +10,12 @@ import me.iffa.bananaspace.wgen.planets.PlanetsChunkGenerator;
 // Bukkit Imports
 import org.bukkit.World;
 
+// Java Imports
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+
 /**
  * Static methods to use internally (and externally, why not?) to handle world-specific configuration.
  * 
@@ -426,8 +432,21 @@ public class SpaceConfigHandler {
         return SpaceConfig.getConfig(ConfigFile.IDS).getInt("ids." + id + ".generation.satellitechance", (Integer) Defaults.SATELLITE_CHANCE.getDefault());
     }
     
+    /**
+     * 
+     * @return Url of the texture used in the config, or the default
+     */
     public static String getSpoutTexturePack() {
-        return SpaceConfig.getConfig(ConfigFile.CONFIG).getString("global.texturepack", (String) Defaults.TEXTURE_PACK.getDefault());
+        String texture = SpaceConfig.getConfig(ConfigFile.CONFIG).getString("global.texturepack", (String) Defaults.TEXTURE_PACK.getDefault());
+        try {
+            URL url = new URL(texture);
+            URI toURI = url.toURI();
+        } catch (MalformedURLException ex) {
+            return (String) Defaults.TEXTURE_PACK.getDefault();
+        } catch (URISyntaxException ex) {
+            return (String) Defaults.TEXTURE_PACK.getDefault();
+        }
+        return texture.isEmpty() ? (String) Defaults.TEXTURE_PACK.getDefault() : texture;
     }
 
     /**
