@@ -12,6 +12,8 @@ import me.iffa.bananaspace.api.SpaceMessageHandler;
 import me.iffa.bananaspace.api.SpacePlayerHandler;
 
 // Bukkit Imports
+import me.iffa.bananaspace.economy.Economy;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
@@ -45,7 +47,7 @@ public class SpaceExitCommand extends SpaceCommand {
         Player player = (Player) sender;
         if (BananaSpace.worldHandler.isInAnySpace(player)) {
             if (SpacePlayerHandler.hasPermission("bananaspace.teleport.exit", player)) {
-                if(!plugin.getEconomy().exitCommand(player)){
+                if(!Economy.exitCommand(player)){
                             SpaceMessageHandler.sendNotEnoughMoneyMessage(player);
                             return;
                 }
@@ -57,7 +59,7 @@ public class SpaceExitCommand extends SpaceCommand {
                     player.teleport(location);
                     return;
                 } else {
-                    SpaceEnterCommand.exitDest.put(player, plugin.getServer().getWorlds().get(0).getSpawnLocation());
+                    SpaceEnterCommand.exitDest.put(player, Bukkit.getServer().getWorlds().get(0).getSpawnLocation());
                     sender.sendMessage(ChatColor.RED + "Exit destination not found, setting to default world spawn location.");
                     sender.sendMessage(ChatColor.RED + "Type '/space back' again to go there.");
                     return;

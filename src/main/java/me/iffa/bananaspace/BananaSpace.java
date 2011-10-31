@@ -112,9 +112,7 @@ public class BananaSpace extends JavaPlugin {
 
         // Economy.
         if (economy == null) {
-            if (Economy.checkEconomy(this)) {
-                economy = new Economy(this);
-            } else {
+            if (Economy.checkEconomy()) {
                 economy = new Economy();
             }
         }

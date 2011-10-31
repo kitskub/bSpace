@@ -41,7 +41,7 @@ public class CallHome{
 
         if(cfg.getBoolean("opt-out",false)) return;
 
-        plugin.getServer().getScheduler().scheduleAsyncRepeatingTask(plugin,new CallTask(plugin,cfg.getBoolean("list-server",true)),0L,20L*60L*60);
+        Bukkit.getServer().getScheduler().scheduleAsyncRepeatingTask(plugin,new CallTask(plugin,cfg.getBoolean("list-server",true)),0L,20L*60L*60);
         System.out.println(plugin.getDescription().getName() + " is keeping usage stats. To opt-out for whatever bizarre reason, check plugins/stats.");
     }
 
@@ -85,10 +85,10 @@ class CallTask implements Runnable {
 
     private void postUrl() throws Exception {
         String url = String.format("http://usage.blockface.org/update.php?name=%s&build=%s&plugin=%s&port=%s&public=%s&bukkit=%s",
-                plugin.getServer().getName(),
+                Bukkit.getServer().getName(),
                 plugin.getDescription().getVersion(),
                 plugin.getDescription().getName(),
-                plugin.getServer().getPort(),
+                Bukkit.getServer().getPort(),
                 pub,
                 Bukkit.getVersion());
 

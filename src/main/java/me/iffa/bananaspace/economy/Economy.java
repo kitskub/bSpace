@@ -18,6 +18,7 @@ import me.iffa.bananaspace.config.SpaceConfig;
 import me.iffa.bananaspace.config.SpaceConfig.ConfigFile;
 
 // Bukkit Imports
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 /**
@@ -29,27 +30,26 @@ import org.bukkit.entity.Player;
 public class Economy {
     // Variables
     private static Method method;
-    private static BananaSpace plugin;
-    private boolean use;
+    private static boolean use;
 
     /**
      * Constructor of Economy.
      * 
+     * @param use true for use
      * @param plugin BananaSpace instance
      */
-    public Economy(BananaSpace plugin) {
-        Economy.plugin = plugin;
-        use = true;
+    public Economy() {
+        use=true;
         getMethod();
         SpaceMessageHandler.debugPrint(Level.INFO, "Hooked into " + method.getName());
     }
 
-    /**
-     * Constructor of Economy #2.
-     */
-    public Economy() {
-        use = false;
-    }
+//    /**
+//     * Constructor of Economy #2.
+//     */
+//    public Economy() {
+//        use = false;
+//    }
 
     /**
      * Checks the economy enabled-state of the plugin.
@@ -58,10 +58,7 @@ public class Economy {
      * 
      * @return True if economy is enabled
      */
-    public static boolean checkEconomy(BananaSpace plugin) {
-        if (Economy.plugin == null) {
-            Economy.plugin = plugin;
-        }
+    public static boolean checkEconomy() {
         if (SpaceConfig.getConfig(ConfigFile.CONFIG).getBoolean("economy.enabled", (Boolean) Defaults.ECONOMY_ENABLED.getDefault())) {
             return (getMethod() != null);
         }
@@ -75,7 +72,7 @@ public class Economy {
      * 
      * @return True if the player has enough money to enter
      */
-    public boolean enter(Player player) {
+    public static boolean enter(Player player) {
         if (use == false) {
             return true;
         }
@@ -94,7 +91,7 @@ public class Economy {
      * 
      * @return True if the player has enough money to exit 
      */
-    public boolean exit(Player player) {
+    public static boolean exit(Player player) {
         if (use == false) {
             return true;
         }
@@ -114,7 +111,7 @@ public class Economy {
      * 
      * @return True if the player has enough money to enter 
      */
-    public boolean enterCommand(Player player) {
+    public static boolean enterCommand(Player player) {
         if (use == false) {
             return true;
         }
@@ -134,7 +131,7 @@ public class Economy {
      * 
      * @return True if the player has enough money to exit
      */
-    public boolean exitCommand(Player player) {
+    public static boolean exitCommand(Player player) {
         if (use == false) {
             return true;
         }
@@ -154,7 +151,7 @@ public class Economy {
      * 
      * @return True if subtract was successful
      */
-    private boolean subtract(Player player, int amount) {
+    private static boolean subtract(Player player, int amount) {
         if (SpacePlayerHandler.hasPermission("bananspace.economy.exempt", player)) {
             return true;
         }
@@ -173,7 +170,7 @@ public class Economy {
      */
     public static Method getMethod() {
         if (method == null) {
-            Methods.setMethod(plugin.getServer().getPluginManager());
+            Methods.setMethod(Bukkit.getServer().getPluginManager());
             method = Methods.getMethod();
         }
         return method;

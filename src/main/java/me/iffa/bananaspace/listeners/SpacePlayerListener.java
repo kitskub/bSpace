@@ -15,6 +15,7 @@ import me.iffa.bananaspace.api.event.area.AreaEnterEvent;
 import me.iffa.bananaspace.api.event.area.AreaLeaveEvent;
 import me.iffa.bananaspace.api.event.misc.SpaceSuffocationEvent;
 import me.iffa.bananaspace.api.event.misc.TeleportToSpaceEvent;
+import me.iffa.bananaspace.economy.Economy;
 import me.iffa.bananaspace.runnables.SpaceRunnable2;
 
 // Bukkit Imports
@@ -65,7 +66,7 @@ public class SpacePlayerListener extends PlayerListener {
         Player player = event.getPlayer();
         if (!fixDupe.containsKey(event.getPlayer())) {
             if (BananaSpace.worldHandler.isSpaceWorld(event.getTo().getWorld()) && event.getTo().getWorld() != player.getWorld()) {
-                if (!plugin.getEconomy().enter(player)) {
+                if (!Economy.enter(player)) {
                     SpaceMessageHandler.sendNotEnoughMoneyMessage(player);
                     event.setCancelled(true);
                     return;
@@ -88,7 +89,7 @@ public class SpacePlayerListener extends PlayerListener {
                 fixDupe.put(event.getPlayer(), true);
             } else if (!BananaSpace.worldHandler.isSpaceWorld(event.getTo().getWorld())
                     && BananaSpace.worldHandler.isSpaceWorld(event.getFrom().getWorld())) {
-                if (!plugin.getEconomy().exit(player)) {
+                if (!Economy.exit(player)) {
                     event.setCancelled(true);
                     return;
                 }

@@ -14,6 +14,7 @@ import me.iffa.bananaspace.wgen.SpaceChunkGenerator;
 import me.iffa.bananaspace.wgen.planets.PlanetsChunkGenerator;
 
 // Bukkit Imports
+import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 
@@ -42,7 +43,7 @@ public class SpaceWorldHandler {
      * Loads the space worlds into <code>spaceWorldNames</code.
      */
     public void loadSpaceWorlds() {
-        for (World world : plugin.getServer().getWorlds()) {
+        for (World world : Bukkit.getServer().getWorlds()) {
             if (world.getGenerator() instanceof PlanetsChunkGenerator || world.getGenerator() instanceof SpaceChunkGenerator) {
                 spaceWorldNames.add(world.getName());
             }
@@ -76,7 +77,7 @@ public class SpaceWorldHandler {
     public List<World> getSpaceWorlds() {
         List<World> worlds = new ArrayList<World>();
         for(String world : spaceWorldNames){
-            worlds.add(plugin.getServer().getWorld(world));
+            worlds.add(Bukkit.getServer().getWorld(world));
         }
         return worlds;
     }
