@@ -70,19 +70,19 @@ public class SpaceConfigUpdater {
             // Generation values
             for (String key : configFile.getConfigurationSection("worlds." + world + "." + "generation").getKeys(false)) {
                 Object value = configFile.get("worlds." + world + ".generation." + key);
-                idsFile.set("ids." + world + ".generation" + key, value);
+                idsFile.set("ids." + world + ".generation." + key, value);
                 SpaceMessageHandler.debugPrint(Level.INFO, "Moved " + key + " of " + world + " to ids.yml with a value of " + value);
             }
             // Suit values
             for (String key : configFile.getConfigurationSection("worlds." + world + "." + "suit").getKeys(false)) {
                 Object value = configFile.get("worlds." + world + ".suit." + key);
-                idsFile.set("ids." + world + ".suit" + key, value);
+                idsFile.set("ids." + world + ".suit." + key, value);
                 SpaceMessageHandler.debugPrint(Level.INFO, "Moved " + key + " of " + world + " to ids.yml with a value of " + value);
             }
             // Helmet values
             for (String key : configFile.getConfigurationSection("worlds." + world + "." + "helmet").getKeys(false)) {
                 Object value = configFile.get("worlds." + world + ".helmet." + key);
-                idsFile.set("ids." + world + ".helmet" + key, value);
+                idsFile.set("ids." + world + ".helmet." + key, value);
                 SpaceMessageHandler.debugPrint(Level.INFO, "Moved " + key + " of " + world + " to ids.yml with a value of " + value);
             }
             // Misc. values
@@ -92,7 +92,7 @@ public class SpaceConfigUpdater {
                     continue;
                 }
                 Object value = configFile.get("worlds." + world + "." + key);
-                idsFile.set("ids." + world + ".helmet" + key, value);
+                idsFile.set("ids." + world + "." + key, value);
                 SpaceMessageHandler.debugPrint(Level.INFO, "Moved " + key + " of " + world + " to ids.yml with a value of " + value);
             }
             
