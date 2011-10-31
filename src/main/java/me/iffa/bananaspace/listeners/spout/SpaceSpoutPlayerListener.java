@@ -6,6 +6,7 @@ import java.util.logging.Level;
 
 // BananaSpace Imports
 import me.iffa.bananaspace.BananaSpace;
+import me.iffa.bananaspace.api.SpaceConfigHandler;
 import me.iffa.bananaspace.api.SpaceMessageHandler;
 import me.iffa.bananaspace.runnables.SpaceSpoutRunnable;
 
@@ -57,7 +58,7 @@ public class SpaceSpoutPlayerListener extends PlayerListener {
 	    sky.setMoonVisible(player, false); //set the moon invisible
 	    sky.setCloudsVisible(player, false); //set clouds invisible
 	    sky.setStarFrequency(player, 5000); //set star frequency higher
-            player.setTexturePack(BananaSpace.TEXTURE_PACK);
+            player.setTexturePack(SpaceConfigHandler.getSpoutTexturePack());
             SpaceMessageHandler.debugPrint(Level.INFO, "Set " + player.getName() + "'s texture pack");
 	    BananaSpace.scheduler.scheduleSyncDelayedTask(plugin, new SpaceSpoutRunnable(event.getPlayer()), 10L);
 	    SpaceMessageHandler.debugPrint(Level.INFO, "Made clouds and the moon invisible for player '" + player.getName() + "'. Starting runnable thread to setup Player movements...");

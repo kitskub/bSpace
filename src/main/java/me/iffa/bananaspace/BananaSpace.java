@@ -61,7 +61,7 @@ public class BananaSpace extends JavaPlugin {
     public static PluginManager pm;
     public static Map<Player, Location> locCache = null;
     public static boolean jumpPressed = false;
-    public final static String TEXTURE_PACK = "https://github.com/downloads/iffa/BananaSpace/spacetexture.zip";
+    //public final static String TEXTURE_PACK = "https://github.com/downloads/iffa/BananaSpace/spacetexture.zip";
     private SpaceCommandHandler sce = null;
     private Economy economy;
     private final SpaceWeatherListener weatherListener = new SpaceWeatherListener();

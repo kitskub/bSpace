@@ -425,6 +425,10 @@ public class SpaceConfigHandler {
         }
         return SpaceConfig.getConfig(ConfigFile.IDS).getInt("ids." + id + ".generation.satellitechance", (Integer) Defaults.SATELLITE_CHANCE.getDefault());
     }
+    
+    public static String getSpoutTexturePack() {
+        return SpaceConfig.getConfig(ConfigFile.CONFIG).getString("global.texturepack", (String) Defaults.TEXTURE_PACK.getDefault());
+    }
 
     /**
      * Constructor of SpaceConfigHandler.
