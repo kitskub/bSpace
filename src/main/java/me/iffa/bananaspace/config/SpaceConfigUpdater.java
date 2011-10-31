@@ -39,11 +39,15 @@ public class SpaceConfigUpdater {
      */
     private static boolean needsUpdate(ConfigFile configfile) {
         if (SpaceConfig.getConfig(configfile).contains("worlds")) {
+            try {
             for(String world : SpaceConfig.getConfig(configfile).getConfigurationSection("worlds").getKeys(false)){
                 if(SpaceConfig.getConfig(configfile).getConfigurationSection("worlds." + world).contains("generation")){
                     hadToBeUpdated = true;
                     return true;
                 }
+            }
+            } catch (NullPointerException ex) {
+                return false;
             }
         }
         return false;
@@ -63,14 +67,36 @@ public class SpaceConfigUpdater {
         YamlConfiguration idsFile = SpaceConfig.getConfig(ConfigFile.IDS);
         
         for (String world : configFile.getConfigurationSection("worlds").getKeys(false)) {
-            // Moving values onto ids.yml
-            for (String key : configFile.getConfigurationSection("worlds." + world).getKeys(true)) {
-                String value = configFile.getString("worlds." + world + "." + key);
-                
+            // Generation values
+            for (String key : configFile.getConfigurationSection("worlds." + world + "." + "generation").getKeys(false)) {
+                Object value = configFile.get("worlds." + world + ".generation." + key);
+                idsFile.set("ids." + world + ".generation." + key, value);
+                SpaceMessageHandler.debugPrint(Level.INFO, "Moved " + key + " of " + world + " to ids.yml with a value of " + value);
+            }
+            // Suit values
+            for (String key : configFile.getConfigurationSection("worlds." + world + "." + "suit").getKeys(false)) {
+                Object value = configFile.get("worlds." + world + ".suit." + key);
+                idsFile.set("ids." + world + ".suit." + key, value);
+                SpaceMessageHandler.debugPrint(Level.INFO, "Moved " + key + " of " + world + " to ids.yml with a value of " + value);
+            }
+            // Helmet values
+            for (String key : configFile.getConfigurationSection("worlds." + world + "." + "helmet").getKeys(false)) {
+                Object value = configFile.get("worlds." + world + ".helmet." + key);
+                idsFile.set("ids." + world + ".helmet." + key, value);
+                SpaceMessageHandler.debugPrint(Level.INFO, "Moved " + key + " of " + world + " to ids.yml with a value of " + value);
+            }
+            // Misc. values
+            for (String key : configFile.getConfigurationSection("worlds." + world).getKeys(false)) {
+                // So we don't make bad things happen. Skrillex (Y)
+                if (key.equalsIgnoreCase("generation") || key.equalsIgnoreCase("suit") || key.equalsIgnoreCase("helmet")) {
+                    continue;
+                }
+                Object value = configFile.get("worlds." + world + "." + key);
                 idsFile.set("ids." + world + "." + key, value);
                 SpaceMessageHandler.debugPrint(Level.INFO, "Moved " + key + " of " + world + " to ids.yml with a value of " + value);
             }
-            // Removing world from config.yml since it's moved to ids.yml already
+            
+            // Removing the world from config.yml.
             configFile.set("worlds." + world, null);
             SpaceMessageHandler.debugPrint(Level.INFO, "Removed " + world + " from config.yml.");
         }
@@ -81,8 +107,9 @@ public class SpaceConfigUpdater {
             SpaceMessageHandler.debugPrint(Level.INFO, "Saved changes to ids and config.yml.");
         } catch (IOException ex) {
             // In case of any error.
-            SpaceMessageHandler.print(Level.SEVERE, "There was a problem converting configuration files for v2: " + ex.getMessage());
+            SpaceMessageHandler.print(Level.SEVERE, "There was a problem converting configuration files to v2 format: " + ex.getMessage());
         }
+        // It was all done.
         SpaceMessageHandler.print(Level.INFO, "Your pre-v2 config.yml was succesfully converted to the new v2 format. Your worlds can now be found");
     }
 

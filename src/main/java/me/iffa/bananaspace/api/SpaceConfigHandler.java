@@ -25,6 +25,7 @@ public class SpaceConfigHandler {
     public static boolean getDebugging() {
         return SpaceConfig.getConfig(ConfigFile.CONFIG).getBoolean("debug", (Boolean) Defaults.DEBUGGING.getDefault());
     }
+
     /**
      * Gets the required helmet-state of a world.
      * 
@@ -33,12 +34,13 @@ public class SpaceConfigHandler {
      * @return true if a helmet is required
      */
     public static boolean getRequireHelmet(World world) {
-        if(world.getGenerator() instanceof PlanetsChunkGenerator){
+        if (world.getGenerator() instanceof PlanetsChunkGenerator) {
             PlanetsChunkGenerator theGen = (PlanetsChunkGenerator) world.getGenerator();
             return getRequireHelmet(theGen.ID);
         }
         return false;
     }
+
     /**
      * Gets the required helmet-state of a world.
      * 
@@ -47,7 +49,7 @@ public class SpaceConfigHandler {
      * @return true if a helmet is required
      */
     public static boolean getRequireHelmet(String id) {
-        if(id.equalsIgnoreCase("planets")) {
+        if (id.equalsIgnoreCase("planets")) {
             return false;
         }
         return SpaceConfig.getConfig(ConfigFile.IDS).getBoolean("ids." + id + ".helmet.required", (Boolean) Defaults.REQUIRE_HELMET.getDefault());
@@ -61,12 +63,13 @@ public class SpaceConfigHandler {
      * @return true if a suit is required
      */
     public static boolean getRequireSuit(World world) {
-        if(world.getGenerator() instanceof PlanetsChunkGenerator){
+        if (world.getGenerator() instanceof PlanetsChunkGenerator) {
             PlanetsChunkGenerator theGen = (PlanetsChunkGenerator) world.getGenerator();
             return getRequireSuit(theGen.ID);
         }
         return false;
-}
+    }
+
     /**
      * Gets the required suit-state of a world.
      * 
@@ -74,11 +77,12 @@ public class SpaceConfigHandler {
      * @return true if a suit is required
      */
     public static boolean getRequireSuit(String id) {
-        if(id.equalsIgnoreCase("planets")) {
+        if (id.equalsIgnoreCase("planets")) {
             return false;
         }
         return SpaceConfig.getConfig(ConfigFile.IDS).getBoolean("ids." + id + ".suit.required", (Boolean) Defaults.REQUIRE_SUIT.getDefault());
     }
+
     /**
      * Gets the helmet given-state of a world.
      * 
@@ -105,13 +109,13 @@ public class SpaceConfigHandler {
      * @return true if hostile mobs are allowed
      */
     public static boolean allowHostileMobs(World world) {
-        if(world.getGenerator() instanceof PlanetsChunkGenerator){
+        if (world.getGenerator() instanceof PlanetsChunkGenerator) {
             PlanetsChunkGenerator theGen = (PlanetsChunkGenerator) world.getGenerator();
             return allowHostileMobs(theGen.ID);
         }
         return false;
     }
-    
+
     /**
      * Checks if hostile mobs are allowed in a world.
      * 
@@ -119,12 +123,12 @@ public class SpaceConfigHandler {
      * @return true if hostile mobs are allowed
      */
     public static boolean allowHostileMobs(String id) {
-        if(id.equalsIgnoreCase("planets")) {
+        if (id.equalsIgnoreCase("planets")) {
             return false;
         }
         return SpaceConfig.getConfig(ConfigFile.IDS).getBoolean("ids." + id + ".hostilemobs", (Boolean) Defaults.HOSTILE_MOBS_ALLOWED.getDefault());
     }
-    
+
     /**
      * Checks if neutral mobs are allowed in a world.
      * 
@@ -133,13 +137,13 @@ public class SpaceConfigHandler {
      * @return true if neutral mobs are allowed
      */
     public static boolean allowNeutralMobs(World world) {
-        if(world.getGenerator() instanceof PlanetsChunkGenerator){
+        if (world.getGenerator() instanceof PlanetsChunkGenerator) {
             PlanetsChunkGenerator theGen = (PlanetsChunkGenerator) world.getGenerator();
             return allowNeutralMobs(theGen.ID);
         }
         return true;
     }
-    
+
     /**
      * Checks if neutral mobs are allowed in a world.
      * 
@@ -147,7 +151,7 @@ public class SpaceConfigHandler {
      * @return true if neutral mobs are allowed
      */
     public static boolean allowNeutralMobs(String id) {
-        if(id.equalsIgnoreCase("planets")) {
+        if (id.equalsIgnoreCase("planets")) {
             return true;
         }
         return SpaceConfig.getConfig(ConfigFile.IDS).getBoolean("ids." + id + ".neutralmobs", (Boolean) Defaults.NEUTRAL_MOBS_ALLOWED.getDefault());
@@ -161,13 +165,13 @@ public class SpaceConfigHandler {
      * @return true if night is forced
      */
     public static boolean forceNight(World world) {
-        if(world.getGenerator() instanceof PlanetsChunkGenerator){
+        if (world.getGenerator() instanceof PlanetsChunkGenerator) {
             PlanetsChunkGenerator theGen = (PlanetsChunkGenerator) world.getGenerator();
             return forceNight(theGen.ID);
         }
         return true;
     }
-    
+
     /**
      * Gets the force night-state of a world.
      * 
@@ -175,7 +179,7 @@ public class SpaceConfigHandler {
      * @return true if night is forced
      */
     public static boolean forceNight(String id) {
-        if(id.equalsIgnoreCase("planets")) {
+        if (id.equalsIgnoreCase("planets")) {
             return true;
         }
         return SpaceConfig.getConfig(ConfigFile.IDS).getBoolean("ids." + id + ".alwaysnight", (Boolean) Defaults.FORCE_NIGHT.getDefault());
@@ -207,7 +211,7 @@ public class SpaceConfigHandler {
      * @return room height int
      */
     public static int getRoomHeight(World world) {
-        if(world.getGenerator() instanceof PlanetsChunkGenerator){
+        if (world.getGenerator() instanceof PlanetsChunkGenerator) {
             PlanetsChunkGenerator theGen = (PlanetsChunkGenerator) world.getGenerator();
             return getRoomHeight(theGen.ID);
         }
@@ -222,12 +226,12 @@ public class SpaceConfigHandler {
      * @return room height int
      */
     public static int getRoomHeight(String id) {
-        if(id.equalsIgnoreCase("planets")) {
+        if (id.equalsIgnoreCase("planets")) {
             return 5;
         }
-        return SpaceConfig.getConfig(ConfigFile.IDS).getInt("idss." + id + ".breathingarea.maxroomheight", (Integer) Defaults.ROOM_HEIGHT.getDefault());
+        return SpaceConfig.getConfig(ConfigFile.IDS).getInt("ids." + id + ".maxroomheight", (Integer) Defaults.ROOM_HEIGHT.getDefault());
     }
-    
+
     /**
      * Gets the weather allowed-state of a world.
      * 
@@ -236,14 +240,14 @@ public class SpaceConfigHandler {
      * @return true if weather is allowed
      */
     public static boolean allowWeather(World world) {
-        if(world.getGenerator() instanceof PlanetsChunkGenerator){
+        if (world.getGenerator() instanceof PlanetsChunkGenerator) {
             PlanetsChunkGenerator theGen = (PlanetsChunkGenerator) world.getGenerator();
             return allowWeather(theGen.ID);
         }
         return false;
     }
-    
-        /**
+
+    /**
      * Gets the weather allowed-state of a world.
      * 
      * @param id Id
@@ -251,7 +255,7 @@ public class SpaceConfigHandler {
      * @return true if weather is allowed
      */
     public static boolean allowWeather(String id) {
-        if(id.equalsIgnoreCase("planets")) {
+        if (id.equalsIgnoreCase("planets")) {
             return false;
         }
         return SpaceConfig.getConfig(ConfigFile.IDS).getBoolean("ids." + id + ".weather", (Boolean) Defaults.ALLOW_WEATHER.getDefault());
@@ -265,13 +269,13 @@ public class SpaceConfigHandler {
      * @return glowstone chance int
      */
     public static int getGlowstoneChance(World world) {
-        if(world.getGenerator() instanceof PlanetsChunkGenerator){
+        if (world.getGenerator() instanceof PlanetsChunkGenerator) {
             PlanetsChunkGenerator theGen = (PlanetsChunkGenerator) world.getGenerator();
             return getGlowstoneChance(theGen.ID);
         }
         return 1;
     }
-    
+
     /**
      * Gets the glowstone chance of a world.
      * 
@@ -280,12 +284,12 @@ public class SpaceConfigHandler {
      * @return glowstone chance int
      */
     public static int getGlowstoneChance(String id) {
-        if(id.equalsIgnoreCase("planets")) {
+        if (id.equalsIgnoreCase("planets")) {
             return 1;
         }
         return SpaceConfig.getConfig(ConfigFile.IDS).getInt("ids." + id + ".generation.glowstonechance", (Integer) Defaults.GLOWSTONE_CHANCE.getDefault());
     }
-    
+
     /**
      * Gets the stone chance of a world.
      * 
@@ -294,13 +298,13 @@ public class SpaceConfigHandler {
      * @return asteroid chance int
      */
     public static int getStoneChance(World world) {
-        if(world.getGenerator() instanceof PlanetsChunkGenerator){
+        if (world.getGenerator() instanceof PlanetsChunkGenerator) {
             PlanetsChunkGenerator theGen = (PlanetsChunkGenerator) world.getGenerator();
             return getStoneChance(theGen.ID);
         }
         return 3;
     }
-    
+
     /**
      * Gets the stone chance of a world.
      * 
@@ -308,13 +312,12 @@ public class SpaceConfigHandler {
      * @return asteroid chance int
      */
     public static int getStoneChance(String id) {
-        if(id.equalsIgnoreCase("planets")) {
+        if (id.equalsIgnoreCase("planets")) {
             return 3;
         }
         return SpaceConfig.getConfig(ConfigFile.IDS).getInt("ids." + id + ".generation.stonechance", (Integer) Defaults.STONE_CHANCE.getDefault());
     }
-    
-    
+
     /**
      * Checks if asteroid generation is enabled for a world.
      * 
@@ -323,13 +326,13 @@ public class SpaceConfigHandler {
      * @return true if asteroid generation is enabled
      */
     public static boolean getAsteroidsEnabled(World world) {
-        if(world.getGenerator() instanceof PlanetsChunkGenerator){
+        if (world.getGenerator() instanceof PlanetsChunkGenerator) {
             PlanetsChunkGenerator theGen = (PlanetsChunkGenerator) world.getGenerator();
             return getAsteroidsEnabled(theGen.ID);
         }
         return true;
     }
-    
+
     /**
      * Checks if asteroid generation is enabled for a world.
      * 
@@ -337,21 +340,21 @@ public class SpaceConfigHandler {
      * @return true if asteroid generation is enabled
      */
     public static boolean getAsteroidsEnabled(String id) {
-        if(id.equalsIgnoreCase("planets")) {
+        if (id.equalsIgnoreCase("planets")) {
             return true;
         }
         return SpaceConfig.getConfig(ConfigFile.IDS).getBoolean("ids" + id + ".generation.generateasteroids", (Boolean) Defaults.ASTEROIDS_ENABLED.getDefault());
     }
-    
+
     /**
      * Checks if Spout will be used.
      * 
      * @return true if Spout is used
      */
     public static boolean isUsingSpout() {
-       return SpaceConfig.getConfig(ConfigFile.CONFIG).getBoolean("global.usespout", (Boolean) Defaults.USE_SPOUT.getDefault());
+        return SpaceConfig.getConfig(ConfigFile.CONFIG).getBoolean("global.usespout", (Boolean) Defaults.USE_SPOUT.getDefault());
     }
-    
+
     /**
      * Checks if a world is in the configuration file.
      * 
@@ -360,13 +363,13 @@ public class SpaceConfigHandler {
      * @return True if the world is in the config file
      * @deprecated Don't see why this is needed, will probably go away VERY soon.
      */
-    public static boolean isWorldInConfig(String name){
+    public static boolean isWorldInConfig(String name) {
         if (SpaceConfig.getConfig(ConfigFile.CONFIG).get("worlds." + name) != null) {
             return true;
         }
         return false;
     }
-    
+
     /**
      * Checks if satellites are enabled.
      * 
@@ -375,7 +378,7 @@ public class SpaceConfigHandler {
      * @return True if satellites are enabled
      */
     public static boolean getSatellitesEnabled(World world) {
-        if(world.getGenerator() instanceof PlanetsChunkGenerator){
+        if (world.getGenerator() instanceof PlanetsChunkGenerator) {
             PlanetsChunkGenerator theGen = (PlanetsChunkGenerator) world.getGenerator();
             return getSatellitesEnabled(theGen.ID);
         }
@@ -389,7 +392,7 @@ public class SpaceConfigHandler {
      * @return True if satellites are enabled
      */
     public static boolean getSatellitesEnabled(String id) {
-        if(id.equalsIgnoreCase("planets")) {
+        if (id.equalsIgnoreCase("planets")) {
             return true;
         }
         return SpaceConfig.getConfig(ConfigFile.IDS).getBoolean("ids." + id + ".generation.generatesatellites", (Boolean) Defaults.SATELLITES_ENABLED.getDefault());
@@ -403,7 +406,7 @@ public class SpaceConfigHandler {
      * @return Spawn chance
      */
     public static int getSatelliteChance(World world) {
-        if(world.getGenerator() instanceof PlanetsChunkGenerator){
+        if (world.getGenerator() instanceof PlanetsChunkGenerator) {
             PlanetsChunkGenerator theGen = (PlanetsChunkGenerator) world.getGenerator();
             return getSatelliteChance(theGen.ID);
         }
@@ -417,8 +420,14 @@ public class SpaceConfigHandler {
      * @return Spawn chance
      */
     public static int getSatelliteChance(String id) {
-        if(id.equalsIgnoreCase("planets")) return 1;
+        if (id.equalsIgnoreCase("planets")) {
+            return 1;
+        }
         return SpaceConfig.getConfig(ConfigFile.IDS).getInt("ids." + id + ".generation.satellitechance", (Integer) Defaults.SATELLITE_CHANCE.getDefault());
+    }
+    
+    public static String getSpoutTexturePack() {
+        return SpaceConfig.getConfig(ConfigFile.CONFIG).getString("global.texturepack", (String) Defaults.TEXTURE_PACK.getDefault());
     }
 
     /**

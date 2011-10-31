@@ -29,7 +29,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
  */
 public class SpaceConfig {
     // Variables
-
     private static Map<ConfigFile, YamlConfiguration> config = new EnumMap<ConfigFile, YamlConfiguration>(ConfigFile.class);
     private static Map<ConfigFile, File> configFile = new EnumMap<ConfigFile, File>(ConfigFile.class);
     private static Map<ConfigFile, Boolean> loaded = new EnumMap<ConfigFile, Boolean>(ConfigFile.class);
@@ -197,6 +196,7 @@ public class SpaceConfig {
         REQUIRE_SUIT(false),
         ARMOR_TYPE("iron"),
         USE_SPOUT(true),
+        TEXTURE_PACK("https://github.com/downloads/iffa/BananaSpace/spacetexture.zip"),
         HELMET_GIVEN(false),
         SUIT_GIVEN(false),
         ECONOMY_ENABLED(false),

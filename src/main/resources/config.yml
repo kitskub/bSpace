@@ -16,6 +16,8 @@ global:
     givehelmet: false
     givesuit: false
     usespout: true
+    # The space texture pack to use if Spout features are enabled
+    texturepack: 'https://github.com/downloads/iffa/BananaSpace/spacetexture.zip'
 # Economy settings
 economy:
   # True if economy should be enabled
