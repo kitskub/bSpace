@@ -41,7 +41,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
 
 // BukkitStats Imports
-import org.blockface.bukkitstats.CallHome;
+import org.blockface.stats.CallHome;
 
 /**
  * Main class of BananaSpace.
