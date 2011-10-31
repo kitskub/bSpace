@@ -96,6 +96,8 @@ public class SpaceConfigUpdater {
                 SpaceMessageHandler.debugPrint(Level.INFO, "Moved " + key + " of " + world + " to ids.yml with a value of " + value);
             }
             
+            // Removing the world from config.yml.
+            configFile.set("worlds." + world, null);
             SpaceMessageHandler.debugPrint(Level.INFO, "Removed " + world + " from config.yml.");
         }
         // Saving both files since converting is done.
