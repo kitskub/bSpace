@@ -13,8 +13,8 @@
             <url>http://repo.bukkit.org/artifactory/repo</url>
         </repository>
         <repository>
-            <id>spout-artifact</id>
-            <url>http://spout.artifactoryonline.com/spout/libs-snapshots-local/</url>
+            <id>spout-repo</id>
+            <url>repo.getspout.org</url>
         </repository>
     </repositories>
     <build>
@@ -50,34 +50,9 @@
             <type>jar</type>
         </dependency>
         <dependency>
-            <groupId>cosine</groupId>
-            <artifactId>boseconomy</artifactId>
-            <version>dev-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.earth2me</groupId>
-            <artifactId>essentials</artifactId>
-            <version>dev-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>me.ashtheking</groupId>
-            <artifactId>currency</artifactId>
-            <version>dev-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.nijiko.coelho</groupId>
-            <artifactId>iConomy</artifactId>
-            <version>dev-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com</groupId>
-            <artifactId>iConomy</artifactId>
-            <version>dev-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com</groupId>
-            <artifactId>iCo6</artifactId>
-            <version>dev-SNAPSHOT</version>
+            <groupId>com.nijikokun</groupId>
+            <artifactId>Register</artifactId>
+            <version>dev-SNAPSHOt</version>
         </dependency>
     </dependencies>
 </project>
