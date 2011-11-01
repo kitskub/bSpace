@@ -181,7 +181,7 @@ public class BananaSpace extends JavaPlugin {
      * @param worldName World name
      * @param id ID (cow, fish etc)
      * 
-     * @return ChunkGenerator
+     * @return ChunkGenerator to use
      */
     @Override
     public ChunkGenerator getDefaultWorldGenerator(String worldName, String id) {

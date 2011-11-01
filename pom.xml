@@ -14,7 +14,7 @@
         </repository>
         <repository>
             <id>spout-repo</id>
-            <url>repo.getspout.org</url>
+            <url>http://repo.getspout.org</url>
         </repository>
     </repositories>
     <build>
