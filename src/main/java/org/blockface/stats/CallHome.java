@@ -31,8 +31,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import java.io.File;
 import java.net.URL;
 import java.util.UUID;
-import java.util.logging.Level;
-import me.iffa.bananaspace.api.SpaceMessageHandler;
 
 public class CallHome{
     private static final File file = new File("plugins/stats/config.yml");
@@ -43,8 +41,8 @@ public class CallHome{
 
         if(config.getBoolean("opt-out")) return;
 
-        Bukkit.getServer().getScheduler().scheduleAsyncRepeatingTask(plugin,new CallTask(plugin,config.getString("hash")),10L,20L*60L*60);
-        SpaceMessageHandler.print(Level.INFO, "Stats are being kept for this plugin. To opt-out for any reason, check plugins/stats.");
+        plugin.getServer().getScheduler().scheduleAsyncRepeatingTask(plugin,new CallTask(plugin,config.getString("hash")),10L,20L*60L*60);
+        System.out.println("["+plugin.getDescription().getName()+"] Stats are being kept for this plugin. To opt-out for any reason, check plugins/stats.");
     }
 
     private static Boolean verifyConfig() {
@@ -52,12 +50,12 @@ public class CallHome{
         config.addDefault("hash", UUID.randomUUID().toString());
 
         if(!file.exists()) {
-            SpaceMessageHandler.print(Level.INFO,"BukkitStats is initializing for the first time. To opt-out check plugins/stats");
+            System.out.println("BukkitStats is initializing for the first time. To opt-out check plugins/stats");
             try {
                 config.options().copyDefaults(true);
                 config.save(file);
             } catch (Exception ex) {
-                SpaceMessageHandler.print(Level.WARNING,"BukkitStats failed to save.");
+                System.out.println("BukkitStats failed to save.");
                 ex.printStackTrace();
                 return false;
             }
@@ -79,17 +77,17 @@ class CallTask implements Runnable {
         try {
             postUrl();
         } catch (Exception ignored) {
-            SpaceMessageHandler.print(Level.WARNING,"Could not call home.");
+            System.out.println("Could not call home.");
             ignored.printStackTrace();
         }
     }
 
     private void postUrl() throws Exception {
         String url = String.format("http://usage.blockface.org/update.php?name=%s&build=%s&plugin=%s&port=%s&hash=%s&bukkit=%s",
-                Bukkit.getServer().getName(),
+                plugin.getServer().getName(),
                 plugin.getDescription().getVersion().replaceAll(" ", "%20"),
                 plugin.getDescription().getName().replaceAll(" ", "%20"),
-                Bukkit.getServer().getPort(),
+                plugin.getServer().getPort(),
                 hash,
                 Bukkit.getVersion());
         new URL(url).openConnection().getInputStream();
