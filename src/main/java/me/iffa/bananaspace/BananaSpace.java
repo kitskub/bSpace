@@ -27,7 +27,6 @@ import me.iffa.bananaspace.listeners.spout.SpaceSpoutCraftListener;
 import me.iffa.bananaspace.listeners.spout.SpaceSpoutEntityListener;
 import me.iffa.bananaspace.listeners.spout.SpaceSpoutKeyListener;
 import me.iffa.bananaspace.listeners.spout.SpaceSpoutPlayerListener;
-import me.iffa.bananaspace.wgen.SpaceChunkGenerator;
 import me.iffa.bananaspace.wgen.planets.PlanetsChunkGenerator;
 
 // Bukkit Imports
@@ -189,7 +188,7 @@ public class BananaSpace extends JavaPlugin {
         SpaceMessageHandler.debugPrint(Level.INFO, "Getting generator for" + worldName + " " + id);
         SpaceWorldHandler.checkWorld(worldName);
         if (id.isEmpty() || id.length() == 0 || id == null) {
-            return new SpaceChunkGenerator();
+            return new PlanetsChunkGenerator("planets", false);
         }
         return new PlanetsChunkGenerator(id);
     }

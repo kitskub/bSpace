@@ -448,10 +448,16 @@ public class SpaceConfigHandler {
         }
         return texture.isEmpty() ? (String) Defaults.TEXTURE_PACK.getDefault() : texture;
     }
-
-    /**
-     * Constructor of SpaceConfigHandler.
-     */
-    private SpaceConfigHandler() {
+    
+    public static boolean getGeneratePlanets(World world){
+        if (world.getGenerator() instanceof PlanetsChunkGenerator) {
+            PlanetsChunkGenerator theGen = (PlanetsChunkGenerator) world.getGenerator();
+            return theGen.GENERATE;
+        }
+        return true;
+    }
+    
+    public static boolean getGeneratePlanets(String id){
+        return SpaceConfig.getConfig(ConfigFile.IDS).getBoolean("ids." + id + ".generation.generateplanets", (Boolean) Defaults.GENERATE_PLANETS.getDefault());
     }
 }

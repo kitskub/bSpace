@@ -10,7 +10,6 @@ import java.util.Map;
 // BananaSpace Imports
 import me.iffa.bananaspace.BananaSpace;
 import me.iffa.bananaspace.runnables.SpaceRunnable;
-import me.iffa.bananaspace.wgen.SpaceChunkGenerator;
 import me.iffa.bananaspace.wgen.planets.PlanetsChunkGenerator;
 
 // Bukkit Imports
@@ -44,7 +43,7 @@ public class SpaceWorldHandler {
      */
     public void loadSpaceWorlds() {
         for (World world : Bukkit.getServer().getWorlds()) {
-            if (world.getGenerator() instanceof PlanetsChunkGenerator || world.getGenerator() instanceof SpaceChunkGenerator) {
+            if (world.getGenerator() instanceof PlanetsChunkGenerator) {
                 spaceWorldNames.add(world.getName());
             }
         }
