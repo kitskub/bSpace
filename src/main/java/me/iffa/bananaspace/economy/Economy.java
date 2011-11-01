@@ -10,7 +10,6 @@ import com.nijikokun.register.payment.Methods;
 import java.util.logging.Level;
 
 // BananaSpace Imports
-import me.iffa.bananaspace.BananaSpace;
 import me.iffa.bananaspace.config.SpaceConfig.Defaults;
 import me.iffa.bananaspace.api.SpaceMessageHandler;
 import me.iffa.bananaspace.api.SpacePlayerHandler;

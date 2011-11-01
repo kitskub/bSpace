@@ -26,7 +26,10 @@ import org.bukkit.entity.Player;
  */
 public class SpaceEnterCommand extends SpaceCommand {
     // Variables
-    public static Map<Player, Location> exitDest = new HashMap<Player, Location>();;
+
+    public static Map<Player, Location> exitDest = new HashMap<Player, Location>();
+
+    ;
 
     /**
      * Constructor of SpaceEnterCommand.
@@ -52,9 +55,9 @@ public class SpaceEnterCommand extends SpaceCommand {
                     SpaceMessageHandler.debugPrint(Level.INFO, "Someone tried to use /space enter, but he was already in that space world.");
                     return;
                 }
-                if(!Economy.enterCommand(player)){
-                        SpaceMessageHandler.sendNotEnoughMoneyMessage(player);
-                        return;
+                if (BananaSpace.pm.getPlugin("Register") != null && !Economy.enterCommand(player)) {
+                    SpaceMessageHandler.sendNotEnoughMoneyMessage(player);
+                    return;
                 }
                 exitDest.put(player, player.getLocation());
                 Location location;
@@ -71,9 +74,9 @@ public class SpaceEnterCommand extends SpaceCommand {
             return;
         } else if (args.length == 2) {
             if (SpacePlayerHandler.hasPermission("bananaspace.teleport.enter", player)) {
-                if(!Economy.enterCommand(player)){
-                        SpaceMessageHandler.sendNotEnoughMoneyMessage(player);
-                        return;
+                if (BananaSpace.pm.getPlugin("Register") != null && !Economy.enterCommand(player)) {
+                    SpaceMessageHandler.sendNotEnoughMoneyMessage(player);
+                    return;
                 }
                 if (Bukkit.getServer().getWorld(args[1]) == null) {
                     player.sendMessage(ChatColor.RED + "The world was not found!");

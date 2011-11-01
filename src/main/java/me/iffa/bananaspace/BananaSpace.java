@@ -108,14 +108,14 @@ public class BananaSpace extends JavaPlugin {
             }
         }
 
-        // Economy.
-        if (economy == null) {
+        // Checking if Economy is ok.
+        if (economy == null && getServer().getPluginManager().getPlugin("Register") != null) {
             if (Economy.checkEconomy()) {
                 economy = new Economy();
             }
         }
 
-        // Pail interface.
+        // Initializing the Pail tab.
         if (pm.getPlugin("Pail") != null) {
             SpaceMessageHandler.debugPrint(Level.INFO, "Starting up the Pail tab.");
             pailInt = new PailInterface();

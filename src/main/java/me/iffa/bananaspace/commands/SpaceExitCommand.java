@@ -26,7 +26,10 @@ import org.bukkit.entity.Player;
  */
 public class SpaceExitCommand extends SpaceCommand {
     // Variables
-    public static Map<Player, Location> enterDest = new HashMap<Player, Location>();;
+
+    public static Map<Player, Location> enterDest = new HashMap<Player, Location>();
+
+    ;
 
     /**
      * Constructor of SpaceExitCommand.
@@ -47,9 +50,9 @@ public class SpaceExitCommand extends SpaceCommand {
         Player player = (Player) sender;
         if (BananaSpace.worldHandler.isInAnySpace(player)) {
             if (SpacePlayerHandler.hasPermission("bananaspace.teleport.exit", player)) {
-                if(!Economy.exitCommand(player)){
-                            SpaceMessageHandler.sendNotEnoughMoneyMessage(player);
-                            return;
+                if (BananaSpace.pm.getPlugin("Register") != null && !Economy.exitCommand(player)) {
+                    SpaceMessageHandler.sendNotEnoughMoneyMessage(player);
+                    return;
                 }
                 enterDest.put(player, player.getLocation());
                 Location location;

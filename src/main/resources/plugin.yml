@@ -8,7 +8,7 @@ dev-url: http://dev.bukkit.org/server-mods/bananaspace
 load: startup
 #load: startup
 version: '2-dev'
-softdepend: [Permissions, Spout, Pail]
+softdepend: [Permissions, Spout, Pail, Register]
 commands:
   space:
     description: Go to space, back to earth etc.
