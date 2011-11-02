@@ -16,10 +16,6 @@
             <id>spout-repo</id>
             <url>http://repo.getspout.org</url>
         </repository>
-        <repository>
-            <id>local-repo</id>
-            <url>file:///${project.basedir}/repo</url>
-        </repository>
     </repositories>
     <build>
         <plugins>
