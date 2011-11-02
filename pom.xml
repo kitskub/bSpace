@@ -16,6 +16,10 @@
             <id>spout-repo</id>
             <url>http://repo.getspout.org</url>
         </repository>
+        <repository>
+            <id>local-repo</id>
+            <url>file:///${project.basedir}/repo</url>
+        </repository>
     </repositories>
     <build>
         <plugins>
@@ -39,20 +43,24 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>me.escapeNT.pail</groupId>
-            <artifactId>Pail</artifactId>
-            <version>dev-SNAPSHOT</version>
-        </dependency>
-        <dependency>
             <groupId>org.bukkit</groupId>
             <artifactId>bukkit</artifactId>
             <version>0.0.1-SNAPSHOT</version>
             <type>jar</type>
         </dependency>
         <dependency>
+            <groupId>me.escapeNT</groupId>
+            <artifactId>Pail</artifactId>
+            <version>lol</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/libs/Pail.jar</systemPath>
+        </dependency>
+        <dependency>
             <groupId>com.nijikokun</groupId>
             <artifactId>Register</artifactId>
-            <version>dev-SNAPSHOt</version>
+            <version>lol</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/libs/Register.jar</systemPath>
         </dependency>
     </dependencies>
 </project>
