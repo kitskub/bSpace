@@ -1,6 +1,6 @@
 ## For BananaSpace v1.4_2 source, see bs1-branch, master branch is for v2!
 ## [BananaSpace on BukkitDev](http://dev.bukkit.org/server-mods/bananaspace/pages/)
-![Moved!](http://hrblog.typepad.com/.a/6a00d83451c94169e2014e8af539ea970d-800wi)
+## [BananaSpace Jenkins (builds daily and sometimes manually by iffa)](http://ci.xdevelopers.tk:8080/job/BananaSpace/)
 
 Coding and Pull Request Conventions
 -----------
@@ -17,4 +17,4 @@ Coding and Pull Request Conventions
 * No merges should be included in pull requests unless the pull request's purpose is a merge.
 * Pull requests should be tested (does it compile? AND does it work?) before submission.
 
-Follow the above conventions if you want your pull requests accepted.  
+Follow the above conventions if you want your pull requests accepted.
