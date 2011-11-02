@@ -253,7 +253,7 @@ public class SpacePlayerListener extends PlayerListener {
      * Enum to make things easier.
      */
     private enum SuitCheck {
-
+        // Enums
         HELMET_ONLY,
         SUIT_ONLY,
         BOTH;

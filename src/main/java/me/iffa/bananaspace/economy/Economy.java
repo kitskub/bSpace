@@ -33,27 +33,15 @@ public class Economy {
 
     /**
      * Constructor of Economy.
-     * 
-     * @param use true for use
-     * @param plugin BananaSpace instance
      */
     public Economy() {
-        use=true;
+        use = true;
         getMethod();
         SpaceMessageHandler.debugPrint(Level.INFO, "Hooked into " + method.getName());
     }
-
-//    /**
-//     * Constructor of Economy #2.
-//     */
-//    public Economy() {
-//        use = false;
-//    }
-
+    
     /**
      * Checks the economy enabled-state of the plugin.
-     * 
-     * @param plugin BananaSpace instance
      * 
      * @return True if economy is enabled
      */

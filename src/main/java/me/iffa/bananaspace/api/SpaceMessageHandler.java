@@ -47,7 +47,7 @@ public class SpaceMessageHandler {
      * @param player Player
      */
     public static void sendNoPermissionMessage(Player player) {
-        player.sendMessage(ChatColor.RED + "You don't have permission!");
+        player.sendMessage(ChatColor.RED + SpaceLangHandler.getNoPermissionMessage());
     }
     
     /**
@@ -56,12 +56,12 @@ public class SpaceMessageHandler {
      * @param player Player
      */
     public static void sendNotEnoughMoneyMessage(Player player) {
-        player.sendMessage(ChatColor.RED + "You don't have enough money!");
+        player.sendMessage(ChatColor.RED + SpaceLangHandler.getNotEnoughMoneyMessage());
     }
 
     /**
      * Constructor of SpaceMessageHandler.
      */
-    public SpaceMessageHandler() {
+    private SpaceMessageHandler() {
     }
 }

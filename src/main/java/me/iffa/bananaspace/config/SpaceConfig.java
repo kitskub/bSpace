@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.logging.Level;
 
 //BananaSpace Imports
+import me.iffa.bananaspace.api.SpaceLangHandler;
 import me.iffa.bananaspace.api.SpaceMessageHandler;
 
 // Bukkit Imports
@@ -111,7 +112,7 @@ public class SpaceConfig {
                 config.put(configfile, new YamlConfiguration());
                 config.get(configfile).load(configFile.get(configfile));
                 loaded.put(configfile, true);
-                SpaceMessageHandler.print(Level.INFO, "Generated " + configfile.getFile() + " file");
+                SpaceMessageHandler.print(Level.INFO, SpaceLangHandler.getConfigLoadedMessage(configfile));
             } catch (Exception e) {
                 SpaceMessageHandler.print(Level.SEVERE, e.toString());
             }
@@ -161,7 +162,8 @@ public class SpaceConfig {
 
         PLANETS("planets.yml"),
         CONFIG("config.yml"),
-        IDS("ids.yml");
+        IDS("ids.yml"),
+        LANG("lang.yml");
         // Variables
         private String file;
 

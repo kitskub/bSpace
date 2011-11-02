@@ -1,0 +1,30 @@
+# BananaSpace v2-dev - "Language" file (for localization purposes)
+# ----------------------------------------
+#     This configuration has a pretty      
+#    huge amount of documentation, but     
+#   if you still have questions, please    
+#        ask on BukkitDev! Thanks.
+# NOTE: Do not remove any node, just modify it! 
+#       Also do not touch stuff like {version}, \n etc!
+# General strings
+general:
+  enabled: 'Enabled version {version}.'
+  disabled: 'Disabled version {version}.'
+  usagestats: 'The plugin will now start sending usage stats. You can disable this in plugins/stats!'
+  configload: 'Generated {configfile} file.'
+  configupdatestart: 'Starting to update configs for compatability with v2.'
+  configupdatefinish: 'Your pre-v2 config.yml was succesfully converted to the new v2 format. Your worlds can now be found in ids.yml.'
+  configupdatefailure: 'There was a problem converting configuration files to v2 format: {exception}'
+# Command-related strings
+commands:
+  notinspace: 'You are not in space!'
+  alreadyinthere: 'You are already in that space world!'
+  # Do not remove the \n here, if you do, BS won't work!
+  exitnotfound: "Exit destination not found, setting to default world spawn location.\nType '/space back' again to go there."
+  worldnotspace: 'The world is not a space world!'
+  worldnotfound: 'The world was not found!'
+  listofspace: 'List of spaceworlds:'
+# Other strings
+other:
+  nopermission: "You don't have permission!"
+  notenoughmoney: "You don't have enough money!"

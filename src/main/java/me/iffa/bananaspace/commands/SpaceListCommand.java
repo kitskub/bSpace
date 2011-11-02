@@ -3,6 +3,7 @@ package me.iffa.bananaspace.commands;
 
 // BananaSpace Imports
 import me.iffa.bananaspace.BananaSpace;
+import me.iffa.bananaspace.api.SpaceLangHandler;
 import me.iffa.bananaspace.api.SpaceMessageHandler;
 import me.iffa.bananaspace.api.SpacePlayerHandler;
 
@@ -38,7 +39,7 @@ public class SpaceListCommand extends SpaceCommand {
             SpaceMessageHandler.sendNoPermissionMessage((Player) sender);
             return;
         }
-        sender.sendMessage(ChatColor.GREEN + BananaSpace.prefix + " List of spaceworlds:");
+        sender.sendMessage(ChatColor.GREEN + BananaSpace.prefix + " " + SpaceLangHandler.getListOfSpaceMessage());
         for (World world : BananaSpace.getWorldHandler().getSpaceWorlds()) {
             sender.sendMessage(ChatColor.DARK_GREEN + "- " + world.getName());
         }

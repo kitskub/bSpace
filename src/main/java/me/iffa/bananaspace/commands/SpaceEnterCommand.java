@@ -8,11 +8,12 @@ import java.util.logging.Level;
 
 // BananaSpace Imports
 import me.iffa.bananaspace.BananaSpace;
+import me.iffa.bananaspace.api.SpaceLangHandler;
 import me.iffa.bananaspace.api.SpaceMessageHandler;
 import me.iffa.bananaspace.api.SpacePlayerHandler;
+import me.iffa.bananaspace.economy.Economy;
 
 // Bukkit Imports
-import me.iffa.bananaspace.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -26,10 +27,7 @@ import org.bukkit.entity.Player;
  */
 public class SpaceEnterCommand extends SpaceCommand {
     // Variables
-
     public static Map<Player, Location> exitDest = new HashMap<Player, Location>();
-
-    ;
 
     /**
      * Constructor of SpaceEnterCommand.
@@ -51,7 +49,7 @@ public class SpaceEnterCommand extends SpaceCommand {
         if (args.length == 1) {
             if (SpacePlayerHandler.hasPermission("bananaspace.teleport.enter", player)) {
                 if (BananaSpace.worldHandler.getSpaceWorlds().get(0) == player.getWorld()) {
-                    player.sendMessage(ChatColor.RED + "You are already in that space world!");
+                    player.sendMessage(ChatColor.RED + SpaceLangHandler.getAlreadyInThatWorldMessage());
                     SpaceMessageHandler.debugPrint(Level.INFO, "Someone tried to use /space enter, but he was already in that space world.");
                     return;
                 }
@@ -79,15 +77,15 @@ public class SpaceEnterCommand extends SpaceCommand {
                     return;
                 }
                 if (Bukkit.getServer().getWorld(args[1]) == null) {
-                    player.sendMessage(ChatColor.RED + "The world was not found!");
+                    player.sendMessage(ChatColor.RED + SpaceLangHandler.getWorldNotFoundMessage());
                     return;
                 }
                 if (!BananaSpace.worldHandler.isSpaceWorld(Bukkit.getServer().getWorld(args[1]))) {
-                    player.sendMessage(ChatColor.RED + "The world is not a space world!");
+                    player.sendMessage(ChatColor.RED + SpaceLangHandler.getWorldNotSpaceMessage());
                     return;
                 }
                 if (Bukkit.getServer().getWorld(args[1]) == player.getWorld()) {
-                    player.sendMessage(ChatColor.RED + "You are already in that space world!");
+                    player.sendMessage(ChatColor.RED + SpaceLangHandler.getAlreadyInThatWorldMessage());
                     return;
                 }
                 exitDest.put(player, player.getLocation());

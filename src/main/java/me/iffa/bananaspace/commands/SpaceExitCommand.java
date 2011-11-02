@@ -8,6 +8,7 @@ import java.util.logging.Level;
 
 // BananaSpace Imports
 import me.iffa.bananaspace.BananaSpace;
+import me.iffa.bananaspace.api.SpaceLangHandler;
 import me.iffa.bananaspace.api.SpaceMessageHandler;
 import me.iffa.bananaspace.api.SpacePlayerHandler;
 
@@ -26,10 +27,7 @@ import org.bukkit.entity.Player;
  */
 public class SpaceExitCommand extends SpaceCommand {
     // Variables
-
     public static Map<Player, Location> enterDest = new HashMap<Player, Location>();
-
-    ;
 
     /**
      * Constructor of SpaceExitCommand.
@@ -63,8 +61,8 @@ public class SpaceExitCommand extends SpaceCommand {
                     return;
                 } else {
                     SpaceEnterCommand.exitDest.put(player, Bukkit.getServer().getWorlds().get(0).getSpawnLocation());
-                    sender.sendMessage(ChatColor.RED + "Exit destination not found, setting to default world spawn location.");
-                    sender.sendMessage(ChatColor.RED + "Type '/space back' again to go there.");
+                    sender.sendMessage(ChatColor.RED + SpaceLangHandler.getNoExitFoundMessage(1));
+                    sender.sendMessage(ChatColor.RED + SpaceLangHandler.getNoExitFoundMessage(2));
                     return;
                 }
             } else {
@@ -72,7 +70,7 @@ public class SpaceExitCommand extends SpaceCommand {
                 return;
             }
         } else {
-            player.sendMessage(ChatColor.RED + "You are not in space!");
+            player.sendMessage(ChatColor.RED + SpaceLangHandler.getNotInSpaceMessage());
             return;
         }
     }

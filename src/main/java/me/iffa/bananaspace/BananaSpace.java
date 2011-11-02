@@ -11,6 +11,7 @@ import me.escapeNT.pail.Pail;
 
 // BananaSpace Imports
 import me.iffa.bananaspace.api.SpaceConfigHandler;
+import me.iffa.bananaspace.api.SpaceLangHandler;
 import me.iffa.bananaspace.api.SpaceMessageHandler;
 import me.iffa.bananaspace.api.SpacePlayerHandler;
 import me.iffa.bananaspace.api.SpaceWorldHandler;
@@ -71,7 +72,7 @@ public class BananaSpace extends JavaPlugin {
      */
     @Override
     public void onDisable() {
-        SpaceMessageHandler.print(Level.INFO, "Disabled version " + version);
+        SpaceMessageHandler.print(Level.INFO, SpaceLangHandler.getDisabledMessage());
     }
 
     /**
@@ -123,9 +124,9 @@ public class BananaSpace extends JavaPlugin {
         }
 
         // Finishing up enablation.
-        SpaceMessageHandler.print(Level.INFO, "The plugin will now start sending usage stats. You can disable this in plugins/stats!");
+        SpaceMessageHandler.print(Level.INFO, SpaceLangHandler.getUsageStatsMessage());
         CallHome.load(this);
-        SpaceMessageHandler.print(Level.INFO, "Enabled version " + version);
+        SpaceMessageHandler.print(Level.INFO, SpaceLangHandler.getEnabledMessage());
     }
 
     /**

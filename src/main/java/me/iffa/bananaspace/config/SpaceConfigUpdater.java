@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 
 // BananaSpace Imports
+import me.iffa.bananaspace.api.SpaceLangHandler;
 import me.iffa.bananaspace.api.SpaceMessageHandler;
 import me.iffa.bananaspace.config.SpaceConfig.ConfigFile;
 
@@ -62,7 +63,7 @@ public class SpaceConfigUpdater {
             return;
         }
         // Variables
-        SpaceMessageHandler.print(Level.INFO, "Starting to update configs for compatability with v2.");
+        SpaceMessageHandler.print(Level.INFO, SpaceLangHandler.getConfigUpdateStartMessage());
         YamlConfiguration configFile = SpaceConfig.getConfig(ConfigFile.CONFIG);
         YamlConfiguration idsFile = SpaceConfig.getConfig(ConfigFile.IDS);
         
@@ -107,10 +108,10 @@ public class SpaceConfigUpdater {
             SpaceMessageHandler.debugPrint(Level.INFO, "Saved changes to ids and config.yml.");
         } catch (IOException ex) {
             // In case of any error.
-            SpaceMessageHandler.print(Level.SEVERE, "There was a problem converting configuration files to v2 format: " + ex.getMessage());
+            SpaceMessageHandler.print(Level.SEVERE, SpaceLangHandler.getConfigUpdateFailureMessage(ex));
         }
         // It was all done.
-        SpaceMessageHandler.print(Level.INFO, "Your pre-v2 config.yml was succesfully converted to the new v2 format. Your worlds can now be found");
+        SpaceMessageHandler.print(Level.INFO, SpaceLangHandler.getConfigUpdateFinishMessage());
     }
 
     /**
