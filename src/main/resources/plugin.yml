@@ -7,7 +7,7 @@ url: http://github.com/iffa/BananaSpace
 dev-url: http://dev.bukkit.org/server-mods/bananaspace
 load: startup
 #load: startup
-version: '2-dev'
+version: 'v2-dev'
 softdepend: [Permissions, Spout, Pail, Register]
 commands:
   space:

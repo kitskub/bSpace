@@ -1,0 +1,19 @@
+New in version 2 (not a final changelog):
+-Added new world creating & loading system, now ID based instead of list based
+-Added lang.yml to allow translating messages to your own language
+-Added permission node to bypass all suit & helmet checks no matter what config says
+-Added SwearWord's CallHome to see usage stats
+-Added & fixed some API classes (most are static now)
+-Added a space texture pack for Spoutcraft users, configurable
+-Added Pail & Register jars to project dir, Maven now handles all dependencies
+-Added a configuration file converter to nicely turn your worlds in config.yml into ids
+
+-Register support changed to require the plugin running on your server instead of it being supplied with BananaSpace
+-Merged both asteroid populators together
+-Rewrote planet generator to correctly work with multiple planet worlds
+-Switched to the new YamlConfiguration & merged configuration file handlers
+-Moved suit & helmet checks to their own method to clean up onPlayerMove for other features
+-Cleaned up the code by removing useless variables, adding JavaDocs etc
+
+-Fixed helmet giving being bitchy
+-Fixed suffocating not stopping after death (actually fixed in v1.4_2)
