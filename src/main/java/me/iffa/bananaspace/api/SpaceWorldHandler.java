@@ -9,7 +9,7 @@ import java.util.Map;
 
 // BananaSpace Imports
 import me.iffa.bananaspace.BananaSpace;
-import me.iffa.bananaspace.runnables.SpaceRunnable;
+import me.iffa.bananaspace.runnables.NightForceRunnable;
 import me.iffa.bananaspace.wgen.planets.PlanetsChunkGenerator;
 
 // Bukkit Imports
@@ -55,7 +55,7 @@ public class SpaceWorldHandler {
      * @param world World
      */
     public void startForceNightTask(World world) {
-        SpaceRunnable task = new SpaceRunnable(world);
+        NightForceRunnable task = new NightForceRunnable(world);
         forcenightId.put(world, BananaSpace.scheduler.scheduleSyncRepeatingTask(plugin, task, 60, 8399));
     }
 

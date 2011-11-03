@@ -9,16 +9,16 @@ import org.bukkit.World;
  * 
  * @author iffa
  */
-public class SpaceRunnable implements Runnable {
+public class NightForceRunnable implements Runnable {
     // Variables
     private World world;
 
     /**
-     * Constructor for SpaceRunnable.
+     * Constructor for NightForceRunnable.
      * 
      * @param world World
      */
-    public SpaceRunnable(World world) {
+    public NightForceRunnable(World world) {
         this.world = world;
     }
 

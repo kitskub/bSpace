@@ -27,5 +27,5 @@ economy:
   entercost: 20
   exitcost: 20
 # Space worlds
-# This is NOT needed, but it might help.
+# This is NOT needed, and will probably go away soon.
 worlds: []

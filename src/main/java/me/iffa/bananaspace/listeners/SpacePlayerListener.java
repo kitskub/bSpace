@@ -16,7 +16,7 @@ import me.iffa.bananaspace.api.event.area.AreaLeaveEvent;
 import me.iffa.bananaspace.api.event.misc.SpaceSuffocationEvent;
 import me.iffa.bananaspace.api.event.misc.TeleportToSpaceEvent;
 import me.iffa.bananaspace.economy.Economy;
-import me.iffa.bananaspace.runnables.SpaceRunnable2;
+import me.iffa.bananaspace.runnables.SuffacationRunnable;
 
 // Bukkit Imports
 import org.bukkit.Bukkit;
@@ -280,7 +280,7 @@ public class SpacePlayerListener extends PlayerListener {
                     }
                     /* Notify listeners end */
                     SpaceMessageHandler.debugPrint(Level.INFO, "Player '" + player.getName() + "' started suffocating in space.");
-                    SpaceRunnable2 task = new SpaceRunnable2(player);
+                    SuffacationRunnable task = new SuffacationRunnable(player);
                     taskInt = BananaSpace.scheduler.scheduleSyncRepeatingTask(plugin, task, 20L, 20L);
                     taskid.put(player, taskInt);
                     isUsed.put(player, true);
@@ -298,7 +298,7 @@ public class SpacePlayerListener extends PlayerListener {
                     }
                     /* Notify listeners end */
                     SpaceMessageHandler.debugPrint(Level.INFO, "Player '" + player.getName() + "' started suffocating in space.");
-                    SpaceRunnable2 task = new SpaceRunnable2(player);
+                    SuffacationRunnable task = new SuffacationRunnable(player);
                     taskInt = BananaSpace.scheduler.scheduleSyncRepeatingTask(plugin, task, 20L, 20L);
                     taskid.put(player, taskInt);
                     isUsed.put(player, true);
@@ -318,7 +318,7 @@ public class SpacePlayerListener extends PlayerListener {
                     }
                     /* Notify listeners end */
                     SpaceMessageHandler.debugPrint(Level.INFO, "Player '" + player.getName() + "' started suffocating in space.");
-                    SpaceRunnable2 task = new SpaceRunnable2(player);
+                    SuffacationRunnable task = new SuffacationRunnable(player);
                     taskInt = BananaSpace.scheduler.scheduleSyncRepeatingTask(plugin, task, 20L, 20L);
                     taskid.put(player, taskInt);
                     isUsed.put(player, true);
@@ -336,7 +336,7 @@ public class SpacePlayerListener extends PlayerListener {
                     }
                     /* Notify listeners end */
                     SpaceMessageHandler.debugPrint(Level.INFO, "Player '" + player.getName() + "' started suffocating in space.");
-                    SpaceRunnable2 task = new SpaceRunnable2(player);
+                    SuffacationRunnable task = new SuffacationRunnable(player);
                     taskInt = BananaSpace.scheduler.scheduleSyncRepeatingTask(plugin, task, 20L, 20L);
                     taskid.put(player, taskInt);
                     isUsed.put(player, true);
@@ -356,7 +356,7 @@ public class SpacePlayerListener extends PlayerListener {
                     }
                     /* Notify listeners end */
                     SpaceMessageHandler.debugPrint(Level.INFO, "Player '" + player.getName() + "' started suffocating in space.");
-                    SpaceRunnable2 task = new SpaceRunnable2(player);
+                    SuffacationRunnable task = new SuffacationRunnable(player);
                     taskInt = BananaSpace.scheduler.scheduleSyncRepeatingTask(plugin, task, 20L, 20L);
                     taskid.put(player, taskInt);
                     isUsed.put(player, true);
@@ -373,7 +373,7 @@ public class SpacePlayerListener extends PlayerListener {
                     }
                     /* Notify listeners end */
                     SpaceMessageHandler.debugPrint(Level.INFO, "Player '" + player.getName() + "' started suffocating in space.");
-                    SpaceRunnable2 task = new SpaceRunnable2(player);
+                    SuffacationRunnable task = new SuffacationRunnable(player);
                     taskInt = BananaSpace.scheduler.scheduleSyncRepeatingTask(plugin, task, 20L, 20L);
                     taskid.put(player, taskInt);
                     isUsed.put(player, true);

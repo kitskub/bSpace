@@ -13,16 +13,16 @@ import org.bukkit.entity.Player;
  * 
  * @author iffa
  */
-public class SpaceRunnable2 implements Runnable {
+public class SuffacationRunnable implements Runnable {
     // Variables
     private final Player player;
 
     /**
-     * Constructor for SpaceRunnable2.
+     * Constructor for SuffacationRunnable.
      * 
      * @param player Player
      */
-    public SpaceRunnable2(Player player) {
+    public SuffacationRunnable(Player player) {
 	this.player = player;
     }
 
