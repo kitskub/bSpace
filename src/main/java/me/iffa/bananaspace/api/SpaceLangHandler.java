@@ -159,6 +159,15 @@ public class SpaceLangHandler {
     }
 
     /**
+     * 
+     * @param world name of world
+     * @return
+     */
+    public static String getIdNotFoundMessage(String id) {
+        return SpaceConfig.getConfig(ConfigFile.LANG).getString("other.idnotfound").replace("{idname}", id);
+    }
+
+    /**
      * Constructor of SpaceLangHandler.
      */
     private SpaceLangHandler() {

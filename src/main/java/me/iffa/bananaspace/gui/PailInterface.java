@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.DefaultListModel;
 import java.io.IOException;
 import java.util.logging.Level;
+import me.iffa.bananaspace.api.SpaceLangHandler;
 
 /**
  * Interface for Pail, a Bukkit GUI.
@@ -62,7 +63,7 @@ public class PailInterface extends javax.swing.JPanel {
      */
     private void loadSpaceListConfig(String idname) {
         if (idConfig.get("ids." + idname) == null) {
-            SpaceMessageHandler.print(Level.WARNING, "An id with the name '" + idname + "' does not exist in the config!");
+            SpaceMessageHandler.print(Level.WARNING, SpaceLangHandler.getIdNotFoundMessage(idname));
             return;
         }
         Settings_IDName.setText(idname);
@@ -89,7 +90,7 @@ public class PailInterface extends javax.swing.JPanel {
      */
     private void saveIdConfig(String idname) {
         if (idConfig.get("ids." + idname) == null) {
-            SpaceMessageHandler.print(Level.WARNING, "A id with the name '" + idname + "' does not exist in the config!");
+            SpaceMessageHandler.print(Level.WARNING, SpaceLangHandler.getIdNotFoundMessage(idname));
             return;
         }
         idConfig.set("ids." + idname + ".generation.generateplanets", Settings_Planets.isSelected());
