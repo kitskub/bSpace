@@ -8,7 +8,7 @@ import java.util.logging.Level;
 import me.iffa.bananaspace.BananaSpace;
 import me.iffa.bananaspace.api.SpaceConfigHandler;
 import me.iffa.bananaspace.api.SpaceMessageHandler;
-import me.iffa.bananaspace.runnables.SpaceSpoutRunnable;
+import me.iffa.bananaspace.runnables.SpoutFixRunnable;
 
 // Bukkit Imports
 import org.bukkit.event.player.PlayerListener;
@@ -60,7 +60,7 @@ public class SpaceSpoutPlayerListener extends PlayerListener {
 	    sky.setStarFrequency(player, 5000); //set star frequency higher
             player.setTexturePack(SpaceConfigHandler.getSpoutTexturePack());
             SpaceMessageHandler.debugPrint(Level.INFO, "Set " + player.getName() + "'s texture pack");
-	    BananaSpace.scheduler.scheduleSyncDelayedTask(plugin, new SpaceSpoutRunnable(event.getPlayer()), 10L);
+	    BananaSpace.scheduler.scheduleSyncDelayedTask(plugin, new SpoutFixRunnable(event.getPlayer()), 10L);
 	    SpaceMessageHandler.debugPrint(Level.INFO, "Made clouds and the moon invisible for player '" + player.getName() + "'. Starting runnable thread to setup Player movements...");
 	}
 	/* Player teleports out of spaceworld */

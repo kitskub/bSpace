@@ -28,4 +28,4 @@ commands:
 other:
   nopermission: "You don't have permission!"
   notenoughmoney: "You don't have enough money!"
-  idnotfound: "A id with the name '{idname}' does not exist in the config!"
+  idnotfound: "An ID with the name '{idname}' does not exist in the config!"
