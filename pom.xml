@@ -48,6 +48,7 @@
             <groupId>me.escapeNT</groupId>
             <artifactId>Pail</artifactId>
             <version>lol</version>
+            <!-- Because we don't have a repo for this dep! -->
             <scope>system</scope>
             <systemPath>${project.basedir}/libs/Pail.jar</systemPath>
         </dependency>
@@ -55,6 +56,7 @@
             <groupId>com.nijikokun</groupId>
             <artifactId>Register</artifactId>
             <version>lol</version>
+            <!-- Because we don't have a repo for this dep! -->
             <scope>system</scope>
             <systemPath>${project.basedir}/libs/Register.jar</systemPath>
         </dependency>

@@ -457,7 +457,20 @@ public class SpaceConfigHandler {
         return true;
     }
     
+    /**
+     * Gets generate planets value.
+     * 
+     * @param id ID
+     * 
+     * @return True if generateplantes=true
+     */
     public static boolean getGeneratePlanets(String id){
         return SpaceConfig.getConfig(ConfigFile.IDS).getBoolean("ids." + id + ".generation.generateplanets", (Boolean) Defaults.GENERATE_PLANETS.getDefault());
+    }
+
+    /**
+     * Constructor of SpaceConfigHandler.
+     */
+    private SpaceConfigHandler() {
     }
 }

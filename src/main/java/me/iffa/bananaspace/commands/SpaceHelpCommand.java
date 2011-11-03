@@ -14,6 +14,7 @@ import org.bukkit.command.CommandSender;
  * @author iffa
  */
 public class SpaceHelpCommand extends SpaceCommand {
+
     /**
      * Constructor of SpaceHelpCommand.
      * 

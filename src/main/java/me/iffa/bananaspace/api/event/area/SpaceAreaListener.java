@@ -4,14 +4,13 @@ package me.iffa.bananaspace.api.event.area;
 // Bukkit Imports
 import org.bukkit.event.CustomEventListener;
 import org.bukkit.event.Event;
-import org.bukkit.event.Listener;
 
 /**
  * Listener for area events of BananaSpace.
  * 
  * @author iffa
  */
-public class SpaceAreaListener extends CustomEventListener implements Listener {
+public class SpaceAreaListener extends CustomEventListener {
     /**
      * Called when a player enters a breathable area.
      * 

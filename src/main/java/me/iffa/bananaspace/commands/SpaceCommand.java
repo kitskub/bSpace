@@ -35,5 +35,4 @@ public abstract class SpaceCommand {
      * Does the command.
      */
     public abstract void command();
-
 }

@@ -4,15 +4,14 @@ package me.iffa.bananaspace.api.event.misc;
 // Bukkit Imports
 import org.bukkit.event.CustomEventListener;
 import org.bukkit.event.Event;
-import org.bukkit.event.Listener;
 
 /**
- * Listener for misc events of BananaSpace.
+ * Listener for misc. events of BananaSpace.
  * 
  * @author iffa
  * 
  */
-public class SpaceListener extends CustomEventListener implements Listener {
+public class SpaceMiscListener extends CustomEventListener  {
     /**
      * Called when a player teleports to space.
      * 
