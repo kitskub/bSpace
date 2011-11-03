@@ -61,4 +61,10 @@ public class SpacePlayerHandler {
             player.getInventory().setLeggings(new ItemStack(Material.AIR, 1));
         }
     }
+
+    /**
+     * Constructor of SpacePlayerHandler.
+     */
+    private SpacePlayerHandler() {
+    }
 }

@@ -56,7 +56,6 @@ public class BananaSpace extends JavaPlugin {
     public static String version;
     public static BukkitScheduler scheduler;
     public static SpaceWorldHandler worldHandler;
-    public static SpacePlayerHandler playerHandler;
     public static PailInterface pailInt;
     public static PluginManager pm;
     public static Map<Player, Location> locCache = null;
@@ -138,7 +137,6 @@ public class BananaSpace extends JavaPlugin {
         prefix = "[" + getDescription().getName() + "]";
         scheduler = getServer().getScheduler();
         worldHandler = new SpaceWorldHandler(this);
-        playerHandler = new SpacePlayerHandler();
         if (pm.getPlugin("Spout") != null && SpaceConfigHandler.isUsingSpout()) {
             locCache = new HashMap<Player, Location>();
         }
@@ -203,16 +201,6 @@ public class BananaSpace extends JavaPlugin {
      */
     public static SpaceWorldHandler getWorldHandler() {
         return worldHandler;
-    }
-
-    /**
-     * Gets the SpacePlayerHandler.
-     * 
-     * @return SpacePlayerHandler
-     * @deprecated Why do we need it?
-     */
-    public static SpacePlayerHandler getPlayerHandler() {
-        return playerHandler;
     }
 
     /**

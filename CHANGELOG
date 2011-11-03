@@ -1,4 +1,5 @@
 New in version 2 (not a final changelog):
+-----------------------------------------
 -Added new world creating & loading system, now ID based instead of list based
 -Added lang.yml to allow translating messages to your own language
 -Added permission node to bypass all suit & helmet checks no matter what config says
@@ -14,6 +15,7 @@ New in version 2 (not a final changelog):
 -Switched to the new YamlConfiguration & merged configuration file handlers
 -Moved suit & helmet checks to their own method to clean up onPlayerMove for other features
 -Cleaned up the code by removing useless variables, adding JavaDocs etc
+-Renamed SpaceListener to SpaceMiscListener and removed an useless implements (API)
 
 -Fixed helmet giving being bitchy
 -Fixed suffocating not stopping after death (actually fixed in v1.4_2)
