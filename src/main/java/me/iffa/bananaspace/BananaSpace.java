@@ -13,7 +13,6 @@ import me.escapeNT.pail.Pail;
 import me.iffa.bananaspace.api.SpaceConfigHandler;
 import me.iffa.bananaspace.api.SpaceLangHandler;
 import me.iffa.bananaspace.api.SpaceMessageHandler;
-import me.iffa.bananaspace.api.SpacePlayerHandler;
 import me.iffa.bananaspace.api.SpaceWorldHandler;
 import me.iffa.bananaspace.commands.SpaceCommandHandler;
 import me.iffa.bananaspace.config.SpaceConfig;
@@ -88,7 +87,7 @@ public class BananaSpace extends JavaPlugin {
         SpaceMessageHandler.debugPrint(Level.INFO, "Loaded configuration files, now checking if they need to be updated...");
         // Updating configuration files (if needed).
         SpaceConfigUpdater.updateConfigs();
-        
+
         // Registering events.
         registerEvents();
 
@@ -193,7 +192,6 @@ public class BananaSpace extends JavaPlugin {
     }
 
     /* Some API methods */
-    
     /**
      * Gets the SpaceWorldHandler.
      * 

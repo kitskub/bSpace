@@ -23,7 +23,7 @@ public class SuffacationRunnable implements Runnable {
      * @param player Player
      */
     public SuffacationRunnable(Player player) {
-	this.player = player;
+        this.player = player;
     }
 
     /**
@@ -31,16 +31,16 @@ public class SuffacationRunnable implements Runnable {
      */
     @Override
     public void run() {
-	if(!player.isDead()) {
-	    if (player.getHealth() < 2 && player.getHealth() > 0) {
-		player.setHealth(0);
-		BananaSpace.scheduler.cancelTask(SpacePlayerListener.taskid.get(player));
-		return;
-	    } else if(player.getHealth() <= 0) {
-		BananaSpace.scheduler.cancelTask(SpacePlayerListener.taskid.get(player));
-		return;
-	    }
-	    player.setHealth(player.getHealth() - 2);
-	}
+        if (!player.isDead()) {
+            if (player.getHealth() < 2 && player.getHealth() > 0) {
+                player.setHealth(0);
+                BananaSpace.scheduler.cancelTask(SpacePlayerListener.taskid.get(player));
+                return;
+            } else if (player.getHealth() <= 0) {
+                BananaSpace.scheduler.cancelTask(SpacePlayerListener.taskid.get(player));
+                return;
+            }
+            player.setHealth(player.getHealth() - 2);
+        }
     }
 }

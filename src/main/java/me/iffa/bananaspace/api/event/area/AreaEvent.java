@@ -9,7 +9,6 @@ import org.bukkit.event.Event;
  * Event data for various area related events.
  * 
  * @author iffa
- * 
  */
 public abstract class AreaEvent extends Event {
     // Variables

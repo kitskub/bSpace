@@ -35,7 +35,7 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
     // Variables
     private Map<Material, Float> allowedShells;
     private Map<Material, Float> allowedCores;
-    private long seed = (long) SpaceConfig.getConfig(ConfigFile.PLANETS).getDouble("seed", 0.0);; // Seed for generating planetoids
+    private long seed = (long) SpaceConfig.getConfig(ConfigFile.PLANETS).getDouble("seed", 0.0); // Seed for generating planetoids
     private int density = SpaceConfig.getConfig(ConfigFile.PLANETS).getInt("density", (Integer) Defaults.DENSITY.getDefault()); // Number of planetoids it will try to create per
     private int minSize = SpaceConfig.getConfig(ConfigFile.PLANETS).getInt("minSize", (Integer) Defaults.MIN_SIZE.getDefault()); // Minimum radius
     private int maxSize = SpaceConfig.getConfig(ConfigFile.PLANETS).getInt("maxSize", (Integer) Defaults.MAX_SIZE.getDefault()); // Maximum radius
@@ -44,24 +44,31 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
     private int maxShellSize = SpaceConfig.getConfig(ConfigFile.PLANETS).getInt("maxShellSize", (Integer) Defaults.MAX_SHELL_SIZE.getDefault()); // Maximum shell thickness
     private int minShellSize = SpaceConfig.getConfig(ConfigFile.PLANETS).getInt("minShellSize", (Integer) Defaults.MIN_SHELL_SIZE.getDefault()); // Minimum shell thickness, should be at least 3
     private Material floorBlock = Material.matchMaterial(SpaceConfig.getConfig(ConfigFile.PLANETS).getString("floorBlock", (String) Defaults.FLOOR_BLOCK.getDefault()));// BlockID for the floor 
-    private static HashMap<World,List<Planetoid>> planets = new HashMap<World,List<Planetoid>>();
+    private static HashMap<World, List<Planetoid>> planets = new HashMap<World, List<Planetoid>>();
     public final String ID;
     public final boolean GENERATE;
 
     /**
      * Constructor of PlanetsChunkGenerator.
-     * @param id 
+     * 
+     * @param id ID
      */
     public PlanetsChunkGenerator(String id) {
-        this(id,SpaceConfigHandler.getGeneratePlanets(id));
+        this(id, SpaceConfigHandler.getGeneratePlanets(id));
     }
 
+    /**
+     * Constructor of PlanetsChunkGenerator 2.
+     * 
+     * @param id ID
+     * @param generate ?
+     */
     public PlanetsChunkGenerator(String id, boolean generate) {
-        this.ID=id.toLowerCase();
+        this.ID = id.toLowerCase();
         this.GENERATE = generate;
         loadAllowedBlocks();
     }
-    
+
     /**
      * Generates a world.
      * 
@@ -74,20 +81,20 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
      */
     @Override
     public byte[] generate(World world, Random random, int x, int z) {
-        if(!planets.containsKey(world)) {
+        if (!planets.containsKey(world)) {
             planets.put(world, new ArrayList<Planetoid>());
         }
         byte[] retVal = new byte[32768];
         Arrays.fill(retVal, (byte) 0);
-        
-        if(GENERATE){
-            generatePlanetoids(world,x,z);
+
+        if (GENERATE) {
+            generatePlanetoids(world, x, z);
             // Go through the current system's planetoids and fill in this chunk as
             // needed.
             for (Planetoid curPl : planets.get(world)) {
                 // Find planet's center point relative to this chunk.
-                int relCenterX = curPl.xPos - x*16;
-                int relCenterZ = curPl.zPos - z*16;
+                int relCenterX = curPl.xPos - x * 16;
+                int relCenterZ = curPl.zPos - z * 16;
 
                 for (int curX = -curPl.radius; curX <= curPl.radius; curX++) {//Iterate across every x block
                     boolean xShell = false;//Is part of the x shell
@@ -125,13 +132,13 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
                                         //world.getBlockAt(worldX, worldY, worldZ).setType(curPl.coreBlk);
                                         retVal[(chunkX * 16 + chunkZ) * 128 + worldY] = (byte) curPl.coreBlk.getId();
                                     }
-                                }   
+                                }
                             }
                         }
                     }
                 }
             }
-    
+
         }
         // Fill in the floor
         for (int floorY = 0; floorY < floorHeight; floorY++) {
@@ -147,7 +154,7 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
         }
         return retVal;
     }
-    
+
     /**
      * Generates planets(toids).
      * 
@@ -156,7 +163,7 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
      * @param z Z-pos
      */
     @SuppressWarnings("fallthrough")
-    private void generatePlanetoids(World world, int x, int z){
+    private void generatePlanetoids(World world, int x, int z) {
         List<Planetoid> planetoids = new ArrayList<Planetoid>();
         //Seed shift;
         // if X is negative, left shift seed by one
@@ -167,8 +174,8 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
             seed = -seed;
         }
 
-        
-        
+
+
         // If x and Z are zero, generate a log/leaf planet close to 0,0
         if (x == 0 && z == 0) {
             Planetoid spawnPl = new Planetoid();
@@ -181,7 +188,7 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
             spawnPl.radius = 6;
             planets.get(world).add(spawnPl);
         }
-        
+
         //x = (x*16) - minDistance;
         //z = (z*16) - minDistance;
         Random rand = new Random(seed); //TODO Change to world.getSeed()
@@ -217,10 +224,10 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
             curPl.radius = rand.nextInt(maxSize - minSize) + minSize;
 
             // Set position
-            curPl.xPos = (x*16) - minDistance + rand.nextInt(minDistance+16+minDistance);
+            curPl.xPos = (x * 16) - minDistance + rand.nextInt(minDistance + 16 + minDistance);
             curPl.yPos = rand.nextInt(128 - curPl.radius * 2 - floorHeight)
                     + curPl.radius;
-            curPl.zPos = (z*16) - minDistance + rand.nextInt(minDistance+16+minDistance);
+            curPl.zPos = (z * 16) - minDistance + rand.nextInt(minDistance + 16 + minDistance);
 
             // Created a planet, check for collisions with existing planets
             // If any collision, discard planet
@@ -234,19 +241,19 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
                     break;
                 }
             }
-            if(!planets.isEmpty()){
-            if(!planets.get(world).isEmpty()){
-                List<Planetoid> tempPlanets = planets.get(world);
-                for (Planetoid pl : tempPlanets) {
-                    // each planetoid has to be at least pl1.radius + pl2.radius +
-                    // min distance apart
-                    int distMin = pl.radius + curPl.radius + minDistance;
-                    if (distanceSquared(pl, curPl) < distMin * distMin) {
-                        discard = true;
-                        break;
+            if (!planets.isEmpty()) {
+                if (!planets.get(world).isEmpty()) {
+                    List<Planetoid> tempPlanets = planets.get(world);
+                    for (Planetoid pl : tempPlanets) {
+                        // each planetoid has to be at least pl1.radius + pl2.radius +
+                        // min distance apart
+                        int distMin = pl.radius + curPl.radius + minDistance;
+                        if (distanceSquared(pl, curPl) < distMin * distMin) {
+                            discard = true;
+                            break;
+                        }
                     }
                 }
-            }
             }
             if (!discard) {
                 planetoids.add(curPl);
@@ -255,24 +262,26 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
         planets.get(world).addAll(planetoids);
 
     }
+
     @Override
     public List<BlockPopulator> getDefaultPopulators(World world) {
-        ArrayList<BlockPopulator> populators= new ArrayList<BlockPopulator>();
-        if(SpaceConfigHandler.getSatellitesEnabled(world)){
+        ArrayList<BlockPopulator> populators = new ArrayList<BlockPopulator>();
+        if (SpaceConfigHandler.getSatellitesEnabled(world)) {
             populators.add(new SpaceSatellitePopulator());
         }
-        if(SpaceConfigHandler.getAsteroidsEnabled(world)){
+        if (SpaceConfigHandler.getAsteroidsEnabled(world)) {
             populators.add(new SpaceAsteroidPopulator());
         }
         return populators;
     }
+
     /**
      * Loads allowed blocks
      */
     private void loadAllowedBlocks() {
         allowedCores = new EnumMap<Material, Float>(Material.class);
         allowedShells = new EnumMap<Material, Float>(Material.class);
-        for (String s : (List<String>)SpaceConfig.getConfig(ConfigFile.PLANETS).getList(
+        for (String s : (List<String>) SpaceConfig.getConfig(ConfigFile.PLANETS).getList(
                 "blocks.cores", null)) {
             String[] sSplit = s.split("-");
             Material newMat = Material.matchMaterial(sSplit[0]);
@@ -284,7 +293,7 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
                 }
             }
         }
-        for (String s : (List<String>)SpaceConfig.getConfig(ConfigFile.PLANETS).getList(
+        for (String s : (List<String>) SpaceConfig.getConfig(ConfigFile.PLANETS).getList(
                 "blocks.shells", null)) {
             String[] sSplit = s.split("-");
             Material newMat = Material.matchMaterial(sSplit[0]);
@@ -297,7 +306,7 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
             }
         }
     }
-    
+
     /**
      * Gets the squared distance.
      * @param pl1 Planetoid 1

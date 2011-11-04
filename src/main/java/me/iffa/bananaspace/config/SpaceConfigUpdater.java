@@ -21,7 +21,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 public class SpaceConfigUpdater {
     // Variables
     private static boolean hadToBeUpdated = false;
-    
+
     /**
      * Checks if the configuration files had to be "fixed".
      * 
@@ -41,12 +41,12 @@ public class SpaceConfigUpdater {
     private static boolean needsUpdate(ConfigFile configfile) {
         if (SpaceConfig.getConfig(configfile).contains("worlds")) {
             try {
-            for(String world : SpaceConfig.getConfig(configfile).getConfigurationSection("worlds").getKeys(false)){
-                if(SpaceConfig.getConfig(configfile).getConfigurationSection("worlds." + world).contains("generation")){
-                    hadToBeUpdated = true;
-                    return true;
+                for (String world : SpaceConfig.getConfig(configfile).getConfigurationSection("worlds").getKeys(false)) {
+                    if (SpaceConfig.getConfig(configfile).getConfigurationSection("worlds." + world).contains("generation")) {
+                        hadToBeUpdated = true;
+                        return true;
+                    }
                 }
-            }
             } catch (NullPointerException ex) {
                 return false;
             }
@@ -66,7 +66,7 @@ public class SpaceConfigUpdater {
         SpaceMessageHandler.print(Level.INFO, SpaceLangHandler.getConfigUpdateStartMessage());
         YamlConfiguration configFile = SpaceConfig.getConfig(ConfigFile.CONFIG);
         YamlConfiguration idsFile = SpaceConfig.getConfig(ConfigFile.IDS);
-        
+
         for (String world : configFile.getConfigurationSection("worlds").getKeys(false)) {
             // Generation values
             for (String key : configFile.getConfigurationSection("worlds." + world + "." + "generation").getKeys(false)) {
@@ -96,7 +96,7 @@ public class SpaceConfigUpdater {
                 idsFile.set("ids." + world + "." + key, value);
                 SpaceMessageHandler.debugPrint(Level.INFO, "Moved " + key + " of " + world + " to ids.yml with a value of " + value);
             }
-            
+
             // Removing the world from config.yml.
             configFile.set("worlds." + world, null);
             SpaceMessageHandler.debugPrint(Level.INFO, "Removed " + world + " from config.yml.");

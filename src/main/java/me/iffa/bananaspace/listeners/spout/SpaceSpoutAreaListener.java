@@ -30,17 +30,17 @@ public class SpaceSpoutAreaListener extends SpaceAreaListener {
      */
     @Override
     public void onAreaEnter(AreaEnterEvent event) {
-	SpoutPlayer player = SpoutManager.getPlayer(event.getPlayer());
-	if(player.isSpoutCraftEnabled()) {
-	    Location temp = player.getLocation();
-	    Block under = Bukkit.getServer().getWorld(player.getWorld().getName()).getBlockAt(temp.getBlockX(), temp.getBlockY()-1, temp.getBlockZ());
-	    if(under.getType() != Material.AIR) {
-		//reset the movement multipliers
-		player.setAirSpeedMultiplier(1);
-		player.setGravityMultiplier(1);
-		player.setWalkingMultiplier(1);
-	    }
-	}
+        SpoutPlayer player = SpoutManager.getPlayer(event.getPlayer());
+        if (player.isSpoutCraftEnabled()) {
+            Location temp = player.getLocation();
+            Block under = Bukkit.getServer().getWorld(player.getWorld().getName()).getBlockAt(temp.getBlockX(), temp.getBlockY() - 1, temp.getBlockZ());
+            if (under.getType() != Material.AIR) {
+                //reset the movement multipliers
+                player.setAirSpeedMultiplier(1);
+                player.setGravityMultiplier(1);
+                player.setWalkingMultiplier(1);
+            }
+        }
     }
 
     /**
@@ -50,17 +50,16 @@ public class SpaceSpoutAreaListener extends SpaceAreaListener {
      */
     @Override
     public void onAreaLeave(AreaLeaveEvent event) {
-	SpoutPlayer player = SpoutManager.getPlayer(event.getPlayer());
-	if(player.isSpoutCraftEnabled()) {
-	    Location temp = player.getLocation();
-	    Block under = Bukkit.getServer().getWorld(player.getWorld().getName()).getBlockAt(temp.getBlockX(), temp.getBlockY()-1, temp.getBlockZ());
-	    if(under.getType() != Material.AIR) {
-		//set the movement multipliers for space
-		player.setAirSpeedMultiplier(1.2);
-		player.setGravityMultiplier(0.3);
-		player.setWalkingMultiplier(0.7);
-	    }
-	}
+        SpoutPlayer player = SpoutManager.getPlayer(event.getPlayer());
+        if (player.isSpoutCraftEnabled()) {
+            Location temp = player.getLocation();
+            Block under = Bukkit.getServer().getWorld(player.getWorld().getName()).getBlockAt(temp.getBlockX(), temp.getBlockY() - 1, temp.getBlockZ());
+            if (under.getType() != Material.AIR) {
+                //set the movement multipliers for space
+                player.setAirSpeedMultiplier(1.2);
+                player.setGravityMultiplier(0.3);
+                player.setWalkingMultiplier(0.7);
+            }
+        }
     }
-
 }

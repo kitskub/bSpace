@@ -9,9 +9,8 @@ import org.bukkit.event.Event;
  * Listener for misc. events of BananaSpace.
  * 
  * @author iffa
- * 
  */
-public class SpaceMiscListener extends CustomEventListener  {
+public class SpaceMiscListener extends CustomEventListener {
     /**
      * Called when a player teleports to space.
      * 

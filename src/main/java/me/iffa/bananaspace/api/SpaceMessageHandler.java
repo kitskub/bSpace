@@ -18,7 +18,7 @@ public class SpaceMessageHandler {
     // Variables
     private static final Logger log = Logger.getLogger("Minecraft");
     private static String printPrefix = "[BananaSpace]";
-    
+
     /**
      * Prints a message to the console.
      * 
@@ -28,7 +28,7 @@ public class SpaceMessageHandler {
     public static void print(Level level, String message) {
         log.log(level, printPrefix + " " + message);
     }
-   
+
     /**
      * Prints a debug message to the console if debugging is enabled.
      * 
@@ -40,7 +40,7 @@ public class SpaceMessageHandler {
             log.log(level, printPrefix + " " + message);
         }
     }
-    
+
     /**
      * Sends a "You don't have permission!"-message to a player.
      * 
@@ -49,7 +49,7 @@ public class SpaceMessageHandler {
     public static void sendNoPermissionMessage(Player player) {
         player.sendMessage(ChatColor.RED + SpaceLangHandler.getNoPermissionMessage());
     }
-    
+
     /**
      * sends a "You don't have enough money!"-message to a player.
      * 

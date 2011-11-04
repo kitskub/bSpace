@@ -52,7 +52,7 @@ public class TeleportToSpaceEvent extends Event implements Cancellable {
     public Location getTo() {
         return this.to;
     }
-    
+
     /**
      * Gets where the player is trying to teleport from.
      * 

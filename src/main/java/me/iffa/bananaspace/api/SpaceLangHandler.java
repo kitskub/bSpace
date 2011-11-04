@@ -8,6 +8,7 @@ import me.iffa.bananaspace.config.SpaceConfig.ConfigFile;
 
 /**
  * Useful methods to get localized strings from lang.yml. Try keeping params to a minimum!
+ * Oh, and you can use this if you ever need BananaSpace's default strings :).
  * 
  * @author iffamies
  */
@@ -129,7 +130,7 @@ public class SpaceLangHandler {
     public static String getWorldNotSpaceMessage() {
         return SpaceConfig.getConfig(ConfigFile.LANG).getString("commands.worldnotspace");
     }
-    
+
     /**
      * Gets the list of space message.
      * 

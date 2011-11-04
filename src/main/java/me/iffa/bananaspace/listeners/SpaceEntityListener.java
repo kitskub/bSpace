@@ -43,7 +43,7 @@ public class SpaceEntityListener extends EntityListener {
                         || event.getCreatureType() == CreatureType.ZOMBIE
                         || event.getCreatureType() == CreatureType.SLIME) {
                     event.setCancelled(true);
-                    
+
                 }
             }
             if (!SpaceConfigHandler.allowNeutralMobs(event.getEntity().getWorld())) {
@@ -87,8 +87,8 @@ public class SpaceEntityListener extends EntityListener {
         if (event.getEntity() instanceof Player) {
             Player p = (Player) event.getEntity();
             if (SpacePlayerListener.taskid.containsKey(p) && BananaSpace.scheduler.isCurrentlyRunning(SpacePlayerListener.taskid.get(p))) {
-                    BananaSpace.scheduler.cancelTask(SpacePlayerListener.taskid.get(p));
-                    SpaceMessageHandler.debugPrint(Level.INFO, "Cancelled suffocating task for player '" + p.getName() + "' because (s)he died.");
+                BananaSpace.scheduler.cancelTask(SpacePlayerListener.taskid.get(p));
+                SpaceMessageHandler.debugPrint(Level.INFO, "Cancelled suffocating task for player '" + p.getName() + "' because (s)he died.");
             }
         }
     }

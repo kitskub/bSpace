@@ -39,7 +39,7 @@ public class Economy {
         getMethod();
         SpaceMessageHandler.debugPrint(Level.INFO, "Hooked into " + method.getName());
     }
-    
+
     /**
      * Checks the economy enabled-state of the plugin.
      * 

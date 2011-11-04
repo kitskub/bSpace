@@ -75,7 +75,7 @@ public class SpaceWorldHandler {
      */
     public List<World> getSpaceWorlds() {
         List<World> worlds = new ArrayList<World>();
-        for(String world : spaceWorldNames){
+        for (String world : spaceWorldNames) {
             worlds.add(Bukkit.getServer().getWorld(world));
         }
         return worlds;

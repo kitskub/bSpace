@@ -193,6 +193,7 @@ public class SpaceConfig {
      */
     public enum Defaults {
         //Global
+
         REQUIRE_HELMET(true),
         DEBUGGING(false),
         REQUIRE_SUIT(false),

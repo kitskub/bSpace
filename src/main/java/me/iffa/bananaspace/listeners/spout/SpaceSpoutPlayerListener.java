@@ -36,7 +36,7 @@ public class SpaceSpoutPlayerListener extends PlayerListener {
      * @param plugin BananaSpace instance
      */
     public SpaceSpoutPlayerListener(BananaSpace plugin) {
-	this.plugin = plugin;
+        this.plugin = plugin;
     }
 
     /**
@@ -46,34 +46,34 @@ public class SpaceSpoutPlayerListener extends PlayerListener {
      */
     @Override
     public void onPlayerTeleport(PlayerTeleportEvent event) {
-	SpoutPlayer player = SpoutManager.getPlayer(event.getPlayer());
-	if (event.isCancelled() || !player.isSpoutCraftEnabled() || event.getFrom().getWorld().equals(event.getTo().getWorld())
-		|| (BananaSpace.getWorldHandler().isSpaceWorld(event.getFrom().getWorld()) && BananaSpace.getWorldHandler().isSpaceWorld(event.getTo().getWorld()))) {
-	    //Return if the event is canceled, if player doesn't have spoutcraft, if teleporting interworld, or it teleporting between space worlds
-	    return;
-	}
-	/* Player teleports to spaceworld */
-	if (BananaSpace.worldHandler.isSpaceWorld(event.getTo().getWorld())) {
-	    sky.setCloudsVisible(player, false);
-	    sky.setMoonVisible(player, false); //set the moon invisible
-	    sky.setCloudsVisible(player, false); //set clouds invisible
-	    sky.setStarFrequency(player, 5000); //set star frequency higher
+        SpoutPlayer player = SpoutManager.getPlayer(event.getPlayer());
+        if (event.isCancelled() || !player.isSpoutCraftEnabled() || event.getFrom().getWorld().equals(event.getTo().getWorld())
+                || (BananaSpace.getWorldHandler().isSpaceWorld(event.getFrom().getWorld()) && BananaSpace.getWorldHandler().isSpaceWorld(event.getTo().getWorld()))) {
+            //Return if the event is canceled, if player doesn't have spoutcraft, if teleporting interworld, or it teleporting between space worlds
+            return;
+        }
+        /* Player teleports to spaceworld */
+        if (BananaSpace.worldHandler.isSpaceWorld(event.getTo().getWorld())) {
+            sky.setCloudsVisible(player, false);
+            sky.setMoonVisible(player, false); //set the moon invisible
+            sky.setCloudsVisible(player, false); //set clouds invisible
+            sky.setStarFrequency(player, 5000); //set star frequency higher
             player.setTexturePack(SpaceConfigHandler.getSpoutTexturePack());
             SpaceMessageHandler.debugPrint(Level.INFO, "Set " + player.getName() + "'s texture pack");
-	    BananaSpace.scheduler.scheduleSyncDelayedTask(plugin, new SpoutFixRunnable(event.getPlayer()), 10L);
-	    SpaceMessageHandler.debugPrint(Level.INFO, "Made clouds and the moon invisible for player '" + player.getName() + "'. Starting runnable thread to setup Player movements...");
-	}
-	/* Player teleports out of spaceworld */
-	if (BananaSpace.worldHandler.isSpaceWorld(event.getFrom().getWorld()) && !BananaSpace.worldHandler.isSpaceWorld(event.getTo().getWorld())) {
-	    sky.setCloudsVisible(player, true);
-	    sky.setMoonVisible(player, true);
-	    sky.setStarFrequency(player, 500);
-	    SpaceMessageHandler.debugPrint(Level.INFO, "Made clouds visible for player '" + player.getName() + "'.");
+            BananaSpace.scheduler.scheduleSyncDelayedTask(plugin, new SpoutFixRunnable(event.getPlayer()), 10L);
+            SpaceMessageHandler.debugPrint(Level.INFO, "Made clouds and the moon invisible for player '" + player.getName() + "'. Starting runnable thread to setup Player movements...");
+        }
+        /* Player teleports out of spaceworld */
+        if (BananaSpace.worldHandler.isSpaceWorld(event.getFrom().getWorld()) && !BananaSpace.worldHandler.isSpaceWorld(event.getTo().getWorld())) {
+            sky.setCloudsVisible(player, true);
+            sky.setMoonVisible(player, true);
+            sky.setStarFrequency(player, 500);
+            SpaceMessageHandler.debugPrint(Level.INFO, "Made clouds visible for player '" + player.getName() + "'.");
             player.resetTexturePack();
             SpaceMessageHandler.debugPrint(Level.INFO, "Reset " + player.getName() + "'s texture pack");
-	    player.setCanFly(false);
-	    player.resetMovement();
-	    SpaceMessageHandler.debugPrint(Level.INFO, "Reset player '" + player.getName() + "'s gravity and visual settings.");
-	}
+            player.setCanFly(false);
+            player.resetMovement();
+            SpaceMessageHandler.debugPrint(Level.INFO, "Reset player '" + player.getName() + "'s gravity and visual settings.");
+        }
     }
 }

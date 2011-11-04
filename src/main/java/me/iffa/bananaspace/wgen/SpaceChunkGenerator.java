@@ -47,11 +47,11 @@ public class SpaceChunkGenerator extends ChunkGenerator {
      */
     @Override
     public List<BlockPopulator> getDefaultPopulators(World world) {
-        ArrayList<BlockPopulator> populators= new ArrayList<BlockPopulator>();
-        if(SpaceConfigHandler.getSatellitesEnabled(world)){
+        ArrayList<BlockPopulator> populators = new ArrayList<BlockPopulator>();
+        if (SpaceConfigHandler.getSatellitesEnabled(world)) {
             populators.add(new SpaceSatellitePopulator());
         }
-        if(SpaceConfigHandler.getAsteroidsEnabled(world)){
+        if (SpaceConfigHandler.getAsteroidsEnabled(world)) {
             populators.add(new SpaceAsteroidPopulator());
         }
         return populators;

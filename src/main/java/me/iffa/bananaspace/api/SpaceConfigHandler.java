@@ -431,7 +431,7 @@ public class SpaceConfigHandler {
         }
         return SpaceConfig.getConfig(ConfigFile.IDS).getInt("ids." + id + ".generation.satellitechance", (Integer) Defaults.SATELLITE_CHANCE.getDefault());
     }
-    
+
     /**
      * 
      * @return Url of the texture used in the config, or the default
@@ -448,15 +448,15 @@ public class SpaceConfigHandler {
         }
         return texture.isEmpty() ? (String) Defaults.TEXTURE_PACK.getDefault() : texture;
     }
-    
-    public static boolean getGeneratePlanets(World world){
+
+    public static boolean getGeneratePlanets(World world) {
         if (world.getGenerator() instanceof PlanetsChunkGenerator) {
             PlanetsChunkGenerator theGen = (PlanetsChunkGenerator) world.getGenerator();
             return theGen.GENERATE;
         }
         return true;
     }
-    
+
     /**
      * Gets generate planets value.
      * 
@@ -464,7 +464,7 @@ public class SpaceConfigHandler {
      * 
      * @return True if generateplantes=true
      */
-    public static boolean getGeneratePlanets(String id){
+    public static boolean getGeneratePlanets(String id) {
         return SpaceConfig.getConfig(ConfigFile.IDS).getBoolean("ids." + id + ".generation.generateplanets", (Boolean) Defaults.GENERATE_PLANETS.getDefault());
     }
 

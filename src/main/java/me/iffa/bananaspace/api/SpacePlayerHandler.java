@@ -10,7 +10,6 @@ import org.bukkit.inventory.ItemStack;
  * Player related methods.
  * 
  * @author iffa
- * 
  */
 public class SpacePlayerHandler {
     /**

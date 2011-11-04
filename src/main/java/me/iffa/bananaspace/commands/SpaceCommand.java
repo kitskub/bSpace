@@ -17,7 +17,7 @@ public abstract class SpaceCommand {
     protected BananaSpace plugin;
     protected CommandSender sender;
     protected String[] args;
-    
+
     /**
      * Constructor of SpaceCommand.
      * 
@@ -30,7 +30,7 @@ public abstract class SpaceCommand {
         this.sender = sender;
         this.args = args;
     }
-    
+
     /**
      * Does the command.
      */

@@ -6,6 +6,7 @@ import me.iffa.bananaspace.api.SpaceMessageHandler;
 import me.iffa.bananaspace.config.SpaceConfig;
 import me.iffa.bananaspace.config.SpaceConfig.ConfigFile;
 import me.iffa.bananaspace.config.SpaceConfig.Defaults;
+import me.iffa.bananaspace.api.SpaceLangHandler;
 
 // Bukkit Imports
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -16,7 +17,6 @@ import javax.swing.JOptionPane;
 import javax.swing.DefaultListModel;
 import java.io.IOException;
 import java.util.logging.Level;
-import me.iffa.bananaspace.api.SpaceLangHandler;
 
 /**
  * Interface for Pail, a Bukkit GUI.
@@ -658,7 +658,7 @@ private void createIdButtonActionPerformed(java.awt.event.ActionEvent evt) {//GE
         return;
     }
     idConfig.set("ids." + idname + ".generation.generateplanets", Defaults.GENERATE_PLANETS.getDefault());
-    idConfig.set("ids." + idname + ".generation.generateasteroids",  Defaults.ASTEROIDS_ENABLED.getDefault());
+    idConfig.set("ids." + idname + ".generation.generateasteroids", Defaults.ASTEROIDS_ENABLED.getDefault());
     idConfig.set("ids." + idname + ".generation.glowstonechance", Defaults.GLOWSTONE_CHANCE.getDefault());
     idConfig.set("ids." + idname + ".generation.stonechance", Defaults.STONE_CHANCE.getDefault());
     idConfig.set("ids." + idname + ".weather", Defaults.ALLOW_WEATHER.getDefault());
@@ -713,7 +713,7 @@ private void Settings_ResetActionPerformed(java.awt.event.ActionEvent evt) {//GE
 }//GEN-LAST:event_Settings_ResetActionPerformed
 
 private void Settings_SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Settings_SaveActionPerformed
-    if(SpaceList.getSelectedIndex() != -1){
+    if (SpaceList.getSelectedIndex() != -1) {
         String idname = (String) SpaceList.getModel().getElementAt(SpaceList.getSelectedIndex());
         saveIdConfig(idname);
         JOptionPane.showMessageDialog(this, "The ID '" + idname + "' has been saved. Please note that most changes take effect after reloading the server.", "ID saved!", JOptionPane.INFORMATION_MESSAGE);
