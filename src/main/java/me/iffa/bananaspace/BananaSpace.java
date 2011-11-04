@@ -39,9 +39,6 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
 
-// BukkitStats Imports
-import org.blockface.stats.CallHome;
-
 /**
  * Main class of BananaSpace.
  * 
@@ -123,7 +120,6 @@ public class BananaSpace extends JavaPlugin {
 
         // Finishing up enablation.
         SpaceMessageHandler.print(Level.INFO, SpaceLangHandler.getUsageStatsMessage());
-        CallHome.load(this);
         SpaceMessageHandler.print(Level.INFO, SpaceLangHandler.getEnabledMessage());
     }
 
