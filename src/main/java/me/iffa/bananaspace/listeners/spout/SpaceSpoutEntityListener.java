@@ -92,8 +92,7 @@ public class SpaceSpoutEntityListener extends EntityListener {
             for (Player player : event.getLocation().getWorld().getPlayers()) {
                 SpoutPlayer p = SpoutManager.getPlayer(player);
                 if (p.isSpoutCraftEnabled()) {
-                    app.setEntitySkin(p, (LivingEntity) event.getEntity(), "http://dl.dropbox.com/u/16261496/bananaspace_alien.png", EntitySkinType.DEFAULT);
-                    SpaceMessageHandler.debugPrint(Level.INFO, "Made zombie '" + event.getEntity().getEntityId() + "' have an alien skin for player '" + player.getName() + "'.");
+                    app.setEntitySkin(p, (LivingEntity) event.getEntity(), "http://cloud.github.com/downloads/iffa/BananaSpace/bananaspace_alien.png", EntitySkinType.DEFAULT);
                 }
             }
         }

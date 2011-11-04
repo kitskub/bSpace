@@ -10,12 +10,15 @@ import me.iffa.bananaspace.api.SpaceMessageHandler;
 
 // Bukkit Imports
 import org.bukkit.World;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Zombie;
 
 // Spout Imports
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.event.spout.SpoutCraftEnableEvent;
 import org.getspout.spoutapi.event.spout.SpoutListener;
 import org.getspout.spoutapi.player.AppearanceManager;
+import org.getspout.spoutapi.player.EntitySkinType;
 import org.getspout.spoutapi.player.SkyManager;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
@@ -41,14 +44,15 @@ public class SpaceSpoutCraftListener extends SpoutListener {
         if (BananaSpace.worldHandler.isSpaceWorld(player.getWorld())) {
             World space = player.getWorld();
             player.setCanFly(true);
-            //Disabled due to limitations in Spout.
-	    /*for (LivingEntity entity : space.getLivingEntities()) {
-            if (entity instanceof Zombie) {
-            app.setEntitySkin(player, entity, "http://dl.dropbox.com/u/16261496/bananaspace_alien.png", EntitySkinType.DEFAULT);
-            BananaSpace.debugLog("Made zombie '" + entity.getEntityId() + "' have an alien skin for player '" + player.getName() + "'.");
+            //[18:44] <Afforess> iffa: setEntitySkin was fixed in the 703/510 RB series
+            //[18:45] <iffa> Afforess: so it can be uncommented or what?
+            //[18:45] <Afforess> yes
+            for (LivingEntity entity : space.getLivingEntities()) {
+                if (entity instanceof Zombie) {
+                    app.setEntitySkin(player, entity, "http://cloud.github.com/downloads/iffa/BananaSpace/bananaspace_alien.png", EntitySkinType.DEFAULT);
+                }
             }
-            }*/
-            //SpaceMessageHandler.debugPrint(Level.INFO, "Made zombies have an alien skin for player '" + player.getName() + "'.");
+            SpaceMessageHandler.debugPrint(Level.INFO, "Made zombies have an alien skin for player '" + player.getName() + "'.");
             //Set the sky properties
             sky.setMoonVisible(player, false);
             sky.setCloudsVisible(player, false);
