@@ -3,7 +3,7 @@ New in version 2 (not a final changelog):
 -Added new world creating & loading system, now ID based instead of list based
 -Added lang.yml to allow translating messages to your own language
 -Added permission node to bypass all suit & helmet checks no matter what config says
--Added SwearWord's CallHome to see usage stats
+-Added @jblaske's CallHome to see usage stats (here: http://bukkitstats.randomappdev.com/index.aspx)
 -Added & fixed some API classes (most are static now)
 -Added a space texture pack for Spoutcraft users, configurable
 -Added Pail & Register jars to project dir, Maven now handles all dependencies
