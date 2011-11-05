@@ -9,6 +9,9 @@ import java.util.logging.Level;
 // Pail Imports
 import me.escapeNT.pail.Pail;
 
+// CallHome Imports
+import com.randomappdev.bukkitstats.CallHome;
+
 // BananaSpace Imports
 import me.iffa.bananaspace.api.SpaceConfigHandler;
 import me.iffa.bananaspace.api.SpaceLangHandler;
@@ -120,6 +123,7 @@ public class BananaSpace extends JavaPlugin {
 
         // Finishing up enablation.
         SpaceMessageHandler.print(Level.INFO, SpaceLangHandler.getUsageStatsMessage());
+        CallHome.load(this);
         SpaceMessageHandler.print(Level.INFO, SpaceLangHandler.getEnabledMessage());
     }
 
