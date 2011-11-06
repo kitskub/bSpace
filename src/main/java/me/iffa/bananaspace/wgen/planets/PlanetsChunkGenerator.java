@@ -35,7 +35,6 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
     // Variables
     private Map<Material, Float> allowedShells;
     private Map<Material, Float> allowedCores;
-    private long seed = (long) SpaceConfig.getConfig(ConfigFile.PLANETS).getDouble("seed", 0.0); // Seed for generating planetoids
     private int density = SpaceConfig.getConfig(ConfigFile.PLANETS).getInt("density", (Integer) Defaults.DENSITY.getDefault()); // Number of planetoids it will try to create per
     private int minSize = SpaceConfig.getConfig(ConfigFile.PLANETS).getInt("minSize", (Integer) Defaults.MIN_SIZE.getDefault()); // Minimum radius
     private int maxSize = SpaceConfig.getConfig(ConfigFile.PLANETS).getInt("maxSize", (Integer) Defaults.MAX_SIZE.getDefault()); // Maximum radius
@@ -156,7 +155,7 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
     }
 
     /**
-     * Generates planets(toids).
+     * Generates planets.
      * 
      * @param world World
      * @param x X-pos
@@ -164,6 +163,7 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
      */
     @SuppressWarnings("fallthrough")
     private void generatePlanetoids(World world, int x, int z) {
+        long seed = world.getSeed();
         List<Planetoid> planetoids = new ArrayList<Planetoid>();
         //Seed shift;
         // if X is negative, left shift seed by one
@@ -191,7 +191,7 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
 
         //x = (x*16) - minDistance;
         //z = (z*16) - minDistance;
-        Random rand = new Random(seed); //TODO Change to world.getSeed()
+        Random rand = new Random(seed);
         for (int i = 0; i < Math.abs(x) + Math.abs(z); i++) {
             // cycle generator
             rand.nextInt();
