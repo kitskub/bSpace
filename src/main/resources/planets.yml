@@ -6,7 +6,6 @@
 #                ask on BukkitDev! Thanks.              
 # Remember, these settings affect all space worlds with 
 # planet generation turned on!
-seed: 4394682821756678415
 density: 1000
 minDistance: 100
 bedrock: false
