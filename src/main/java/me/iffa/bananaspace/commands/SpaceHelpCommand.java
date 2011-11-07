@@ -30,10 +30,11 @@ public class SpaceHelpCommand extends SpaceCommand {
      */
     @Override
     public void command() {
-        sender.sendMessage(ChatColor.GREEN + "[BananaSpace] Usage:");
+        sender.sendMessage(ChatColor.DARK_GREEN + "[BananaSpace] Usage:");
         sender.sendMessage(ChatColor.GREEN + "/space enter [world] - Go to space (default world or given one)");
         sender.sendMessage(ChatColor.GREEN + "/space back - Leave space or go back where you were in space");
         sender.sendMessage(ChatColor.GREEN + "/space list - Brings up a list of all space worlds");
         sender.sendMessage(ChatColor.GREEN + "/space help - Brings up this help message");
+        sender.sendMessage(ChatColor.GREEN + "/space about - About BananaSpace");
     }
 }
