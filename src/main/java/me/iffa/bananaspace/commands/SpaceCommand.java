@@ -29,6 +29,7 @@ public abstract class SpaceCommand {
         this.plugin = plugin;
         this.sender = sender;
         this.args = args;
+        command();
     }
 
     /**

@@ -1,5 +1,5 @@
 # BananaSpace - plugin.yml
-# All authors, in some sort of order - everyone who contributes gets here!
+# All developers/contributors are here!
 authors: [iffa, kitskub, HACKhalo2, Canis85, BR]
 main: me.iffa.bananaspace.BananaSpace
 name: BananaSpace
@@ -17,6 +17,7 @@ commands:
           /<command> <back> - Go back where you were
           /<command> <list> - Lists all spaceworlds (loaded with config.yml)
           /<command> <help> - Shows help (usage)
+          /<command> <about> - About BananaSpace
 # Permission nodes
 permissions:
   # Permission groups

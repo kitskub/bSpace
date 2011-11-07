@@ -39,7 +39,7 @@ public class SpaceCommandHandler implements CommandExecutor {
      * @param label Command label
      * @param args Command arguments
      * 
-     * @return true if no usage information should be sent, i.e command was successfull
+     * @return True if no usage information should be sent, i.e command was successfull
      */
     public boolean onCommand(CommandSender sender, Command command, String label, String args[]) {
         /* Notify listeners start */
@@ -57,32 +57,30 @@ public class SpaceCommandHandler implements CommandExecutor {
         if (args.length == 1 && args[0].equalsIgnoreCase("enter")) {
             // SpaceEnterCommand, 1 argument
             SpaceEnterCommand enterCommand = new SpaceEnterCommand(plugin, sender, args);
-            enterCommand.command();
             return true;
         } else if (args.length == 2 && args[0].equalsIgnoreCase("enter")) {
             // SpaceEnterCommand, 2 arguments
             SpaceEnterCommand enterCommand = new SpaceEnterCommand(plugin, sender, args);
-            enterCommand.command();
             return true;
         } else if (args.length == 1 && args[0].equalsIgnoreCase("back")) {
             // SpaceExitCommand, 1 argument
             SpaceExitCommand exitCommand = new SpaceExitCommand(plugin, sender, args);
-            exitCommand.command();
             return true;
         } else if (args.length == 1 && args[0].equalsIgnoreCase("list")) {
             // SpaceListCommand, 1 argument
             SpaceListCommand listCommand = new SpaceListCommand(plugin, sender, args);
-            listCommand.command();
             return true;
         } else if (args.length == 1 && args[0].equalsIgnoreCase("help")) {
             // SpaceHelpCommand, 1 argument
             SpaceHelpCommand helpCommand = new SpaceHelpCommand(plugin, sender, args);
-            helpCommand.command();
+            return true;
+        } else if (args.length == 1 && args[0].equalsIgnoreCase("about")) {
+            // SpaceAboutCommand, 1 argument
+            SpaceAboutCommand aboutCommand = new SpaceAboutCommand(plugin, sender, args);
             return true;
         } else {
             // SpaceHelpCommand, 1 argument
             SpaceHelpCommand helpCommand = new SpaceHelpCommand(plugin, sender, args);
-            helpCommand.command();
             return true;
         }
     }
