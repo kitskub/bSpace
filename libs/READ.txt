@@ -1,1 +1,1 @@
-Don't use these for your server, I'm not going to update these unless needed.
+THESE JAR FILES ARE NOT ACTUAL PLUGINS. THESE ARE MOCK-UP VERSIONS TO SAVE SPACE.
