@@ -8,10 +8,12 @@ import java.util.logging.Level;
 import me.iffa.bananaspace.BananaSpace;
 import me.iffa.bananaspace.api.SpaceConfigHandler;
 import me.iffa.bananaspace.api.SpaceMessageHandler;
+import me.iffa.bananaspace.api.SpaceSpoutHandler;
 import me.iffa.bananaspace.runnables.SpoutFixRunnable;
 
 // Bukkit Imports
 import org.bukkit.event.player.PlayerListener;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
 // Spout Imports
@@ -54,26 +56,22 @@ public class SpaceSpoutPlayerListener extends PlayerListener {
         }
         /* Player teleports to spaceworld */
         if (BananaSpace.worldHandler.isSpaceWorld(event.getTo().getWorld())) {
-            sky.setCloudsVisible(player, false);
-            sky.setMoonVisible(player, false); //set the moon invisible
-            sky.setCloudsVisible(player, false); //set clouds invisible
-            sky.setStarFrequency(player, 5000); //set star frequency higher
-            player.setTexturePack(SpaceConfigHandler.getSpoutTexturePack());
-            SpaceMessageHandler.debugPrint(Level.INFO, "Set " + player.getName() + "'s texture pack");
-            BananaSpace.scheduler.scheduleSyncDelayedTask(plugin, new SpoutFixRunnable(event.getPlayer()), 10L);
-            SpaceMessageHandler.debugPrint(Level.INFO, "Made clouds and the moon invisible for player '" + player.getName() + "'. Starting runnable thread to setup Player movements...");
+            SpaceSpoutHandler.setOrReset(plugin, player, event.getTo());
         }
         /* Player teleports out of spaceworld */
-        if (BananaSpace.worldHandler.isSpaceWorld(event.getFrom().getWorld()) && !BananaSpace.worldHandler.isSpaceWorld(event.getTo().getWorld())) {
-            sky.setCloudsVisible(player, true);
-            sky.setMoonVisible(player, true);
-            sky.setStarFrequency(player, 500);
-            SpaceMessageHandler.debugPrint(Level.INFO, "Made clouds visible for player '" + player.getName() + "'.");
-            player.resetTexturePack();
-            SpaceMessageHandler.debugPrint(Level.INFO, "Reset " + player.getName() + "'s texture pack");
-            player.setCanFly(false);
-            player.resetMovement();
-            SpaceMessageHandler.debugPrint(Level.INFO, "Reset player '" + player.getName() + "'s gravity and visual settings.");
+        if (BananaSpace.worldHandler.isSpaceWorld(event.getFrom().getWorld())) {
+            SpaceSpoutHandler.setOrReset(plugin, player, event.getFrom());
         }
+    }
+    
+    /**
+     * Called when a player respawns.
+     * 
+     * @param event Event data
+     */
+    @Override
+    public void onPlayerRespawn(PlayerRespawnEvent event) {
+        SpoutPlayer player = SpoutManager.getPlayer(event.getPlayer());
+        SpaceSpoutHandler.setOrReset(plugin, player, event.getRespawnLocation());
     }
 }
