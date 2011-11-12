@@ -23,6 +23,7 @@ import org.bukkit.generator.BlockPopulator;
  * @author iffamies
  */
 public class SpaceSchematicPopulator extends BlockPopulator {
+
     /**
      * Populates a chunk with schematics.
      * 
@@ -39,7 +40,7 @@ public class SpaceSchematicPopulator extends BlockPopulator {
         Schematic randomSchematic = SpaceSchematicHandler.getSchematics().get(new Random().nextInt(SpaceSchematicHandler.getSchematics().size()));
         if (new Random().nextInt(200) <= SpaceConfigHandler.getSchematicChance(world)) {
             SpaceMessageHandler.debugPrint(Level.INFO, "Starting schematic population process with schematic '" + randomSchematic.getName() + "'.");
-            SpaceSchematicHandler.placeSchematic(randomSchematic, new Location(world, chunk.getX(), y, chunk.getZ()));
+            SpaceSchematicHandler.placeSchematic(randomSchematic, new Location(world, (chunk.getX() << 4) + new Random().nextInt(10), y, (chunk.getZ() << 4) + new Random().nextInt(10)));
         }
     }
 }

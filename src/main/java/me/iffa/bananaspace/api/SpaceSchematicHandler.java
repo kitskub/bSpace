@@ -37,6 +37,7 @@ import org.jnbt.Tag;
  * 
  * @author iffamies
  * @author DrAgonmoray (original NBT loading code)
+ * @author sk89q and other people who accidently a WE commit (schematic handling)
  */
 public class SpaceSchematicHandler {
     // Variables
