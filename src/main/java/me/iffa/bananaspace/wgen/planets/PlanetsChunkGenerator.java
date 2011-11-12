@@ -278,6 +278,7 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
     /**
      * Loads allowed blocks
      */
+    @SuppressWarnings("unchecked")
     private void loadAllowedBlocks() {
         allowedCores = new EnumMap<Material, Float>(Material.class);
         allowedShells = new EnumMap<Material, Float>(Material.class);

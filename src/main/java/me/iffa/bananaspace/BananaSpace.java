@@ -9,8 +9,8 @@ import java.util.logging.Level;
 // Pail Imports
 import me.escapeNT.pail.Pail;
 
-// CallHome Imports
-import com.randomappdev.bukkitstats.CallHome;
+// PluginStats Imports
+import com.randomappdev.pluginstats.Ping;
 
 // BananaSpace Imports
 import me.iffa.bananaspace.api.SpaceConfigHandler;
@@ -51,6 +51,7 @@ import org.bukkit.scheduler.BukkitScheduler;
  */
 public class BananaSpace extends JavaPlugin {
     // Variables
+
     public static String prefix;
     public static String version;
     public static BukkitScheduler scheduler;
@@ -123,7 +124,7 @@ public class BananaSpace extends JavaPlugin {
 
         // Finishing up enablation.
         SpaceMessageHandler.print(Level.INFO, SpaceLangHandler.getUsageStatsMessage());
-        CallHome.load(this);
+        Ping.init(this);
         SpaceMessageHandler.print(Level.INFO, SpaceLangHandler.getEnabledMessage());
     }
 

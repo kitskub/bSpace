@@ -29,9 +29,6 @@ public class SpaceSatellitePopulator extends BlockPopulator {
      */
     @Override
     public void populate(World world, Random random, Chunk source) {
-        if (!SpaceConfigHandler.getSatellitesEnabled(world)) {
-            return;
-        }
         if (random.nextInt(1337) <= SpaceConfigHandler.getSatelliteChance(world)) {
             int height = random.nextInt(128);
             buildSatellite(world, height, source);
@@ -40,7 +37,7 @@ public class SpaceSatellitePopulator extends BlockPopulator {
     }
 
     /**
-     * Builds a satellite.
+     * Builds a satellite. However badly!
      * 
      * @param world World
      * @param height Height
