@@ -2,6 +2,7 @@ New in version 2 (not a final changelog):
 -----------------------------------------
 -Added new world creating & loading system, now ID based instead of list based
 -Added lang.yml to allow translating messages to your own language
+-Added ability to use your own .schematic-files as populators (if you want some populators, make them yourself!)
 -Added permission node to bypass all suit & helmet checks no matter what config says
 -Added @jblaske's CallHome to see usage stats (here: http://bukkitstats.randomappdev.com/index.aspx)
 -Added & fixed some API classes (most are static now)
