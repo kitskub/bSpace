@@ -8,17 +8,21 @@ import java.util.logging.Level;
 
 // BananaSpace Imports
 import me.iffa.bananaspace.BananaSpace;
+import me.iffa.bananaspace.api.SpaceSpoutHandler;
+import me.iffa.bananaspace.economy.Economy;
 import me.iffa.bananaspace.api.SpaceLangHandler;
 import me.iffa.bananaspace.api.SpaceMessageHandler;
 import me.iffa.bananaspace.api.SpacePlayerHandler;
 
 // Bukkit Imports
-import me.iffa.bananaspace.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+// Spout Imports
+import org.getspout.spoutapi.player.SpoutPlayer;
 
 /**
  * Represents "/space back".
@@ -58,6 +62,7 @@ public class SpaceExitCommand extends SpaceCommand {
                     location = SpaceEnterCommand.exitDest.get(player);
                     SpaceMessageHandler.debugPrint(Level.INFO, "Teleported player '" + player.getName() + "' out of space.");
                     player.teleport(location);
+                    SpaceSpoutHandler.setOrReset(plugin, (SpoutPlayer)player, location);
                     return;
                 } else {
                     SpaceEnterCommand.exitDest.put(player, Bukkit.getServer().getWorlds().get(0).getSpawnLocation());
