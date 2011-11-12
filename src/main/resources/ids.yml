@@ -16,11 +16,15 @@ ids:
 #            generateasteroids: true
 #            generatesatellites: true
 #            generatefloor: true
+#            # If this is true, BananaSpace will look for schematics in plugins/BananaSpace/schematics! These will be used in world generation.
+#            generateschematics: true
 #            # From 1-200. These can be turned off with the generateasteroids-setting.
 #            glowstonechance: 1
 #            stonechance: 3
 #            # From 1-1337. This can be turned off with the generatesatellites-setting.
 #            satellitechance: 1
+#            # From 1-200. This can be turned off with the generateschematics-setting.
+#            schematicchance: 5
 #        # Spacesuit options
 #        suit:
 #            required: false

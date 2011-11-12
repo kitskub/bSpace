@@ -196,7 +196,6 @@ public class SpaceConfig {
      */
     public enum Defaults {
         //Global
-
         REQUIRE_HELMET(true),
         DEBUGGING(false),
         REQUIRE_SUIT(false),
@@ -223,6 +222,8 @@ public class SpaceConfig {
         SATELLITES_ENABLED(true),
         SATELLITE_CHANCE(1),
         GENERATE_PLANETS(true),
+        GENERATE_SCHEMATICS(true),
+        SCHEMATIC_CHANCE(5),
         //Planet
         DENSITY(15000),
         MIN_SIZE(4),

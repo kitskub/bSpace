@@ -91,6 +91,9 @@ public class BananaSpace extends JavaPlugin {
 
         // Registering events.
         registerEvents();
+        
+        // Loading schematic files.
+        SpaceSchematicHandler.loadSchematics();
 
         // Loading space worlds (startup).
         worldHandler.loadSpaceWorlds();
@@ -185,7 +188,7 @@ public class BananaSpace extends JavaPlugin {
      */
     @Override
     public ChunkGenerator getDefaultWorldGenerator(String worldName, String id) {
-        SpaceMessageHandler.debugPrint(Level.INFO, "Getting generator for" + worldName + " " + id);
+        SpaceMessageHandler.debugPrint(Level.INFO, "Getting generator for '" + worldName + "' using id: '" + id + "'");
         SpaceWorldHandler.checkWorld(worldName);
         if (id.isEmpty() || id.length() == 0 || id == null) {
             return new PlanetsChunkGenerator("planets", false);

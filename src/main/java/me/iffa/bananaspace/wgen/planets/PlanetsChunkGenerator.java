@@ -17,6 +17,7 @@ import me.iffa.bananaspace.wgen.populators.SpaceSatellitePopulator;
 import me.iffa.bananaspace.config.SpaceConfig.Defaults;
 import me.iffa.bananaspace.api.SpaceConfigHandler;
 import me.iffa.bananaspace.wgen.populators.SpaceAsteroidPopulator;
+import me.iffa.bananaspace.wgen.populators.SpaceSchematicPopulator;
 
 // Bukkit Imports
 import org.bukkit.Material;
@@ -271,6 +272,9 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
         }
         if (SpaceConfigHandler.getAsteroidsEnabled(world)) {
             populators.add(new SpaceAsteroidPopulator());
+        }
+        if (true) {
+            populators.add(new SpaceSchematicPopulator());
         }
         return populators;
     }

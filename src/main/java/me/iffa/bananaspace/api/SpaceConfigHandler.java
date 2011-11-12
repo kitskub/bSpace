@@ -23,6 +23,7 @@ import java.net.URL;
  * @author Jack
  */
 public class SpaceConfigHandler {
+
     /**
      * Checks if debugging mode is enabled.
      * 
@@ -308,18 +309,18 @@ public class SpaceConfigHandler {
             PlanetsChunkGenerator theGen = (PlanetsChunkGenerator) world.getGenerator();
             return getStoneChance(theGen.ID);
         }
-        return 3;
+        return (Integer) Defaults.STONE_CHANCE.getDefault();
     }
 
     /**
      * Gets the stone chance of a world.
      * 
-     * @param id 
+     * @param id ID
      * @return asteroid chance int
      */
     public static int getStoneChance(String id) {
         if (id.equalsIgnoreCase("planets")) {
-            return 3;
+            return (Integer) Defaults.STONE_CHANCE.getDefault();
         }
         return SpaceConfig.getConfig(ConfigFile.IDS).getInt("ids." + id + ".generation.stonechance", (Integer) Defaults.STONE_CHANCE.getDefault());
     }
@@ -433,6 +434,7 @@ public class SpaceConfigHandler {
     }
 
     /**
+     * Gets the spout texture pack url.
      * 
      * @return Url of the texture used in the config, or the default
      */
@@ -449,6 +451,13 @@ public class SpaceConfigHandler {
         return texture.isEmpty() ? (String) Defaults.TEXTURE_PACK.getDefault() : texture;
     }
 
+    /**
+     * Gets the generateplantes-value.
+     * 
+     * @param world World
+     * 
+     * @return True if generatng pnalets
+     */
     public static boolean getGeneratePlanets(World world) {
         if (world.getGenerator() instanceof PlanetsChunkGenerator) {
             PlanetsChunkGenerator theGen = (PlanetsChunkGenerator) world.getGenerator();
@@ -466,6 +475,25 @@ public class SpaceConfigHandler {
      */
     public static boolean getGeneratePlanets(String id) {
         return SpaceConfig.getConfig(ConfigFile.IDS).getBoolean("ids." + id + ".generation.generateplanets", (Boolean) Defaults.GENERATE_PLANETS.getDefault());
+    }
+
+    public static boolean getGenerateSchematics(String id) {
+        return SpaceConfig.getConfig(ConfigFile.IDS).getBoolean("ids." + id + ".generation.generateschematics", (Boolean) Defaults.GENERATE_SCHEMATICS.getDefault());
+    }
+
+    /**
+     * Gets the schematic-chance.
+     * 
+     * @param world World
+     * 
+     * @return Schematic chance
+     */
+    public static int getSchematicChance(World world) {
+        if (world.getGenerator() instanceof PlanetsChunkGenerator) {
+            PlanetsChunkGenerator theGen = (PlanetsChunkGenerator) world.getGenerator();
+            return SpaceConfig.getConfig(ConfigFile.IDS).getInt("ids." + theGen.ID + ".generation.schematicchance", (Integer) Defaults.SCHEMATIC_CHANCE.getDefault());
+        }
+        return (Integer) Defaults.SCHEMATIC_CHANCE.getDefault();
     }
 
     /**

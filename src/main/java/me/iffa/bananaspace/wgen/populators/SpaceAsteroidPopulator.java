@@ -36,11 +36,9 @@ public class SpaceAsteroidPopulator extends BlockPopulator {
     @Override
     public void populate(World world, Random random, Chunk source) {
         for (int i = 0; i < 2; i++) {
-            Block block;
-            block = getRandomBlock(source, random);
+            Block block = getRandomBlock(source, random);
             if (random.nextInt(200) <= SpaceConfigHandler.getStoneChance(world) && block.getTypeId() == 0) {
                 block.setTypeId(1);
-
                 for (int j = 0; j < 1500; j++) {
                     Block current = block.getRelative(random.nextInt(8) - random.nextInt(8),
                             random.nextInt(12),
@@ -84,6 +82,14 @@ public class SpaceAsteroidPopulator extends BlockPopulator {
         }
     }
 
+    /**
+     * Gets a random block from the source chunk.
+     * 
+     * @param source Source chunk
+     * @param random Random
+     * 
+     * @return Random block;
+     */
     private Block getRandomBlock(Chunk source, Random random) {
         int x = random.nextInt(16);
         int y = random.nextInt(128);

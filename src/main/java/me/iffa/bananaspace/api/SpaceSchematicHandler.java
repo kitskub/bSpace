@@ -5,6 +5,7 @@ package me.iffa.bananaspace.api;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
@@ -112,6 +113,7 @@ public class SpaceSchematicHandler {
             }
         }
         // Builds the schematic.
+        SpaceMessageHandler.debugPrint(Level.INFO, "Now going inside buildSchematic.");
         buildSchematic(origin, blocksMap, tileEntitiesMap);
     }
 
@@ -124,6 +126,7 @@ public class SpaceSchematicHandler {
      */
     private static void buildSchematic(Location origin, Map<Location, Map<Material, MaterialData>> blocksMap, Map<BlockVector, Map<String, Tag>> tileEntitiesMap) {
         // Variables
+        SpaceMessageHandler.debugPrint(Level.INFO, "Inside buildSchematic with origin location: '" + origin.toString() + "'.");
         World world = origin.getWorld();
 
         // Setting blocks
@@ -138,6 +141,23 @@ public class SpaceSchematicHandler {
             }
         }
     }
+    
+    /**
+     * Loads all schematics from plugins/BananaSpace/schematics.
+     */
+    public static void loadSchematics() {
+        List<File> files = Arrays.asList(new File("plugins" + File.separator + "BananaSpace" + File.separator + "schematics").listFiles());
+        if (files.isEmpty()) {
+            return;
+        }
+        for (File file : files) {
+            if (file.isFile() && file.getName().toLowerCase().endsWith(".schematic")) {
+                // It is for sure a .schematic-file, but now let's see if it's valid.
+                loadSchematic(file);
+            }
+        }
+    }
+    
 
     /**
      * Loads a schematic file and adds it to the schematics list for later usage.
