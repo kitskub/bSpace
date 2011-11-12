@@ -5,6 +5,7 @@ package me.iffa.bananaspace.api;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,12 +16,13 @@ import me.iffa.bananaspace.api.schematic.Schematic;
 
 // Bukkit Imports
 import org.bukkit.Location;
-
-// JNBT Imports
 import org.bukkit.Material;
-import org.bukkit.block.Block;
+import org.bukkit.World;
+import org.bukkit.material.MaterialData;
 import org.bukkit.util.BlockVector;
 import org.bukkit.util.Vector;
+
+// JNBT Imports
 import org.jnbt.ByteArrayTag;
 import org.jnbt.CompoundTag;
 import org.jnbt.IntTag;
@@ -37,7 +39,6 @@ import org.jnbt.Tag;
  */
 public class SpaceSchematicHandler {
     // Variables
-
     public static File schematicFolder = new File("plugins" + File.separator + "BananaSpace" + File.separator + "schematics");
     private static List<Schematic> schematics = new ArrayList<Schematic>();
 
@@ -59,6 +60,7 @@ public class SpaceSchematicHandler {
     public static void placeSchematic(Schematic schematic, Location origin) {
         // TODO: Schematic placing code (WILL GET MESSY D:)
         Map<BlockVector, Map<String, Tag>> tileEntitiesMap = new HashMap<BlockVector, Map<String, Tag>>();
+        Map<Location, Map<Material, MaterialData>> blocksMap = new HashMap<Location, Map<Material, MaterialData>>();
         for (Tag tag : schematic.getTileEntities()) {
             if (!(tag instanceof CompoundTag)) {
                 continue;
@@ -97,7 +99,42 @@ public class SpaceSchematicHandler {
             for (int y = 0; y < schematic.getHeight(); ++y) {
                 for (int z = 0; z < schematic.getLength(); ++z) {
                     int index = y * schematic.getWidth() * schematic.getLength() + z * schematic.getWidth() + x;
+                    Material block = Material.getMaterial(schematic.getBlocks()[index]);
+                    MaterialData blockData = null;
+                    try {
+                        blockData = new MaterialData(block, schematic.getBlockData()[index]);
+                    } catch (Exception ex) {
+                    }
+                    Map<Material, MaterialData> tempMap = new EnumMap<Material, MaterialData>(Material.class);
+                    tempMap.put(block, blockData);
+                    blocksMap.put(new Location(origin.getWorld(), x, y, z), tempMap);
                 }
+            }
+        }
+        // Builds the schematic.
+        buildSchematic(origin, blocksMap, tileEntitiesMap);
+    }
+
+    /**
+     * Internal buildSchematic that places the schematic (hopefully succesfully!).
+     * 
+     * @param origin Origin location
+     * @param blocksMap Blocks Map
+     * @param tileEntitiesMap Tile Entities Map
+     */
+    private static void buildSchematic(Location origin, Map<Location, Map<Material, MaterialData>> blocksMap, Map<BlockVector, Map<String, Tag>> tileEntitiesMap) {
+        // Variables
+        World world = origin.getWorld();
+
+        // Setting blocks
+        for (Location location : blocksMap.keySet()) {
+            int originX = origin.getBlockX() + location.getBlockX();
+            int originY = origin.getBlockY() + location.getBlockY();
+            int originZ = origin.getBlockZ() + location.getBlockZ();
+
+            for (Material material : blocksMap.get(location).keySet()) {
+                world.getBlockAt(originX, originY, originZ).setType(material);
+                world.getBlockAt(originX, originY, originZ).setData(blocksMap.get(location).get(material).getData());
             }
         }
     }
