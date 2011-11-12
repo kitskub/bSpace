@@ -16,6 +16,7 @@ import com.randomappdev.pluginstats.Ping;
 import me.iffa.bananaspace.api.SpaceConfigHandler;
 import me.iffa.bananaspace.api.SpaceLangHandler;
 import me.iffa.bananaspace.api.SpaceMessageHandler;
+import me.iffa.bananaspace.api.SpaceSchematicHandler;
 import me.iffa.bananaspace.api.SpaceWorldHandler;
 import me.iffa.bananaspace.commands.SpaceCommandHandler;
 import me.iffa.bananaspace.config.SpaceConfig;
@@ -51,7 +52,6 @@ import org.bukkit.scheduler.BukkitScheduler;
  */
 public class BananaSpace extends JavaPlugin {
     // Variables
-
     public static String prefix;
     public static String version;
     public static BukkitScheduler scheduler;

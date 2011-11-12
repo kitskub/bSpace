@@ -14,6 +14,7 @@ import java.util.logging.Level;
 //BananaSpace Imports
 import me.iffa.bananaspace.api.SpaceLangHandler;
 import me.iffa.bananaspace.api.SpaceMessageHandler;
+import me.iffa.bananaspace.api.SpaceSchematicHandler;
 
 // Bukkit Imports
 import org.bukkit.Bukkit;
@@ -74,6 +75,8 @@ public class SpaceConfig {
      * Loads all configuration files. (can be used to save a total of 2 lines!)
      */
     public static void loadConfigs() {
+        // Since this is usually only going to be called once:
+        SpaceSchematicHandler.schematicFolder.mkdir();
         for (ConfigFile configfile : ConfigFile.values()) {
             loadConfig(configfile);
         }
