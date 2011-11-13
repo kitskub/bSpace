@@ -5,6 +5,7 @@
 #   if you still have questions, please    
 #        ask on BukkitDev! Thanks.
 # Debugging mode
+
 debug: false
 # Global settings
 global:
@@ -26,6 +27,3 @@ economy:
   exitcommandcost: 20
   entercost: 20
   exitcost: 20
-# Space worlds
-# This is NOT needed, and will probably go away soon.
-worlds: []
