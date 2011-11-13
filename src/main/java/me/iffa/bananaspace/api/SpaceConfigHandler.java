@@ -80,7 +80,8 @@ public class SpaceConfigHandler {
     /**
      * Gets the required suit-state of a world.
      * 
-     * @param id 
+     * @param id ID
+     * 
      * @return true if a suit is required
      */
     public static boolean getRequireSuit(String id) {
@@ -126,7 +127,8 @@ public class SpaceConfigHandler {
     /**
      * Checks if hostile mobs are allowed in a world.
      * 
-     * @param id 
+     * @param id ID
+     * 
      * @return true if hostile mobs are allowed
      */
     public static boolean allowHostileMobs(String id) {
@@ -154,7 +156,8 @@ public class SpaceConfigHandler {
     /**
      * Checks if neutral mobs are allowed in a world.
      * 
-     * @param id 
+     * @param id ID
+     * 
      * @return true if neutral mobs are allowed
      */
     public static boolean allowNeutralMobs(String id) {
@@ -182,7 +185,8 @@ public class SpaceConfigHandler {
     /**
      * Gets the force night-state of a world.
      * 
-     * @param id 
+     * @param id ID
+     * 
      * @return true if night is forced
      */
     public static boolean forceNight(String id) {
@@ -477,6 +481,13 @@ public class SpaceConfigHandler {
         return SpaceConfig.getConfig(ConfigFile.IDS).getBoolean("ids." + id + ".generation.generateplanets", (Boolean) Defaults.GENERATE_PLANETS.getDefault());
     }
 
+    /**
+     * Gets generate schematics value.
+     * 
+     * @param id ID
+     * 
+     * @return True if generateschematics=true
+     */
     public static boolean getGenerateSchematics(String id) {
         return SpaceConfig.getConfig(ConfigFile.IDS).getBoolean("ids." + id + ".generation.generateschematics", (Boolean) Defaults.GENERATE_SCHEMATICS.getDefault());
     }

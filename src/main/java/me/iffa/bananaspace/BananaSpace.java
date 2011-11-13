@@ -71,6 +71,7 @@ public class BananaSpace extends JavaPlugin {
      */
     @Override
     public void onDisable() {
+        // Finishing up disablation.
         SpaceMessageHandler.print(Level.INFO, SpaceLangHandler.getDisabledMessage());
     }
 
@@ -91,7 +92,7 @@ public class BananaSpace extends JavaPlugin {
 
         // Registering events.
         registerEvents();
-        
+
         // Loading schematic files.
         SpaceSchematicHandler.loadSchematics();
 
