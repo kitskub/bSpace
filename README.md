@@ -1,6 +1,5 @@
-## For BananaSpace v1.4_2 source, see bs1-branch, master branch is for v2!
 ## [BananaSpace on BukkitDev](http://dev.bukkit.org/server-mods/bananaspace/pages/)
-## [BananaSpace Jenkins (builds daily and sometimes manually by iffa)](http://ci.xdevelopers.tk:8080/job/BananaSpace/)
+## [BananaSpace Jenkins (builds automatically after a commit)](http://ci.chrisgward.com/job/BananaSpace/)
 
 NOTE: We'll still keep the target/-directory. Why? I do not know. Jenkins is awesome though!
 
