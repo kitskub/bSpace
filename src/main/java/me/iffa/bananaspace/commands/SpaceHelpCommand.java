@@ -20,6 +20,7 @@ public class SpaceHelpCommand extends SpaceCommand {
      * @param plugin BananaSpace instance
      * @param sender Command sender
      * @param args Command arguments
+     * @param showfull True if should show full help 
      */
     public SpaceHelpCommand(BananaSpace plugin, CommandSender sender, String[] args) {
         super(plugin, sender, args);
@@ -36,5 +37,6 @@ public class SpaceHelpCommand extends SpaceCommand {
         sender.sendMessage(ChatColor.GREEN + "/space list - Brings up a list of all space worlds");
         sender.sendMessage(ChatColor.GREEN + "/space help - Brings up this help message");
         sender.sendMessage(ChatColor.GREEN + "/space about - About BananaSpace");
+        sender.sendMessage(ChatColor.DARK_GREEN + "If you have questions, please visit " + ChatColor.GRAY + "bit.ly/bananaspace" + ChatColor.DARK_GREEN + "!");
     }
 }

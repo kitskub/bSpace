@@ -5,7 +5,6 @@
 #   if you still have questions, please    
 #        ask on BukkitDev! Thanks.
 # Debugging mode
-
 debug: false
 # Global settings
 global:
