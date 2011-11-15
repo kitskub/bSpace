@@ -18,6 +18,7 @@ New in version 2 (not a final changelog):
 -Moved suit & helmet checks to their own method to clean up onPlayerMove for other features (however it is still messy)
 -Cleaned up the code by removing useless variables, adding JavaDocs etc (TODO: go through config handler)
 -Renamed SpaceListener to SpaceMiscListener and removed an useless implements (API)
+-Silverfish & cave spiders will no longer spawn in space (endermen will, they are aliens)
 
 -Removed nethermode since environment is now completely decided by the world manager used
 
