@@ -41,7 +41,10 @@ public class SpaceEntityListener extends EntityListener {
                         || event.getCreatureType() == CreatureType.PIG_ZOMBIE
                         || event.getCreatureType() == CreatureType.SPIDER
                         || event.getCreatureType() == CreatureType.ZOMBIE
-                        || event.getCreatureType() == CreatureType.SLIME) {
+                        || event.getCreatureType() == CreatureType.SLIME
+                        || event.getCreatureType() == CreatureType.ENDERMAN
+                        || event.getCreatureType() == CreatureType.CAVE_SPIDER
+                        || event.getCreatureType() == CreatureType.SILVERFISH) {
                     event.setCancelled(true);
 
                 }
