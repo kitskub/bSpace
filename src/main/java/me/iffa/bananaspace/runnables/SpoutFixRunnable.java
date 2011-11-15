@@ -40,8 +40,8 @@ public class SpoutFixRunnable implements Runnable {
         if (BananaSpace.worldHandler.isInAnySpace(player)) { //idiot proofing
             SpoutPlayer p = SpoutManager.getPlayer(player); //refresh the SpoutPlayer reference (workaround to a bug in the Spout Client)
             //Set the player properties
-            p.setAirSpeedMultiplier(1.2);
-            p.setGravityMultiplier(0.3);
+            p.setAirSpeedMultiplier(0.7);
+            p.setGravityMultiplier(0.15);
             p.setWalkingMultiplier(0.7);
             //Debug stuffs
             SpaceMessageHandler.debugPrint(Level.INFO, "Changed player '" + p.getName() + "'s gravity settings (" + p.getAirSpeedMultiplier() + ", " + p.getGravityMultiplier() + ", " + p.getJumpingMultiplier() + ").");
