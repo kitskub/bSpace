@@ -34,9 +34,9 @@ public class SpaceSpoutHandler {
         SkyManager sky = SpoutManager.getSkyManager();
         if (BananaSpace.getWorldHandler().isSpaceWorld(location.getWorld())) {
             sky.setCloudsVisible(player, false);
-            sky.setMoonVisible(player, false); //set the moon invisible
-            sky.setCloudsVisible(player, false); //set clouds invisible
-            sky.setStarFrequency(player, 5000); //set star frequency higher
+            sky.setMoonVisible(player, false);
+            sky.setCloudsVisible(player, false);
+            sky.setStarFrequency(player, 4200);
             player.setTexturePack(SpaceConfigHandler.getSpoutTexturePack());
             SpaceMessageHandler.debugPrint(Level.INFO, "Set " + player.getName() + "'s texture pack");
             BananaSpace.scheduler.scheduleSyncDelayedTask(plugin, new SpoutFixRunnable(player), 10L);

@@ -20,7 +20,6 @@ public class SpaceHelpCommand extends SpaceCommand {
      * @param plugin BananaSpace instance
      * @param sender Command sender
      * @param args Command arguments
-     * @param showfull True if should show full help 
      */
     public SpaceHelpCommand(BananaSpace plugin, CommandSender sender, String[] args) {
         super(plugin, sender, args);

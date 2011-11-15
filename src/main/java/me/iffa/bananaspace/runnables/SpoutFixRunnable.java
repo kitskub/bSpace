@@ -19,6 +19,7 @@ import org.getspout.spoutapi.player.SpoutPlayer;
  * A runnable class as a workaround for Spout player modifiers.
  * 
  * @author HACKhalo2
+ * @author iffa
  */
 public class SpoutFixRunnable implements Runnable {
     // Variables
@@ -37,13 +38,11 @@ public class SpoutFixRunnable implements Runnable {
      * Sets a player's gravity settings. (hacky solution!!)
      */
     public void run() {
-        if (BananaSpace.worldHandler.isInAnySpace(player)) { //idiot proofing
-            SpoutPlayer p = SpoutManager.getPlayer(player); //refresh the SpoutPlayer reference (workaround to a bug in the Spout Client)
-            //Set the player properties
+        if (BananaSpace.worldHandler.isInAnySpace(player)) {
+            SpoutPlayer p = SpoutManager.getPlayer(player); // Abuse Afforess because of bugs
             p.setAirSpeedMultiplier(0.7);
             p.setGravityMultiplier(0.15);
             p.setWalkingMultiplier(0.7);
-            //Debug stuffs
             SpaceMessageHandler.debugPrint(Level.INFO, "Changed player '" + p.getName() + "'s gravity settings (" + p.getAirSpeedMultiplier() + ", " + p.getGravityMultiplier() + ", " + p.getJumpingMultiplier() + ").");
         }
 
