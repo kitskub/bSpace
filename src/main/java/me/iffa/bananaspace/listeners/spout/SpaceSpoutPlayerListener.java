@@ -13,6 +13,7 @@ import me.iffa.bananaspace.runnables.SpoutFixRunnable;
 
 // Bukkit Imports
 import org.bukkit.event.player.PlayerListener;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
@@ -73,5 +74,15 @@ public class SpaceSpoutPlayerListener extends PlayerListener {
     public void onPlayerRespawn(PlayerRespawnEvent event) {
         SpoutPlayer player = SpoutManager.getPlayer(event.getPlayer());
         SpaceSpoutHandler.setOrReset(plugin, player, event.getRespawnLocation());
+    }
+    
+    /**
+     * Called when a player moves.
+     * 
+     * @param event Event data
+     */
+    @Override
+    public void onPlayerMove(PlayerMoveEvent event) {
+        
     }
 }
