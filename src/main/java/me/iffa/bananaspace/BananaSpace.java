@@ -71,8 +71,23 @@ public class BananaSpace extends JavaPlugin {
      */
     @Override
     public void onDisable() {
+        // Nullifying statics.
+        nullify();
         // Finishing up disablation.
         SpaceMessageHandler.print(Level.INFO, SpaceLangHandler.getDisabledMessage());
+    }
+    
+    /**
+     * Sets all (public) static variables to null. For reloads purposes. Pretty useless though.
+     */
+    private void nullify() {
+        prefix = null;
+        version = null;
+        scheduler = null;
+        worldHandler = null;
+        pailInt = null;
+        pm = null;
+        locCache = null;
     }
 
     /**
