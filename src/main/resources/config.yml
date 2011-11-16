@@ -30,7 +30,9 @@ global:
 economy:
   # True if economy should be enabled
   enabled: false
+  # Enter and exit costs (when using BananaSpace's commands)
   entercommandcost: 20
   exitcommandcost: 20
+  # Enter and exit costs
   entercost: 20
   exitcost: 20
