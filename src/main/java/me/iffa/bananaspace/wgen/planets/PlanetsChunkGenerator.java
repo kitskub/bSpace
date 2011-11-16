@@ -17,9 +17,11 @@ import me.iffa.bananaspace.wgen.populators.SpaceSatellitePopulator;
 import me.iffa.bananaspace.config.SpaceConfig.Defaults;
 import me.iffa.bananaspace.api.SpaceConfigHandler;
 import me.iffa.bananaspace.wgen.populators.SpaceAsteroidPopulator;
+import me.iffa.bananaspace.wgen.populators.SpaceBlackHolePopulator;
 import me.iffa.bananaspace.wgen.populators.SpaceSchematicPopulator;
 
 // Bukkit Imports
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.generator.BlockPopulator;
@@ -275,6 +277,9 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
         }
         if (SpaceConfigHandler.getGenerateSchematics(ID)) {
             populators.add(new SpaceSchematicPopulator());
+        }
+        if (SpaceConfigHandler.getGenerateBlacks(world) && SpaceConfigHandler.isUsingSpout()) {
+            populators.add(new SpaceBlackHolePopulator(Bukkit.getPluginManager().getPlugin("BananaSpace")));
         }
         return populators;
     }

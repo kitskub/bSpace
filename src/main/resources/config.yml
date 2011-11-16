@@ -15,9 +15,17 @@ global:
     # Other global settings
     givehelmet: false
     givesuit: false
-    usespout: true
-    # The space texture pack to use if Spout features are enabled
-    texturepack: 'https://github.com/downloads/iffa/BananaSpace/spacetexture.zip'
+    # Spout features (most features require Spoutcraft)
+    spout:
+      use: true
+      # False if clouds should be hidden
+      clouds: false
+      # True if gravity should be modified
+      gravity: true
+      # Space texture pack to use (if enabled)
+      texturepack: 'https://github.com/downloads/iffa/BananaSpace/spacetexture.zip'
+      # True if the space tex. pack should be used
+      usetp: true
 # Economy settings
 economy:
   # True if economy should be enabled

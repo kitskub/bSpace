@@ -25,6 +25,10 @@ ids:
 #            satellitechance: 1
 #            # From 1-200. This can be turned off with the generateschematics-setting.
 #            schematicchance: 5
+#            # Spout only generation settings
+#            spout-only:
+#                # True if black holes should be generated (will suck entities into it, once touching the block, death)
+#                blackholes: true
 #        # Spacesuit options
 #        suit:
 #            required: false
@@ -39,32 +43,26 @@ ids:
 #        neutralmobs: true
 #        hostilemobs: false
 ############# YOUR ID'S HERE:
-      awesome:
-        # World generation options
+    # Example ID - totally empty
+    empty:
         generation:
-            generateplanets: true
-            generateasteroids: true
-            generatesatellites: true
-            generatefloor: true
-            # If this is true, BananaSpace will look for schematics in plugins/BananaSpace/schematics! These will be used in world generation.
-            generateschematics: true
-            # From 1-200. These can be turned off with the generateasteroids-setting.
-            glowstonechance: 12
-            stonechance: 20
-            # From 1-1337. This can be turned off with the generatesatellites-setting.
-            satellitechance: 4
-            # From 1-200. This can be turned off with the generateschematics-setting.
+            generateplanets: false
+            generateasteroids: false
+            generatesatellites: false
+            generatefloor: false
+            generateschematics: false
+            glowstonechance: 1
+            stonechance: 3
+            satellitechance: 1
             schematicchance: 5
-        # Spacesuit options
+            spout-only:
+                blackholes: false
         suit:
             required: false
-        # Spacehelmet options
         helmet:
             required: false
-        # Breathing area options (the higher this is, the higher a "breathable" area can be.
         maxroomheight: 5
-        # Miscellaneous options
-        weather: true
+        weather: false
         alwaysnight: true
-        neutralmobs: true
+        neutralmobs: false
         hostilemobs: false

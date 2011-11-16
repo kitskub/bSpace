@@ -363,22 +363,7 @@ public class SpaceConfigHandler {
      * @return true if Spout is used
      */
     public static boolean isUsingSpout() {
-        return SpaceConfig.getConfig(ConfigFile.CONFIG).getBoolean("global.usespout", (Boolean) Defaults.USE_SPOUT.getDefault());
-    }
-
-    /**
-     * Checks if a world is in the configuration file.
-     * 
-     * @param name Name of the world
-     * 
-     * @return True if the world is in the config file
-     * @deprecated Don't see why this is needed, will probably go away VERY soon.
-     */
-    public static boolean isWorldInConfig(String name) {
-        if (SpaceConfig.getConfig(ConfigFile.CONFIG).get("worlds." + name) != null) {
-            return true;
-        }
-        return false;
+        return SpaceConfig.getConfig(ConfigFile.CONFIG).getBoolean("global.spout.use", (Boolean) Defaults.USE_SPOUT.getDefault());
     }
 
     /**
@@ -399,7 +384,8 @@ public class SpaceConfigHandler {
     /**
      * Checks if satellites are enabled.
      * 
-     * @param id 
+     * @param id ID
+     * 
      * @return True if satellites are enabled
      */
     public static boolean getSatellitesEnabled(String id) {
@@ -427,7 +413,8 @@ public class SpaceConfigHandler {
     /**
      * Gets the satellite spawn chance.
      * 
-     * @param id 
+     * @param id ID
+     * 
      * @return Spawn chance
      */
     public static int getSatelliteChance(String id) {
@@ -443,7 +430,7 @@ public class SpaceConfigHandler {
      * @return Url of the texture used in the config, or the default
      */
     public static String getSpoutTexturePack() {
-        String texture = SpaceConfig.getConfig(ConfigFile.CONFIG).getString("global.texturepack", (String) Defaults.TEXTURE_PACK.getDefault());
+        String texture = SpaceConfig.getConfig(ConfigFile.CONFIG).getString("global.spout.texturepack", (String) Defaults.TEXTURE_PACK.getDefault());
         try {
             URL url = new URL(texture);
             URI toURI = url.toURI();
@@ -453,6 +440,24 @@ public class SpaceConfigHandler {
             return (String) Defaults.TEXTURE_PACK.getDefault();
         }
         return texture.isEmpty() ? (String) Defaults.TEXTURE_PACK.getDefault() : texture;
+    }
+
+    /**
+     * Gets the use texture pack value.
+     * 
+     * @return True if using the texture pack
+     */
+    public static boolean getUseTexturePack() {
+        return SpaceConfig.getConfig(ConfigFile.CONFIG).getBoolean("global.spout.usetp", (Boolean) Defaults.USE_TEXTURE_PACK.getDefault());
+    }
+
+    /**
+     * Gets the clouds enabled value.
+     * 
+     * @return True if clouds enabled
+     */
+    public static boolean getCloudsEnabled() {
+        return SpaceConfig.getConfig(ConfigFile.CONFIG).getBoolean("global.spout.clouds", (Boolean) Defaults.CLOUDS.getDefault());
     }
 
     /**
@@ -505,6 +510,30 @@ public class SpaceConfigHandler {
             return SpaceConfig.getConfig(ConfigFile.IDS).getInt("ids." + theGen.ID + ".generation.schematicchance", (Integer) Defaults.SCHEMATIC_CHANCE.getDefault());
         }
         return (Integer) Defaults.SCHEMATIC_CHANCE.getDefault();
+    }
+
+    /**
+     * Gets the genrate black holes value.
+     * 
+     * @param world World
+     * 
+     * @return True if generating black holes
+     */
+    public static boolean getGenerateBlacks(World world) {
+        if (world.getGenerator() instanceof PlanetsChunkGenerator) {
+            PlanetsChunkGenerator theGen = (PlanetsChunkGenerator) world.getGenerator();
+            return SpaceConfig.getConfig(ConfigFile.IDS).getBoolean("ids." + theGen.ID + ".generation.spout-only.blackholes", (Boolean) Defaults.BLACKHOLES.getDefault());
+        }
+        return (Boolean) Defaults.BLACKHOLES.getDefault();
+    }
+    
+    /**
+     * Gets the gravity value.
+     * 
+     * @return True if gravity enabled
+     */
+    public static boolean getGravity() {
+        return SpaceConfig.getConfig(ConfigFile.CONFIG).getBoolean("global.spout.gravity", (Boolean) Defaults.GRAVITY.getDefault());
     }
 
     /**

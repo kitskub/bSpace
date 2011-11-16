@@ -34,24 +34,36 @@ public class SpaceSpoutHandler {
     public static void setOrReset(BananaSpace plugin, SpoutPlayer player, Location location) {
         SkyManager sky = SpoutManager.getSkyManager();
         if (BananaSpace.getWorldHandler().isSpaceWorld(location.getWorld())) {
-            sky.setCloudsVisible(player, false);
-            sky.setMoonVisible(player, false);
-            sky.setCloudsVisible(player, false);
-            sky.setStarFrequency(player, 4200);
-            player.setTexturePack(SpaceConfigHandler.getSpoutTexturePack());
-            SpaceMessageHandler.debugPrint(Level.INFO, "Set " + player.getName() + "'s texture pack");
-            BananaSpace.scheduler.scheduleSyncDelayedTask(plugin, new SpoutFixRunnable(player), 10L);
-            SpaceMessageHandler.debugPrint(Level.INFO, "Made clouds and the moon invisible for player '" + player.getName() + "'. Starting runnable thread to setup Player movements...");
+            if (!SpaceConfigHandler.getCloudsEnabled()) {
+                sky.setCloudsVisible(player, false);
+                sky.setMoonVisible(player, false);
+                sky.setCloudsVisible(player, false);
+                sky.setStarFrequency(player, 4200);
+            }
+            if (SpaceConfigHandler.getUseTexturePack()) {
+                player.setTexturePack(SpaceConfigHandler.getSpoutTexturePack());
+                SpaceMessageHandler.debugPrint(Level.INFO, "Set " + player.getName() + "'s texture pack");
+            }
+            if (SpaceConfigHandler.getGravity()) {
+                BananaSpace.scheduler.scheduleSyncDelayedTask(plugin, new SpoutFixRunnable(player), 10L);
+                SpaceMessageHandler.debugPrint(Level.INFO, "Made clouds and the moon invisible for player '" + player.getName() + "'. Starting runnable thread to setup Player movements...");
+            }
         } else {
-            sky.setCloudsVisible(player, true);
-            sky.setMoonVisible(player, true);
-            sky.setStarFrequency(player, 500);
-            SpaceMessageHandler.debugPrint(Level.INFO, "Made clouds visible for player '" + player.getName() + "'.");
-            player.resetTexturePack();
-            SpaceMessageHandler.debugPrint(Level.INFO, "Reset " + player.getName() + "'s texture pack");
-            player.setCanFly(false);
-            player.resetMovement();
-            SpaceMessageHandler.debugPrint(Level.INFO, "Reset player '" + player.getName() + "'s gravity and visual settings.");
+            if (!SpaceConfigHandler.getCloudsEnabled()) {
+                sky.setCloudsVisible(player, true);
+                sky.setMoonVisible(player, true);
+                sky.setStarFrequency(player, 500);
+                SpaceMessageHandler.debugPrint(Level.INFO, "Made clouds visible again for player '" + player.getName() + "'.");
+            }
+            if (SpaceConfigHandler.getUseTexturePack()) {
+                player.resetTexturePack();
+                SpaceMessageHandler.debugPrint(Level.INFO, "Reset " + player.getName() + "'s texture pack");
+            }
+            if (SpaceConfigHandler.getGravity()) {
+                player.setCanFly(false);
+                player.resetMovement();
+                SpaceMessageHandler.debugPrint(Level.INFO, "Reset player '" + player.getName() + "'s gravity and visual settings.");
+            }
         }
     }
 

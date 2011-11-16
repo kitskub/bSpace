@@ -195,13 +195,15 @@ public class SpaceConfig {
      * @author iffa
      */
     public enum Defaults {
-        //Global
+        // ConfigFile.CONFIG
         REQUIRE_HELMET(true),
         DEBUGGING(false),
         REQUIRE_SUIT(false),
         ARMOR_TYPE("iron"),
         USE_SPOUT(true),
         TEXTURE_PACK("https://github.com/downloads/iffa/BananaSpace/spacetexture.zip"),
+        CLOUDS(false),
+        USE_TEXTURE_PACK(true),
         HELMET_GIVEN(false),
         SUIT_GIVEN(false),
         ECONOMY_ENABLED(false),
@@ -209,7 +211,8 @@ public class SpaceConfig {
         EXIT_COST(20),
         ENTER_COMMAND_COST(20),
         EXIT_COMMAND_COST(20),
-        //ID
+        GRAVITY(true),
+        // ConfigFile.IDS
         HOSTILE_MOBS_ALLOWED(false),
         NEUTRAL_MOBS_ALLOWED(true),
         FORCE_NIGHT(true),
@@ -223,8 +226,9 @@ public class SpaceConfig {
         SATELLITE_CHANCE(1),
         GENERATE_PLANETS(true),
         GENERATE_SCHEMATICS(true),
+        BLACKHOLES(true),
         SCHEMATIC_CHANCE(5),
-        //Planet
+        // ConfigFile.PLANETS
         DENSITY(15000),
         MIN_SIZE(4),
         MAX_SIZE(20),
@@ -241,7 +245,7 @@ public class SpaceConfig {
          * 
          * @param def Boolean
          */
-        Defaults(boolean def) {
+        Defaults(Object def) {
             this.value = def;
         }
 
