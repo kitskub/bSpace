@@ -137,7 +137,7 @@ public class Space extends JavaPlugin {
         // Initializing the Pail tab.
         if (pm.getPlugin("Pail") != null) {
             SpaceMessageHandler.debugPrint(Level.INFO, "Starting up the Pail tab.");
-            pailInt = new PailInterface();
+            pailInt = new PailInterface(this);
             ((Pail) pm.getPlugin("Pail")).loadInterfaceComponent("bSpace", pailInt);
         }
 
