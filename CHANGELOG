@@ -10,10 +10,10 @@ New in version 2 (not a final changelog):
 -Added a space texture pack for SpoutCraft users, you can however use your own
 -Added fake Pail & Register .jars to libs/ so when cloning Maven will handle all dependencies for you
 -Added a configuration file converter to nicely turn your worlds in config.yml into ids
--Added /space about to see a bit of information about BananaSpace
+-Added /space about to see a bit of information about bSpace
 -Added config values for individual Spout features
 
--Register support changed to require the plugin running on your server instead of it being supplied with BananaSpace
+-Register support changed to require the plugin running on your server instead of it being supplied with bSpace
 -Merged both asteroid populators together to save classes
 -Rewrote planet generator to correctly work with multiple planet worlds
 -Switched to the new YamlConfiguration & merged configuration file handlers

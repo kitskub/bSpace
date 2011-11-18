@@ -1,14 +1,14 @@
-# BananaSpace - plugin.yml
+# bSpace - plugin.yml
 # All developers/contributors are here!
 authors: [iffa, kitskub, HACKhalo2, Canis85, BR]
-main: me.iffa.bananaspace.BananaSpace
-name: BananaSpace
-url: http://github.com/iffa/BananaSpace
-dev-url: http://dev.bukkit.org/server-mods/bananaspace
+main: me.iffa.bspace.Space
+name: bSpace
+url: http://github.com/iffa/bSpace
+dev-url: http://dev.bukkit.org/server-mods/bSpace
 load: startup
 #load: startup
 version: 'v2-dev'
-softdepend: [Permissions, Spout, Pail, Register]
+softdepend: [Spout, Pail, Register]
 commands:
   space:
     description: Go to space, back to earth etc.
@@ -17,32 +17,32 @@ commands:
           /<command> <back> - Go back where you were
           /<command> <list> - Lists all spaceworlds (loaded with config.yml)
           /<command> <help> - Shows help (usage)
-          /<command> <about> - About BananaSpace
+          /<command> <about> - About bSpace
 # Permission nodes
 permissions:
   # Permission groups
       # All permissions group
-  bananaspace.commands.*:
-    description: Access to all BananaSpace commands.
+  bSpace.commands.*:
+    description: Access to all bSpace commands.
     children:
-      bananaspace.teleport.*: true
+      bSpace.teleport.*: true
       # Teleport
-  bananaspace.teleport.*:
+  bSpace.teleport.*:
     description: Access to all teleportation commands.
     children:
-      bananaspace.teleport.enter: true
-      bananaspace.teleport.exit: true
-      bananaspace.teleport.list: true
+      bSpace.teleport.enter: true
+      bSpace.teleport.exit: true
+      bSpace.teleport.list: true
   # Single permissions
-  bananaspace.teleport.enter:
+  bSpace.teleport.enter:
     description: Allows teleporting to space.
     default: op
-  bananaspace.teleport.exit:
+  bSpace.teleport.exit:
     description: Allows teleporting out of space.
     default: op
-  bananaspace.teleport.list:
+  bSpace.teleport.list:
     description: Allows requesting list of spaceworlds.
     default: op
-  bananaspace.ignoresuitchecks:
+  bSpace.ignoresuitchecks:
     description: Ignores all suit and helmet checks for the player.
     default: false

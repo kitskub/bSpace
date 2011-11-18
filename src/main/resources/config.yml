@@ -1,4 +1,4 @@
-# BananaSpace v2-dev - Main Configuration File 
+# bSpace v2-dev - Main Configuration File 
 # ----------------------------------------
 #     This configuration has a pretty      
 #    huge amount of documentation, but     
@@ -23,14 +23,14 @@ global:
       # True if gravity should be modified
       gravity: true
       # Space texture pack to use (if enabled)
-      texturepack: 'https://github.com/downloads/iffa/BananaSpace/spacetexture.zip'
+      texturepack: 'https://github.com/downloads/iffa/bSpace/spacetexture.zip'
       # True if the space tex. pack should be used
       usetp: true
 # Economy settings
 economy:
   # True if economy should be enabled
   enabled: false
-  # Enter and exit costs (when using BananaSpace's commands)
+  # Enter and exit costs (when using bSpace's commands)
   entercommandcost: 20
   exitcommandcost: 20
   # Enter and exit costs

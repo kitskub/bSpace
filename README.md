@@ -1,7 +1,7 @@
-## [BananaSpace on BukkitDev](http://dev.bukkit.org/server-mods/bananaspace/pages/)
-## [BananaSpace Jenkins (builds automatically after a commit)](http://ci.chrisgward.com/job/BananaSpace/)
+## [bSpace on BukkitDev](http://dev.bukkit.org/server-mods/bSpace/pages/)
+## [bSpace Jenkins (builds automatically after a commit!)](http://ci.chrisgward.com/job/bSpace/)
 
-NOTE: We'll still keep the target/-directory. Why? I do not know. Jenkins is awesome though!
+NOTE: We'll still keep the target/-directory. Why? You never know when Jenkins takes a nap.
 
 Coding and Pull Request Conventions
 -----------

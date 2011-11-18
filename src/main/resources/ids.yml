@@ -1,4 +1,4 @@
-# BananaSpace v2-dev - ID File 
+# bSpace v2-dev - ID File 
 # ----------------------------------------
 #     This configuration has a pretty      
 #    huge amount of documentation, but     
@@ -16,7 +16,7 @@ ids:
 #            generateasteroids: true
 #            generatesatellites: true
 #            generatefloor: true
-#            # If this is true, BananaSpace will look for schematics in plugins/BananaSpace/schematics! These will be used in world generation.
+#            # If this is true, bSpace will look for schematics in plugins/bSpace/schematics! These will be used in world generation.
 #            generateschematics: true
 #            # From 1-200. These can be turned off with the generateasteroids-setting.
 #            glowstonechance: 1
