@@ -6,7 +6,6 @@ name: bSpace
 url: http://github.com/iffa/bSpace
 dev-url: http://dev.bukkit.org/server-mods/bSpace
 load: startup
-#load: startup
 version: 'v2-dev'
 softdepend: [Spout, Pail, Register]
 commands:
