@@ -529,14 +529,13 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="Settings_HelmetRequired" min="-2" max="-2" attributes="0"/>
                               <Component id="Settings_SuitRequired" min="-2" max="-2" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
+                              <Group type="102" attributes="0">
                                   <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="Settings_RoomHeight" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Component id="Settings_Hostile" min="-2" max="-2" attributes="0"/>
                               <Component id="Settings_Neutral" min="-2" max="-2" attributes="0"/>
-                              <Component id="Settings_Nether" min="-2" max="-2" attributes="0"/>
                               <Component id="Settings_Night" min="-2" max="-2" attributes="0"/>
                               <Component id="Settings_Weather" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -596,8 +595,6 @@
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="Settings_Night" min="-2" pref="15" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="Settings_Nether" min="-2" pref="20" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="Settings_Neutral" min="-2" pref="15" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="Settings_Hostile" min="-2" pref="15" max="-2" attributes="0"/>
@@ -606,9 +603,9 @@
                                       <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="Settings_RoomHeight" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="Settings_SuitRequired" min="-2" pref="15" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
                                   <Component id="Settings_HelmetRequired" min="-2" pref="15" max="-2" attributes="0"/>
                               </Group>
                               <Component id="jSeparator1" alignment="0" pref="230" max="32767" attributes="0"/>
@@ -703,6 +700,9 @@
             <Property name="text" type="java.lang.String" value="Helmet required"/>
             <Property name="toolTipText" type="java.lang.String" value="Checked if helmets are required in a spaceworld to survive."/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Settings_HelmetRequiredActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JCheckBox" name="Settings_SuitRequired">
           <Properties>
@@ -722,12 +722,6 @@
               <Color blue="d7" green="d5" red="d2" type="rgb"/>
             </Property>
             <Property name="orientation" type="int" value="1"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JCheckBox" name="Settings_Nether">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Nethermode"/>
-            <Property name="toolTipText" type="java.lang.String" value="Checked if the spaceworld should be like nether. (red fog and nether mobs)"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JCheckBox" name="Settings_Hostile">

@@ -92,7 +92,6 @@ public class PailInterface extends javax.swing.JPanel {
         Settings_HelmetRequired.setSelected(idConfig.getBoolean("ids." + idname + ".helmet.required", (Boolean) Defaults.REQUIRE_HELMET.getDefault()));
         Settings_SuitRequired.setSelected(idConfig.getBoolean("ids." + idname + ".suit.required", (Boolean) Defaults.REQUIRE_SUIT.getDefault()));
         Settings_Weather.setSelected(idConfig.getBoolean("ids." + idname + ".weather", (Boolean) Defaults.ALLOW_WEATHER.getDefault()));
-        Settings_Nether.setSelected(idConfig.getBoolean("ids." + idname + ".nethermode", false));
         Settings_RoomHeight.setValue(idConfig.getInt("ids." + idname + ".breathingarea.maxroomheight", (Integer) Defaults.ROOM_HEIGHT.getDefault()));
         Settings_Neutral.setSelected(idConfig.getBoolean("ids." + idname + ".neutralmobs", (Boolean) Defaults.NEUTRAL_MOBS_ALLOWED.getDefault()));
         Settings_Hostile.setSelected(idConfig.getBoolean("ids." + idname + ".hostilemobs", (Boolean) Defaults.HOSTILE_MOBS_ALLOWED.getDefault()));
@@ -123,7 +122,6 @@ public class PailInterface extends javax.swing.JPanel {
         idConfig.set("ids." + idname + ".hostilemobs", Settings_Hostile.isSelected());
         idConfig.set("ids." + idname + ".neutralmobs", Settings_Neutral.isSelected());
         idConfig.set("ids." + idname + ".alwaysnight", Settings_Night.isSelected());
-        idConfig.set("ids." + idname + ".nethermode", Settings_Nether.isSelected());
         idConfig.set("ids." + idname + ".suit.required", Settings_SuitRequired.isSelected());
         idConfig.set("ids." + idname + ".helmet.required", Settings_HelmetRequired.isSelected());
         try {
@@ -192,7 +190,6 @@ public class PailInterface extends javax.swing.JPanel {
         Settings_SuitRequired = new javax.swing.JCheckBox();
         Settings_Weather = new javax.swing.JCheckBox();
         jSeparator1 = new javax.swing.JSeparator();
-        Settings_Nether = new javax.swing.JCheckBox();
         Settings_Hostile = new javax.swing.JCheckBox();
         Settings_Neutral = new javax.swing.JCheckBox();
         jLabel7 = new javax.swing.JLabel();
@@ -533,6 +530,11 @@ public class PailInterface extends javax.swing.JPanel {
 
         Settings_HelmetRequired.setText("Helmet required");
         Settings_HelmetRequired.setToolTipText("Checked if helmets are required in a spaceworld to survive.");
+        Settings_HelmetRequired.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Settings_HelmetRequiredActionPerformed(evt);
+            }
+        });
 
         Settings_SuitRequired.setText("Suit required");
         Settings_SuitRequired.setToolTipText("Checked if suits are required in a spaceworld to survive.");
@@ -542,9 +544,6 @@ public class PailInterface extends javax.swing.JPanel {
 
         jSeparator1.setForeground(new java.awt.Color(210, 213, 215));
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
-
-        Settings_Nether.setText("Nethermode");
-        Settings_Nether.setToolTipText("Checked if the spaceworld should be like nether. (red fog and nether mobs)");
 
         Settings_Hostile.setText("Hostile mobs");
         Settings_Hostile.setToolTipText("Selected if hostile mobs are allowed to spawn.");
@@ -651,7 +650,6 @@ public class PailInterface extends javax.swing.JPanel {
                                 .addComponent(Settings_RoomHeight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(Settings_Hostile)
                             .addComponent(Settings_Neutral)
-                            .addComponent(Settings_Nether)
                             .addComponent(Settings_Night)
                             .addComponent(Settings_Weather))))
                 .addGap(72, 72, 72))
@@ -700,8 +698,6 @@ public class PailInterface extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(Settings_Night, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(Settings_Nether, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(Settings_Neutral, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(Settings_Hostile, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -709,9 +705,9 @@ public class PailInterface extends javax.swing.JPanel {
                                 .addGroup(SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel7)
                                     .addComponent(Settings_RoomHeight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(3, 3, 3)
+                                .addGap(18, 18, 18)
                                 .addComponent(Settings_SuitRequired, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(Settings_HelmetRequired, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE))))
                 .addContainerGap())
@@ -953,6 +949,10 @@ private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
         // TODO add your handling code here:
     }//GEN-LAST:event_UseTextureActionPerformed
 
+    private void Settings_HelmetRequiredActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Settings_HelmetRequiredActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Settings_HelmetRequiredActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField ArmorTypeBox;
     private javax.swing.JCheckBox CheckBoxHelmet;
@@ -971,7 +971,6 @@ private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
     private javax.swing.JCheckBox Settings_HelmetRequired;
     private javax.swing.JCheckBox Settings_Hostile;
     private javax.swing.JLabel Settings_IDName;
-    private javax.swing.JCheckBox Settings_Nether;
     private javax.swing.JCheckBox Settings_Neutral;
     private javax.swing.JCheckBox Settings_Night;
     private javax.swing.JCheckBox Settings_Planets;
