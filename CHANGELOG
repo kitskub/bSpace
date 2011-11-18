@@ -21,6 +21,7 @@ New in version 2 (not a final changelog):
 -Cleaned up the code by removing useless variables, adding JavaDocs etc (TODO: go through config handler)
 -Renamed SpaceListener to SpaceMiscListener and removed an useless implements (API)
 -Silverfish & cave spiders will no longer spawn in space (endermen will, they are aliens)
+-Updated Pail tab, it is now pretty
 
 -Removed nethermode since environment is now completely decided by the world manager used
 
