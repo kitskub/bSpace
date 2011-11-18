@@ -69,14 +69,4 @@ public class SpaceSpoutPlayerListener extends PlayerListener {
         SpoutPlayer player = SpoutManager.getPlayer(event.getPlayer());
         SpaceSpoutHandler.setOrReset(plugin, player, event.getRespawnLocation());
     }
-    
-    /**
-     * Called when a player moves.
-     * 
-     * @param event Event data
-     */
-    @Override
-    public void onPlayerMove(PlayerMoveEvent event) {
-        
-    }
 }

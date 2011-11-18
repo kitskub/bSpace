@@ -2,9 +2,8 @@
 package me.iffa.bspace.wgen.blocks;
 
 // Java Imports
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 // Bukkit Imports
 import org.bukkit.World;
@@ -14,6 +13,7 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.plugin.Plugin;
 
 // Spout Imports
+import org.getspout.spoutapi.block.SpoutBlock;
 import org.getspout.spoutapi.material.block.GenericCubeCustomBlock;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
@@ -25,7 +25,7 @@ import org.getspout.spoutapi.player.SpoutPlayer;
  */
 public class BlackHole extends GenericCubeCustomBlock {
     // Variables
-    private static Map<World, List<BlackHole>> holesMap = new HashMap<World, List<BlackHole>>();
+    private static List<SpoutBlock> holesMap = new ArrayList<SpoutBlock>();
     
     /**
      * Constructor of BlackHole.
@@ -33,15 +33,15 @@ public class BlackHole extends GenericCubeCustomBlock {
      * @param plugin Plugin instance
      */
     public BlackHole(Plugin plugin) {
-        super(plugin, "BlackHole", "http://cloud.github.com/downloads/iffa/bSpace/terrain_138.png", 16);
+        super(plugin, "BlackHole", "http://i.imgur.com/zVBCZ.png", 16);
     }
     
     /**
-     * Gets the map containing all black holes.
+     * Gets the list containing all black holes.
      * 
-     * @return Map of all black holes
+     * @return List of black holes
      */
-    public static Map<World, List<BlackHole>> getHolesMap() {
+    public static List<SpoutBlock> getHolesList() {
         return holesMap;
     }
 
@@ -82,5 +82,9 @@ public class BlackHole extends GenericCubeCustomBlock {
     @Override
     public boolean isIndirectlyProvidingPowerTo(World world, int x, int y, int z, BlockFace face) {
         return false;
+    }
+
+    @Override
+    public void onBlockDestroyed(World world, int i, int i1, int i2, LivingEntity le) {
     }
 }

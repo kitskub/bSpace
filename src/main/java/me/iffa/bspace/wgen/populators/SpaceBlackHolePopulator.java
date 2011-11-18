@@ -10,12 +10,11 @@ import me.iffa.bspace.wgen.blocks.BlackHole;
 // Bukkit Imports
 import org.bukkit.Chunk;
 import org.bukkit.World;
-import org.bukkit.block.Block;
 import org.bukkit.generator.BlockPopulator;
 import org.bukkit.plugin.Plugin;
 
 // Spout Imports
-import org.getspout.spoutapi.SpoutManager;
+import org.getspout.spoutapi.block.SpoutBlock;
 
 /**
  * Populates
@@ -26,7 +25,7 @@ import org.getspout.spoutapi.SpoutManager;
 public class SpaceBlackHolePopulator extends BlockPopulator {
     // Variables
     private Plugin plugin;
-    
+
     /**
      * Constructor of SpaceBlackHolePopulator.
      * 
@@ -45,12 +44,13 @@ public class SpaceBlackHolePopulator extends BlockPopulator {
      */
     @Override
     public void populate(World world, Random random, Chunk source) {
-        if (random.nextInt(100) <= 50) {//TODO replace with chance
-            int x = random.nextInt(16);
-            int z = random.nextInt(16);
+        if (random.nextInt(100) <= 15) { // If you are going to make a random amount, use 100/ something to make a real percentage to understand it easier
+            int x = (source.getX() << 4) + random.nextInt(16);
+            int z = (source.getZ() << 4) + random.nextInt(16);
             int y = random.nextInt(127);
-            Block currentBlock = source.getBlock(x, y, z);
-            SpoutManager.getMaterialManager().overrideBlock(currentBlock, new BlackHole(plugin));
+
+            SpoutBlock block = (SpoutBlock) world.getBlockAt(x, y, z);
+            block.setCustomBlock(new BlackHole(plugin));
         }
     }
 }
