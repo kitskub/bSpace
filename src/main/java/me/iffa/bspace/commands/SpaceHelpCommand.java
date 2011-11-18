@@ -36,6 +36,6 @@ public class SpaceHelpCommand extends SpaceCommand {
         sender.sendMessage(ChatColor.GREEN + "/space list - Brings up a list of all space worlds");
         sender.sendMessage(ChatColor.GREEN + "/space help - Brings up this help message");
         sender.sendMessage(ChatColor.GREEN + "/space about - About bSpace");
-        sender.sendMessage(ChatColor.DARK_GREEN + "If you have questions, please visit " + ChatColor.GRAY + "bit.ly/bSpace" + ChatColor.DARK_GREEN + "!");
+        sender.sendMessage(ChatColor.DARK_GREEN + "If you have questions, please visit " + ChatColor.GRAY + "bit.ly/banspace" + ChatColor.DARK_GREEN + "!");
     }
 }
