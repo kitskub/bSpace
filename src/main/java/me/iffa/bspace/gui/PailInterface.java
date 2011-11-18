@@ -246,7 +246,7 @@ public class PailInterface extends javax.swing.JPanel {
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 10));
         jLabel4.setText("Suit armortype:");
 
         ArmorTypeBox.setText("iron");
@@ -328,14 +328,14 @@ public class PailInterface extends javax.swing.JPanel {
                             .addGroup(GlobalSettingsLayout.createSequentialGroup()
                                 .addGroup(GlobalSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(GlobalSettingsLayout.createSequentialGroup()
-                                        .addComponent(CheckBoxHelmet, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
+                                        .addComponent(CheckBoxHelmet, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(HelmetBlockIdBox, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(GlobalSettingsLayout.createSequentialGroup()
                                         .addComponent(CheckBoxSuit)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
                                         .addComponent(jLabel4)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(ArmorTypeBox, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -401,7 +401,7 @@ public class PailInterface extends javax.swing.JPanel {
         ids.setToolTipText("Panel with buttons to create and delete IDs.");
         ids.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        SpaceList.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        SpaceList.setFont(new java.awt.Font("Arial", 0, 12));
         SpaceList.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "No user IDs" };
             public int getSize() { return strings.length; }
@@ -424,7 +424,7 @@ public class PailInterface extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(SpaceList);
 
-        createIdButton.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        createIdButton.setFont(new java.awt.Font("Arial", 0, 11));
         createIdButton.setText("Create");
         createIdButton.setToolTipText("Creates a new ID with the name on the box above.");
         createIdButton.addActionListener(new java.awt.event.ActionListener() {
@@ -433,7 +433,7 @@ public class PailInterface extends javax.swing.JPanel {
             }
         });
 
-        deleteIdButton.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        deleteIdButton.setFont(new java.awt.Font("Arial", 0, 11));
         deleteIdButton.setText("Delete");
         deleteIdButton.setToolTipText("Select an ID from the list and click this button to delete the ID.");
         deleteIdButton.addActionListener(new java.awt.event.ActionListener() {
@@ -471,14 +471,14 @@ public class PailInterface extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(idsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(idsLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                                 .addComponent(jLabel1)
                                 .addGap(147, 147, 147))
                             .addGroup(idsLayout.createSequentialGroup()
                                 .addComponent(createIdButton)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(deleteIdButton)))))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(4, Short.MAX_VALUE))
         );
 
         Settings.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "ID Settings", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
@@ -502,10 +502,10 @@ public class PailInterface extends javax.swing.JPanel {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel2.setText("Currently editing:");
 
-        Settings_IDName.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        Settings_IDName.setFont(new java.awt.Font("Tahoma", 1, 12));
         Settings_IDName.setText("None");
 
         Settings_Planets.setSelected(true);
@@ -626,7 +626,7 @@ public class PailInterface extends javax.swing.JPanel {
                                 .addComponent(Settings_SchematicChance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(SettingsLayout.createSequentialGroup()
                                 .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(Settings_GlowstoneChance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(SettingsLayout.createSequentialGroup()
                                 .addComponent(jLabel3)
@@ -713,7 +713,7 @@ public class PailInterface extends javax.swing.JPanel {
                                 .addComponent(Settings_SuitRequired, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(Settings_HelmetRequired, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE))))
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE))))
                 .addContainerGap())
         );
 
@@ -726,10 +726,10 @@ public class PailInterface extends javax.swing.JPanel {
             }
         });
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel9.setText("Current bSpace version:");
 
-        CurrentVersion.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        CurrentVersion.setFont(new java.awt.Font("Tahoma", 1, 14));
         CurrentVersion.setText("Unknown");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -761,18 +761,21 @@ public class PailInterface extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(CurrentVersion))
-                .addGap(18, 18, 18)
-                .addComponent(Settings, javax.swing.GroupLayout.DEFAULT_SIZE, 337, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(GlobalSettings, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(ids, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel9)
+                            .addComponent(CurrentVersion))
+                        .addGap(18, 18, 18)
+                        .addComponent(Settings, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(GlobalSettings, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(ids, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         ids.getAccessibleContext().setAccessibleName("Ids");
