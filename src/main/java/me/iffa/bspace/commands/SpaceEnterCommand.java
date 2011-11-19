@@ -48,6 +48,10 @@ public class SpaceEnterCommand extends SpaceCommand {
         Player player = (Player) this.sender;
         if (args.length == 1) {
             if (SpacePlayerHandler.hasPermission("bSpace.teleport.enter", player)) {
+                if (Space.worldHandler.getSpaceWorlds().isEmpty()) {
+                    player.sendMessage(ChatColor.RED + "No space worlds are loaded! :(");
+                    return;
+                }
                 if (Space.worldHandler.getSpaceWorlds().get(0) == player.getWorld()) {
                     player.sendMessage(ChatColor.RED + SpaceLangHandler.getAlreadyInThatWorldMessage());
                     SpaceMessageHandler.debugPrint(Level.INFO, "Someone tried to use /space enter, but he was already in that space world.");
@@ -70,7 +74,7 @@ public class SpaceEnterCommand extends SpaceCommand {
             }
             SpaceMessageHandler.sendNoPermissionMessage(player);
             return;
-        } else if (args.length == 2) {
+        } else if (args.length >= 2) {
             if (SpacePlayerHandler.hasPermission("bSpace.teleport.enter", player)) {
                 if (Space.pm.getPlugin("Register") != null && !Economy.enterCommand(player)) {
                     SpaceMessageHandler.sendNotEnoughMoneyMessage(player);
