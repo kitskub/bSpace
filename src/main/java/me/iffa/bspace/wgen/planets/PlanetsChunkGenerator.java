@@ -278,7 +278,6 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
         if (SpaceConfigHandler.getGenerateSchematics(ID)) {
             populators.add(new SpaceSchematicPopulator());
         }
-        
         return populators;
     }
 

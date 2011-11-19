@@ -24,6 +24,7 @@ import org.bukkit.generator.BlockPopulator;
  */
 public class SpaceAsteroidPopulator extends BlockPopulator {
     // Variables
+
     private static final BlockFace[] faces = {BlockFace.DOWN, BlockFace.EAST, BlockFace.NORTH, BlockFace.SOUTH, BlockFace.UP, BlockFace.WEST};
 
     /**
