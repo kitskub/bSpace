@@ -8,10 +8,10 @@ import java.util.Random;
 import me.iffa.bspace.wgen.blocks.BlackHole;
 
 // Bukkit Imports
+import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.World;
 import org.bukkit.generator.BlockPopulator;
-import org.bukkit.plugin.Plugin;
 
 // Spout Imports
 import org.getspout.spoutapi.block.SpoutBlock;
@@ -23,18 +23,6 @@ import org.getspout.spoutapi.block.SpoutBlock;
  * @author iffa
  */
 public class SpaceBlackHolePopulator extends BlockPopulator {
-    // Variables
-    private Plugin plugin;
-
-    /**
-     * Constructor of SpaceBlackHolePopulator.
-     * 
-     * @param plugin Plugin instance
-     */
-    public SpaceBlackHolePopulator(Plugin plugin) {
-        this.plugin = plugin;
-    }
-
     /**
      * Populates a chunk with black holes.
      * 
@@ -50,7 +38,7 @@ public class SpaceBlackHolePopulator extends BlockPopulator {
             int y = random.nextInt(127);
 
             SpoutBlock block = (SpoutBlock) world.getBlockAt(x, y, z);
-            block.setCustomBlock(new BlackHole(plugin));
+            block.setCustomBlock(new BlackHole(Bukkit.getPluginManager().getPlugin("bSpace")));
         }
     }
 }
