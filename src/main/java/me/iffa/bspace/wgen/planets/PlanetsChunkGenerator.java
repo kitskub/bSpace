@@ -278,6 +278,9 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
         if (SpaceConfigHandler.getGenerateSchematics(ID)) {
             populators.add(new SpaceSchematicPopulator());
         }
+        if (SpaceConfigHandler.getGenerateBlacks(world) && SpaceConfigHandler.isUsingSpout() && Bukkit.getPluginManager().isPluginEnabled("Spout")) {
+            populators.add(new SpaceBlackHolePopulator());
+        }
         return populators;
     }
 
