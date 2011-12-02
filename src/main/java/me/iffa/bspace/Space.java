@@ -27,11 +27,13 @@ import me.iffa.bspace.listeners.SpaceEntityListener;
 import me.iffa.bspace.listeners.SpacePlayerListener;
 import me.iffa.bspace.listeners.misc.BlackHoleScannerListener;
 import me.iffa.bspace.listeners.misc.SpaceWeatherListener;
+import me.iffa.bspace.listeners.misc.SpaceWorldListener;
 import me.iffa.bspace.listeners.spout.SpaceSpoutAreaListener;
 import me.iffa.bspace.listeners.spout.SpaceSpoutCraftListener;
 import me.iffa.bspace.listeners.spout.SpaceSpoutEntityListener;
 import me.iffa.bspace.listeners.spout.SpaceSpoutKeyListener;
 import me.iffa.bspace.listeners.spout.SpaceSpoutPlayerListener;
+import me.iffa.bspace.runnables.SpoutBlackHoleRunnable2;
 import me.iffa.bspace.wgen.planets.PlanetsChunkGenerator;
 
 // Bukkit Imports
@@ -65,6 +67,7 @@ public class Space extends JavaPlugin {
     private Economy economy;
     private final SpaceWeatherListener weatherListener = new SpaceWeatherListener();
     private final SpaceEntityListener entityListener = new SpaceEntityListener();
+    private final SpaceWorldListener worldListener = new SpaceWorldListener();
     private final SpacePlayerListener playerListener = new SpacePlayerListener(this);
 
     /**
@@ -72,10 +75,11 @@ public class Space extends JavaPlugin {
      */
     @Override
     public void onDisable() {
-        // Nullifying statics.
-        nullify();
         // Finishing up disablation.
         SpaceMessageHandler.print(Level.INFO, SpaceLangHandler.getDisabledMessage());
+        scheduler.cancelTasks(this);
+        // Nullifying statics.
+        nullify();
     }
     
     /**
@@ -141,6 +145,11 @@ public class Space extends JavaPlugin {
             pailInt = new PailInterface(this);
             ((Pail) pm.getPlugin("Pail")).loadInterfaceComponent("bSpace", pailInt);
         }
+        
+        // Initializing black hole stuff.
+        if (pm.getPlugin("Spout") != null) {
+            scheduler.scheduleSyncRepeatingTask(this, new SpoutBlackHoleRunnable2(), 1, 5);
+        }
 
         // Finishing up enablation.
         SpaceMessageHandler.print(Level.INFO, SpaceLangHandler.getUsageStatsMessage());
@@ -168,6 +177,7 @@ public class Space extends JavaPlugin {
     private void registerEvents() {
         // Registering other events.
         pm.registerEvent(Event.Type.WEATHER_CHANGE, weatherListener, Event.Priority.Normal, this);
+        pm.registerEvent(Event.Type.WORLD_LOAD, worldListener, Event.Priority.Normal, this);
         SpaceMessageHandler.debugPrint(Level.INFO, "Registered events (other).");
 
         // Registering entity & player events.
