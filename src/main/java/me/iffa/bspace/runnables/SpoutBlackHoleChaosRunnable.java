@@ -19,7 +19,7 @@ import org.bukkit.entity.Entity;
  * @author iffamies
  * @author SwearWord (thanks for your awesome maths!)
  */
-public class SpoutBlackHoleRunnable implements Runnable {
+public class SpoutBlackHoleChaosRunnable implements Runnable {
     // Variables
     private SpoutBlock block;
     private Entity entity;
@@ -29,12 +29,12 @@ public class SpoutBlackHoleRunnable implements Runnable {
     private double index;
 
     /**
-     * Constructor of SpoutBlackHoleRunnable.
+     * Constructor of SpoutBlackHoleChaosRunnable.
      * 
      * @param entity Entity to suck
      * @param block Black hole block
      */
-    public SpoutBlackHoleRunnable(Entity entity, SpoutBlock block) {
+    public SpoutBlackHoleChaosRunnable(Entity entity, SpoutBlock block) {
         this.block = block;
         this.entity = entity;
         xDistance = block.getLocation().getX() - entity.getLocation().getX();
@@ -48,8 +48,8 @@ public class SpoutBlackHoleRunnable implements Runnable {
     @Override
     public void run() {
         if (entity.isDead()) {
-            Space.scheduler.cancelTask(SpoutBlackHoleRunnable2.scheduleMap.get(entity));
-            SpoutBlackHoleRunnable2.scheduleMap.remove(entity);
+            Space.scheduler.cancelTask(SpoutBlackHoleAreaRunnable.scheduleMap.get(entity));
+            SpoutBlackHoleAreaRunnable.scheduleMap.remove(entity);
         }
 	double x = xDistance - index;
 	double z = Math.tan(angle) * x;
@@ -58,8 +58,8 @@ public class SpoutBlackHoleRunnable implements Runnable {
 	index += 0.1;
         if (index > xDistance) {
             entity.remove(); // OH NO!
-            Space.scheduler.cancelTask(SpoutBlackHoleRunnable2.scheduleMap.get(entity));
-            SpoutBlackHoleRunnable2.scheduleMap.remove(entity);
+            Space.scheduler.cancelTask(SpoutBlackHoleAreaRunnable.scheduleMap.get(entity));
+            SpoutBlackHoleAreaRunnable.scheduleMap.remove(entity);
             return;
         }
         entity.teleport(new Location(entity.getWorld(), x, block.getY(), z));
