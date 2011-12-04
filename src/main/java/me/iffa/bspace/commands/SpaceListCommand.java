@@ -39,6 +39,10 @@ public class SpaceListCommand extends SpaceCommand {
             SpaceMessageHandler.sendNoPermissionMessage((Player) sender);
             return;
         }
+        if (Space.getWorldHandler().getSpaceWorlds().isEmpty()) {
+            sender.sendMessage(ChatColor.RED + "No space worlds are loaded :(");
+            return;
+        }
         sender.sendMessage(ChatColor.GREEN + Space.prefix + " " + SpaceLangHandler.getListOfSpaceMessage());
         for (World world : Space.getWorldHandler().getSpaceWorlds()) {
             sender.sendMessage(ChatColor.DARK_GREEN + "- " + world.getName());
