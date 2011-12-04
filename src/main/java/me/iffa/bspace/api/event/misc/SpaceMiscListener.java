@@ -2,6 +2,8 @@
 package me.iffa.bspace.api.event.misc;
 
 // Bukkit Imports
+import me.iffa.bspace.api.event.area.SpaceEnterEvent;
+import me.iffa.bspace.api.event.area.SpaceLeaveEvent;
 import org.bukkit.event.CustomEventListener;
 import org.bukkit.event.Event;
 
@@ -11,14 +13,6 @@ import org.bukkit.event.Event;
  * @author iffa
  */
 public class SpaceMiscListener extends CustomEventListener {
-    /**
-     * Called when a player teleports to space.
-     * 
-     * @param event Event data
-     */
-    public void onTeleportToSpace(TeleportToSpaceEvent event) {
-    }
-
     /**
      * Called when a player starts suffocating (for having no helmet, suit or
      * both).
@@ -43,9 +37,7 @@ public class SpaceMiscListener extends CustomEventListener {
      */
     @Override
     public void onCustomEvent(Event event) {
-        if (event instanceof TeleportToSpaceEvent) {
-            onTeleportToSpace((TeleportToSpaceEvent) event);
-        } else if (event instanceof SpaceCommandEvent) {
+        if (event instanceof SpaceCommandEvent) {
             onSpaceCommand((SpaceCommandEvent) event);
         } else if (event instanceof SpaceSuffocationEvent) {
             onSpaceSuffocation((SpaceSuffocationEvent) event);

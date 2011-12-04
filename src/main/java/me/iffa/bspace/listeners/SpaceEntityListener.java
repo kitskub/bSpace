@@ -76,6 +76,10 @@ public class SpaceEntityListener extends EntityListener {
             player.setHealth(0);
             SpaceMessageHandler.debugPrint(Level.INFO, "Killed player '" + player.getName() + "' in void.");
         }
+        if (event.getEntity() instanceof Player && event.getCause() == DamageCause.DROWNING) {
+            Player player = (Player) event.getEntity();
+            
+        }
     }
 
     /**
@@ -88,8 +92,8 @@ public class SpaceEntityListener extends EntityListener {
         // TODO: Test this code as someone reported this does not work.
         if (event.getEntity() instanceof Player) {
             Player p = (Player) event.getEntity();
-            if (SpacePlayerListener.taskid.containsKey(p) && Space.scheduler.isCurrentlyRunning(SpacePlayerListener.taskid.get(p))) {
-                Space.scheduler.cancelTask(SpacePlayerListener.taskid.get(p));
+            if (SpaceSuffocationListener.taskid.containsKey(p) && Space.scheduler.isCurrentlyRunning(SpaceSuffocationListener.taskid.get(p))) {
+                Space.scheduler.cancelTask(SpaceSuffocationListener.taskid.get(p));
                 SpaceMessageHandler.debugPrint(Level.INFO, "Cancelled suffocating task for player '" + p.getName() + "' because (s)he died.");
             }
         }

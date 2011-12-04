@@ -14,7 +14,8 @@ import me.iffa.bspace.api.SpacePlayerHandler;
 import me.iffa.bspace.api.event.area.AreaEnterEvent;
 import me.iffa.bspace.api.event.area.AreaLeaveEvent;
 import me.iffa.bspace.api.event.misc.SpaceSuffocationEvent;
-import me.iffa.bspace.api.event.misc.TeleportToSpaceEvent;
+import me.iffa.bspace.api.event.area.SpaceLeaveEvent;
+import me.iffa.bspace.api.event.area.SpaceEnterEvent;
 import me.iffa.bspace.economy.Economy;
 import me.iffa.bspace.runnables.SuffacationRunnable;
 
@@ -37,21 +38,9 @@ import org.bukkit.inventory.ItemStack;
  */
 public class SpacePlayerListener extends PlayerListener {
     // Variables
-    public static Map<Player, Integer> taskid = new HashMap<Player, Integer>();
-    public static Map<Player, Boolean> isUsed = new HashMap<Player, Boolean>();
     private final Map<Player, Boolean> inArea = new HashMap<Player, Boolean>();
     private final Map<Player, Boolean> fixDupe = new HashMap<Player, Boolean>();
-    private int taskInt;
-    private final Space plugin;
 
-    /**
-     * Constructor for SpacePlayerListener.
-     * 
-     * @param plugin bSpace instance 
-     */
-    public SpacePlayerListener(Space plugin) {
-        this.plugin = plugin;
-    }
 
     /**
      * Called when a player attempts to teleport.
@@ -79,7 +68,7 @@ public class SpacePlayerListener extends PlayerListener {
                     SpacePlayerHandler.giveSpaceSuit(SpaceConfigHandler.getArmorType(), player);
                 }
                 /* Notify listeners start */
-                TeleportToSpaceEvent e = new TeleportToSpaceEvent("TeleportToSpaceEvent", event.getPlayer(), event.getFrom(), event.getTo());
+                SpaceEnterEvent e = new SpaceEnterEvent(event.getPlayer(), event.getFrom(), event.getTo());
                 Bukkit.getServer().getPluginManager().callEvent(e);
                 if (e.isCancelled()) {
                     event.setCancelled(true);
@@ -93,11 +82,19 @@ public class SpacePlayerListener extends PlayerListener {
                     event.setCancelled(true);
                     return;
                 }
+                /* Notify listeners start */
+                SpaceLeaveEvent e = new SpaceLeaveEvent(event.getPlayer(), event.getFrom(), event.getTo());
+                Bukkit.getServer().getPluginManager().callEvent(e);
+                if (e.isCancelled()) {
+                    event.setCancelled(true);
+                }
+                /* Notify listeners end */
+                
                 if (SpaceConfigHandler.isHelmetGiven()) {
                     event.getPlayer().getInventory().setHelmet(new ItemStack(0, 1));
                 }
                 if (SpaceConfigHandler.isSuitGiven()) {
-                    SpacePlayerHandler.giveSpaceSuit("null", player);
+                    SpacePlayerHandler.giveSpaceSuit("air", player);
                 }
             }
         } else {
@@ -145,12 +142,6 @@ public class SpacePlayerListener extends PlayerListener {
                     Bukkit.getServer().getPluginManager().callEvent(e);
                     /* Notify listeners end */
                 }
-                if (isUsed.containsKey(event.getPlayer())) {
-                    if (isUsed.get(event.getPlayer()) == true) {
-                        Space.scheduler.cancelTask(taskid.get(event.getPlayer()));
-                        isUsed.put(event.getPlayer(), false);
-                    }
-                }
             } else {
                 if (inArea.containsKey(event.getPlayer())) {
                     if (inArea.get(event.getPlayer()) == true) {
@@ -158,6 +149,7 @@ public class SpacePlayerListener extends PlayerListener {
                         /* Notify listeners start */
                         AreaLeaveEvent e = new AreaLeaveEvent(event.getPlayer());
                         Bukkit.getServer().getPluginManager().callEvent(e);
+                        event.setCancelled(e.isCancelled());
                         /* Notify listeners end */
                         SpaceMessageHandler.debugPrint(Level.INFO, "Player '" + event.getPlayer().getName() + "' left an area.");
                     }
@@ -166,72 +158,13 @@ public class SpacePlayerListener extends PlayerListener {
                     /* Notify listeners start */
                     AreaLeaveEvent e = new AreaLeaveEvent(event.getPlayer());
                     Bukkit.getServer().getPluginManager().callEvent(e);
+                    event.setCancelled(e.isCancelled());
                     /* Notify listeners end */
-                }
-                if (!event.getPlayer().hasPermission("bSpace.ignoresuitchecks")) {
-                    if (SpaceConfigHandler.getRequireHelmet(event.getPlayer().getWorld()) && SpaceConfigHandler.getRequireSuit(event.getPlayer().getWorld())) {
-                        checkNeedsSuffocation(SuitCheck.BOTH, event.getPlayer());
-                        return;
-                    } else if (SpaceConfigHandler.getRequireHelmet(event.getPlayer().getWorld())) {
-                        checkNeedsSuffocation(SuitCheck.HELMET_ONLY, event.getPlayer());
-                        return;
-                    } else if (SpaceConfigHandler.getRequireSuit(event.getPlayer().getWorld())) {
-                        checkNeedsSuffocation(SuitCheck.SUIT_ONLY, event.getPlayer());
-                        return;
-                    }
-                }
-            }
-        } else {
-            if (isUsed.containsKey(event.getPlayer())) {
-                if (isUsed.get(event.getPlayer()) == true) {
-                    Space.scheduler.cancelTask(taskid.get(event.getPlayer()));
                 }
             }
         }
     }
 
-    /**
-     * Checks if a player has a spacesuit (of the given armortype)
-     * 
-     * @param p Player
-     * @param armortype Can be diamond, chainmail, gold, iron or leather
-     * 
-     * @return true if the player has a spacesuit of the type
-     */
-    private boolean hasSuit(Player p, String armortype) {
-        if (armortype.equalsIgnoreCase("diamond")) {
-            // Diamond
-            if (p.getInventory().getBoots().getType() != Material.DIAMOND_BOOTS || p.getInventory().getChestplate().getType() != Material.DIAMOND_CHESTPLATE || p.getInventory().getLeggings().getType() != Material.DIAMOND_LEGGINGS) {
-                return false;
-            }
-            return true;
-        } else if (armortype.equalsIgnoreCase("chainmail")) {
-            // Chainmail
-            if (p.getInventory().getBoots().getType() != Material.CHAINMAIL_BOOTS || p.getInventory().getChestplate().getType() != Material.CHAINMAIL_CHESTPLATE || p.getInventory().getLeggings().getType() != Material.CHAINMAIL_LEGGINGS) {
-                return false;
-            }
-            return true;
-        } else if (armortype.equalsIgnoreCase("gold")) {
-            // Gold
-            if (p.getInventory().getBoots().getType() != Material.GOLD_BOOTS || p.getInventory().getChestplate().getType() != Material.GOLD_CHESTPLATE || p.getInventory().getLeggings().getType() != Material.GOLD_LEGGINGS) {
-                return false;
-            }
-            return true;
-        } else if (armortype.equalsIgnoreCase("iron")) {
-            // Iron
-            if (p.getInventory().getBoots().getType() != Material.IRON_BOOTS || p.getInventory().getChestplate().getType() != Material.IRON_CHESTPLATE || p.getInventory().getLeggings().getType() != Material.IRON_LEGGINGS) {
-                return false;
-            }
-            return true;
-        } else if (armortype.equalsIgnoreCase("leather")) {
-            // Leather
-            if (p.getInventory().getBoots().getType() != Material.LEATHER_BOOTS || p.getInventory().getChestplate().getType() != Material.LEATHER_CHESTPLATE || p.getInventory().getLeggings().getType() != Material.LEATHER_LEGGINGS) {
-                return false;
-            }
-            return true;
-        }
-        return false;
-    }
 
     /**
      * Called when a player quits the game.
@@ -240,9 +173,9 @@ public class SpacePlayerListener extends PlayerListener {
      */
     @Override
     public void onPlayerQuit(PlayerQuitEvent event) {
-        if (taskid.containsKey(event.getPlayer())) {
-            if (Space.scheduler.isCurrentlyRunning(taskid.get(event.getPlayer()))) {
-                Space.scheduler.cancelTask(taskid.get(event.getPlayer()));
+        if (SpaceSuffocationListener.taskid.containsKey(event.getPlayer())) {
+            if (Space.scheduler.isCurrentlyRunning(SpaceSuffocationListener.taskid.get(event.getPlayer()))) {
+                Space.scheduler.cancelTask(SpaceSuffocationListener.taskid.get(event.getPlayer()));
                 SpaceMessageHandler.debugPrint(Level.INFO, "Cancelled suffocation task for player '" + event.getPlayer().getName() + "'. (reason: left server)");
             }
         }
@@ -257,128 +190,5 @@ public class SpacePlayerListener extends PlayerListener {
         HELMET_ONLY,
         SUIT_ONLY,
         BOTH;
-    }
-
-    /**
-     * Checks if a player should start suffocating.
-     * 
-     * @param suit SuitCheck
-     * @param player Player
-     */
-    private void checkNeedsSuffocation(SuitCheck suit, Player player) {
-        if (suit == SuitCheck.SUIT_ONLY) {
-            if (isUsed.containsKey(player)) {
-                if (isUsed.get(player) == true && hasSuit(player, SpaceConfigHandler.getArmorType())) {
-                    Space.scheduler.cancelTask(taskid.get(player));
-                    isUsed.put(player, false);
-                } else if (isUsed.get(player) == false && !hasSuit(player, SpaceConfigHandler.getArmorType())) {
-                    /* Notify listeners start */
-                    SpaceSuffocationEvent e = new SpaceSuffocationEvent("SpaceSuffocationEvent", player);
-                    Bukkit.getServer().getPluginManager().callEvent(e);
-                    if (e.isCancelled()) {
-                        return;
-                    }
-                    /* Notify listeners end */
-                    SpaceMessageHandler.debugPrint(Level.INFO, "Player '" + player.getName() + "' started suffocating in space.");
-                    SuffacationRunnable task = new SuffacationRunnable(player);
-                    taskInt = Space.scheduler.scheduleSyncRepeatingTask(plugin, task, 20L, 20L);
-                    taskid.put(player, taskInt);
-                    isUsed.put(player, true);
-
-                }
-            } else {
-                if (hasSuit(player, SpaceConfigHandler.getArmorType())) {
-                    isUsed.put(player, false);
-                } else {
-                    /* Notify listeners start */
-                    SpaceSuffocationEvent e = new SpaceSuffocationEvent("SpaceSuffocationEvent", player);
-                    Bukkit.getServer().getPluginManager().callEvent(e);
-                    if (e.isCancelled()) {
-                        return;
-                    }
-                    /* Notify listeners end */
-                    SpaceMessageHandler.debugPrint(Level.INFO, "Player '" + player.getName() + "' started suffocating in space.");
-                    SuffacationRunnable task = new SuffacationRunnable(player);
-                    taskInt = Space.scheduler.scheduleSyncRepeatingTask(plugin, task, 20L, 20L);
-                    taskid.put(player, taskInt);
-                    isUsed.put(player, true);
-                }
-            }
-        } else if (suit == SuitCheck.HELMET_ONLY) {
-            if (isUsed.containsKey(player)) {
-                if (isUsed.get(player) == true && player.getInventory().getHelmet().getTypeId() == SpaceConfigHandler.getHelmetBlock()) {
-                    Space.scheduler.cancelTask(taskid.get(player));
-                    isUsed.put(player, false);
-                } else if (isUsed.get(player) == false && player.getInventory().getHelmet().getTypeId() != SpaceConfigHandler.getHelmetBlock()) {
-                    /* Notify listeners start */
-                    SpaceSuffocationEvent e = new SpaceSuffocationEvent("SpaceSuffocationEvent", player);
-                    Bukkit.getServer().getPluginManager().callEvent(e);
-                    if (e.isCancelled()) {
-                        return;
-                    }
-                    /* Notify listeners end */
-                    SpaceMessageHandler.debugPrint(Level.INFO, "Player '" + player.getName() + "' started suffocating in space.");
-                    SuffacationRunnable task = new SuffacationRunnable(player);
-                    taskInt = Space.scheduler.scheduleSyncRepeatingTask(plugin, task, 20L, 20L);
-                    taskid.put(player, taskInt);
-                    isUsed.put(player, true);
-
-                }
-            } else {
-                if (player.getInventory().getHelmet().getTypeId() == SpaceConfigHandler.getHelmetBlock()) {
-                    isUsed.put(player, false);
-                } else {
-                    /* Notify listeners start */
-                    SpaceSuffocationEvent e = new SpaceSuffocationEvent("SpaceSuffocationEvent", player);
-                    Bukkit.getServer().getPluginManager().callEvent(e);
-                    if (e.isCancelled()) {
-                        return;
-                    }
-                    /* Notify listeners end */
-                    SpaceMessageHandler.debugPrint(Level.INFO, "Player '" + player.getName() + "' started suffocating in space.");
-                    SuffacationRunnable task = new SuffacationRunnable(player);
-                    taskInt = Space.scheduler.scheduleSyncRepeatingTask(plugin, task, 20L, 20L);
-                    taskid.put(player, taskInt);
-                    isUsed.put(player, true);
-                }
-            }
-        } else if (suit == SuitCheck.BOTH) {
-            if (isUsed.containsKey(player)) {
-                if (isUsed.get(player) == true && player.getInventory().getHelmet().getTypeId() == SpaceConfigHandler.getHelmetBlock() && hasSuit(player, SpaceConfigHandler.getArmorType())) {
-                    Space.scheduler.cancelTask(taskid.get(player));
-                    isUsed.put(player, false);
-                } else if (isUsed.get(player) == false && player.getInventory().getHelmet().getTypeId() != SpaceConfigHandler.getHelmetBlock() || !hasSuit(player, SpaceConfigHandler.getArmorType())) {
-                    /* Notify listeners start */
-                    SpaceSuffocationEvent e = new SpaceSuffocationEvent("SpaceSuffocationEvent", player);
-                    Bukkit.getServer().getPluginManager().callEvent(e);
-                    if (e.isCancelled()) {
-                        return;
-                    }
-                    /* Notify listeners end */
-                    SpaceMessageHandler.debugPrint(Level.INFO, "Player '" + player.getName() + "' started suffocating in space.");
-                    SuffacationRunnable task = new SuffacationRunnable(player);
-                    taskInt = Space.scheduler.scheduleSyncRepeatingTask(plugin, task, 20L, 20L);
-                    taskid.put(player, taskInt);
-                    isUsed.put(player, true);
-                }
-            } else {
-                if (player.getInventory().getHelmet().getTypeId() == SpaceConfigHandler.getHelmetBlock() && hasSuit(player, SpaceConfigHandler.getArmorType())) {
-                    isUsed.put(player, false);
-                } else {
-                    /* Notify listeners start */
-                    SpaceSuffocationEvent e = new SpaceSuffocationEvent("SpaceSuffocationEvent", player);
-                    Bukkit.getServer().getPluginManager().callEvent(e);
-                    if (e.isCancelled()) {
-                        return;
-                    }
-                    /* Notify listeners end */
-                    SpaceMessageHandler.debugPrint(Level.INFO, "Player '" + player.getName() + "' started suffocating in space.");
-                    SuffacationRunnable task = new SuffacationRunnable(player);
-                    taskInt = Space.scheduler.scheduleSyncRepeatingTask(plugin, task, 20L, 20L);
-                    taskid.put(player, taskInt);
-                    isUsed.put(player, true);
-                }
-            }
-        }
     }
 }

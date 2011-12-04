@@ -26,6 +26,20 @@ public class SpaceAreaListener extends CustomEventListener {
      */
     public void onAreaLeave(AreaLeaveEvent event) {
     }
+    
+    /**
+     * 
+     * @param spaceEnterEvent Event data
+     */
+    public void onSpaceEnter(SpaceEnterEvent spaceEnterEvent) {
+    }
+
+    /**
+     * 
+     * @param spaceLeaveEvent Event data
+     */
+    public void onSpaceLeave(SpaceLeaveEvent spaceLeaveEvent) {
+    }
 
     /**
      * Handles the events that are called.
@@ -38,6 +52,11 @@ public class SpaceAreaListener extends CustomEventListener {
             onAreaEnter((AreaEnterEvent) event);
         } else if (event instanceof AreaLeaveEvent) {
             onAreaLeave((AreaLeaveEvent) event);
+        } else if (event instanceof SpaceEnterEvent) {
+            onSpaceEnter((SpaceEnterEvent) event);
+        } else if (event instanceof SpaceLeaveEvent) {
+            onSpaceLeave((SpaceLeaveEvent) event);
         }
     }
+
 }

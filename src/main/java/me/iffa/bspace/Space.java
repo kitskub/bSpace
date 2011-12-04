@@ -25,6 +25,7 @@ import me.iffa.bspace.economy.Economy;
 import me.iffa.bspace.gui.PailInterface;
 import me.iffa.bspace.listeners.SpaceEntityListener;
 import me.iffa.bspace.listeners.SpacePlayerListener;
+import me.iffa.bspace.listeners.SpaceSuffocationListener;
 import me.iffa.bspace.listeners.misc.BlackHoleScannerListener;
 import me.iffa.bspace.listeners.misc.SpaceWeatherListener;
 import me.iffa.bspace.listeners.misc.SpaceWorldListener;
@@ -68,7 +69,7 @@ public class Space extends JavaPlugin {
     private final SpaceWeatherListener weatherListener = new SpaceWeatherListener();
     private final SpaceEntityListener entityListener = new SpaceEntityListener();
     private final SpaceWorldListener worldListener = new SpaceWorldListener();
-    private final SpacePlayerListener playerListener = new SpacePlayerListener(this);
+    private final SpacePlayerListener playerListener = new SpacePlayerListener();
 
     /**
      * Called when the plugin is disabled.
@@ -181,7 +182,7 @@ public class Space extends JavaPlugin {
         SpaceMessageHandler.debugPrint(Level.INFO, "Registered events (other).");
 
         // Registering entity & player events.
-        pm.registerEvent(Event.Type.ENTITY_DAMAGE, entityListener, Event.Priority.Normal, this);
+        pm.registerEvent(Event.Type.ENTITY_DAMAGE, entityListener, Event.Priority.High, this);
         pm.registerEvent(Event.Type.ENTITY_DEATH, entityListener, Event.Priority.Normal, this);
         pm.registerEvent(Event.Type.CREATURE_SPAWN, entityListener, Event.Priority.Highest, this);
         pm.registerEvent(Event.Type.PLAYER_TELEPORT, playerListener, Event.Priority.Normal, this);
@@ -189,6 +190,7 @@ public class Space extends JavaPlugin {
         pm.registerEvent(Event.Type.PLAYER_RESPAWN, playerListener, Event.Priority.Normal, this);
         pm.registerEvent(Event.Type.PLAYER_QUIT, playerListener, Event.Priority.Normal, this);
         pm.registerEvent(Event.Type.PLAYER_JOIN, playerListener, Event.Priority.Normal, this);
+        pm.registerEvent(Event.Type.CUSTOM_EVENT, new SpaceSuffocationListener(), Event.Priority.Monitor, this); //Suffocation Listener
         SpaceMessageHandler.debugPrint(Level.INFO, "Registered events (entity & player).");
 
         // Registering events for Spout.
