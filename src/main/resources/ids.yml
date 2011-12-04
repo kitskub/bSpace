@@ -1,4 +1,4 @@
-# bSpace v2-dev - ID File 
+# bSpace v2-dev - IDs File 
 # ----------------------------------------
 #     This configuration has a pretty      
 #    huge amount of documentation, but     
@@ -43,7 +43,7 @@ ids:
 #        neutralmobs: true
 #        hostilemobs: false
 ############# YOUR ID'S HERE:
-    # Example ID - totally empty
+    # Example ID - totally empty (to simulate the old empty generator with the new one)
     empty:
         generation:
             generateplanets: false

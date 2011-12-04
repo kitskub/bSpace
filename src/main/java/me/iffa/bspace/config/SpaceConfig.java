@@ -32,7 +32,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 public class SpaceConfig {
     // Variables
     private static Map<ConfigFile, YamlConfiguration> config = new EnumMap<ConfigFile, YamlConfiguration>(ConfigFile.class);
-    private static Map<ConfigFile, File> configFile = new EnumMap<ConfigFile, File>(ConfigFile.class);
+    private static Map<ConfigFile, File> fileMap = new EnumMap<ConfigFile, File>(ConfigFile.class);
     private static Map<ConfigFile, Boolean> loaded = new EnumMap<ConfigFile, Boolean>(ConfigFile.class);
 
     /**
@@ -57,7 +57,7 @@ public class SpaceConfig {
      * @return Configuration file
      */
     public static File getConfigFile(ConfigFile configfile) {
-        return configFile.get(configfile);
+        return fileMap.get(configfile);
     }
 
     /**
@@ -85,37 +85,37 @@ public class SpaceConfig {
     /**
      * Loads the configuration file from the .jar.
      * 
-     * @param configfile ConfigFile to load
+     * @param configFile ConfigFile to load
      */
-    public static void loadConfig(ConfigFile configfile) {
-        configFile.put(configfile, new File(Bukkit.getServer().getPluginManager().getPlugin("bSpace").getDataFolder(), configfile.getFile()));
-        if (configFile.get(configfile).exists()) {
-            config.put(configfile, new YamlConfiguration());
+    public static void loadConfig(ConfigFile configFile) {
+        fileMap.put(configFile, new File(Bukkit.getServer().getPluginManager().getPlugin("bSpace").getDataFolder(), configFile.getFile()));
+        if (fileMap.get(configFile).exists()) {
+            config.put(configFile, new YamlConfiguration());
             try {
-                config.get(configfile).load(configFile.get(configfile));
+                config.get(configFile).load(fileMap.get(configFile));
             } catch (FileNotFoundException ex) {
                 SpaceMessageHandler.print(Level.WARNING, ex.getMessage());
-                loaded.put(configfile, false);
+                loaded.put(configFile, false);
                 return;
             } catch (IOException ex) {
                 SpaceMessageHandler.print(Level.WARNING, ex.getMessage());
-                loaded.put(configfile, false);
+                loaded.put(configFile, false);
                 return;
             } catch (InvalidConfigurationException ex) {
                 SpaceMessageHandler.print(Level.WARNING, ex.getMessage());
-                loaded.put(configfile, false);
+                loaded.put(configFile, false);
                 return;
             }
-            loaded.put(configfile, true);
+            loaded.put(configFile, true);
         } else {
             try {
                 Bukkit.getServer().getPluginManager().getPlugin("bSpace").getDataFolder().mkdir();
-                InputStream jarURL = SpaceConfig.class.getResourceAsStream("/" + configfile.getFile());
-                copyFile(jarURL, configFile.get(configfile));
-                config.put(configfile, new YamlConfiguration());
-                config.get(configfile).load(configFile.get(configfile));
-                loaded.put(configfile, true);
-                SpaceMessageHandler.print(Level.INFO, SpaceLangHandler.getConfigLoadedMessage(configfile));
+                InputStream jarURL = SpaceConfig.class.getResourceAsStream("/" + configFile.getFile());
+                copyFile(jarURL, fileMap.get(configFile));
+                config.put(configFile, new YamlConfiguration());
+                config.get(configFile).load(fileMap.get(configFile));
+                loaded.put(configFile, true);
+                SpaceMessageHandler.print(Level.INFO, SpaceLangHandler.getConfigLoadedMessage(configFile));
             } catch (Exception e) {
                 SpaceMessageHandler.print(Level.SEVERE, e.toString());
             }
