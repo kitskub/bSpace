@@ -38,38 +38,41 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
+/**
+ * 
+ * @author jblaske
+ * @author Jack
+ */
 public class Ping
 {
 
-    private static final File configFile = new File("plugins/PluginStats/config.yml");
-    private static final String logFile = "plugins/PluginStats/log.txt";
+    private static final File configFile = new File("plugins/bSpace/config.yml");
+    private static final String logFile = "plugins/bSpace/usagelog.txt";
     private static final YamlConfiguration config = YamlConfiguration.loadConfiguration(configFile);
-    private static Logger logger = null;
+    protected static final Logger logger = Logger.getLogger("bSpace");
 
     public static void init(Plugin plugin)
     {
-        if (configExists() && logExists() && !config.getBoolean("opt-out"))
+        if (configExists() && logExists() && !config.getBoolean("usage.opt-out"))
         {
-            plugin.getServer().getScheduler().scheduleAsyncRepeatingTask(plugin, new Pinger(plugin, config.getString("guid"), logger), 10L, 20L * 60L * 60 * 24);
-            System.out.println("[" + plugin.getDescription().getName() + "] Stats are being kept for this plugin. To opt-out for any reason, check plugins/PluginStats/config.yml");
+            plugin.getServer().getScheduler().scheduleAsyncRepeatingTask(plugin, new Pinger(plugin, config.getString("usage.guid")), 10L, 20L * 60L * 60 * 24);
         }
     }
 
     private static Boolean configExists()
     {
-        config.addDefault("opt-out", false);
-        config.addDefault("guid", UUID.randomUUID().toString());
-        if (!configFile.exists() || config.get("hash", null) == null)
+        config.addDefault("usage.opt-out", false);
+        config.addDefault("usage.guid", UUID.randomUUID().toString());
+        if (!configFile.exists())
         {
-            System.out.println("PluginStats is initializing for the first time. To opt-out for any reason check plugins/PluginStats/config.yml");
             try
             {
                 config.options().copyDefaults(true);
                 config.save(configFile);
             } catch (Exception ex)
             {
-                System.out.println("Error creating PluginStats configuration file.");
-                ex.printStackTrace();
+                logger.log(Level.SEVERE, "Error with config file!");
+                logger.log(Level.SEVERE, "", ex);
                 return false;
             }
         }
@@ -81,13 +84,12 @@ public class Ping
         try
         {
             FileHandler handler = new FileHandler(logFile, true);
-            logger = Logger.getLogger("com.randomappdev");
             logger.setUseParentHandlers(false);
             logger.addHandler(handler);
         } catch (Exception ex)
         {
-            System.out.println("Error creating PluginStats log file.");
-            ex.printStackTrace();
+            logger.log(Level.SEVERE, "Error creating log file!");
+            logger.log(Level.SEVERE, "", ex);
             return false;
         }
         return true;
@@ -97,13 +99,11 @@ class Pinger implements Runnable
 {
     private Plugin plugin;
     private String guid;
-    private Logger logger;
 
-    public Pinger(Plugin plugin, String guid, Logger theLogger)
+    public Pinger(Plugin plugin, String guid)
     {
         this.plugin = plugin;
         this.guid = guid;
-        this.logger = theLogger;
     }
 
     public void run()
@@ -137,15 +137,15 @@ class Pinger implements Runnable
                     URLEncoder.encode(plugin.getDescription().getWebsite(), "UTF-8"),
                     URLEncoder.encode(plugin.getDescription().getVersion(), "UTF-8"));
 
-            System.out.println(url);
+            Ping.logger.log(Level.INFO, url);
 
             new URL(url).openConnection().getInputStream();
-            logger.log(Level.INFO, "PluginStats pinged the central server.");
+            Ping.logger.log(Level.INFO, "bSpace sent statistics.");
 
         } catch (Exception ex)
         {
             //Fail Silently to avoid console spam.
-            logger.log(Level.SEVERE, ex.getStackTrace().toString());
+            Ping.logger.log(Level.SEVERE, ex.getStackTrace().toString());
         }
 
     }

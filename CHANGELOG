@@ -5,7 +5,7 @@ New in version 2 (not a final changelog):
 -Added ability to use your own .schematic-files as populators (if you want some populators, make them yourself!) - however tile entities are not yet supported (?)
 -Added permission node to bypass all suit & helmet checks no matter what config says
 -Added a black hole block (Spout), will generate randomly and suck entities into it and kill them
--Added @jblaske 's CallHome to see usage stats (here: http://pluginstats.randomappdev.com/index.aspx )
+-Added @jblaske 's Ping to see usage stats (here: http://pluginstats.randomappdev.com/index.aspx) and modified to make it more suited to bSpace
 -Added & fixed some API classes (most are static now for ease of use)
 -Added a space texture pack for SpoutCraft users, you can however use your own
 -Added fake Pail & Register .jars to libs/ so when cloning Maven will handle all dependencies for you
