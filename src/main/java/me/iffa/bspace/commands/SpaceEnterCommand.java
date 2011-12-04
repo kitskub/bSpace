@@ -19,6 +19,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 
 /**
  * Represents "/space enter [spaceworld]".
@@ -69,7 +70,7 @@ public class SpaceEnterCommand extends SpaceCommand {
                     location = Space.worldHandler.getSpaceWorlds().get(0).getSpawnLocation();
                 }
                 SpaceMessageHandler.debugPrint(Level.INFO, "Teleported player '" + player.getName() + "' to space.");
-                player.teleport(location);
+                player.teleport(location, TeleportCause.COMMAND);
                 return;
             }
             SpaceMessageHandler.sendNoPermissionMessage(player);
@@ -100,7 +101,7 @@ public class SpaceEnterCommand extends SpaceCommand {
                     location = Bukkit.getServer().getWorld(args[1]).getSpawnLocation();
                 }
                 SpaceMessageHandler.debugPrint(Level.INFO, "Teleported player '" + player.getName() + "' to space.");
-                player.teleport(location);
+                player.teleport(location, TeleportCause.COMMAND);
                 return;
             }
         }
