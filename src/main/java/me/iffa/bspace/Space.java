@@ -33,7 +33,7 @@ import me.iffa.bspace.listeners.spout.SpaceSpoutCraftListener;
 import me.iffa.bspace.listeners.spout.SpaceSpoutEntityListener;
 import me.iffa.bspace.listeners.spout.SpaceSpoutKeyListener;
 import me.iffa.bspace.listeners.spout.SpaceSpoutPlayerListener;
-import me.iffa.bspace.runnables.SpoutBlackHoleRunnable2;
+import me.iffa.bspace.runnables.SpoutBlackHoleAreaRunnable;
 import me.iffa.bspace.wgen.planets.PlanetsChunkGenerator;
 
 // Bukkit Imports
@@ -149,7 +149,7 @@ public class Space extends JavaPlugin {
         
         // Initializing black hole stuff.
         if (pm.getPlugin("Spout") != null) {
-            scheduler.scheduleSyncRepeatingTask(this, new SpoutBlackHoleRunnable2(), 1, 5);
+            scheduler.scheduleSyncRepeatingTask(this, new SpoutBlackHoleAreaRunnable(), 1, 5);
         }
 
         // Finishing up enablation.

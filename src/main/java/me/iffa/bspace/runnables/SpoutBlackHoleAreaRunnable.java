@@ -23,7 +23,7 @@ import org.getspout.spoutapi.block.SpoutBlock;
  * 
  * @author iffamies
  */
-public class SpoutBlackHoleRunnable2 implements Runnable {
+public class SpoutBlackHoleAreaRunnable implements Runnable {
     // Variables
     public static Map<Entity, Integer> scheduleMap = new HashMap<Entity, Integer>();
 
@@ -42,7 +42,7 @@ public class SpoutBlackHoleRunnable2 implements Runnable {
             for (Entity entity : world.getEntities()) {
                 for (SpoutBlock block : BlackHole.getHolesList()) {
                     if (SpaceSpoutHandler.isInsideRadius(entity, block.getLocation() , 16)) {
-                        scheduleMap.put(entity, Space.scheduler.scheduleSyncRepeatingTask(Bukkit.getPluginManager().getPlugin("bSpace"), new SpoutBlackHoleRunnable(entity, block), 1, 1));
+                        scheduleMap.put(entity, Space.scheduler.scheduleSyncRepeatingTask(Bukkit.getPluginManager().getPlugin("bSpace"), new SpoutBlackHoleChaosRunnable(entity, block), 1, 1));
                     }
                 }
             }
