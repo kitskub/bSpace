@@ -1,7 +1,10 @@
 // Package Declaration
 package me.iffa.bspace.commands;
 
+// bSpace Imports
 import me.iffa.bspace.Space;
+
+// Bukkit Imports
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
@@ -28,8 +31,8 @@ public class SpaceAboutCommand extends SpaceCommand {
     @Override
     public void command() {
         sender.sendMessage(ChatColor.DARK_GREEN + Space.prefix + " About bSpace:");
-        sender.sendMessage(ChatColor.DARK_GREEN + "- You're running version " + ChatColor.GREEN + plugin.getDescription().getVersion() + ChatColor.DARK_GREEN +  "");
-        sender.sendMessage(ChatColor.DARK_GREEN + "- All " + ChatColor.GREEN + plugin.getDescription().getAuthors().size() + " developers/contributors " + ChatColor.DARK_GREEN + "thank you:");
+        sender.sendMessage(ChatColor.GREEN + "- You're running version " + ChatColor.DARK_GREEN + plugin.getDescription().getVersion());
+        sender.sendMessage(ChatColor.GREEN + "- All " + ChatColor.DARK_GREEN + plugin.getDescription().getAuthors().size() + " developers/contributors " + ChatColor.GREEN + "thank you:");
         sender.sendMessage("  " + ChatColor.GREEN + plugin.getDescription().getAuthors().toString().replace("[", "").replace("]", ""));
     }
     

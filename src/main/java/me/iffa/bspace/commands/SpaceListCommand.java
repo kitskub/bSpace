@@ -1,6 +1,10 @@
 // Package Declaration
 package me.iffa.bspace.commands;
 
+// Java Imports
+import java.util.ArrayList;
+import java.util.List;
+
 // bSpace Imports
 import me.iffa.bspace.Space;
 import me.iffa.bspace.api.SpaceLangHandler;
@@ -44,9 +48,11 @@ public class SpaceListCommand extends SpaceCommand {
             return;
         }
         sender.sendMessage(ChatColor.GREEN + Space.prefix + " " + SpaceLangHandler.getListOfSpaceMessage());
+        List<String> spaceWorlds = new ArrayList<String>();
         for (World world : Space.getWorldHandler().getSpaceWorlds()) {
-            sender.sendMessage(ChatColor.DARK_GREEN + "- " + world.getName());
+            spaceWorlds.add(world.getName());
         }
+        sender.sendMessage(ChatColor.GREEN + spaceWorlds.toString().replace("]", "").replace("[", ""));
         return;
     }
 }
