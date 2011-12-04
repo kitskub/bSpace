@@ -15,6 +15,9 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import org.bukkit.Bukkit;
 
 /**
  * Static methods to use internally (and externally, why not?) to handle world-specific configuration.
@@ -535,7 +538,30 @@ public class SpaceConfigHandler {
     public static boolean getGravity() {
         return SpaceConfig.getConfig(ConfigFile.CONFIG).getBoolean("global.spout.gravity", (Boolean) Defaults.GRAVITY.getDefault());
     }
-
+    
+    /**
+     * Gets the gravity value.
+     * 
+     * @return True if gravity enabled
+     */
+    public static boolean getStopDrowning() {
+        return SpaceConfig.getConfig(ConfigFile.CONFIG).getBoolean("global.drowning.stopdrowning", (Boolean) Defaults.STOPDROWNING.getDefault());
+    }
+    
+    /**
+     * Gets the gravity value.
+     * 
+     * @return True if gravity enabled
+     */
+    public static List<World> getStopDrowningWorlds() {
+        List<String> strings = SpaceConfig.getConfig(ConfigFile.CONFIG).getList("global.drowning.worlds", new ArrayList<World>());
+        List<World> worlds = new ArrayList<World>();
+        for(String string : strings){
+            worlds.add(Bukkit.getWorld(string));
+        }
+        return worlds;
+    }
+    
     /**
      * Constructor of SpaceConfigHandler.
      */

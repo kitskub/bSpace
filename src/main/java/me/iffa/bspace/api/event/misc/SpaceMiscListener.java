@@ -2,8 +2,6 @@
 package me.iffa.bspace.api.event.misc;
 
 // Bukkit Imports
-import me.iffa.bspace.api.event.area.SpaceEnterEvent;
-import me.iffa.bspace.api.event.area.SpaceLeaveEvent;
 import org.bukkit.event.CustomEventListener;
 import org.bukkit.event.Event;
 

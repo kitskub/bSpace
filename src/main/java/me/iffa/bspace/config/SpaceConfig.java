@@ -212,6 +212,7 @@ public class SpaceConfig {
         ENTER_COMMAND_COST(20),
         EXIT_COMMAND_COST(20),
         GRAVITY(true),
+        STOPDROWNING(true),
         // ConfigFile.IDS
         HOSTILE_MOBS_ALLOWED(false),
         NEUTRAL_MOBS_ALLOWED(true),

@@ -10,6 +10,8 @@ import me.iffa.bspace.api.SpaceConfigHandler;
 import me.iffa.bspace.api.SpaceMessageHandler;
 
 // Bukkit Imports
+import me.iffa.bspace.api.SpacePlayerHandler;
+import org.bukkit.World;
 import org.bukkit.entity.CreatureType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.CreatureSpawnEvent;
@@ -78,7 +80,13 @@ public class SpaceEntityListener extends EntityListener {
         }
         if (event.getEntity() instanceof Player && event.getCause() == DamageCause.DROWNING) {
             Player player = (Player) event.getEntity();
-            
+            if(SpaceConfigHandler.getStopDrowning()){
+                for(World world:SpaceConfigHandler.getStopDrowningWorlds()){
+                    if(world==player.getWorld()&&SpacePlayerHandler.hasSuit(player,SpaceConfigHandler.getArmorType())){
+                        event.setCancelled(true);
+                    }
+                }
+            }
         }
     }
 

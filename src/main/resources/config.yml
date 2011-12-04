@@ -15,6 +15,12 @@ global:
     # Other global settings
     givehelmet: false
     givesuit: false
+    # If true, any time a player is in one of the below worlds,
+    # they won't drown while wearing the suit.
+    drowning:
+      stopdrowning: false
+      # Ex. [spaceworld1,spaceworld2,nonspaceworld]
+      worlds: []
     # Spout features (most features require Spoutcraft)
     spout:
       use: true

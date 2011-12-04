@@ -31,11 +31,11 @@ public class SpaceSuffocationListener extends SpaceAreaListener {
     @Override
     public void onAreaEnter(AreaEnterEvent event){
         if (isSuffocating.containsKey(event.getPlayer())) {
-                    if (isSuffocating.get(event.getPlayer()) == true) {
-                        Space.scheduler.cancelTask(taskid.get(event.getPlayer()));
-                        isSuffocating.put(event.getPlayer(), false);
-                    }
-                }        
+            if (isSuffocating.get(event.getPlayer()) == true) {
+                Space.scheduler.cancelTask(taskid.get(event.getPlayer()));
+                isSuffocating.put(event.getPlayer(), false);
+            }
+        }        
     }
 
     @Override
