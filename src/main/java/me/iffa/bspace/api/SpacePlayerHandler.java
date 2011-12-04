@@ -1,7 +1,11 @@
 // Package Declaration
 package me.iffa.bspace.api;
 
+// Java Imports
+import java.util.logging.Level;
+
 // Bukkit Imports
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -34,31 +38,19 @@ public class SpacePlayerHandler {
      * @param player Player to give 
      */
     public static void giveSpaceSuit(String armortype, Player player) {
-        if (armortype.equalsIgnoreCase("diamond")) {
-            player.getInventory().setBoots(new ItemStack(Material.DIAMOND_BOOTS, 1));
-            player.getInventory().setChestplate(new ItemStack(Material.DIAMOND_CHESTPLATE, 1));
-            player.getInventory().setLeggings(new ItemStack(Material.DIAMOND_LEGGINGS, 1));
-        } else if (armortype.equalsIgnoreCase("chainmail")) {
-            player.getInventory().setBoots(new ItemStack(Material.CHAINMAIL_BOOTS, 1));
-            player.getInventory().setChestplate(new ItemStack(Material.CHAINMAIL_CHESTPLATE, 1));
-            player.getInventory().setLeggings(new ItemStack(Material.CHAINMAIL_LEGGINGS, 1));
-        } else if (armortype.equalsIgnoreCase("gold")) {
-            player.getInventory().setBoots(new ItemStack(Material.GOLD_BOOTS, 1));
-            player.getInventory().setChestplate(new ItemStack(Material.GOLD_CHESTPLATE, 1));
-            player.getInventory().setLeggings(new ItemStack(Material.GOLD_LEGGINGS, 1));
-        } else if (armortype.equalsIgnoreCase("iron")) {
-            player.getInventory().setBoots(new ItemStack(Material.IRON_BOOTS, 1));
-            player.getInventory().setChestplate(new ItemStack(Material.IRON_CHESTPLATE, 1));
-            player.getInventory().setLeggings(new ItemStack(Material.IRON_LEGGINGS, 1));
-        } else if (armortype.equalsIgnoreCase("leather")) {
-            player.getInventory().setBoots(new ItemStack(Material.LEATHER_BOOTS, 1));
-            player.getInventory().setChestplate(new ItemStack(Material.LEATHER_CHESTPLATE, 1));
-            player.getInventory().setLeggings(new ItemStack(Material.LEATHER_LEGGINGS, 1));
-        } else if (armortype.equalsIgnoreCase("null")) {
-            player.getInventory().setBoots(new ItemStack(Material.AIR, 1));
-            player.getInventory().setChestplate(new ItemStack(Material.AIR, 1));
-            player.getInventory().setLeggings(new ItemStack(Material.AIR, 1));
+        Material helmet = Material.getMaterial(armortype.toUpperCase() + "_HELMET");
+        Material chestplate = Material.getMaterial(armortype.toUpperCase() + "_CHESTPLATE");
+        Material leggings = Material.getMaterial(armortype.toUpperCase() + "_LEGGINGS");
+        Material boots = Material.getMaterial(armortype.toUpperCase() + "_BOOTS");
+        if (helmet == null) {
+            SpaceMessageHandler.print(Level.SEVERE, "Invalid armortype '" + armortype + "' in config!");
+            player.sendMessage(ChatColor.RED + "Nag at server owner: Invalid armortype in bSpace config!");
+            return;
         }
+        player.getInventory().setHelmet(new ItemStack(helmet));
+        player.getInventory().setChestplate(new ItemStack(chestplate));
+        player.getInventory().setLeggings(new ItemStack(leggings));
+        player.getInventory().setBoots(new ItemStack(boots));
     }
 
     /**

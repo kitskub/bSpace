@@ -100,7 +100,6 @@ public class Space extends JavaPlugin {
      */
     @Override
     public void onEnable() {
-        System.out.println(getDescription().getCommands());
         // Initializing variables.
         initVariables();
         SpaceMessageHandler.debugPrint(Level.INFO, "Initialized startup variables.");
