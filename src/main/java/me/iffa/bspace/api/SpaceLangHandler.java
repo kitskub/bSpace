@@ -21,7 +21,7 @@ public class SpaceLangHandler {
      * @return Localized enabled message
      */
     public static String getEnabledMessage() {
-        return SpaceConfig.getConfig(ConfigFile.LANG).getString("general.enabled").replace("{version}", Space.version);
+        return SpaceConfig.getConfig(ConfigFile.LANG).getString("general.enabled").replace("{version}", Space.getVersion());
     }
 
     /**
@@ -30,7 +30,7 @@ public class SpaceLangHandler {
      * @return Localized disabled message
      */
     public static String getDisabledMessage() {
-        return SpaceConfig.getConfig(ConfigFile.LANG).getString("general.disabled").replace("{version}", Space.version);
+        return SpaceConfig.getConfig(ConfigFile.LANG).getString("general.disabled").replace("{version}", Space.getVersion());
     }
 
     /**

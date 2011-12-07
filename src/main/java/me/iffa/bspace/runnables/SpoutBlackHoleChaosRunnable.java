@@ -5,6 +5,7 @@ package me.iffa.bspace.runnables;
 import me.iffa.bspace.Space;
 
 // Bukkit Imports
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 
 // Spout Imports
@@ -48,7 +49,7 @@ public class SpoutBlackHoleChaosRunnable implements Runnable {
     @Override
     public void run() {
         if (entity.isDead()) {
-            Space.scheduler.cancelTask(SpoutBlackHoleAreaRunnable.scheduleMap.get(entity));
+            Bukkit.getScheduler().cancelTask(SpoutBlackHoleAreaRunnable.scheduleMap.get(entity));
             SpoutBlackHoleAreaRunnable.scheduleMap.remove(entity);
         }
 	double x = xDistance - index;
@@ -58,7 +59,7 @@ public class SpoutBlackHoleChaosRunnable implements Runnable {
 	index += 0.1;
         if (index > xDistance) {
             entity.remove(); // OH NO!
-            Space.scheduler.cancelTask(SpoutBlackHoleAreaRunnable.scheduleMap.get(entity));
+            Bukkit.getScheduler().cancelTask(SpoutBlackHoleAreaRunnable.scheduleMap.get(entity));
             SpoutBlackHoleAreaRunnable.scheduleMap.remove(entity);
             return;
         }

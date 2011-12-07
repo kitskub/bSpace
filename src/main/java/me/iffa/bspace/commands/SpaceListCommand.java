@@ -47,7 +47,7 @@ public class SpaceListCommand extends SpaceCommand {
             sender.sendMessage(ChatColor.RED + "No space worlds are loaded :(");
             return;
         }
-        sender.sendMessage(ChatColor.GREEN + Space.prefix + " " + SpaceLangHandler.getListOfSpaceMessage());
+        sender.sendMessage(ChatColor.GREEN + Space.getPrefix() + " " + SpaceLangHandler.getListOfSpaceMessage());
         List<String> spaceWorlds = new ArrayList<String>();
         for (World world : Space.getWorldHandler().getSpaceWorlds()) {
             spaceWorlds.add(world.getName());

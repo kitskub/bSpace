@@ -32,7 +32,7 @@ public class SpaceSuffocationListener extends SpaceAreaListener {
     public void onAreaEnter(AreaEnterEvent event){
         if (isSuffocating.containsKey(event.getPlayer())) {
             if (isSuffocating.get(event.getPlayer()) == true) {
-                Space.scheduler.cancelTask(taskid.get(event.getPlayer()));
+                Bukkit.getScheduler().cancelTask(taskid.get(event.getPlayer()));
                 isSuffocating.put(event.getPlayer(), false);
             }
         }        
@@ -58,7 +58,7 @@ public class SpaceSuffocationListener extends SpaceAreaListener {
     public void onSpaceLeave(SpaceLeaveEvent event) {
         if (isSuffocating.containsKey(event.getPlayer())) {
                 if (isSuffocating.get(event.getPlayer()) == true) {
-                    Space.scheduler.cancelTask(taskid.get(event.getPlayer()));
+                    Bukkit.getScheduler().cancelTask(taskid.get(event.getPlayer()));
                 }
         }
     }
@@ -73,7 +73,7 @@ public class SpaceSuffocationListener extends SpaceAreaListener {
         if (suit == SuitCheck.SUIT_ONLY) {
             if (isSuffocating.containsKey(player)) {
                 if (isSuffocating.get(player) == true && SpacePlayerHandler.hasSuit(player, SpaceConfigHandler.getArmorType())) {
-                    Space.scheduler.cancelTask(taskid.get(player));
+                    Bukkit.getScheduler().cancelTask(taskid.get(player));
                     isSuffocating.put(player, false);
                 } else if (isSuffocating.get(player) == false && !SpacePlayerHandler.hasSuit(player, SpaceConfigHandler.getArmorType())) {
                     /* Notify listeners start */
@@ -85,7 +85,7 @@ public class SpaceSuffocationListener extends SpaceAreaListener {
                     /* Notify listeners end */
                     SpaceMessageHandler.debugPrint(Level.INFO, "Player '" + player.getName() + "' started suffocating in space.");
                     SuffacationRunnable task = new SuffacationRunnable(player);
-                    taskInt = Space.scheduler.scheduleSyncRepeatingTask(plugin, task, 20L, 20L);
+                    taskInt = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, task, 20L, 20L);
                     taskid.put(player, taskInt);
                     isSuffocating.put(player, true);
 
@@ -103,7 +103,7 @@ public class SpaceSuffocationListener extends SpaceAreaListener {
                     /* Notify listeners end */
                     SpaceMessageHandler.debugPrint(Level.INFO, "Player '" + player.getName() + "' started suffocating in space.");
                     SuffacationRunnable task = new SuffacationRunnable(player);
-                    taskInt = Space.scheduler.scheduleSyncRepeatingTask(plugin, task, 20L, 20L);
+                    taskInt = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, task, 20L, 20L);
                     taskid.put(player, taskInt);
                     isSuffocating.put(player, true);
                 }
@@ -111,7 +111,7 @@ public class SpaceSuffocationListener extends SpaceAreaListener {
         } else if (suit == SuitCheck.HELMET_ONLY) {
             if (isSuffocating.containsKey(player)) {
                 if (isSuffocating.get(player) == true && player.getInventory().getHelmet().getTypeId() == SpaceConfigHandler.getHelmetBlock()) {
-                    Space.scheduler.cancelTask(taskid.get(player));
+                    Bukkit.getScheduler().cancelTask(taskid.get(player));
                     isSuffocating.put(player, false);
                 } else if (isSuffocating.get(player) == false && player.getInventory().getHelmet().getTypeId() != SpaceConfigHandler.getHelmetBlock()) {
                     /* Notify listeners start */
@@ -123,7 +123,7 @@ public class SpaceSuffocationListener extends SpaceAreaListener {
                     /* Notify listeners end */
                     SpaceMessageHandler.debugPrint(Level.INFO, "Player '" + player.getName() + "' started suffocating in space.");
                     SuffacationRunnable task = new SuffacationRunnable(player);
-                    taskInt = Space.scheduler.scheduleSyncRepeatingTask(plugin, task, 20L, 20L);
+                    taskInt = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, task, 20L, 20L);
                     taskid.put(player, taskInt);
                     isSuffocating.put(player, true);
 
@@ -141,7 +141,7 @@ public class SpaceSuffocationListener extends SpaceAreaListener {
                     /* Notify listeners end */
                     SpaceMessageHandler.debugPrint(Level.INFO, "Player '" + player.getName() + "' started suffocating in space.");
                     SuffacationRunnable task = new SuffacationRunnable(player);
-                    taskInt = Space.scheduler.scheduleSyncRepeatingTask(plugin, task, 20L, 20L);
+                    taskInt = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, task, 20L, 20L);
                     taskid.put(player, taskInt);
                     isSuffocating.put(player, true);
                 }
@@ -149,7 +149,7 @@ public class SpaceSuffocationListener extends SpaceAreaListener {
         } else if (suit == SuitCheck.BOTH) {
             if (isSuffocating.containsKey(player)) {
                 if (isSuffocating.get(player) == true && player.getInventory().getHelmet().getTypeId() == SpaceConfigHandler.getHelmetBlock() && SpacePlayerHandler.hasSuit(player, SpaceConfigHandler.getArmorType())) {
-                    Space.scheduler.cancelTask(taskid.get(player));
+                    Bukkit.getScheduler().cancelTask(taskid.get(player));
                     isSuffocating.put(player, false);
                 } else if (isSuffocating.get(player) == false && player.getInventory().getHelmet().getTypeId() != SpaceConfigHandler.getHelmetBlock() || !SpacePlayerHandler.hasSuit(player, SpaceConfigHandler.getArmorType())) {
                     /* Notify listeners start */
@@ -161,7 +161,7 @@ public class SpaceSuffocationListener extends SpaceAreaListener {
                     /* Notify listeners end */
                     SpaceMessageHandler.debugPrint(Level.INFO, "Player '" + player.getName() + "' started suffocating in space.");
                     SuffacationRunnable task = new SuffacationRunnable(player);
-                    taskInt = Space.scheduler.scheduleSyncRepeatingTask(plugin, task, 20L, 20L);
+                    taskInt = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, task, 20L, 20L);
                     taskid.put(player, taskInt);
                     isSuffocating.put(player, true);
                 }
@@ -178,7 +178,7 @@ public class SpaceSuffocationListener extends SpaceAreaListener {
                     /* Notify listeners end */
                     SpaceMessageHandler.debugPrint(Level.INFO, "Player '" + player.getName() + "' started suffocating in space.");
                     SuffacationRunnable task = new SuffacationRunnable(player);
-                    taskInt = Space.scheduler.scheduleSyncRepeatingTask(plugin, task, 20L, 20L);
+                    taskInt = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, task, 20L, 20L);
                     taskid.put(player, taskInt);
                     isSuffocating.put(player, true);
                 }
@@ -191,7 +191,6 @@ public class SpaceSuffocationListener extends SpaceAreaListener {
      */
     private enum SuitCheck {
         // Enums
-
         HELMET_ONLY,
         SUIT_ONLY,
         BOTH;

@@ -38,7 +38,7 @@ public class SpoutFixRunnable implements Runnable {
      * Sets a player's gravity settings. (hacky solution!!)
      */
     public void run() {
-        if (Space.worldHandler.isInAnySpace(player)) {
+        if (Space.getWorldHandler().isInAnySpace(player)) {
             SpoutPlayer p = SpoutManager.getPlayer(player); // Abuse Afforess because of bugs
             p.setAirSpeedMultiplier(0.7);
             p.setGravityMultiplier(0.15);

@@ -50,9 +50,9 @@ public class SpaceExitCommand extends SpaceCommand {
     @Override
     public void command() {
         Player player = (Player) sender;
-        if (Space.worldHandler.isInAnySpace(player)) {
+        if (Space.getWorldHandler().isInAnySpace(player)) {
             if (SpacePlayerHandler.hasPermission("bSpace.teleport.exit", player)) {
-                if (Space.pm.getPlugin("Register") != null && !Economy.exitCommand(player)) {
+                if (Bukkit.getPluginManager().getPlugin("Register") != null && !Economy.exitCommand(player)) {
                     SpaceMessageHandler.sendNotEnoughMoneyMessage(player);
                     return;
                 }

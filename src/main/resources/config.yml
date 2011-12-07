@@ -9,7 +9,6 @@ debug: false
 # Usage Stats
 usage:
   opt-out: false
-  
 # Global settings
 global:
     # Spacesuit armortype

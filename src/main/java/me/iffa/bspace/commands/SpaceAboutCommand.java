@@ -30,7 +30,7 @@ public class SpaceAboutCommand extends SpaceCommand {
      */
     @Override
     public void command() {
-        sender.sendMessage(ChatColor.DARK_GREEN + Space.prefix + " About bSpace:");
+        sender.sendMessage(ChatColor.DARK_GREEN + Space.getPrefix() + " About bSpace:");
         sender.sendMessage(ChatColor.GREEN + "- You're running version " + ChatColor.DARK_GREEN + plugin.getDescription().getVersion());
         sender.sendMessage(ChatColor.GREEN + "- All " + ChatColor.DARK_GREEN + plugin.getDescription().getAuthors().size() + " developers/contributors " + ChatColor.GREEN + "thank you:");
         sender.sendMessage("  " + ChatColor.GREEN + plugin.getDescription().getAuthors().toString().replace("[", "").replace("]", ""));

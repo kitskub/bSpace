@@ -13,15 +13,12 @@ import me.iffa.bspace.api.SpaceMessageHandler;
 import me.iffa.bspace.api.SpacePlayerHandler;
 import me.iffa.bspace.api.event.area.AreaEnterEvent;
 import me.iffa.bspace.api.event.area.AreaLeaveEvent;
-import me.iffa.bspace.api.event.misc.SpaceSuffocationEvent;
 import me.iffa.bspace.api.event.area.SpaceLeaveEvent;
 import me.iffa.bspace.api.event.area.SpaceEnterEvent;
 import me.iffa.bspace.economy.Economy;
-import me.iffa.bspace.runnables.SuffacationRunnable;
 
 // Bukkit Imports
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
@@ -54,8 +51,8 @@ public class SpacePlayerListener extends PlayerListener {
         }
         Player player = event.getPlayer();
         if (!fixDupe.containsKey(event.getPlayer())) {
-            if (Space.worldHandler.isSpaceWorld(event.getTo().getWorld()) && event.getTo().getWorld() != player.getWorld()) {
-                if (Space.pm.getPlugin("Register") != null && !Economy.enter(player)) {
+            if (Space.getWorldHandler().isSpaceWorld(event.getTo().getWorld()) && event.getTo().getWorld() != player.getWorld()) {
+                if (Bukkit.getPluginManager().getPlugin("Register") != null && !Economy.enter(player)) {
                     SpaceMessageHandler.sendNotEnoughMoneyMessage(player);
                     event.setCancelled(true);
                     return;
@@ -76,9 +73,9 @@ public class SpacePlayerListener extends PlayerListener {
                 /* Notify listeners end */
                 SpaceMessageHandler.debugPrint(Level.INFO, "Player '" + event.getPlayer().getName() + "' teleported to space.");
                 fixDupe.put(event.getPlayer(), true);
-            } else if (!Space.worldHandler.isSpaceWorld(event.getTo().getWorld())
-                    && Space.worldHandler.isSpaceWorld(event.getFrom().getWorld())) {
-                if (Space.pm.getPlugin("Register") != null && !Economy.exit(player)) {
+            } else if (!Space.getWorldHandler().isSpaceWorld(event.getTo().getWorld())
+                    && Space.getWorldHandler().isSpaceWorld(event.getFrom().getWorld())) {
+                if (Bukkit.getPluginManager().getPlugin("Register") != null && !Economy.exit(player)) {
                     event.setCancelled(true);
                     return;
                 }
@@ -112,7 +109,7 @@ public class SpacePlayerListener extends PlayerListener {
         if (event.isCancelled()) {
             return;
         }
-        if (Space.worldHandler.isInAnySpace(event.getPlayer())) {
+        if (Space.getWorldHandler().isInAnySpace(event.getPlayer())) {
             int i = 0;
             Block block = event.getPlayer().getLocation().getBlock().getRelative(BlockFace.UP);
             boolean insideArea = false;
@@ -174,21 +171,10 @@ public class SpacePlayerListener extends PlayerListener {
     @Override
     public void onPlayerQuit(PlayerQuitEvent event) {
         if (SpaceSuffocationListener.taskid.containsKey(event.getPlayer())) {
-            if (Space.scheduler.isCurrentlyRunning(SpaceSuffocationListener.taskid.get(event.getPlayer()))) {
-                Space.scheduler.cancelTask(SpaceSuffocationListener.taskid.get(event.getPlayer()));
+            if (Bukkit.getScheduler().isCurrentlyRunning(SpaceSuffocationListener.taskid.get(event.getPlayer()))) {
+                Bukkit.getScheduler().cancelTask(SpaceSuffocationListener.taskid.get(event.getPlayer()));
                 SpaceMessageHandler.debugPrint(Level.INFO, "Cancelled suffocation task for player '" + event.getPlayer().getName() + "'. (reason: left server)");
             }
         }
-    }
-
-    /**
-     * Enum to make things easier.
-     */
-    private enum SuitCheck {
-        // Enums
-
-        HELMET_ONLY,
-        SUIT_ONLY,
-        BOTH;
     }
 }

@@ -42,13 +42,13 @@ public class SpaceSpoutKeyListener extends InputListener {
         if (event.getScreenType().equals(ScreenType.GAME_SCREEN) && Space.getWorldHandler().isInAnySpace(player)) {
             //Log the jump location for future use
             if (event.getKey().equals(player.getJumpKey())) {
-                Space.jumpPressed = true;
-                if (!Space.locCache.containsKey(temp)) {
+                Space.setJumpPressed(true);
+                if (!Space.getLocCache().containsKey(temp)) {
                     Location jumpLocation = event.getPlayer().getLocation(); //Get the starting jump location
-                    Space.locCache.put(temp, jumpLocation);
+                    Space.getLocCache().put(temp, jumpLocation);
                     //bSpace.debugLog("Added player "+temp.getName()+" to the Location Cache");
                 } else {
-                    Location temp1 = Space.locCache.get(temp);
+                    Location temp1 = Space.getLocCache().get(temp);
                     Location temp2 = event.getPlayer().getLocation();
                     if ((temp1.getBlock().getX() == temp2.getBlock().getX()) && (temp1.getBlock().getY() == temp2.getBlock().getY())
                             && (temp1.getBlock().getZ() == temp2.getBlock().getZ()) && (temp1.getWorld().equals(temp2.getWorld()))) {
@@ -58,8 +58,8 @@ public class SpaceSpoutKeyListener extends InputListener {
                                 temp2.getBlockX(), temp2.getBlockY() - 1, temp2.getBlockZ());
                         if (under.getType() != Material.AIR) {
                             //Update the cached reference
-                            Space.locCache.remove(player);
-                            Space.locCache.put(temp, temp2);
+                            Space.getLocCache().remove(player);
+                            Space.getLocCache().put(temp, temp2);
                             SpaceMessageHandler.debugPrint(Level.INFO, "Updated Player " + temp.getName() + " in the Location Cache.");
                         }
                     }
@@ -76,7 +76,7 @@ public class SpaceSpoutKeyListener extends InputListener {
     @Override
     public void onKeyReleasedEvent(KeyReleasedEvent event) {
         if (event.getKey().equals(event.getPlayer().getJumpKey())) {
-            Space.jumpPressed = false;
+            Space.setJumpPressed(true);
         }
     }
 }

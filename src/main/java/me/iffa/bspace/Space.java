@@ -38,6 +38,7 @@ import me.iffa.bspace.runnables.SpoutBlackHoleAreaRunnable;
 import me.iffa.bspace.wgen.planets.PlanetsChunkGenerator;
 
 // Bukkit Imports
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -45,7 +46,6 @@ import org.bukkit.event.Event;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitScheduler;
 
 /**
  * Main class of bSpace.
@@ -56,14 +56,14 @@ import org.bukkit.scheduler.BukkitScheduler;
  */
 public class Space extends JavaPlugin {
     // Variables
-    public static String prefix;
-    public static String version;
-    public static BukkitScheduler scheduler;
-    public static SpaceWorldHandler worldHandler;
-    public static PailInterface pailInt;
-    public static PluginManager pm;
-    public static Map<Player, Location> locCache = null;
-    public static boolean jumpPressed = false;
+    // And here goes all public statics!
+    private static String prefix;
+    private static String version;
+    private static SpaceWorldHandler worldHandler;
+    private static PailInterface pailInterface;
+    private static Map<Player, Location> locCache = null;
+    private static boolean jumpPressed = false;
+    private PluginManager pm;
     private SpaceCommandHandler sce = null;
     private Economy economy;
     private final SpaceWeatherListener weatherListener = new SpaceWeatherListener();
@@ -76,24 +76,9 @@ public class Space extends JavaPlugin {
      */
     @Override
     public void onDisable() {
+        Bukkit.getScheduler().cancelTasks(this);
         // Finishing up disablation.
         SpaceMessageHandler.print(Level.INFO, SpaceLangHandler.getDisabledMessage());
-        scheduler.cancelTasks(this);
-        // Nullifying statics.
-        nullify();
-    }
-    
-    /**
-     * Sets all (public) static variables to null. For reloads purposes. Pretty useless though.
-     */
-    private void nullify() {
-        prefix = null;
-        version = null;
-        scheduler = null;
-        worldHandler = null;
-        pailInt = null;
-        pm = null;
-        locCache = null;
     }
 
     /**
@@ -143,13 +128,13 @@ public class Space extends JavaPlugin {
         // Initializing the Pail tab.
         if (pm.getPlugin("Pail") != null) {
             SpaceMessageHandler.debugPrint(Level.INFO, "Starting up the Pail tab.");
-            pailInt = new PailInterface(this);
-            ((Pail) pm.getPlugin("Pail")).loadInterfaceComponent("bSpace", pailInt);
+            pailInterface = new PailInterface(this);
+            ((Pail) pm.getPlugin("Pail")).loadInterfaceComponent("bSpace", pailInterface);
         }
         
         // Initializing black hole stuff.
         if (pm.getPlugin("Spout") != null) {
-            scheduler.scheduleSyncRepeatingTask(this, new SpoutBlackHoleAreaRunnable(), 1, 5);
+            Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new SpoutBlackHoleAreaRunnable(), 1, 5);
         }
 
         // Finishing up enablation.
@@ -165,7 +150,6 @@ public class Space extends JavaPlugin {
         pm = getServer().getPluginManager();
         version = getDescription().getVersion();
         prefix = "[" + getDescription().getName() + "]";
-        scheduler = getServer().getScheduler();
         worldHandler = new SpaceWorldHandler(this);
         if (pm.getPlugin("Spout") != null && SpaceConfigHandler.isUsingSpout()) {
             locCache = new HashMap<Player, Location>();
@@ -227,6 +211,7 @@ public class Space extends JavaPlugin {
     }
 
     /* Some API methods */
+    
     /**
      * Gets the SpaceWorldHandler.
      * 
@@ -234,6 +219,46 @@ public class Space extends JavaPlugin {
      */
     public static SpaceWorldHandler getWorldHandler() {
         return worldHandler;
+    }
+    
+    /**
+     * Gets the jump pressed value. (ie = wtf is this)
+     * 
+     * @return Jump pressed
+     */
+    public static boolean getJumpPressed() {
+        return jumpPressed;
+    }
+    
+    public static void setJumpPressed(boolean newJumpPressed) {
+        jumpPressed = newJumpPressed;
+    }
+    
+    /**
+     * Gets the location cache.
+     * 
+     * @return Location cach
+     */
+    public static Map<Player, Location> getLocCache() {
+        return locCache;
+    }
+    
+    /**
+     * Gets the plugin's prefix.
+     * 
+     * @return Prefix
+     */
+    public static String getPrefix() {
+        return prefix;
+    }
+    
+    /**
+     * Gets the plugin's version.
+     * 
+     * @return Version
+     */
+    public static String getVersion() {
+        return version;
     }
 
     /**

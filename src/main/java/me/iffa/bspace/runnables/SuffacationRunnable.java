@@ -2,10 +2,10 @@
 package me.iffa.bspace.runnables;
 
 // bSpace Imports
-import me.iffa.bspace.Space;
 import me.iffa.bspace.listeners.SpaceSuffocationListener;
 
 // Bukkit Imports
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 /**
@@ -34,10 +34,10 @@ public class SuffacationRunnable implements Runnable {
         if (!player.isDead()) {
             if (player.getHealth() < 2 && player.getHealth() > 0) {
                 player.setHealth(0);
-                Space.scheduler.cancelTask(SpaceSuffocationListener.taskid.get(player));
+                Bukkit.getScheduler().cancelTask(SpaceSuffocationListener.taskid.get(player));
                 return;
             } else if (player.getHealth() <= 0) {
-                Space.scheduler.cancelTask(SpaceSuffocationListener.taskid.get(player));
+                Bukkit.getScheduler().cancelTask(SpaceSuffocationListener.taskid.get(player));
                 return;
             }
             player.setHealth(player.getHealth() - 2);

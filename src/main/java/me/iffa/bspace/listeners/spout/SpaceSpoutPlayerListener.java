@@ -50,11 +50,11 @@ public class SpaceSpoutPlayerListener extends PlayerListener {
             return;
         }
         /* Player teleports to spaceworld */
-        if (Space.worldHandler.isSpaceWorld(event.getTo().getWorld())) {
+        if (Space.getWorldHandler().isSpaceWorld(event.getTo().getWorld())) {
             SpaceSpoutHandler.setOrReset(plugin, player, event.getTo());
         }
         /* Player teleports out of spaceworld */
-        if (Space.worldHandler.isSpaceWorld(event.getFrom().getWorld())) {
+        if (Space.getWorldHandler().isSpaceWorld(event.getFrom().getWorld())) {
             SpaceSpoutHandler.setOrReset(plugin, player, event.getFrom());
         }
     }

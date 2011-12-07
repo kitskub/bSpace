@@ -26,7 +26,7 @@ public class SpaceWeatherListener extends WeatherListener {
      */
     @Override
     public void onWeatherChange(WeatherChangeEvent event) {
-        if (Space.worldHandler.isSpaceWorld(event.getWorld()) && !SpaceConfigHandler.allowWeather(event.getWorld()) && event.toWeatherState()) {
+        if (Space.getWorldHandler().isSpaceWorld(event.getWorld()) && !SpaceConfigHandler.allowWeather(event.getWorld()) && event.toWeatherState()) {
             event.setCancelled(true);
             SpaceMessageHandler.debugPrint(Level.INFO, "Cancelled WeatherChangeEvent for spaceworld '" + event.getWorld().getName() + "'.");
         }

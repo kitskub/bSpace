@@ -11,6 +11,7 @@ import me.iffa.bspace.api.SpaceMessageHandler;
 
 // Bukkit Imports
 import me.iffa.bspace.api.SpacePlayerHandler;
+import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.CreatureType;
 import org.bukkit.entity.Player;
@@ -33,7 +34,7 @@ public class SpaceEntityListener extends EntityListener {
      */
     @Override
     public void onCreatureSpawn(CreatureSpawnEvent event) {
-        if (Space.worldHandler.isSpaceWorld(event.getEntity().getWorld())) {
+        if (Space.getWorldHandler().isSpaceWorld(event.getEntity().getWorld())) {
             if (!SpaceConfigHandler.allowHostileMobs(event.getEntity().getWorld())) {
                 if (event.getCreatureType() == CreatureType.CREEPER
                         || event.getCreatureType() == CreatureType.GHAST
@@ -73,7 +74,7 @@ public class SpaceEntityListener extends EntityListener {
         if (event.isCancelled()) {
             return;
         }
-        if (event.getEntity() instanceof Player && Space.worldHandler.isInAnySpace((Player) event.getEntity()) && event.getCause() == DamageCause.VOID) {
+        if (event.getEntity() instanceof Player && Space.getWorldHandler().isInAnySpace((Player) event.getEntity()) && event.getCause() == DamageCause.VOID) {
             Player player = (Player) event.getEntity();
             player.setHealth(0);
             SpaceMessageHandler.debugPrint(Level.INFO, "Killed player '" + player.getName() + "' in void.");
@@ -100,8 +101,8 @@ public class SpaceEntityListener extends EntityListener {
         // TODO: Test this code as someone reported this does not work.
         if (event.getEntity() instanceof Player) {
             Player p = (Player) event.getEntity();
-            if (SpaceSuffocationListener.taskid.containsKey(p) && Space.scheduler.isCurrentlyRunning(SpaceSuffocationListener.taskid.get(p))) {
-                Space.scheduler.cancelTask(SpaceSuffocationListener.taskid.get(p));
+            if (SpaceSuffocationListener.taskid.containsKey(p) && Bukkit.getScheduler().isCurrentlyRunning(SpaceSuffocationListener.taskid.get(p))) {
+                Bukkit.getScheduler().cancelTask(SpaceSuffocationListener.taskid.get(p));
                 SpaceMessageHandler.debugPrint(Level.INFO, "Cancelled suffocating task for player '" + p.getName() + "' because (s)he died.");
             }
         }

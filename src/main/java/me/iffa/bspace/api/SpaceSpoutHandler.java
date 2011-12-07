@@ -9,6 +9,7 @@ import me.iffa.bspace.Space;
 import me.iffa.bspace.runnables.SpoutFixRunnable;
 
 // Bukkit Imports
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 
@@ -45,7 +46,7 @@ public class SpaceSpoutHandler {
                 SpaceMessageHandler.debugPrint(Level.INFO, "Set " + player.getName() + "'s texture pack");
             }
             if (SpaceConfigHandler.getGravity()) {
-                Space.scheduler.scheduleSyncDelayedTask(plugin, new SpoutFixRunnable(player), 10L);
+                Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new SpoutFixRunnable(player), 10L);
                 SpaceMessageHandler.debugPrint(Level.INFO, "Made clouds and the moon invisible for player '" + player.getName() + "'. Starting runnable thread to setup Player movements...");
             }
         } else {

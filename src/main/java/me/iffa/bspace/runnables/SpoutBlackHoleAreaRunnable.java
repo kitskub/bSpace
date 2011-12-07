@@ -42,7 +42,7 @@ public class SpoutBlackHoleAreaRunnable implements Runnable {
             for (Entity entity : world.getEntities()) {
                 for (SpoutBlock block : BlackHole.getHolesList()) {
                     if (SpaceSpoutHandler.isInsideRadius(entity, block.getLocation() , 16)) {
-                        scheduleMap.put(entity, Space.scheduler.scheduleSyncRepeatingTask(Bukkit.getPluginManager().getPlugin("bSpace"), new SpoutBlackHoleChaosRunnable(entity, block), 1, 1));
+                        scheduleMap.put(entity, Bukkit.getScheduler().scheduleSyncRepeatingTask(Bukkit.getPluginManager().getPlugin("bSpace"), new SpoutBlackHoleChaosRunnable(entity, block), 1, 1));
                     }
                 }
             }

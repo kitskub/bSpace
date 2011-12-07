@@ -56,7 +56,7 @@ public class SpaceWorldHandler {
      */
     public void startForceNightTask(World world) {
         NightForceRunnable task = new NightForceRunnable(world);
-        forcenightId.put(world, Space.scheduler.scheduleSyncRepeatingTask(plugin, task, 60, 8399));
+        forcenightId.put(world, Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, task, 60, 8399));
     }
 
     /**
@@ -65,7 +65,7 @@ public class SpaceWorldHandler {
      * @param world World
      */
     public void stopForceNightTask(World world) {
-        Space.scheduler.cancelTask(forcenightId.get(world));
+        Bukkit.getScheduler().cancelTask(forcenightId.get(world));
     }
 
     /**

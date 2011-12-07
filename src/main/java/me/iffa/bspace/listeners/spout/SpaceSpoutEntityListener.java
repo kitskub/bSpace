@@ -21,7 +21,6 @@ import org.bukkit.event.entity.EntityListener;
 
 // Spout Imports
 import org.getspout.spoutapi.SpoutManager;
-import org.getspout.spoutapi.player.AppearanceManager;
 import org.getspout.spoutapi.player.EntitySkinType;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
@@ -32,8 +31,6 @@ import org.getspout.spoutapi.player.SpoutPlayer;
  * @author iffa
  */
 public class SpaceSpoutEntityListener extends EntityListener {
-    // Variables
-    private final AppearanceManager app = SpoutManager.getAppearanceManager();
 
     /**
      * Called when an entity takes damage.
@@ -46,9 +43,9 @@ public class SpaceSpoutEntityListener extends EntityListener {
         if (entity instanceof Player) {
             SpoutPlayer player = SpoutManager.getPlayer((Player) entity);
             if (Space.getWorldHandler().isInAnySpace(player) && event.getCause().equals(DamageCause.FALL) && player.isSpoutCraftEnabled()) {
-                if (Space.locCache.containsKey(player)) {
+                if (Space.getLocCache().containsKey(player)) {
                     Location landing = player.getLocation(); //The landing point
-                    Location starting = Space.locCache.get(player); //The starting point
+                    Location starting = Space.getLocCache().get(player); //The starting point
                     if (landing.getWorld().equals(starting.getWorld())) { //moar idiot proofing
                         int startY = starting.getBlockY();
                         int endY = landing.getBlockY();
@@ -61,11 +58,11 @@ public class SpaceSpoutEntityListener extends EntityListener {
                         } else {
                             event.setDamage(0); //no damage!
                         }
-                        Space.locCache.remove(player); //Remove the player reference
+                        Space.getLocCache().remove(player); //Remove the player reference
                         //bSpace.debugLog("Removing "+player.getName()+" from the cache.");
-                        if (Space.jumpPressed) {
+                        if (Space.getJumpPressed()) {
                             Location jumpLocation = player.getLocation();
-                            Space.locCache.put(player, jumpLocation); //readd the player is the jump key is pressed
+                            Space.getLocCache().put(player, jumpLocation); //readd the player is the jump key is pressed
                             //bSpace.debugLog("Added player "+player.getName()+" to the Location Cache");
                         }
                     } else {
@@ -92,10 +89,9 @@ public class SpaceSpoutEntityListener extends EntityListener {
             for (Player player : event.getLocation().getWorld().getPlayers()) {
                 SpoutPlayer p = SpoutManager.getPlayer(player);
                 if (p.isSpoutCraftEnabled()) {
-                    app.setEntitySkin(p, (LivingEntity) event.getEntity(), "http://cloud.github.com/downloads/iffa/bSpace/bananaspace_alien.png", EntitySkinType.DEFAULT);
+                    p.setEntitySkin((LivingEntity) event.getEntity(), "http://cloud.github.com/downloads/iffa/bSpace/bananaspace_alien.png", EntitySkinType.DEFAULT);
                 }
             }
         }
-
     }
 }
