@@ -1,3 +1,4 @@
+#Please note: For latest builds of v2-dev. CB build 1551 or later is needed.#
 ## [bSpace on BukkitDev](http://dev.bukkit.org/server-mods/bSpace/pages/)
 ## [bSpace Jenkins (builds automatically after a commit!)](http://ci.chrisgward.com/job/bSpace/)
 
