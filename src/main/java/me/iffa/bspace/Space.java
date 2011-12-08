@@ -202,9 +202,17 @@ public class Space extends JavaPlugin {
      */
     @Override
     public ChunkGenerator getDefaultWorldGenerator(String worldName, String id) {
-        SpaceMessageHandler.debugPrint(Level.INFO, "Getting generator for '" + worldName + "' using id: '" + id + "'");
+        boolean realID=true;
+        if(id.isEmpty() || id.length() == 0 || id == null){
+            realID=false;
+        }
+        if(realID){
+            SpaceMessageHandler.debugPrint(Level.INFO, "Getting generator for '" + worldName + "' using id: '" + id + "'");
+        }else{
+            SpaceMessageHandler.debugPrint(Level.INFO, "Getting generator for '" + worldName + "' using default id,planets.");
+        }
         SpaceWorldHandler.checkWorld(worldName);
-        if (id.isEmpty() || id.length() == 0 || id == null) {
+        if (!realID) {
             return new PlanetsChunkGenerator("planets", false);
         }
         return new PlanetsChunkGenerator(id);
