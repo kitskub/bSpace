@@ -203,7 +203,7 @@ public class Space extends JavaPlugin {
     @Override
     public ChunkGenerator getDefaultWorldGenerator(String worldName, String id) {
         boolean realID=true;
-        if(id.isEmpty() || id.length() == 0 || id == null){
+        if(id == null || id.isEmpty() || id.length() == 0){
             realID=false;
         }
         if(realID){
