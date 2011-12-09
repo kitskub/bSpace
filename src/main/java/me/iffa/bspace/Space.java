@@ -238,6 +238,11 @@ public class Space extends JavaPlugin {
         return jumpPressed;
     }
     
+    /**
+     * Sets the jump pressed value. (ie = wtf is this ??)
+     * 
+     * @param newJumpPressed New jump pressed value
+     */
     public static void setJumpPressed(boolean newJumpPressed) {
         jumpPressed = newJumpPressed;
     }
