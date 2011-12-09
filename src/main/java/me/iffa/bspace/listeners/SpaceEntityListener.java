@@ -83,7 +83,7 @@ public class SpaceEntityListener extends EntityListener {
             Player player = (Player) event.getEntity();
             if(SpaceConfigHandler.getStopDrowning()){
                 for(World world:SpaceConfigHandler.getStopDrowningWorlds()){
-                    if(world==player.getWorld()&&SpacePlayerHandler.hasSuit(player,SpaceConfigHandler.getArmorType())){
+                    if(world==player.getWorld()&&player.getInventory().getHelmet().getTypeId() == SpaceConfigHandler.getHelmetBlock()){
                         event.setCancelled(true);
                     }
                 }
