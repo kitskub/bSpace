@@ -20,11 +20,10 @@ public class SpaceSuffocationEvent extends Event implements Cancellable {
     /**
      * Constructor for SpaceSuffocationEvent.
      * 
-     * @param event Event
      * @param player Player
      */
-    public SpaceSuffocationEvent(String event, Player player) {
-        super(event);
+    public SpaceSuffocationEvent(Player player) {
+        super("SpaceSuffocationEvent");
         this.player = player;
     }
 

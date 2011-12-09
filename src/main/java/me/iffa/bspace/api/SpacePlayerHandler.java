@@ -95,6 +95,51 @@ public class SpacePlayerHandler {
         }
         return false;
     }
+        
+    /**
+     * Checks if a player should start suffocating.
+     * 
+     * @param player Player
+     * @return if needs suffocation
+     */
+    public static boolean checkNeedsSuffocation(Player player) {
+        SuitCheck suit = null;
+        if (SpaceConfigHandler.getRequireHelmet(player.getWorld()) && SpaceConfigHandler.getRequireSuit(player.getWorld())) {
+                suit = SuitCheck.BOTH;
+        } else if (SpaceConfigHandler.getRequireHelmet(player.getWorld())) {
+                suit = SuitCheck.HELMET_ONLY;
+        } else if (SpaceConfigHandler.getRequireSuit(player.getWorld())) {
+                suit = SuitCheck.SUIT_ONLY;
+        } else{
+            return false;
+        }
+        if (suit == SuitCheck.SUIT_ONLY) {
+            if (hasSuit(player, SpaceConfigHandler.getArmorType())){
+                return false;
+            }
+        }
+        else if (suit == SuitCheck.HELMET_ONLY) {
+            if(player.getInventory().getHelmet().getTypeId() == SpaceConfigHandler.getHelmetBlock()){
+                return false;
+            }
+        } else if (suit == SuitCheck.BOTH) {
+            if(player.getInventory().getHelmet().getTypeId() == SpaceConfigHandler.getHelmetBlock() 
+                    && hasSuit(player, SpaceConfigHandler.getArmorType())){
+                return false;
+            }          
+        }
+        return true;
+    }
+        
+    /**
+     * Enum to make things easier.
+     */
+    private enum SuitCheck {
+        // Enums
+        HELMET_ONLY,
+        SUIT_ONLY,
+        BOTH;
+    }
 
     /**
      * Constructor of SpacePlayerHandler.
