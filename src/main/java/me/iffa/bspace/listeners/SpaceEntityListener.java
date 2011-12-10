@@ -7,9 +7,9 @@ import java.util.logging.Level;
 // bSpace Imports
 import me.iffa.bspace.api.SpaceConfigHandler;
 import me.iffa.bspace.api.SpaceMessageHandler;
+import me.iffa.bspace.api.SpaceWorldHandler;
 
 // Bukkit Imports
-import me.iffa.bspace.api.SpaceWorldHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.CreatureType;

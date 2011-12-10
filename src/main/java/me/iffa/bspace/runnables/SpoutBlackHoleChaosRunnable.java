@@ -2,7 +2,7 @@
 package me.iffa.bspace.runnables;
 
 // bSpace Imports
-import me.iffa.bspace.Space;
+import me.iffa.bspace.listeners.misc.BlackHolePlayerListener;
 
 // Bukkit Imports
 import org.bukkit.Bukkit;
@@ -49,8 +49,9 @@ public class SpoutBlackHoleChaosRunnable implements Runnable {
     @Override
     public void run() {
         if (entity.isDead()) {
-            Bukkit.getScheduler().cancelTask(SpoutBlackHoleAreaRunnable.scheduleMap.get(entity));
-            SpoutBlackHoleAreaRunnable.scheduleMap.remove(entity);
+            Bukkit.getScheduler().cancelTask(BlackHolePlayerListener.getRunningTasks().get(entity));
+            BlackHolePlayerListener.getRunningTasks().remove(entity);
+            return;
         }
 	double x = xDistance - index;
 	double z = Math.tan(angle) * x;
@@ -59,8 +60,8 @@ public class SpoutBlackHoleChaosRunnable implements Runnable {
 	index += 0.1;
         if (index > xDistance) {
             entity.remove(); // OH NO!
-            Bukkit.getScheduler().cancelTask(SpoutBlackHoleAreaRunnable.scheduleMap.get(entity));
-            SpoutBlackHoleAreaRunnable.scheduleMap.remove(entity);
+            Bukkit.getScheduler().cancelTask(BlackHolePlayerListener.getRunningTasks().get(entity));
+            BlackHolePlayerListener.getRunningTasks().remove(entity);
             return;
         }
         entity.teleport(new Location(entity.getWorld(), x, block.getY(), z));
