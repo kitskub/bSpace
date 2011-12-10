@@ -5,12 +5,11 @@ package me.iffa.bspace.listeners;
 import java.util.logging.Level;
 
 // bSpace Imports
-import me.iffa.bspace.Space;
 import me.iffa.bspace.api.SpaceConfigHandler;
 import me.iffa.bspace.api.SpaceMessageHandler;
 
 // Bukkit Imports
-import me.iffa.bspace.api.SpacePlayerHandler;
+import me.iffa.bspace.api.SpaceWorldHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.CreatureType;
@@ -34,7 +33,7 @@ public class SpaceEntityListener extends EntityListener {
      */
     @Override
     public void onCreatureSpawn(CreatureSpawnEvent event) {
-        if (Space.getWorldHandler().isSpaceWorld(event.getEntity().getWorld())) {
+        if (SpaceWorldHandler.isSpaceWorld(event.getEntity().getWorld())) {
             if (!SpaceConfigHandler.allowHostileMobs(event.getEntity().getWorld())) {
                 if (event.getCreatureType() == CreatureType.CREEPER
                         || event.getCreatureType() == CreatureType.GHAST
@@ -74,7 +73,7 @@ public class SpaceEntityListener extends EntityListener {
         if (event.isCancelled()) {
             return;
         }
-        if (event.getEntity() instanceof Player && Space.getWorldHandler().isInAnySpace((Player) event.getEntity()) && event.getCause() == DamageCause.VOID) {
+        if (event.getEntity() instanceof Player && SpaceWorldHandler.isInAnySpace((Player) event.getEntity()) && event.getCause() == DamageCause.VOID) {
             Player player = (Player) event.getEntity();
             player.setHealth(0);
             SpaceMessageHandler.debugPrint(Level.INFO, "Killed player '" + player.getName() + "' in void.");

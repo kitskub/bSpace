@@ -47,7 +47,7 @@ public class SuffacationRunnable implements Runnable {
                     }
                     /* Notify listeners end */
                     suffocating=true;
-                    SpaceMessageHandler.debugPrint(Level.INFO, "Player '" + player.getName() + "' is now suffocate in space.");
+                    SpaceMessageHandler.debugPrint(Level.INFO, "Player '" + player.getName() + "' is now suffocating in space.");
                 }
             } else {
                 if(suffocating) suffocating = false;
@@ -64,7 +64,8 @@ public class SuffacationRunnable implements Runnable {
                 }
                 player.setHealth(player.getHealth() - 2);
             }
+        } else {
+            Bukkit.getScheduler().cancelTask(SpaceSuffocationListener.taskid.get(player));
         }
-        Bukkit.getScheduler().cancelTask(SpaceSuffocationListener.taskid.get(player));
     }
 }

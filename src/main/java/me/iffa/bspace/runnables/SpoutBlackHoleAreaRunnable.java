@@ -6,8 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 // bSpace Imports
-import me.iffa.bspace.Space;
 import me.iffa.bspace.api.SpaceSpoutHandler;
+import me.iffa.bspace.api.SpaceWorldHandler;
 import me.iffa.bspace.wgen.blocks.BlackHole;
 
 // Bukkit Imports
@@ -32,13 +32,13 @@ public class SpoutBlackHoleAreaRunnable implements Runnable {
      */
     @Override
     public void run() {
-        if (Space.getWorldHandler().getSpaceWorlds().isEmpty()) {
+        if (SpaceWorldHandler.getSpaceWorlds().isEmpty()) {
             return;
         }
         if (BlackHole.getHolesList().isEmpty()) {
             return;
         }
-        for (World world : Space.getWorldHandler().getSpaceWorlds()) {
+        for (World world : SpaceWorldHandler.getSpaceWorlds()) {
             for (Entity entity : world.getEntities()) {
                 for (SpoutBlock block : BlackHole.getHolesList()) {
                     if (SpaceSpoutHandler.isInsideRadius(entity, block.getLocation() , 16)) {

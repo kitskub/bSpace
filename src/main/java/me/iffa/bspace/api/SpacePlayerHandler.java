@@ -105,11 +105,11 @@ public class SpacePlayerHandler {
     public static boolean checkNeedsSuffocation(Player player) {
         SuitCheck suit = null;
         if (SpaceConfigHandler.getRequireHelmet(player.getWorld()) && SpaceConfigHandler.getRequireSuit(player.getWorld())) {
-                suit = SuitCheck.BOTH;
+            suit = SuitCheck.BOTH;
         } else if (SpaceConfigHandler.getRequireHelmet(player.getWorld())) {
-                suit = SuitCheck.HELMET_ONLY;
+            suit = SuitCheck.HELMET_ONLY;
         } else if (SpaceConfigHandler.getRequireSuit(player.getWorld())) {
-                suit = SuitCheck.SUIT_ONLY;
+            suit = SuitCheck.SUIT_ONLY;
         } else{
             return false;
         }

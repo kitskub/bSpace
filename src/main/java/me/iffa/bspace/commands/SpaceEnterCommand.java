@@ -11,6 +11,7 @@ import me.iffa.bspace.Space;
 import me.iffa.bspace.api.SpaceLangHandler;
 import me.iffa.bspace.api.SpaceMessageHandler;
 import me.iffa.bspace.api.SpacePlayerHandler;
+import me.iffa.bspace.api.SpaceWorldHandler;
 import me.iffa.bspace.economy.Economy;
 
 // Bukkit Imports
@@ -49,11 +50,11 @@ public class SpaceEnterCommand extends SpaceCommand {
         Player player = (Player) this.sender;
         if (args.length == 1) {
             if (SpacePlayerHandler.hasPermission("bSpace.teleport.enter", player)) {
-                if (Space.getWorldHandler().getSpaceWorlds().isEmpty()) {
+                if (SpaceWorldHandler.getSpaceWorlds().isEmpty()) {
                     player.sendMessage(ChatColor.RED + "No space worlds are loaded! :(");
                     return;
                 }
-                if (Space.getWorldHandler().getSpaceWorlds().get(0) == player.getWorld()) {
+                if (SpaceWorldHandler.getSpaceWorlds().get(0) == player.getWorld()) {
                     player.sendMessage(ChatColor.RED + SpaceLangHandler.getAlreadyInThatWorldMessage());
                     SpaceMessageHandler.debugPrint(Level.INFO, "Someone tried to use /space enter, but he was already in that space world.");
                     return;
@@ -67,7 +68,7 @@ public class SpaceEnterCommand extends SpaceCommand {
                 if (SpaceExitCommand.enterDest.containsKey(player)) {
                     location = SpaceExitCommand.enterDest.get(player);
                 } else {
-                    location = Space.getWorldHandler().getSpaceWorlds().get(0).getSpawnLocation();
+                    location = SpaceWorldHandler.getSpaceWorlds().get(0).getSpawnLocation();
                 }
                 SpaceMessageHandler.debugPrint(Level.INFO, "Teleported player '" + player.getName() + "' to space.");
                 player.teleport(location, TeleportCause.COMMAND);
@@ -85,7 +86,7 @@ public class SpaceEnterCommand extends SpaceCommand {
                     player.sendMessage(ChatColor.RED + SpaceLangHandler.getWorldNotFoundMessage());
                     return;
                 }
-                if (!Space.getWorldHandler().isSpaceWorld(Bukkit.getServer().getWorld(args[1]))) {
+                if (!SpaceWorldHandler.isSpaceWorld(Bukkit.getServer().getWorld(args[1]))) {
                     player.sendMessage(ChatColor.RED + SpaceLangHandler.getWorldNotSpaceMessage());
                     return;
                 }

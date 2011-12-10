@@ -7,6 +7,7 @@ import java.util.logging.Level;
 // bSpace Imports
 import me.iffa.bspace.Space;
 import me.iffa.bspace.api.SpaceMessageHandler;
+import me.iffa.bspace.api.SpaceWorldHandler;
 
 // Bukkit Imports
 import org.bukkit.Bukkit;
@@ -39,7 +40,7 @@ public class SpaceSpoutKeyListener extends InputListener {
         SpoutPlayer player = event.getPlayer();
         Player temp = player;
 
-        if (event.getScreenType().equals(ScreenType.GAME_SCREEN) && Space.getWorldHandler().isInAnySpace(player)) {
+        if (event.getScreenType().equals(ScreenType.GAME_SCREEN) && SpaceWorldHandler.isInAnySpace(player)) {
             //Log the jump location for future use
             if (event.getKey().equals(player.getJumpKey())) {
                 Space.setJumpPressed(true);

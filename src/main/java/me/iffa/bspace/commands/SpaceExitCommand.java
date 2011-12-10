@@ -9,6 +9,7 @@ import java.util.logging.Level;
 // bSpace Imports
 import me.iffa.bspace.Space;
 import me.iffa.bspace.api.SpaceSpoutHandler;
+import me.iffa.bspace.api.SpaceWorldHandler;
 import me.iffa.bspace.economy.Economy;
 import me.iffa.bspace.api.SpaceLangHandler;
 import me.iffa.bspace.api.SpaceMessageHandler;
@@ -50,7 +51,7 @@ public class SpaceExitCommand extends SpaceCommand {
     @Override
     public void command() {
         Player player = (Player) sender;
-        if (Space.getWorldHandler().isInAnySpace(player)) {
+        if (SpaceWorldHandler.isInAnySpace(player)) {
             if (SpacePlayerHandler.hasPermission("bSpace.teleport.exit", player)) {
                 if (Bukkit.getPluginManager().getPlugin("Register") != null && !Economy.exitCommand(player)) {
                     SpaceMessageHandler.sendNotEnoughMoneyMessage(player);

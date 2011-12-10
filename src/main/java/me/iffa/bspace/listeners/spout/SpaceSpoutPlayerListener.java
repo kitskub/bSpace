@@ -4,10 +4,10 @@ package me.iffa.bspace.listeners.spout;
 // bSpace Imports
 import me.iffa.bspace.Space;
 import me.iffa.bspace.api.SpaceSpoutHandler;
+import me.iffa.bspace.api.SpaceWorldHandler;
 
 // Bukkit Imports
 import org.bukkit.event.player.PlayerListener;
-import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
@@ -45,16 +45,16 @@ public class SpaceSpoutPlayerListener extends PlayerListener {
     public void onPlayerTeleport(PlayerTeleportEvent event) {
         SpoutPlayer player = SpoutManager.getPlayer(event.getPlayer());
         if (event.isCancelled() || !player.isSpoutCraftEnabled() || event.getFrom().getWorld().equals(event.getTo().getWorld())
-                || (Space.getWorldHandler().isSpaceWorld(event.getFrom().getWorld()) && Space.getWorldHandler().isSpaceWorld(event.getTo().getWorld()))) {
+                || (SpaceWorldHandler.isSpaceWorld(event.getFrom().getWorld()) && SpaceWorldHandler.isSpaceWorld(event.getTo().getWorld()))) {
             //Return if the event is canceled, if player doesn't have spoutcraft, if teleporting interworld, or it teleporting between space worlds
             return;
         }
         /* Player teleports to spaceworld */
-        if (Space.getWorldHandler().isSpaceWorld(event.getTo().getWorld())) {
+        if (SpaceWorldHandler.isSpaceWorld(event.getTo().getWorld())) {
             SpaceSpoutHandler.setOrReset(plugin, player, event.getTo());
         }
         /* Player teleports out of spaceworld */
-        if (Space.getWorldHandler().isSpaceWorld(event.getFrom().getWorld())) {
+        if (SpaceWorldHandler.isSpaceWorld(event.getFrom().getWorld())) {
             SpaceSpoutHandler.setOrReset(plugin, player, event.getFrom());
         }
     }

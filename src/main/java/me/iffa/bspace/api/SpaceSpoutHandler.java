@@ -34,7 +34,7 @@ public class SpaceSpoutHandler {
      */
     public static void setOrReset(Space plugin, SpoutPlayer player, Location location) {
         SkyManager sky = SpoutManager.getSkyManager();
-        if (Space.getWorldHandler().isSpaceWorld(location.getWorld())) {
+        if (SpaceWorldHandler.isSpaceWorld(location.getWorld())) {
             if (!SpaceConfigHandler.getCloudsEnabled()) {
                 sky.setCloudsVisible(player, false);
                 sky.setMoonVisible(player, false);

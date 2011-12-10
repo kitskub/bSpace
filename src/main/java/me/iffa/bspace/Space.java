@@ -59,7 +59,6 @@ public class Space extends JavaPlugin {
     // And here goes all public statics!
     private static String prefix;
     private static String version;
-    private static SpaceWorldHandler worldHandler;
     private static PailInterface pailInterface;
     private static Map<Player, Location> locCache = null;
     private static boolean jumpPressed = false;
@@ -103,7 +102,7 @@ public class Space extends JavaPlugin {
         SpaceSchematicHandler.loadSchematics();
 
         // Loading space worlds (startup).
-        worldHandler.loadSpaceWorlds();
+        SpaceWorldHandler.loadSpaceWorlds();
 
         // Initializing the CommandExecutor for /space.
         sce = new SpaceCommandHandler(this);
@@ -111,9 +110,9 @@ public class Space extends JavaPlugin {
         SpaceMessageHandler.debugPrint(Level.INFO, "Initialized CommandExecutors.");
 
         // Checking if it should always be night in space worlds.
-        for (World world : worldHandler.getSpaceWorlds()) {
+        for (World world : SpaceWorldHandler.getSpaceWorlds()) {
             if (SpaceConfigHandler.forceNight(world)) {
-                worldHandler.startForceNightTask(world);
+                SpaceWorldHandler.startForceNightTask(world);
                 SpaceMessageHandler.debugPrint(Level.INFO, "Started night forcing task for world '" + world.getName() + "'.");
             }
         }
@@ -150,7 +149,6 @@ public class Space extends JavaPlugin {
         pm = getServer().getPluginManager();
         version = getDescription().getVersion();
         prefix = "[" + getDescription().getName() + "]";
-        worldHandler = new SpaceWorldHandler(this);
         if (pm.getPlugin("Spout") != null && SpaceConfigHandler.isUsingSpout()) {
             locCache = new HashMap<Player, Location>();
         }
@@ -171,9 +169,9 @@ public class Space extends JavaPlugin {
         pm.registerEvent(Event.Type.CREATURE_SPAWN, entityListener, Event.Priority.Highest, this);
         pm.registerEvent(Event.Type.PLAYER_TELEPORT, playerListener, Event.Priority.Normal, this);
         pm.registerEvent(Event.Type.PLAYER_MOVE, playerListener, Event.Priority.Normal, this);
-        //pm.registerEvent(Event.Type.PLAYER_RESPAWN, playerListener, Event.Priority.Normal, this);//TODO delete these two?
+        pm.registerEvent(Event.Type.PLAYER_RESPAWN, playerListener, Event.Priority.Normal, this);
         pm.registerEvent(Event.Type.PLAYER_QUIT, playerListener, Event.Priority.Normal, this);
-        //pm.registerEvent(Event.Type.PLAYER_JOIN, playerListener, Event.Priority.Normal, this);
+        //pm.registerEvent(Event.Type.PLAYER_JOIN, playerListener, Event.Priority.Normal, this);//TODO delete?
         pm.registerEvent(Event.Type.CUSTOM_EVENT, new SpaceSuffocationListener(), Event.Priority.Monitor, this); //Suffocation Listener
         SpaceMessageHandler.debugPrint(Level.INFO, "Registered events (entity & player).");
 
@@ -219,16 +217,7 @@ public class Space extends JavaPlugin {
     }
 
     /* Some API methods */
-    
-    /**
-     * Gets the SpaceWorldHandler.
-     * 
-     * @return SpaceWorldHandler
-     */
-    public static SpaceWorldHandler getWorldHandler() {
-        return worldHandler;
-    }
-    
+
     /**
      * Gets the jump pressed value. (ie = wtf is this)
      * 

@@ -5,8 +5,8 @@ package me.iffa.bspace.listeners.spout;
 import java.util.logging.Level;
 
 // bSpace Imports
-import me.iffa.bspace.Space;
 import me.iffa.bspace.api.SpaceMessageHandler;
+import me.iffa.bspace.api.SpaceWorldHandler;
 
 // Bukkit Imports
 import org.bukkit.World;
@@ -39,7 +39,7 @@ public class SpaceSpoutCraftListener extends SpoutListener {
     @Override
     public void onSpoutCraftEnable(SpoutCraftEnableEvent event) {
         SpoutPlayer player = event.getPlayer();
-        if (Space.getWorldHandler().isSpaceWorld(player.getWorld())) {
+        if (SpaceWorldHandler.isSpaceWorld(player.getWorld())) {
             World space = player.getWorld();
             player.setCanFly(true);
             //[18:44] <Afforess> iffa: setEntitySkin was fixed in the 703/510 RB series

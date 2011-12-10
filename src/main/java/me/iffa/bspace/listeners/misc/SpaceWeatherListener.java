@@ -5,9 +5,9 @@ package me.iffa.bspace.listeners.misc;
 import java.util.logging.Level;
 
 // bSpace Imports
-import me.iffa.bspace.Space;
 import me.iffa.bspace.api.SpaceConfigHandler;
 import me.iffa.bspace.api.SpaceMessageHandler;
+import me.iffa.bspace.api.SpaceWorldHandler;
 
 // Bukkit Imports
 import org.bukkit.event.weather.WeatherChangeEvent;
@@ -26,7 +26,7 @@ public class SpaceWeatherListener extends WeatherListener {
      */
     @Override
     public void onWeatherChange(WeatherChangeEvent event) {
-        if (Space.getWorldHandler().isSpaceWorld(event.getWorld()) && !SpaceConfigHandler.allowWeather(event.getWorld()) && event.toWeatherState()) {
+        if (SpaceWorldHandler.isSpaceWorld(event.getWorld()) && !SpaceConfigHandler.allowWeather(event.getWorld()) && event.toWeatherState()) {
             event.setCancelled(true);
             SpaceMessageHandler.debugPrint(Level.INFO, "Cancelled WeatherChangeEvent for spaceworld '" + event.getWorld().getName() + "'.");
         }

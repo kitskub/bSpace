@@ -11,6 +11,7 @@ import me.iffa.bspace.Space;
 import me.iffa.bspace.api.SpaceConfigHandler;
 import me.iffa.bspace.api.SpaceMessageHandler;
 import me.iffa.bspace.api.SpacePlayerHandler;
+import me.iffa.bspace.api.SpaceWorldHandler;
 import me.iffa.bspace.api.event.area.AreaEnterEvent;
 import me.iffa.bspace.api.event.area.AreaLeaveEvent;
 import me.iffa.bspace.api.event.area.SpaceLeaveEvent;
@@ -25,6 +26,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerListener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.ItemStack;
 
@@ -51,12 +53,21 @@ public class SpacePlayerListener extends PlayerListener {
         }
         Player player = event.getPlayer();
         if (!fixDupe.containsKey(event.getPlayer())) {
-            if (Space.getWorldHandler().isSpaceWorld(event.getTo().getWorld()) && event.getTo().getWorld() != player.getWorld()) {
+            if (SpaceWorldHandler.isSpaceWorld(event.getTo().getWorld()) && event.getTo().getWorld() != player.getWorld()) {
                 if (Bukkit.getPluginManager().getPlugin("Register") != null && !Economy.enter(player)) {
                     SpaceMessageHandler.sendNotEnoughMoneyMessage(player);
                     event.setCancelled(true);
                     return;
                 }
+                /* Notify listeners start */
+                SpaceEnterEvent e = new SpaceEnterEvent(event.getPlayer(), event.getFrom(), event.getTo());
+                Bukkit.getServer().getPluginManager().callEvent(e);
+                if (e.isCancelled()) {
+                    event.setCancelled(true);
+                    return;
+                }
+                /* Notify listeners end */
+                SpaceMessageHandler.debugPrint(Level.INFO, "Player '" + event.getPlayer().getName() + "' teleported to space.");
                 if (SpaceConfigHandler.isHelmetGiven()) {
                     event.getPlayer().getInventory().setHelmet(
                             new ItemStack(SpaceConfigHandler.getHelmetBlock(), 1));
@@ -64,17 +75,9 @@ public class SpacePlayerListener extends PlayerListener {
                 if (SpaceConfigHandler.isSuitGiven()) {
                     SpacePlayerHandler.giveSpaceSuit(SpaceConfigHandler.getArmorType(), player);
                 }
-                /* Notify listeners start */
-                SpaceEnterEvent e = new SpaceEnterEvent(event.getPlayer(), event.getFrom(), event.getTo());
-                Bukkit.getServer().getPluginManager().callEvent(e);
-                if (e.isCancelled()) {
-                    event.setCancelled(true);
-                }
-                /* Notify listeners end */
-                SpaceMessageHandler.debugPrint(Level.INFO, "Player '" + event.getPlayer().getName() + "' teleported to space.");
                 fixDupe.put(event.getPlayer(), true);
-            } else if (!Space.getWorldHandler().isSpaceWorld(event.getTo().getWorld())
-                    && Space.getWorldHandler().isSpaceWorld(event.getFrom().getWorld())) {
+            } else if (!SpaceWorldHandler.isSpaceWorld(event.getTo().getWorld())
+                    && SpaceWorldHandler.isSpaceWorld(event.getFrom().getWorld())) {
                 if (Bukkit.getPluginManager().getPlugin("Register") != null && !Economy.exit(player)) {
                     event.setCancelled(true);
                     return;
@@ -109,7 +112,7 @@ public class SpacePlayerListener extends PlayerListener {
         if (event.isCancelled()) {
             return;
         }
-        if (Space.getWorldHandler().isInAnySpace(event.getPlayer())) {
+        if (SpaceWorldHandler.isInAnySpace(event.getPlayer())) {
             int i = 0;
             Block block = event.getPlayer().getLocation().getBlock().getRelative(BlockFace.UP);
             boolean insideArea = false;
@@ -146,7 +149,10 @@ public class SpacePlayerListener extends PlayerListener {
                         /* Notify listeners start */
                         AreaLeaveEvent e = new AreaLeaveEvent(event.getPlayer());
                         Bukkit.getServer().getPluginManager().callEvent(e);
-                        event.setCancelled(e.isCancelled());
+                        if(e.isCancelled()){
+                            event.setCancelled(true);
+                            return;
+                        }
                         /* Notify listeners end */
                         SpaceMessageHandler.debugPrint(Level.INFO, "Player '" + event.getPlayer().getName() + "' left an area.");
                     }
@@ -155,7 +161,10 @@ public class SpacePlayerListener extends PlayerListener {
                     /* Notify listeners start */
                     AreaLeaveEvent e = new AreaLeaveEvent(event.getPlayer());
                     Bukkit.getServer().getPluginManager().callEvent(e);
-                    event.setCancelled(e.isCancelled());
+                    if(e.isCancelled()){
+                        event.setCancelled(true);
+                        return;
+                    }
                     /* Notify listeners end */
                 }
             }
@@ -175,6 +184,24 @@ public class SpacePlayerListener extends PlayerListener {
                 Bukkit.getScheduler().cancelTask(SpaceSuffocationListener.taskid.get(event.getPlayer()));
                 SpaceMessageHandler.debugPrint(Level.INFO, "Cancelled suffocation task for player '" + event.getPlayer().getName() + "'. (reason: left server)");
             }
+        }
+    }
+    
+    /**
+     * Called on player respawn
+     * 
+     * @param event Event data
+     */
+    @Override
+    public void onPlayerRespawn(PlayerRespawnEvent event) {
+        if(SpaceWorldHandler.isSpaceWorld(event.getRespawnLocation().getWorld())){
+                if (SpaceConfigHandler.isHelmetGiven()) {
+                    event.getPlayer().getInventory().setHelmet(
+                            new ItemStack(SpaceConfigHandler.getHelmetBlock(), 1));
+                }
+                if (SpaceConfigHandler.isSuitGiven()) {
+                    SpacePlayerHandler.giveSpaceSuit(SpaceConfigHandler.getArmorType(), event.getPlayer());
+                }   
         }
     }
 }

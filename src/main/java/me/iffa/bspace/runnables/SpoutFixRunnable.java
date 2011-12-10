@@ -5,10 +5,10 @@ package me.iffa.bspace.runnables;
 import java.util.logging.Level;
 
 // bSpace Imports
-import me.iffa.bspace.Space;
 import me.iffa.bspace.api.SpaceMessageHandler;
 
 // Bukkit Imports
+import me.iffa.bspace.api.SpaceWorldHandler;
 import org.bukkit.entity.Player;
 
 // Spout Imports
@@ -38,7 +38,7 @@ public class SpoutFixRunnable implements Runnable {
      * Sets a player's gravity settings. (hacky solution!!)
      */
     public void run() {
-        if (Space.getWorldHandler().isInAnySpace(player)) {
+        if (SpaceWorldHandler.isInAnySpace(player)) {
             SpoutPlayer p = SpoutManager.getPlayer(player); // Abuse Afforess because of bugs
             p.setAirSpeedMultiplier(0.7);
             p.setGravityMultiplier(0.15);

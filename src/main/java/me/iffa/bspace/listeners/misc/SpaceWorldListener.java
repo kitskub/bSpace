@@ -5,9 +5,9 @@ package me.iffa.bspace.listeners.misc;
 import java.util.logging.Level;
 
 // bSpace Imports
-import me.iffa.bspace.Space;
 import me.iffa.bspace.api.SpaceConfigHandler;
 import me.iffa.bspace.api.SpaceMessageHandler;
+import me.iffa.bspace.api.SpaceWorldHandler;
 import me.iffa.bspace.wgen.planets.PlanetsChunkGenerator;
 
 // Bukkit Imports
@@ -34,7 +34,7 @@ public class SpaceWorldListener extends WorldListener {
             return;
         }
         if (SpaceConfigHandler.forceNight(world)) {
-            Space.getWorldHandler().startForceNightTask(world);
+            SpaceWorldHandler.startForceNightTask(world);
             SpaceMessageHandler.debugPrint(Level.INFO, "Started night forcing task for world '" + world.getName() + "'.");
         }
 

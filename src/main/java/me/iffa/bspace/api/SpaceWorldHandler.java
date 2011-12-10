@@ -26,22 +26,13 @@ import org.bukkit.entity.Player;
 public class SpaceWorldHandler {
     // Variables
     private static List<String> spaceWorldNames = new ArrayList<String>();
-    private Space plugin;
-    private Map<World, Integer> forcenightId = new HashMap<World, Integer>();
-
-    /**
-     * Constructor of SpaceWorldHandler.
-     * 
-     * @param plugin bSpace
-     */
-    public SpaceWorldHandler(Space plugin) {
-        this.plugin = plugin;
-    }
+    private static Space plugin = (Space) Bukkit.getPluginManager().getPlugin("bSpace");
+    private static Map<World, Integer> forcenightId = new HashMap<World, Integer>();
 
     /**
      * Loads the space worlds into <code>spaceWorldNames</code.
      */
-    public void loadSpaceWorlds() {
+    public static void loadSpaceWorlds() {
         for (World world : Bukkit.getServer().getWorlds()) {
             if (world.getGenerator() instanceof PlanetsChunkGenerator) {
                 spaceWorldNames.add(world.getName());
@@ -54,7 +45,7 @@ public class SpaceWorldHandler {
      * 
      * @param world World
      */
-    public void startForceNightTask(World world) {
+    public static void startForceNightTask(World world) {
         NightForceRunnable task = new NightForceRunnable(world);
         forcenightId.put(world, Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, task, 60, 8399));
     }
@@ -64,7 +55,7 @@ public class SpaceWorldHandler {
      * 
      * @param world World
      */
-    public void stopForceNightTask(World world) {
+    public static void stopForceNightTask(World world) {
         Bukkit.getScheduler().cancelTask(forcenightId.get(world));
     }
 
@@ -73,7 +64,7 @@ public class SpaceWorldHandler {
      * 
      * @return all space worlds as a List
      */
-    public List<World> getSpaceWorlds() {
+    public static List<World> getSpaceWorlds() {
         List<World> worlds = new ArrayList<World>();
         for (String world : spaceWorldNames) {
             worlds.add(Bukkit.getServer().getWorld(world));
@@ -88,7 +79,7 @@ public class SpaceWorldHandler {
      * 
      * @return true if the world is a space world
      */
-    public boolean isSpaceWorld(World world) {
+    public static boolean isSpaceWorld(World world) {
         if (spaceWorldNames.contains(world.getName())) {
             return true;
         }
@@ -103,7 +94,7 @@ public class SpaceWorldHandler {
      * 
      * @return true if the player is in the specified space world
      */
-    public boolean isInSpace(Player player, World world) {
+    public static boolean isInSpace(Player player, World world) {
         return (spaceWorldNames.contains(world.getName()) && player.getWorld() == world);
     }
 
@@ -114,7 +105,7 @@ public class SpaceWorldHandler {
      * 
      * @return true if the player is in a space world
      */
-    public boolean isInAnySpace(Player player) {
+    public static boolean isInAnySpace(Player player) {
         for (String world : spaceWorldNames) {
             if (player.getWorld().getName().equals(world)) {
                 return true;
@@ -130,7 +121,7 @@ public class SpaceWorldHandler {
      * 
      * @return Null if not in a space world
      */
-    public World getSpaceWorld(Player player) {
+    public static World getSpaceWorld(Player player) {
         if (getSpaceWorlds().contains(player.getWorld())) {
             return getSpaceWorlds().get(getSpaceWorlds().indexOf(player.getWorld()));
         }
@@ -153,4 +144,7 @@ public class SpaceWorldHandler {
             spaceWorldNames.add(worldName);
         }
     }
+
+    private SpaceWorldHandler() {
+    }  
 }

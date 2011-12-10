@@ -24,6 +24,8 @@ New in version 2 (not a final changelog):
 -Silverfish & cave spiders will no longer spawn in space (endermen will, they are aliens)
 -Updated Pail tab, it is now pretty
 -New SpaceLeaveEvent and TeleportToSpace has been changed to SpaceEnterEvent
+-Suffocation stuff fixed
+-Made SpaceWorldHandler static
 
 -Removed nethermode since environment is now completely decided by the world manager used
 

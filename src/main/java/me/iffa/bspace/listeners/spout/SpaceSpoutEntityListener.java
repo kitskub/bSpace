@@ -7,6 +7,7 @@ import java.util.logging.Level;
 // bSpace Imports
 import me.iffa.bspace.Space;
 import me.iffa.bspace.api.SpaceMessageHandler;
+import me.iffa.bspace.api.SpaceWorldHandler;
 
 // Bukkit Imports
 import org.bukkit.Location;
@@ -42,7 +43,7 @@ public class SpaceSpoutEntityListener extends EntityListener {
         Entity entity = event.getEntity();
         if (entity instanceof Player) {
             SpoutPlayer player = SpoutManager.getPlayer((Player) entity);
-            if (Space.getWorldHandler().isInAnySpace(player) && event.getCause().equals(DamageCause.FALL) && player.isSpoutCraftEnabled()) {
+            if (SpaceWorldHandler.isInAnySpace(player) && event.getCause().equals(DamageCause.FALL) && player.isSpoutCraftEnabled()) {
                 if (Space.getLocCache().containsKey(player)) {
                     Location landing = player.getLocation(); //The landing point
                     Location starting = Space.getLocCache().get(player); //The starting point
@@ -85,7 +86,7 @@ public class SpaceSpoutEntityListener extends EntityListener {
      */
     @Override
     public void onCreatureSpawn(CreatureSpawnEvent event) {
-        if (!event.isCancelled() && Space.getWorldHandler().isSpaceWorld(event.getLocation().getWorld()) && event.getCreatureType().equals(CreatureType.ZOMBIE)) {
+        if (!event.isCancelled() && SpaceWorldHandler.isSpaceWorld(event.getLocation().getWorld()) && event.getCreatureType().equals(CreatureType.ZOMBIE)) {
             for (Player player : event.getLocation().getWorld().getPlayers()) {
                 SpoutPlayer p = SpoutManager.getPlayer(player);
                 if (p.isSpoutCraftEnabled()) {

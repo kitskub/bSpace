@@ -10,6 +10,7 @@ import me.iffa.bspace.Space;
 import me.iffa.bspace.api.SpaceLangHandler;
 import me.iffa.bspace.api.SpaceMessageHandler;
 import me.iffa.bspace.api.SpacePlayerHandler;
+import me.iffa.bspace.api.SpaceWorldHandler;
 
 // Bukkit Imports
 import org.bukkit.ChatColor;
@@ -43,13 +44,13 @@ public class SpaceListCommand extends SpaceCommand {
             SpaceMessageHandler.sendNoPermissionMessage((Player) sender);
             return;
         }
-        if (Space.getWorldHandler().getSpaceWorlds().isEmpty()) {
+        if (SpaceWorldHandler.getSpaceWorlds().isEmpty()) {
             sender.sendMessage(ChatColor.RED + "No space worlds are loaded :(");
             return;
         }
         sender.sendMessage(ChatColor.GREEN + Space.getPrefix() + " " + SpaceLangHandler.getListOfSpaceMessage());
         List<String> spaceWorlds = new ArrayList<String>();
-        for (World world : Space.getWorldHandler().getSpaceWorlds()) {
+        for (World world : SpaceWorldHandler.getSpaceWorlds()) {
             spaceWorlds.add(world.getName());
         }
         sender.sendMessage(ChatColor.GREEN + spaceWorlds.toString().replace("]", "").replace("[", ""));
