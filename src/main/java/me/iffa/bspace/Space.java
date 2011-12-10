@@ -69,7 +69,7 @@ public class Space extends JavaPlugin {
     private final SpaceEntityListener entityListener = new SpaceEntityListener();
     private final SpaceWorldListener worldListener = new SpaceWorldListener();
     private final SpacePlayerListener playerListener = new SpacePlayerListener();
-    private final SpaceSuffocationListener suffocationListener = new SpaceSuffocationListener();
+    private final SpaceSuffocationListener suffocationListener = new SpaceSuffocationListener(this);
 
     /**
      * Called when the plugin is disabled.

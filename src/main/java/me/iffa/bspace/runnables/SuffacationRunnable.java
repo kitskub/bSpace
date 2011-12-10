@@ -47,6 +47,7 @@ public class SuffacationRunnable implements Runnable {
                     }
                     /* Notify listeners end */
                     suffocating=true;
+                    player.sendMessage("You left an area and are now suffocating.");
                     SpaceMessageHandler.debugPrint(Level.INFO, "Player '" + player.getName() + "' is now suffocating in space.");
                 }
             } else {

@@ -23,8 +23,12 @@ public class SpaceSuffocationListener extends SpaceAreaListener {
     private static Map<Player,Boolean> isVulnerable = new HashMap<Player,Boolean>();
     public static Map<Player, Integer> taskid = new HashMap<Player, Integer>();
     private int taskInt;
-    private Space plugin = (Space) Bukkit.getPluginManager().getPlugin("bSpace");
+    private Space plugin;
 
+    public SpaceSuffocationListener(Space plugin) {
+        this.plugin = plugin;
+    }
+    
     @Override
     public void onAreaEnter(AreaEnterEvent event){
         if (isVulnerable.containsKey(event.getPlayer())) {
