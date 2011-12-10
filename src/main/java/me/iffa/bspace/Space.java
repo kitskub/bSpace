@@ -26,6 +26,7 @@ import me.iffa.bspace.gui.PailInterface;
 import me.iffa.bspace.listeners.SpaceEntityListener;
 import me.iffa.bspace.listeners.SpacePlayerListener;
 import me.iffa.bspace.listeners.SpaceSuffocationListener;
+import me.iffa.bspace.listeners.misc.BlackHolePlayerListener;
 import me.iffa.bspace.listeners.misc.BlackHoleScannerListener;
 import me.iffa.bspace.listeners.misc.SpaceWeatherListener;
 import me.iffa.bspace.listeners.misc.SpaceWorldListener;
@@ -34,7 +35,6 @@ import me.iffa.bspace.listeners.spout.SpaceSpoutCraftListener;
 import me.iffa.bspace.listeners.spout.SpaceSpoutEntityListener;
 import me.iffa.bspace.listeners.spout.SpaceSpoutKeyListener;
 import me.iffa.bspace.listeners.spout.SpaceSpoutPlayerListener;
-import me.iffa.bspace.runnables.SpoutBlackHoleAreaRunnable;
 import me.iffa.bspace.wgen.planets.PlanetsChunkGenerator;
 
 // Bukkit Imports
@@ -69,6 +69,7 @@ public class Space extends JavaPlugin {
     private final SpaceEntityListener entityListener = new SpaceEntityListener();
     private final SpaceWorldListener worldListener = new SpaceWorldListener();
     private final SpacePlayerListener playerListener = new SpacePlayerListener();
+    private final SpaceSuffocationListener suffocationListener = new SpaceSuffocationListener();
 
     /**
      * Called when the plugin is disabled.
@@ -130,11 +131,6 @@ public class Space extends JavaPlugin {
             pailInterface = new PailInterface(this);
             ((Pail) pm.getPlugin("Pail")).loadInterfaceComponent("bSpace", pailInterface);
         }
-        
-        // Initializing black hole stuff.
-        if (pm.getPlugin("Spout") != null) {
-            Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new SpoutBlackHoleAreaRunnable(), 1, 5);
-        }
 
         // Finishing up enablation.
         SpaceMessageHandler.print(Level.INFO, SpaceLangHandler.getUsageStatsMessage());
@@ -172,7 +168,7 @@ public class Space extends JavaPlugin {
         pm.registerEvent(Event.Type.PLAYER_RESPAWN, playerListener, Event.Priority.Normal, this);
         pm.registerEvent(Event.Type.PLAYER_QUIT, playerListener, Event.Priority.Normal, this);
         //pm.registerEvent(Event.Type.PLAYER_JOIN, playerListener, Event.Priority.Normal, this);//TODO delete?
-        pm.registerEvent(Event.Type.CUSTOM_EVENT, new SpaceSuffocationListener(), Event.Priority.Monitor, this); //Suffocation Listener
+        pm.registerEvent(Event.Type.CUSTOM_EVENT, suffocationListener, Event.Priority.Monitor, this); //Suffocation Listener
         SpaceMessageHandler.debugPrint(Level.INFO, "Registered events (entity & player).");
 
         // Registering events for Spout.
@@ -186,6 +182,7 @@ public class Space extends JavaPlugin {
             pm.registerEvent(Event.Type.CUSTOM_EVENT, new SpaceSpoutAreaListener(), Event.Priority.Normal, this); //Area Listener
             pm.registerEvent(Event.Type.CUSTOM_EVENT, new SpaceSpoutKeyListener(), Event.Priority.Normal, this); //Key Listener
             pm.registerEvent(Event.Type.CHUNK_LOAD, new BlackHoleScannerListener(), Event.Priority.Normal, this); // Black hole scanner
+            pm.registerEvent(Event.Type.PLAYER_MOVE, new BlackHolePlayerListener(), Event.Priority.Normal, this);
             SpaceMessageHandler.debugPrint(Level.INFO, "Registered events (Spout).");
         }
     }
