@@ -53,7 +53,7 @@ public class SpaceExitCommand extends SpaceCommand {
         Player player = (Player) sender;
         if (SpaceWorldHandler.isInAnySpace(player)) {
             if (SpacePlayerHandler.hasPermission("bSpace.teleport.exit", player)) {
-                if (Bukkit.getPluginManager().getPlugin("Register") != null && !Economy.exitCommand(player)) {
+                if (!Economy.exitCommand(player)) {
                     SpaceMessageHandler.sendNotEnoughMoneyMessage(player);
                     return;
                 }

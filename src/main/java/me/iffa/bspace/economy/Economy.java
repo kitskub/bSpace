@@ -29,7 +29,7 @@ import org.bukkit.entity.Player;
 public class Economy {
     // Variables
     private static Method method;
-    private static boolean use;
+    private static boolean use = false;
 
     /**
      * Constructor of Economy.
@@ -59,10 +59,11 @@ public class Economy {
      * 
      * @return True if the player has enough money to enter
      */
-    public static boolean enter(Player player) {
+    public static boolean enter(Player player) { 
         if (use == false) {
             return true;
         }
+        if(!checkRegister()) return false;
         if (method.hasAccount(player.getName())) {
             int amount = SpaceConfig.getConfig(ConfigFile.CONFIG).getInt("economy.entercost", (Integer) Defaults.ENTER_COST.getDefault());
             return subtract(player, amount);
@@ -82,6 +83,7 @@ public class Economy {
         if (use == false) {
             return true;
         }
+        if(!checkRegister()) return false;
         if (method.hasAccount(player.getName())) {
             int amount = SpaceConfig.getConfig(ConfigFile.CONFIG).getInt("economy.exitcost", (Integer) Defaults.EXIT_COST.getDefault());
             return subtract(player, amount);
@@ -102,6 +104,7 @@ public class Economy {
         if (use == false) {
             return true;
         }
+        if(!checkRegister()) return false;
         if (method.hasAccount(player.getName())) {
             int amount = SpaceConfig.getConfig(ConfigFile.CONFIG).getInt("economy.entercommandcost", (Integer) Defaults.ENTER_COMMAND_COST.getDefault());
             return subtract(player, amount);
@@ -122,6 +125,7 @@ public class Economy {
         if (use == false) {
             return true;
         }
+        if(!checkRegister()) return false;
         if (method.hasAccount(player.getName())) {
             int amount = SpaceConfig.getConfig(ConfigFile.CONFIG).getInt("economy.exitcommandcost", (Integer) Defaults.EXIT_COMMAND_COST.getDefault());
             return subtract(player, amount);
@@ -162,4 +166,15 @@ public class Economy {
         }
         return method;
     }
+    
+    
+    private static boolean checkRegister() {
+        if(Bukkit.getPluginManager().getPlugin("Register") == null){
+            SpaceMessageHandler.debugPrint(Level.WARNING, "Economy is enabled, but Register is not active! Disabling economy");
+            use=false;
+            return false;
+        }
+        return true;
+    }
+
 }

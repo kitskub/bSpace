@@ -59,7 +59,7 @@ public class SpaceEnterCommand extends SpaceCommand {
                     SpaceMessageHandler.debugPrint(Level.INFO, "Someone tried to use /space enter, but he was already in that space world.");
                     return;
                 }
-                if (Bukkit.getPluginManager().getPlugin("Register") != null && !Economy.enterCommand(player)) {
+                if (!Economy.enterCommand(player)) {
                     SpaceMessageHandler.sendNotEnoughMoneyMessage(player);
                     return;
                 }
@@ -78,7 +78,7 @@ public class SpaceEnterCommand extends SpaceCommand {
             return;
         } else if (args.length >= 2) {
             if (SpacePlayerHandler.hasPermission("bSpace.teleport.enter", player)) {
-                if (Bukkit.getPluginManager().getPlugin("Register") != null && !Economy.enterCommand(player)) {
+                if (!Economy.enterCommand(player)) {
                     SpaceMessageHandler.sendNotEnoughMoneyMessage(player);
                     return;
                 }

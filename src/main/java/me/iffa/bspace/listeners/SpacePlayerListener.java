@@ -54,7 +54,7 @@ public class SpacePlayerListener extends PlayerListener {
         Player player = event.getPlayer();
         if (!fixDupe.containsKey(event.getPlayer())) {
             if (SpaceWorldHandler.isSpaceWorld(event.getTo().getWorld()) && event.getTo().getWorld() != player.getWorld()) {
-                if (Bukkit.getPluginManager().getPlugin("Register") != null && !Economy.enter(player)) {
+                if (!Economy.enter(player)) {
                     SpaceMessageHandler.sendNotEnoughMoneyMessage(player);
                     event.setCancelled(true);
                     return;
@@ -78,7 +78,7 @@ public class SpacePlayerListener extends PlayerListener {
                 fixDupe.put(event.getPlayer(), true);
             } else if (!SpaceWorldHandler.isSpaceWorld(event.getTo().getWorld())
                     && SpaceWorldHandler.isSpaceWorld(event.getFrom().getWorld())) {
-                if (Bukkit.getPluginManager().getPlugin("Register") != null && !Economy.exit(player)) {
+                if (!Economy.exit(player)) {
                     event.setCancelled(true);
                     return;
                 }
