@@ -23,6 +23,7 @@ import me.iffa.bspace.config.SpaceConfig;
 import me.iffa.bspace.config.SpaceConfigUpdater;
 import me.iffa.bspace.economy.Economy;
 import me.iffa.bspace.gui.PailInterface;
+import me.iffa.bspace.listeners.SpaceEconomyListener;
 import me.iffa.bspace.listeners.SpaceEntityListener;
 import me.iffa.bspace.listeners.SpacePlayerListener;
 import me.iffa.bspace.listeners.SpaceSuffocationListener;
@@ -164,11 +165,12 @@ public class Space extends JavaPlugin {
         pm.registerEvent(Event.Type.ENTITY_DEATH, entityListener, Event.Priority.Normal, this);
         pm.registerEvent(Event.Type.CREATURE_SPAWN, entityListener, Event.Priority.Highest, this);
         pm.registerEvent(Event.Type.PLAYER_TELEPORT, playerListener, Event.Priority.Normal, this);
-        pm.registerEvent(Event.Type.PLAYER_MOVE, playerListener, Event.Priority.Normal, this);
+        pm.registerEvent(Event.Type.PLAYER_MOVE, playerListener, Event.Priority.Monitor, this);
         pm.registerEvent(Event.Type.PLAYER_RESPAWN, playerListener, Event.Priority.Normal, this);
-        pm.registerEvent(Event.Type.PLAYER_QUIT, playerListener, Event.Priority.Normal, this);
-        //pm.registerEvent(Event.Type.PLAYER_JOIN, playerListener, Event.Priority.Normal, this);//TODO delete?
+        pm.registerEvent(Event.Type.PLAYER_QUIT, playerListener, Event.Priority.Monitor, this);
+        pm.registerEvent(Event.Type.PLAYER_JOIN, playerListener, Event.Priority.Monitor, this);
         pm.registerEvent(Event.Type.CUSTOM_EVENT, suffocationListener, Event.Priority.Monitor, this); //Suffocation Listener
+        pm.registerEvent(Event.Type.CUSTOM_EVENT, new SpaceEconomyListener(), Event.Priority.Highest, this); //Suffocation Listener
         SpaceMessageHandler.debugPrint(Level.INFO, "Registered events (entity & player).");
 
         // Registering events for Spout.
@@ -182,7 +184,7 @@ public class Space extends JavaPlugin {
             pm.registerEvent(Event.Type.CUSTOM_EVENT, new SpaceSpoutAreaListener(), Event.Priority.Normal, this); //Area Listener
             pm.registerEvent(Event.Type.CUSTOM_EVENT, new SpaceSpoutKeyListener(), Event.Priority.Normal, this); //Key Listener
             //pm.registerEvent(Event.Type.CHUNK_LOAD, new BlackHoleScannerListener(), Event.Priority.Monitor, this); // Black hole scanner
-            pm.registerEvent(Event.Type.CHUNK_POPULATED, new BlackHoleScannerListener(), Event.Priority.Monitor, this); // Black hole scanner
+            //pm.registerEvent(Event.Type.CHUNK_POPULATED, new BlackHoleScannerListener(), Event.Priority.Monitor, this); // Black hole scanner
             pm.registerEvent(Event.Type.PLAYER_MOVE, new BlackHolePlayerListener(), Event.Priority.Normal, this);
             SpaceMessageHandler.debugPrint(Level.INFO, "Registered events (Spout).");
         }

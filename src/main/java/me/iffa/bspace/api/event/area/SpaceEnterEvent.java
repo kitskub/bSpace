@@ -4,14 +4,14 @@ package me.iffa.bspace.api.event.area;
 // Bukkit Imports
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Cancellable;
 
 /**
- * Event data for when a player is teleported to space.
+ * Event data for when a player enters space. 
+ * If player is joining server, location from and location to will be the same.
  * 
  * @author iffa
  */
-public class SpaceEnterEvent extends AreaEvent implements Cancellable {
+public class SpaceEnterEvent extends SpaceWorldAreaEvent{
     // Variables
     private static final long serialVersionUID = 8744071438699676557L;
     private Location to = null;

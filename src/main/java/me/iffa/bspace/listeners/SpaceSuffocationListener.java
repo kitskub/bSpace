@@ -22,7 +22,6 @@ import org.bukkit.entity.Player;
 public class SpaceSuffocationListener extends SpaceAreaListener {
     private static Map<Player,Boolean> isVulnerable = new HashMap<Player,Boolean>();
     public static Map<Player, Integer> taskid = new HashMap<Player, Integer>();
-    private int taskInt;
     private Space plugin;
 
     public SpaceSuffocationListener(Space plugin) {
@@ -46,8 +45,7 @@ public class SpaceSuffocationListener extends SpaceAreaListener {
             boolean suffocatingOn = (SpaceConfigHandler.getRequireHelmet(player.getWorld())||SpaceConfigHandler.getRequireSuit(player.getWorld()));
             if(suffocatingOn){
                 SuffacationRunnable task = new SuffacationRunnable(player);
-                taskInt = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, task, 20L, 20L);
-                taskid.put(player, taskInt);
+                taskid.put(player, Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, task, 20L, 20L));
                 isVulnerable.put(player, true);
             }
         }
@@ -69,8 +67,7 @@ public class SpaceSuffocationListener extends SpaceAreaListener {
             boolean suffocatingOn = (SpaceConfigHandler.getRequireHelmet(player.getWorld())||SpaceConfigHandler.getRequireSuit(player.getWorld()));
             if(suffocatingOn){
                 SuffacationRunnable task = new SuffacationRunnable(player);
-                taskInt = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, task, 20L, 20L);
-                taskid.put(player, taskInt);
+                taskid.put(player, Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, task, 20L, 20L));
                 isVulnerable.put(player, true);
             }
         }

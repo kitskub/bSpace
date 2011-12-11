@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
  * 
  * @author iffa
  */
-public class SpaceLeaveEvent extends AreaEvent {
+public class SpaceLeaveEvent extends SpaceWorldAreaEvent {
     // Variables
     private static final long serialVersionUID = 8744071538699676557L;
     private Location to = null;

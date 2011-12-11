@@ -19,10 +19,12 @@ import me.iffa.bspace.api.event.area.SpaceEnterEvent;
 import me.iffa.bspace.economy.Economy;
 
 // Bukkit Imports
+import me.iffa.bspace.runnables.SuffacationRunnable;
 import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerListener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -54,11 +56,6 @@ public class SpacePlayerListener extends PlayerListener {
         Player player = event.getPlayer();
         if (!fixDupe.containsKey(event.getPlayer())) {
             if (SpaceWorldHandler.isSpaceWorld(event.getTo().getWorld()) && event.getTo().getWorld() != player.getWorld()) {
-                if (!Economy.enter(player)) {
-                    SpaceMessageHandler.sendNotEnoughMoneyMessage(player);
-                    event.setCancelled(true);
-                    return;
-                }
                 /* Notify listeners start */
                 SpaceEnterEvent e = new SpaceEnterEvent(event.getPlayer(), event.getFrom(), event.getTo());
                 Bukkit.getServer().getPluginManager().callEvent(e);
@@ -78,18 +75,14 @@ public class SpacePlayerListener extends PlayerListener {
                 fixDupe.put(event.getPlayer(), true);
             } else if (!SpaceWorldHandler.isSpaceWorld(event.getTo().getWorld())
                     && SpaceWorldHandler.isSpaceWorld(event.getFrom().getWorld())) {
-                if (!Economy.exit(player)) {
-                    event.setCancelled(true);
-                    return;
-                }
                 /* Notify listeners start */
                 SpaceLeaveEvent e = new SpaceLeaveEvent(event.getPlayer(), event.getFrom(), event.getTo());
                 Bukkit.getServer().getPluginManager().callEvent(e);
                 if (e.isCancelled()) {
                     event.setCancelled(true);
+                    return;
                 }
                 /* Notify listeners end */
-                
                 if (SpaceConfigHandler.isHelmetGiven()) {
                     event.getPlayer().getInventory().setHelmet(new ItemStack(0, 1));
                 }
@@ -113,18 +106,7 @@ public class SpacePlayerListener extends PlayerListener {
             return;
         }
         if (SpaceWorldHandler.isInAnySpace(event.getPlayer())) {
-            int i = 0;
-            Block block = event.getPlayer().getLocation().getBlock().getRelative(BlockFace.UP);
-            boolean insideArea = false;
-            while (i < SpaceConfigHandler.getRoomHeight(event.getPlayer().getWorld())) {
-                if (block.getTypeId() != 0) {
-                    insideArea = true;
-                    i = 0;
-                    break;
-                }
-                i++;
-                block = block.getRelative(BlockFace.UP);
-            }
+            boolean insideArea=SpacePlayerHandler.insideArea(event.getPlayer());
             if (insideArea == true) {
                 if (inArea.containsKey(event.getPlayer())) {
                     if (inArea.get(event.getPlayer()) == false) {
@@ -149,22 +131,14 @@ public class SpacePlayerListener extends PlayerListener {
                         /* Notify listeners start */
                         AreaLeaveEvent e = new AreaLeaveEvent(event.getPlayer());
                         Bukkit.getServer().getPluginManager().callEvent(e);
-                        if(e.isCancelled()){
-                            event.setCancelled(true);
-                            return;
-                        }
                         /* Notify listeners end */
                         SpaceMessageHandler.debugPrint(Level.INFO, "Player '" + event.getPlayer().getName() + "' left an area.");
                     }
-                } else {
+                } else { 
                     inArea.put(event.getPlayer(), false);
                     /* Notify listeners start */
                     AreaLeaveEvent e = new AreaLeaveEvent(event.getPlayer());
                     Bukkit.getServer().getPluginManager().callEvent(e);
-                    if(e.isCancelled()){
-                        event.setCancelled(true);
-                        return;
-                    }
                     /* Notify listeners end */
                 }
             }
@@ -185,8 +159,25 @@ public class SpacePlayerListener extends PlayerListener {
                 SpaceMessageHandler.debugPrint(Level.INFO, "Cancelled suffocation task for player '" + event.getPlayer().getName() + "'. (reason: left server)");
             }
         }
+       if (inArea.containsKey(event.getPlayer())) {
+           inArea.remove(event.getPlayer());
+       }
     }
     
+    /**
+     * Called when a player quits the game.
+     * 
+     * @param event Event data
+     */
+    @Override
+    public void onPlayerJoin(PlayerJoinEvent event) {
+        boolean insideArea = SpacePlayerHandler.insideArea(event.getPlayer());
+        inArea.put(event.getPlayer(), insideArea);
+        if(!insideArea){
+            SpaceEnterEvent e = new SpaceEnterEvent(event.getPlayer(),event.getPlayer().getLocation(),event.getPlayer().getLocation());
+            Bukkit.getServer().getPluginManager().callEvent(e);
+        }
+    }
     /**
      * Called on player respawn
      * 
@@ -204,4 +195,6 @@ public class SpacePlayerListener extends PlayerListener {
                 }   
         }
     }
+    
+    
 }

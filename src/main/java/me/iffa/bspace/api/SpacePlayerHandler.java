@@ -7,6 +7,8 @@ import java.util.logging.Level;
 // Bukkit Imports
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -130,7 +132,22 @@ public class SpacePlayerHandler {
         }
         return true;
     }
-        
+    
+    public static boolean insideArea(Player player){
+        int i = 0;
+        Block block = player.getLocation().getBlock().getRelative(BlockFace.UP);
+        boolean insideArea = false;
+        while (i < SpaceConfigHandler.getRoomHeight(player.getWorld())) {
+            if (block.getTypeId() != 0) {
+                insideArea = true;
+                i = 0;
+                break;
+            }
+            i++;
+            block = block.getRelative(BlockFace.UP);
+        }
+        return insideArea;
+    }
     /**
      * Enum to make things easier.
      */
