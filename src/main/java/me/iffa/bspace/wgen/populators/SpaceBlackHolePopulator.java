@@ -36,8 +36,8 @@ public class SpaceBlackHolePopulator extends BlockPopulator {
             short[] blockIds = new short[16*16*128];
             int chunkX = source.getX();
             int chunkZ = source.getZ();
-            int x = (source.getX() << 4) + random.nextInt(16);
-            int z = (source.getZ() << 4) + random.nextInt(16);
+            int x = random.nextInt(16);
+            int z = random.nextInt(16);
             int y = random.nextInt(127);
             blockIds[(x * 16 + z) * 128 + y] = (short) new BlackHole(Bukkit.getPluginManager().getPlugin("bSpace")).getBlockId();
             SpoutManager.getChunkDataManager().setCustomBlockIds(world, chunkX, chunkZ, blockIds);
