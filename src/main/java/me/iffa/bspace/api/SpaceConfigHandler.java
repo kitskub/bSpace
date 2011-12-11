@@ -9,6 +9,7 @@ import me.iffa.bspace.wgen.planets.PlanetsChunkGenerator;
 
 // Bukkit Imports
 import org.bukkit.World;
+import org.bukkit.Bukkit;
 
 // Java Imports
 import java.net.MalformedURLException;
@@ -17,7 +18,6 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import org.bukkit.Bukkit;
 
 /**
  * Static methods to use internally (and externally, why not?) to handle world-specific configuration.
@@ -357,7 +357,7 @@ public class SpaceConfigHandler {
         if (id.equalsIgnoreCase("planets")) {
             return true;
         }
-        return SpaceConfig.getConfig(ConfigFile.IDS).getBoolean("ids" + id + ".generation.generateasteroids", (Boolean) Defaults.ASTEROIDS_ENABLED.getDefault());
+        return SpaceConfig.getConfig(ConfigFile.IDS).getBoolean("ids." + id + ".generation.generateasteroids", (Boolean) Defaults.ASTEROIDS_ENABLED.getDefault());
     }
 
     /**
@@ -486,6 +486,9 @@ public class SpaceConfigHandler {
      * @return True if generateplantes=true
      */
     public static boolean getGeneratePlanets(String id) {
+        if (id.equalsIgnoreCase("planets")) {
+            return (Boolean) Defaults.GENERATE_PLANETS.getDefault();
+        }
         return SpaceConfig.getConfig(ConfigFile.IDS).getBoolean("ids." + id + ".generation.generateplanets", (Boolean) Defaults.GENERATE_PLANETS.getDefault());
     }
 

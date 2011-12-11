@@ -8,6 +8,7 @@ import me.iffa.bspace.wgen.blocks.BlackHole;
 // Bukkit Imports
 import org.bukkit.Chunk;
 import org.bukkit.event.world.ChunkLoadEvent;
+import org.bukkit.event.world.ChunkPopulateEvent;
 import org.bukkit.event.world.WorldListener;
 
 // Spout Imports
@@ -30,6 +31,28 @@ public class BlackHoleScannerListener extends WorldListener {
         if (!SpaceWorldHandler.isSpaceWorld(event.getWorld())) {
             return;
         }
+        if(event.isNewChunk()){
+            return;
+        }
+        Chunk chunk = event.getChunk();
+        for (int x = 0; x < 16; x++) {
+            for (int y = 0; y < 128; y++) {
+                for (int z = 0; z < 16; z++) {
+                    SpoutBlock block = (SpoutBlock) chunk.getBlock(x, y, z);
+                    if (block.getBlockType() instanceof BlackHole && !BlackHole.getHolesList().contains(block)) {
+                        BlackHole.getHolesList().add(block);
+                    }
+                }
+            }
+        }
+    }
+    
+    @Override
+    public void onChunkPopulate(ChunkPopulateEvent event){
+        if (!SpaceWorldHandler.isSpaceWorld(event.getWorld())) {
+            return;
+        }
+        
         Chunk chunk = event.getChunk();
         for (int x = 0; x < 16; x++) {
             for (int y = 0; y < 128; y++) {

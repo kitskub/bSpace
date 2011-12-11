@@ -14,7 +14,6 @@ import java.util.logging.Level;
 
 // bSpace Imports
 import me.iffa.bspace.api.SpaceMessageHandler;
-import me.iffa.bspace.api.schematic.Schematic;
 
 // Bukkit Imports
 import org.bukkit.Location;
@@ -61,7 +60,7 @@ public class SpaceSchematicHandler {
      * @param origin Location the schematic should be placed to
      */
     public static void placeSchematic(Schematic schematic, Location origin) {
-        // TODO: Schematic placing code (WILL GET MESSY D:)
+        //TODO Schematic placing code (WILL GET MESSY D:)
         Map<BlockVector, Map<String, Tag>> tileEntitiesMap = new HashMap<BlockVector, Map<String, Tag>>();
         Map<Location, Map<Material, MaterialData>> blocksMap = new HashMap<Location, Map<Material, MaterialData>>();
         for (Tag tag : schematic.getTileEntities()) {

@@ -18,7 +18,7 @@ public class SpaceMessageHandler {
     // Variables
     private static final Logger log = Logger.getLogger("Minecraft");
     private static String printPrefix = "[bSpace]";
-
+    
     /**
      * Prints a message to the console.
      * 
@@ -36,6 +36,7 @@ public class SpaceMessageHandler {
      * @param message Message to print
      */
     public static void debugPrint(Level level, String message) {
+        
         if (SpaceConfigHandler.getDebugging()) {
             log.log(level, printPrefix + " " + message);
         }

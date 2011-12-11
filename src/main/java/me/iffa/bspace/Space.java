@@ -181,7 +181,8 @@ public class Space extends JavaPlugin {
             pm.registerEvent(Event.Type.CUSTOM_EVENT, new SpaceSpoutCraftListener(), Event.Priority.Normal, this); //SpoutCraft Listener
             pm.registerEvent(Event.Type.CUSTOM_EVENT, new SpaceSpoutAreaListener(), Event.Priority.Normal, this); //Area Listener
             pm.registerEvent(Event.Type.CUSTOM_EVENT, new SpaceSpoutKeyListener(), Event.Priority.Normal, this); //Key Listener
-            pm.registerEvent(Event.Type.CHUNK_LOAD, new BlackHoleScannerListener(), Event.Priority.Normal, this); // Black hole scanner
+            //pm.registerEvent(Event.Type.CHUNK_LOAD, new BlackHoleScannerListener(), Event.Priority.Monitor, this); // Black hole scanner
+            pm.registerEvent(Event.Type.CHUNK_POPULATED, new BlackHoleScannerListener(), Event.Priority.Monitor, this); // Black hole scanner
             pm.registerEvent(Event.Type.PLAYER_MOVE, new BlackHolePlayerListener(), Event.Priority.Normal, this);
             SpaceMessageHandler.debugPrint(Level.INFO, "Registered events (Spout).");
         }
@@ -208,7 +209,7 @@ public class Space extends JavaPlugin {
         }
         SpaceWorldHandler.checkWorld(worldName);
         if (!realID) {
-            return new PlanetsChunkGenerator("planets", false);
+            return new PlanetsChunkGenerator("planets");
         }
         return new PlanetsChunkGenerator(id);
     }
