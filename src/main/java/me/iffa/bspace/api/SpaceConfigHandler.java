@@ -2,6 +2,8 @@
 package me.iffa.bspace.api;
 
 // bSpace Imports
+import java.io.IOException;
+import java.net.URLConnection;
 import me.iffa.bspace.config.SpaceConfig.Defaults;
 import me.iffa.bspace.config.SpaceConfig;
 import me.iffa.bspace.config.SpaceConfig.ConfigFile;
@@ -60,7 +62,7 @@ public class SpaceConfigHandler {
      */
     public static boolean getRequireHelmet(String id) {
         if (id.equalsIgnoreCase("planets")) {
-            return false;
+            return (Boolean) Defaults.REQUIRE_HELMET.getDefault();
         }
         return SpaceConfig.getConfig(ConfigFile.IDS).getBoolean("ids." + id + ".helmet.required", (Boolean) Defaults.REQUIRE_HELMET.getDefault());
     }
@@ -89,7 +91,7 @@ public class SpaceConfigHandler {
      */
     public static boolean getRequireSuit(String id) {
         if (id.equalsIgnoreCase("planets")) {
-            return false;
+            return (Boolean) Defaults.REQUIRE_SUIT.getDefault();
         }
         return SpaceConfig.getConfig(ConfigFile.IDS).getBoolean("ids." + id + ".suit.required", (Boolean) Defaults.REQUIRE_SUIT.getDefault());
     }
@@ -136,7 +138,7 @@ public class SpaceConfigHandler {
      */
     public static boolean allowHostileMobs(String id) {
         if (id.equalsIgnoreCase("planets")) {
-            return false;
+            return (Boolean) Defaults.HOSTILE_MOBS_ALLOWED.getDefault();
         }
         return SpaceConfig.getConfig(ConfigFile.IDS).getBoolean("ids." + id + ".hostilemobs", (Boolean) Defaults.HOSTILE_MOBS_ALLOWED.getDefault());
     }
@@ -165,7 +167,7 @@ public class SpaceConfigHandler {
      */
     public static boolean allowNeutralMobs(String id) {
         if (id.equalsIgnoreCase("planets")) {
-            return true;
+            return (Boolean) Defaults.NEUTRAL_MOBS_ALLOWED.getDefault();
         }
         return SpaceConfig.getConfig(ConfigFile.IDS).getBoolean("ids." + id + ".neutralmobs", (Boolean) Defaults.NEUTRAL_MOBS_ALLOWED.getDefault());
     }
@@ -194,7 +196,7 @@ public class SpaceConfigHandler {
      */
     public static boolean forceNight(String id) {
         if (id.equalsIgnoreCase("planets")) {
-            return true;
+            return (Boolean) Defaults.FORCE_NIGHT.getDefault();
         }
         return SpaceConfig.getConfig(ConfigFile.IDS).getBoolean("ids." + id + ".alwaysnight", (Boolean) Defaults.FORCE_NIGHT.getDefault());
     }
@@ -229,7 +231,7 @@ public class SpaceConfigHandler {
             PlanetsChunkGenerator theGen = (PlanetsChunkGenerator) world.getGenerator();
             return getRoomHeight(theGen.ID);
         }
-        return 5;
+        return (Integer) Defaults.ROOM_HEIGHT.getDefault();
     }
 
     /**
@@ -241,7 +243,7 @@ public class SpaceConfigHandler {
      */
     public static int getRoomHeight(String id) {
         if (id.equalsIgnoreCase("planets")) {
-            return 5;
+            return (Integer) Defaults.ROOM_HEIGHT.getDefault();
         }
         return SpaceConfig.getConfig(ConfigFile.IDS).getInt("ids." + id + ".maxroomheight", (Integer) Defaults.ROOM_HEIGHT.getDefault());
     }
@@ -258,7 +260,7 @@ public class SpaceConfigHandler {
             PlanetsChunkGenerator theGen = (PlanetsChunkGenerator) world.getGenerator();
             return allowWeather(theGen.ID);
         }
-        return false;
+        return (Boolean) Defaults.ALLOW_WEATHER.getDefault();
     }
 
     /**
@@ -270,7 +272,7 @@ public class SpaceConfigHandler {
      */
     public static boolean allowWeather(String id) {
         if (id.equalsIgnoreCase("planets")) {
-            return false;
+            return (Boolean) Defaults.ALLOW_WEATHER.getDefault();
         }
         return SpaceConfig.getConfig(ConfigFile.IDS).getBoolean("ids." + id + ".weather", (Boolean) Defaults.ALLOW_WEATHER.getDefault());
     }
@@ -287,7 +289,7 @@ public class SpaceConfigHandler {
             PlanetsChunkGenerator theGen = (PlanetsChunkGenerator) world.getGenerator();
             return getGlowstoneChance(theGen.ID);
         }
-        return 1;
+        return (Integer) Defaults.GLOWSTONE_CHANCE.getDefault();
     }
 
     /**
@@ -299,7 +301,7 @@ public class SpaceConfigHandler {
      */
     public static int getGlowstoneChance(String id) {
         if (id.equalsIgnoreCase("planets")) {
-            return 1;
+            return (Integer) Defaults.GLOWSTONE_CHANCE.getDefault();
         }
         return SpaceConfig.getConfig(ConfigFile.IDS).getInt("ids." + id + ".generation.glowstonechance", (Integer) Defaults.GLOWSTONE_CHANCE.getDefault());
     }
@@ -344,7 +346,7 @@ public class SpaceConfigHandler {
             PlanetsChunkGenerator theGen = (PlanetsChunkGenerator) world.getGenerator();
             return getAsteroidsEnabled(theGen.ID);
         }
-        return true;
+        return (Boolean) Defaults.ASTEROIDS_ENABLED.getDefault();
     }
 
     /**
@@ -355,7 +357,7 @@ public class SpaceConfigHandler {
      */
     public static boolean getAsteroidsEnabled(String id) {
         if (id.equalsIgnoreCase("planets")) {
-            return true;
+            return (Boolean) Defaults.ASTEROIDS_ENABLED.getDefault();
         }
         return SpaceConfig.getConfig(ConfigFile.IDS).getBoolean("ids." + id + ".generation.generateasteroids", (Boolean) Defaults.ASTEROIDS_ENABLED.getDefault());
     }
@@ -381,7 +383,7 @@ public class SpaceConfigHandler {
             PlanetsChunkGenerator theGen = (PlanetsChunkGenerator) world.getGenerator();
             return getSatellitesEnabled(theGen.ID);
         }
-        return true;
+        return (Boolean) Defaults.SATELLITES_ENABLED.getDefault();
     }
 
     /**
@@ -393,7 +395,7 @@ public class SpaceConfigHandler {
      */
     public static boolean getSatellitesEnabled(String id) {
         if (id.equalsIgnoreCase("planets")) {
-            return true;
+            return (Boolean) Defaults.SATELLITES_ENABLED.getDefault();
         }
         return SpaceConfig.getConfig(ConfigFile.IDS).getBoolean("ids." + id + ".generation.generatesatellites", (Boolean) Defaults.SATELLITES_ENABLED.getDefault());
     }
@@ -410,7 +412,7 @@ public class SpaceConfigHandler {
             PlanetsChunkGenerator theGen = (PlanetsChunkGenerator) world.getGenerator();
             return getSatelliteChance(theGen.ID);
         }
-        return 1;
+        return (Integer) Defaults.SATELLITE_CHANCE.getDefault();
     }
 
     /**
@@ -422,7 +424,7 @@ public class SpaceConfigHandler {
      */
     public static int getSatelliteChance(String id) {
         if (id.equalsIgnoreCase("planets")) {
-            return 1;
+            return (Integer) Defaults.SATELLITE_CHANCE.getDefault();
         }
         return SpaceConfig.getConfig(ConfigFile.IDS).getInt("ids." + id + ".generation.satellitechance", (Integer) Defaults.SATELLITE_CHANCE.getDefault());
     }
@@ -437,10 +439,10 @@ public class SpaceConfigHandler {
         try {
             URL url = new URL(texture);
             URI toURI = url.toURI();
+            url.openConnection();
         } catch (MalformedURLException ex) {
-            return (String) Defaults.TEXTURE_PACK.getDefault();
         } catch (URISyntaxException ex) {
-            return (String) Defaults.TEXTURE_PACK.getDefault();
+        } catch (IOException ex){
         }
         return texture.isEmpty() ? (String) Defaults.TEXTURE_PACK.getDefault() : texture;
     }
@@ -475,7 +477,7 @@ public class SpaceConfigHandler {
             PlanetsChunkGenerator theGen = (PlanetsChunkGenerator) world.getGenerator();
             return theGen.GENERATE;
         }
-        return true;
+        return (Boolean) Defaults.GENERATE_PLANETS.getDefault();
     }
 
     /**
