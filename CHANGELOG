@@ -18,13 +18,13 @@ New in version 2 (not a final changelog):
 -Merged both asteroid populators together to save classes
 -Rewrote planet generator to correctly work with multiple planet worlds
 -Switched to the new YamlConfiguration & merged configuration file handlers
+-Commands now have a gold/gray color scheme instead of green/dark green
 -Moved suit & helmet checks to their own method to clean up onPlayerMove for other features (however it is still messy)
--Cleaned up the code by removing useless variables, adding JavaDocs etc (TODO: go through config handler)
+-Cleaned up the code by removing useless variables, adding JavaDocs etc
 -Renamed SpaceListener to SpaceMiscListener and removed an useless implements (API)
 -Silverfish & cave spiders will no longer spawn in space (endermen will, they are aliens)
 -Updated Pail tab, it is now pretty
 -New SpaceLeaveEvent and TeleportToSpace has been changed to SpaceEnterEvent
--Suffocation stuff fixed
 -Made SpaceWorldHandler static
 
 -Removed nethermode since environment is now completely decided by the world manager used
@@ -32,5 +32,6 @@ New in version 2 (not a final changelog):
 -Fixed helmet giving not working like it should
 -Fixed suffocating not stopping after death (actually fixed in v1.4_2, but not in the changelog)
 -Fixed zombies in space not receiving an alien skin
+-Fixed some bugs with suffocation
 
 NOTE: When making final changelogs to devbukkit etc, use this as reference.
