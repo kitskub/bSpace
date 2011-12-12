@@ -30,12 +30,12 @@ public class SpaceHelpCommand extends SpaceCommand {
      */
     @Override
     public void command() {
-        sender.sendMessage(ChatColor.DARK_GREEN + "[bSpace] Usage:");
-        sender.sendMessage(ChatColor.GREEN + "/space enter [world] - Go to space (default world or given one)");
-        sender.sendMessage(ChatColor.GREEN + "/space back - Leave space or go back where you were in space");
-        sender.sendMessage(ChatColor.GREEN + "/space list - Brings up a list of all space worlds");
-        sender.sendMessage(ChatColor.GREEN + "/space help - Brings up this help message");
-        sender.sendMessage(ChatColor.GREEN + "/space about - About bSpace");
-        sender.sendMessage(ChatColor.DARK_GREEN + "If you have questions, please visit " + ChatColor.GRAY + "bit.ly/banspace" + ChatColor.DARK_GREEN + "!");
+        sender.sendMessage(ChatColor.GOLD + "[bSpace] Usage:");
+        sender.sendMessage(ChatColor.GRAY + " /space enter [world] - Go to space (default world or given one)");
+        sender.sendMessage(ChatColor.GRAY + " /space back - Leave space or go back where you were in space");
+        sender.sendMessage(ChatColor.GRAY + " /space list - Brings up a list of all space worlds");
+        sender.sendMessage(ChatColor.GRAY + " /space help - Brings up this help message");
+        sender.sendMessage(ChatColor.GRAY + " /space about [credits] - About bSpace");
+        sender.sendMessage(ChatColor.GRAY + "If you have questions, please visit " + ChatColor.GOLD + "bit.ly/banspace" + ChatColor.GRAY + "!");
     }
 }

@@ -130,6 +130,15 @@ public class SpaceLangHandler {
     public static String getWorldNotSpaceMessage() {
         return SpaceConfig.getConfig(ConfigFile.LANG).getString("commands.worldnotspace");
     }
+    
+    /**
+     * Gets the no spaceworlds message.
+     * 
+     * @return Localized message
+     */
+    public static String getNoSpaceLoaded() {
+        return SpaceConfig.getConfig(ConfigFile.LANG).getString("commands.nospaceworlds");
+    }
 
     /**
      * Gets the list of space message.

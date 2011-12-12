@@ -52,7 +52,7 @@ public class SpaceCommandHandler implements CommandExecutor {
         }
         /* Notify listeners end */
         if (!(sender instanceof Player)) {
-            SpaceMessageHandler.debugPrint(Level.INFO, "An unknown person tried to use the command.");
+            SpaceMessageHandler.debugPrint(Level.INFO, "An unknown person tried to use the command. (sorry if it's you, console!)");
             return true;
         }
         Player player = (Player) sender;
@@ -76,7 +76,7 @@ public class SpaceCommandHandler implements CommandExecutor {
             // SpaceHelpCommand, 1 argument
             SpaceHelpCommand helpCommand = new SpaceHelpCommand(plugin, sender, args);
             return true;
-        } else if (args.length == 1 && args[0].equalsIgnoreCase("about")) {
+        } else if ((args.length == 1 && args[0].equalsIgnoreCase("about")) || (args.length == 2 && args[0].equalsIgnoreCase("about") && args[1].equalsIgnoreCase("credits"))) {
             // SpaceAboutCommand, 1 argument
             SpaceAboutCommand aboutCommand = new SpaceAboutCommand(plugin, sender, args);
             return true;

@@ -3,6 +3,7 @@ package me.iffa.bspace.commands;
 
 // bSpace Imports
 import me.iffa.bspace.Space;
+import me.iffa.bspace.api.SpaceWorldHandler;
 
 // Bukkit Imports
 import org.bukkit.ChatColor;
@@ -30,10 +31,16 @@ public class SpaceAboutCommand extends SpaceCommand {
      */
     @Override
     public void command() {
-        sender.sendMessage(ChatColor.DARK_GREEN + Space.getPrefix() + " About bSpace:");
-        sender.sendMessage(ChatColor.GREEN + "- You're running version " + ChatColor.DARK_GREEN + plugin.getDescription().getVersion());
-        sender.sendMessage(ChatColor.GREEN + "- All " + ChatColor.DARK_GREEN + plugin.getDescription().getAuthors().size() + " developers/contributors " + ChatColor.GREEN + "thank you:");
-        sender.sendMessage("  " + ChatColor.GREEN + plugin.getDescription().getAuthors().toString().replace("[", "").replace("]", ""));
+        if (args.length < 2) {
+            sender.sendMessage(ChatColor.GOLD + Space.getPrefix() + " About:");
+            sender.sendMessage(ChatColor.GOLD + "-" + ChatColor.GRAY + " You're running version " + ChatColor.GOLD + plugin.getDescription().getVersion());
+            sender.sendMessage(ChatColor.GOLD + "-" + ChatColor.GRAY + " There are currently "+ ChatColor.GOLD + SpaceWorldHandler.getSpaceWorlds().size() + ChatColor.GRAY + " space worlds loaded");
+        } else {
+            sender.sendMessage(ChatColor.GOLD + "-" + ChatColor.GRAY + " Main developers:");
+            sender.sendMessage(ChatColor.GOLD + "    iffa, kitskub");
+            sender.sendMessage(ChatColor.GOLD + "-" + ChatColor.GRAY + " Other contributors (in no particular order):");
+            sender.sendMessage(ChatColor.GOLD + "    Canis85, BR, SwearWord, HACKhalo2");
+        }
     }
     
 }

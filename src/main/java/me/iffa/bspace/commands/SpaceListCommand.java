@@ -45,15 +45,15 @@ public class SpaceListCommand extends SpaceCommand {
             return;
         }
         if (SpaceWorldHandler.getSpaceWorlds().isEmpty()) {
-            sender.sendMessage(ChatColor.RED + "No space worlds are loaded :(");
+            sender.sendMessage(ChatColor.RED + SpaceLangHandler.getNoSpaceLoaded());
             return;
         }
-        sender.sendMessage(ChatColor.GREEN + Space.getPrefix() + " " + SpaceLangHandler.getListOfSpaceMessage());
+        sender.sendMessage(ChatColor.GOLD + Space.getPrefix() + " " + SpaceLangHandler.getListOfSpaceMessage());
         List<String> spaceWorlds = new ArrayList<String>();
         for (World world : SpaceWorldHandler.getSpaceWorlds()) {
             spaceWorlds.add(world.getName());
         }
-        sender.sendMessage(ChatColor.GREEN + spaceWorlds.toString().replace("]", "").replace("[", ""));
+        sender.sendMessage(ChatColor.GRAY + spaceWorlds.toString().replace("]", "").replace("[", ""));
         return;
     }
 }

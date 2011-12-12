@@ -51,7 +51,7 @@ public class SpaceEnterCommand extends SpaceCommand {
         if (args.length == 1) {
             if (SpacePlayerHandler.hasPermission("bSpace.teleport.enter", player)) {
                 if (SpaceWorldHandler.getSpaceWorlds().isEmpty()) {
-                    player.sendMessage(ChatColor.RED + "No space worlds are loaded! :(");
+                    player.sendMessage(ChatColor.RED + SpaceLangHandler.getNoSpaceLoaded());
                     return;
                 }
                 if (SpaceWorldHandler.getSpaceWorlds().get(0) == player.getWorld()) {
@@ -107,6 +107,5 @@ public class SpaceEnterCommand extends SpaceCommand {
             }
         }
         SpaceMessageHandler.sendNoPermissionMessage(player);
-        return;
     }
 }

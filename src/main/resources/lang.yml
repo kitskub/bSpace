@@ -24,6 +24,7 @@ commands:
   worldnotspace: 'The world is not a space world!'
   worldnotfound: 'The world was not found!'
   listofspace: 'List of spaceworlds:'
+  nospaceworlds: 'No space worlds are loaded! :('
 # Other strings
 other:
   nopermission: "You don't have permission!"
