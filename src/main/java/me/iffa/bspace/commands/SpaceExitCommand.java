@@ -63,7 +63,9 @@ public class SpaceExitCommand extends SpaceCommand {
                     location = SpaceEnterCommand.exitDest.get(player);
                     SpaceMessageHandler.debugPrint(Level.INFO, "Teleported player '" + player.getName() + "' out of space.");
                     player.teleport(location);
-                    SpaceSpoutHandler.setOrReset(plugin, (SpoutPlayer)player, location);
+                    if (Bukkit.getPluginManager().getPlugin("Spout") != null) {
+                        SpaceSpoutHandler.setOrReset(plugin, (SpoutPlayer)player, location);
+                    }
                     return;
                 } else {
                     SpaceEnterCommand.exitDest.put(player, Bukkit.getServer().getWorlds().get(0).getSpawnLocation());
