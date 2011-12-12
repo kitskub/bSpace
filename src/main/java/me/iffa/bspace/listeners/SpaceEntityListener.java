@@ -64,33 +64,6 @@ public class SpaceEntityListener extends EntityListener {
     }
 
     /**
-     * Called when an entity "attempts" to take damage.
-     * 
-     * @param event Event data
-     */
-    @Override
-    public void onEntityDamage(EntityDamageEvent event) {
-        if (event.isCancelled()) {
-            return;
-        }
-        if (event.getEntity() instanceof Player && SpaceWorldHandler.isInAnySpace((Player) event.getEntity()) && event.getCause() == DamageCause.VOID) {
-            Player player = (Player) event.getEntity();
-            player.setHealth(0);
-            SpaceMessageHandler.debugPrint(Level.INFO, "Killed player '" + player.getName() + "' in void.");
-        }
-        if (event.getEntity() instanceof Player && event.getCause() == DamageCause.DROWNING) {
-            Player player = (Player) event.getEntity();
-            if(SpaceConfigHandler.getStopDrowning()){
-                for(World world:SpaceConfigHandler.getStopDrowningWorlds()){
-                    if(world==player.getWorld()&&player.getInventory().getHelmet().getTypeId() == SpaceConfigHandler.getHelmetBlock()){
-                        event.setCancelled(true);
-                    }
-                }
-            }
-        }
-    }
-
-    /**
      * Called when an entity dies.
      * 
      * @param event Event data

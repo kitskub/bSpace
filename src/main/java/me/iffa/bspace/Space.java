@@ -161,7 +161,6 @@ public class Space extends JavaPlugin {
         SpaceMessageHandler.debugPrint(Level.INFO, "Registered events (other).");
 
         // Registering entity & player events.
-        pm.registerEvent(Event.Type.ENTITY_DAMAGE, entityListener, Event.Priority.High, this);
         pm.registerEvent(Event.Type.ENTITY_DEATH, entityListener, Event.Priority.Normal, this);
         pm.registerEvent(Event.Type.CREATURE_SPAWN, entityListener, Event.Priority.Highest, this);
         pm.registerEvent(Event.Type.PLAYER_TELEPORT, playerListener, Event.Priority.Normal, this);
