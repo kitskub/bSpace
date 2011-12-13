@@ -173,10 +173,8 @@ public class SpacePlayerListener extends PlayerListener {
     public void onPlayerJoin(PlayerJoinEvent event) {
         boolean insideArea = SpacePlayerHandler.insideArea(event.getPlayer());
         inArea.put(event.getPlayer(), insideArea);
-        if(!insideArea){
-            SpaceEnterEvent e = new SpaceEnterEvent(event.getPlayer(),event.getPlayer().getLocation(),event.getPlayer().getLocation());
-            Bukkit.getServer().getPluginManager().callEvent(e);
-        }
+        SpaceEnterEvent e = new SpaceEnterEvent(event.getPlayer(),null,event.getPlayer().getLocation());
+        Bukkit.getServer().getPluginManager().callEvent(e);
     }
     /**
      * Called on player respawn
@@ -192,7 +190,9 @@ public class SpacePlayerListener extends PlayerListener {
                 }
                 if (SpaceConfigHandler.isSuitGiven()) {
                     SpacePlayerHandler.giveSpaceSuit(SpaceConfigHandler.getArmorType(), event.getPlayer());
-                }   
+                }
+                SpaceEnterEvent e = new SpaceEnterEvent(event.getPlayer(),null,event.getRespawnLocation());
+                Bukkit.getServer().getPluginManager().callEvent(e);
         }
     }
     

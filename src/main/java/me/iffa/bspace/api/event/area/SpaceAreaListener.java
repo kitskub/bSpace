@@ -28,7 +28,7 @@ public class SpaceAreaListener extends CustomEventListener {
     }
     
     /**
-     * Called when enter Space. If player is joining server, location from and location to will be the same.
+     * Called when enter Space. If player is joining server or respawning, location from will be empty.
      * 
      * @param spaceEnterEvent Event data
      */

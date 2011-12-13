@@ -18,11 +18,11 @@ public class SpaceEnterEvent extends SpaceWorldAreaEvent{
     private Location from = null;
 
     /**
-     * Constructor for
+     * Constructor for SpaceEnterEvent
      * 
      * 
      * @param player Player
-     * @param from Where the player teleports from
+     * @param from Where the player teleports from null if from respawn or server join
      * @param to Where the player teleports to
      */
     public SpaceEnterEvent(Player player, Location from, Location to) {
