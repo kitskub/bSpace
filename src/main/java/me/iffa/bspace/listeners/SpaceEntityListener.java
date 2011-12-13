@@ -26,6 +26,7 @@ import org.bukkit.event.entity.EntityListener;
  * @author iffa
  */
 public class SpaceEntityListener extends EntityListener {
+
     /**
      * Called when a creature attempts to spawn.
      * 
@@ -58,6 +59,25 @@ public class SpaceEntityListener extends EntityListener {
                         || event.getCreatureType() == CreatureType.SQUID
                         || event.getCreatureType() == CreatureType.WOLF) {
                     event.setCancelled(true);
+                }
+            }
+        }
+    }
+
+    /**
+     * Called when an entity (attempts) to take damage.
+     * 
+     * @param event Event data
+     */
+    @Override
+    public void onEntityDamage(EntityDamageEvent event) {
+        if (event.getEntity() instanceof Player && event.getCause() == DamageCause.DROWNING) {
+            Player player = (Player) event.getEntity();
+            if (SpaceConfigHandler.getStopDrowning()) {
+                for (World world : SpaceConfigHandler.getStopDrowningWorlds()) {
+                    if (world == player.getWorld() && player.getInventory().getHelmet().getTypeId() == SpaceConfigHandler.getHelmetBlock()) {
+                        event.setCancelled(true);
+                    }
                 }
             }
         }
