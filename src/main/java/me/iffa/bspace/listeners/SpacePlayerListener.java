@@ -184,15 +184,17 @@ public class SpacePlayerListener extends PlayerListener {
     @Override
     public void onPlayerRespawn(PlayerRespawnEvent event) {
         if(SpaceWorldHandler.isSpaceWorld(event.getRespawnLocation().getWorld())){
-                if (SpaceConfigHandler.isHelmetGiven()) {
-                    event.getPlayer().getInventory().setHelmet(
-                            new ItemStack(SpaceConfigHandler.getHelmetBlock(), 1));
-                }
-                if (SpaceConfigHandler.isSuitGiven()) {
-                    SpacePlayerHandler.giveSpaceSuit(SpaceConfigHandler.getArmorType(), event.getPlayer());
-                }
-                SpaceEnterEvent e = new SpaceEnterEvent(event.getPlayer(),null,event.getRespawnLocation());
-                Bukkit.getServer().getPluginManager().callEvent(e);
+            if (SpaceConfigHandler.isHelmetGiven()) {
+                event.getPlayer().getInventory().setHelmet(
+                        new ItemStack(SpaceConfigHandler.getHelmetBlock(), 1));
+            }
+            if (SpaceConfigHandler.isSuitGiven()) {
+                SpacePlayerHandler.giveSpaceSuit(SpaceConfigHandler.getArmorType(), event.getPlayer());
+            }
+            boolean insideArea = SpacePlayerHandler.insideArea(event.getPlayer());
+            inArea.put(event.getPlayer(), insideArea);
+            SpaceEnterEvent e = new SpaceEnterEvent(event.getPlayer(),null,event.getRespawnLocation());
+            Bukkit.getServer().getPluginManager().callEvent(e);
         }
     }
     
