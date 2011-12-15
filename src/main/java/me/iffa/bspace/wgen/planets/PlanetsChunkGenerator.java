@@ -22,6 +22,7 @@ import me.iffa.bspace.wgen.populators.SpaceSchematicPopulator;
 
 // Bukkit Imports
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.generator.BlockPopulator;
@@ -372,5 +373,9 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
             }
         }
         return retVal;
+    }
+    @Override
+    public Location getFixedSpawnLocation(World world, Random random){
+        return new Location(world,7,70,7);
     }
 }
