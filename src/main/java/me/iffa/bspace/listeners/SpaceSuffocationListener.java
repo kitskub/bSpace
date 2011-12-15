@@ -4,10 +4,8 @@ package me.iffa.bspace.listeners;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
 import me.iffa.bspace.Space;
 import me.iffa.bspace.api.SpaceConfigHandler;
-import me.iffa.bspace.api.SpaceMessageHandler;
 import me.iffa.bspace.api.event.area.AreaEnterEvent;
 import me.iffa.bspace.api.event.area.AreaLeaveEvent;
 import me.iffa.bspace.api.event.area.SpaceAreaListener;
@@ -24,55 +22,55 @@ import org.bukkit.entity.Player;
 public class SpaceSuffocationListener extends SpaceAreaListener {
     private static Map<Player,Boolean> isVulnerable = new HashMap<Player,Boolean>();
     public static Map<Player, Integer> taskid = new HashMap<Player, Integer>();
-    private Space plugin;
+    private static Space plugin = (Space) Bukkit.getPluginManager().getPlugin("bSpace");
 
     public SpaceSuffocationListener(Space plugin) {
-        this.plugin = plugin;
+        SpaceSuffocationListener.plugin = plugin;
     }
     
     @Override
     public void onAreaEnter(AreaEnterEvent event){
-        if (isVulnerable.containsKey(event.getPlayer())) {
-            if (isVulnerable.get(event.getPlayer()) == true) {
-                Bukkit.getScheduler().cancelTask(taskid.get(event.getPlayer()));
-                isVulnerable.put(event.getPlayer(), false);
-            }
-        }        
+        stopSuffocating(event.getPlayer());
     }
 
     @Override
     public void onAreaLeave(AreaLeaveEvent event) {
-        if (!event.getPlayer().hasPermission("bSpace.ignoresuitchecks")) {
-            Player player = event.getPlayer();
-            boolean suffocatingOn = (SpaceConfigHandler.getRequireHelmet(player.getWorld())||SpaceConfigHandler.getRequireSuit(player.getWorld()));
-            if(suffocatingOn){
-                SuffacationRunnable task = new SuffacationRunnable(player);
-                taskid.put(player, Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, task, 20L, 20L));
-                isVulnerable.put(player, true);
-            }
-        }
+        startSuffocating(event.getPlayer());
     }
 
     @Override
     public void onSpaceLeave(SpaceLeaveEvent event) {
-        if (isVulnerable.containsKey(event.getPlayer())) {
-                if (isVulnerable.get(event.getPlayer()) == true) {
-                    Bukkit.getScheduler().cancelTask(taskid.get(event.getPlayer()));
-                }
-        }
+        stopSuffocating(event.getPlayer());
     }
     
     @Override
-    public void onSpaceEnter(SpaceEnterEvent event) {
-        if (!event.getPlayer().hasPermission("bSpace.ignoresuitchecks")) {
-            Player player = event.getPlayer();
-            boolean suffocatingOn = (SpaceConfigHandler.getRequireHelmet(player.getWorld())||SpaceConfigHandler.getRequireSuit(player.getWorld()));
+    public void onSpaceEnter(SpaceEnterEvent event) {     
+        startSuffocating(event.getPlayer());
+    }
+    
+    public static void setVulnerable(Player player, boolean v){
+        isVulnerable.put(player, v);
+    }
+    
+    public static void startSuffocating(Player player){
+        if (player.hasPermission("bSpace.ignoresuitchecks")) return;
+        boolean suffocatingOn = (SpaceConfigHandler.getRequireHelmet(player.getWorld())||SpaceConfigHandler.getRequireSuit(player.getWorld()));
             if(suffocatingOn){
                 SuffacationRunnable task = new SuffacationRunnable(player);
                 taskid.put(player, Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, task, 20L, 20L));
                 isVulnerable.put(player, true);
             }
-        }
     }
     
+    public static boolean stopSuffocating(Player player){
+        if (isVulnerable.containsKey(player) && Bukkit.getScheduler().isCurrentlyRunning(taskid.get(player))) {
+            if (isVulnerable.get(player) == true) {
+                Bukkit.getScheduler().cancelTask(taskid.get(player));
+                isVulnerable.put(player, false);
+                taskid.remove(player);
+            }
+            return true;
+        }
+        return false;
+    }
 }

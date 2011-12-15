@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.logging.Level;
 
 // bSpace Imports
-import me.iffa.bspace.Space;
 import me.iffa.bspace.api.SpaceConfigHandler;
 import me.iffa.bspace.api.SpaceMessageHandler;
 import me.iffa.bspace.api.SpacePlayerHandler;
@@ -16,13 +15,9 @@ import me.iffa.bspace.api.event.area.AreaEnterEvent;
 import me.iffa.bspace.api.event.area.AreaLeaveEvent;
 import me.iffa.bspace.api.event.area.SpaceLeaveEvent;
 import me.iffa.bspace.api.event.area.SpaceEnterEvent;
-import me.iffa.bspace.economy.Economy;
 
 // Bukkit Imports
-import me.iffa.bspace.runnables.SuffacationRunnable;
 import org.bukkit.Bukkit;
-import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerListener;
@@ -153,11 +148,8 @@ public class SpacePlayerListener extends PlayerListener {
      */
     @Override
     public void onPlayerQuit(PlayerQuitEvent event) {
-        if (SpaceSuffocationListener.taskid.containsKey(event.getPlayer())) {
-            if (Bukkit.getScheduler().isCurrentlyRunning(SpaceSuffocationListener.taskid.get(event.getPlayer()))) {
-                Bukkit.getScheduler().cancelTask(SpaceSuffocationListener.taskid.get(event.getPlayer()));
-                SpaceMessageHandler.debugPrint(Level.INFO, "Cancelled suffocation task for player '" + event.getPlayer().getName() + "'. (reason: left server)");
-            }
+        if(SpaceSuffocationListener.stopSuffocating(event.getPlayer())){
+            SpaceMessageHandler.debugPrint(Level.INFO, "Cancelled suffocation task for player '" + event.getPlayer().getName() + "'. (reason: left server)");
         }
        if (inArea.containsKey(event.getPlayer())) {
            inArea.remove(event.getPlayer());

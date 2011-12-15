@@ -90,11 +90,10 @@ public class SpaceEntityListener extends EntityListener {
      */
     @Override
     public void onEntityDeath(EntityDeathEvent event) {
-        // TODO: Test this code as someone reported this does not work.
+        //TODO Test this code as someone reported this does not work.
         if (event.getEntity() instanceof Player) {
             Player p = (Player) event.getEntity();
-            if (SpaceSuffocationListener.taskid.containsKey(p) && Bukkit.getScheduler().isCurrentlyRunning(SpaceSuffocationListener.taskid.get(p))) {
-                Bukkit.getScheduler().cancelTask(SpaceSuffocationListener.taskid.get(p));
+            if(SpaceSuffocationListener.stopSuffocating(p)){
                 SpaceMessageHandler.debugPrint(Level.INFO, "Cancelled suffocating task for player '" + p.getName() + "' because (s)he died.");
             }
         }
