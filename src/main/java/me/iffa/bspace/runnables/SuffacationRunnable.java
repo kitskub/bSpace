@@ -57,16 +57,16 @@ public class SuffacationRunnable implements Runnable {
             if(suffocating){
                 if (player.getHealth() < 2 && player.getHealth() > 0) {
                     player.setHealth(0);
-                    Bukkit.getScheduler().cancelTask(SpaceSuffocationListener.taskid.get(player));
+                    SpaceSuffocationListener.stopSuffocating(player);
                     return;
                 } else if (player.getHealth() <= 0) {
-                    Bukkit.getScheduler().cancelTask(SpaceSuffocationListener.taskid.get(player));
+                    SpaceSuffocationListener.stopSuffocating(player);
                     return;
                 }
                 player.setHealth(player.getHealth() - 2);
             }
         } else {
-            Bukkit.getScheduler().cancelTask(SpaceSuffocationListener.taskid.get(player));
+            SpaceSuffocationListener.stopSuffocating(player);
         }
     }
 }

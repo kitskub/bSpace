@@ -28,7 +28,7 @@ import java.util.List;
  * @author Jack
  */
 public class SpaceConfigHandler {
-
+    //TODO make ALL returns when not using config be defaults, not just some of them
     /**
      * Checks if debugging mode is enabled.
      * 

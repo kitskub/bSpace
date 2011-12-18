@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import me.iffa.bspace.Space;
 import me.iffa.bspace.api.SpaceConfigHandler;
+import me.iffa.bspace.api.SpacePlayerHandler;
 import me.iffa.bspace.api.event.area.AreaEnterEvent;
 import me.iffa.bspace.api.event.area.AreaLeaveEvent;
 import me.iffa.bspace.api.event.area.SpaceAreaListener;
@@ -44,27 +45,27 @@ public class SpaceSuffocationListener extends SpaceAreaListener {
     }
     
     @Override
-    public void onSpaceEnter(SpaceEnterEvent event) {     
-        startSuffocating(event.getPlayer());
-    }
-    
-    public static void setVulnerable(Player player, boolean v){
-        isVulnerable.put(player, v);
+    public void onSpaceEnter(SpaceEnterEvent event) {
+        if(!SpacePlayerHandler.insideArea(event.getPlayer())){
+            startSuffocating(event.getPlayer());
+        }
     }
     
     public static void startSuffocating(Player player){
         if (player.hasPermission("bSpace.ignoresuitchecks")) return;
         boolean suffocatingOn = (SpaceConfigHandler.getRequireHelmet(player.getWorld())||SpaceConfigHandler.getRequireSuit(player.getWorld()));
-            if(suffocatingOn){
-                SuffacationRunnable task = new SuffacationRunnable(player);
-                taskid.put(player, Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, task, 20L, 20L));
-                isVulnerable.put(player, true);
-            }
+        if(suffocatingOn){
+            SuffacationRunnable task = new SuffacationRunnable(player);
+            int taskInt = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, task, 20L, 20L);
+            taskid.put(player, taskInt);
+            isVulnerable.put(player, true);
+        }
     }
     
     public static boolean stopSuffocating(Player player){
-        if (isVulnerable.containsKey(player) && Bukkit.getScheduler().isCurrentlyRunning(taskid.get(player))) {
-            if (isVulnerable.get(player) == true) {
+        if(!taskid.containsKey(player)) return false;
+        if (isVulnerable.containsKey(player)) {
+            if(isVulnerable.get(player)==true && Bukkit.getScheduler().isQueued(taskid.get(player))){
                 Bukkit.getScheduler().cancelTask(taskid.get(player));
                 isVulnerable.put(player, false);
                 taskid.remove(player);
