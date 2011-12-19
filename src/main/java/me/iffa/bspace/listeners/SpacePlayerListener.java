@@ -35,7 +35,7 @@ import org.bukkit.inventory.ItemStack;
 public class SpacePlayerListener extends PlayerListener {
     // Variables
     private final Map<Player, Boolean> inArea = new HashMap<Player, Boolean>();
-    private final Map<Player, Boolean> fixDupe = new HashMap<Player, Boolean>();
+    //private final Map<Player, Boolean> fixDupe = new HashMap<Player, Boolean>();
 
 
     /**
@@ -49,7 +49,6 @@ public class SpacePlayerListener extends PlayerListener {
             return;
         }
         Player player = event.getPlayer();
-        if (!fixDupe.containsKey(event.getPlayer())) {
             if (SpaceWorldHandler.isSpaceWorld(event.getTo().getWorld()) && event.getTo().getWorld() != player.getWorld()) {
                 /* Notify listeners start */
                 SpaceEnterEvent e = new SpaceEnterEvent(event.getPlayer(), event.getFrom(), event.getTo());
@@ -67,7 +66,6 @@ public class SpacePlayerListener extends PlayerListener {
                 if (SpaceConfigHandler.isSuitGiven()) {
                     SpacePlayerHandler.giveSpaceSuit(SpaceConfigHandler.getArmorType(), player);
                 }
-                fixDupe.put(event.getPlayer(), true);
             } else if (!SpaceWorldHandler.isSpaceWorld(event.getTo().getWorld())
                     && SpaceWorldHandler.isSpaceWorld(event.getFrom().getWorld())) {
                 /* Notify listeners start */
@@ -85,9 +83,6 @@ public class SpacePlayerListener extends PlayerListener {
                     SpacePlayerHandler.giveSpaceSuit("air", player);
                 }
             }
-        } else {
-            fixDupe.clear();
-        }
     }
 
     /**

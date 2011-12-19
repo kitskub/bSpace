@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 
 /**
  * Event data for when a player enters space. 
- * If player is joining server, location from and location to will be the same.
+ * If player is joining server, location from will be null.
  * 
  * @author iffa
  */
