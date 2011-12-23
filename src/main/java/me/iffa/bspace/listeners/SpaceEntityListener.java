@@ -90,7 +90,6 @@ public class SpaceEntityListener extends EntityListener {
      */
     @Override
     public void onEntityDeath(EntityDeathEvent event) {
-        //TODO Test this code as someone reported this does not work.
         if (event.getEntity() instanceof Player) {
             Player p = (Player) event.getEntity();
             if(SpaceSuffocationListener.stopSuffocating(p)){
