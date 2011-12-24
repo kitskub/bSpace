@@ -20,7 +20,7 @@ import org.getspout.spoutapi.block.SpoutBlock;
  * 
  * @author iffamies
  */
-public class BlackHoleScannerListener extends WorldListener {
+public class BlackHoleChunkScannerListener extends WorldListener {
     /**
      * Called when a chunk is loaded.
      * 

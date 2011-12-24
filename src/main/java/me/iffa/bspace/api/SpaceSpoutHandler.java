@@ -2,6 +2,7 @@
 package me.iffa.bspace.api;
 
 // Java Imports
+import java.util.List;
 import java.util.logging.Level;
 
 // bSpace Imports
@@ -11,6 +12,8 @@ import me.iffa.bspace.runnables.SpoutFixRunnable;
 // Bukkit Imports
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 
 // Spout Imports
@@ -69,7 +72,7 @@ public class SpaceSpoutHandler {
     }
 
     /**
-     * Checks if an entity is inside a radius.
+     * Checks if an entity is inside a radius.(Actually within a cuboid with sides radius times 2 blocks long)
      * 
      * @param entity Entity
      * @param centre Center of radius
