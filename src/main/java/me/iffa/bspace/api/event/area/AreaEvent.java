@@ -13,7 +13,7 @@ import org.bukkit.event.Event;
 public abstract class AreaEvent extends Event{
     // Variables
     private static final long serialVersionUID = -316124458220245924L;
-    protected Player player;
+    private Player player;
 
     /**
      * Constructor for AreaEvent.

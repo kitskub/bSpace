@@ -31,15 +31,15 @@ public class SpaceAboutCommand extends SpaceCommand {
      */
     @Override
     public void command() {
-        if (args.length < 2) {
-            sender.sendMessage(ChatColor.GOLD + Space.getPrefix() + " About:");
-            sender.sendMessage(ChatColor.GOLD + "-" + ChatColor.GRAY + " You're running version " + ChatColor.GOLD + plugin.getDescription().getVersion());
-            sender.sendMessage(ChatColor.GOLD + "-" + ChatColor.GRAY + " There are currently "+ ChatColor.GOLD + SpaceWorldHandler.getSpaceWorlds().size() + ChatColor.GRAY + " space worlds loaded");
+        if (getArgs().length < 2) {
+            getSender().sendMessage(ChatColor.GOLD + Space.getPrefix() + " About:");
+            getSender().sendMessage(ChatColor.GOLD + "-" + ChatColor.GRAY + " You're running version " + ChatColor.GOLD + getPlugin().getDescription().getVersion());
+            getSender().sendMessage(ChatColor.GOLD + "-" + ChatColor.GRAY + " There are currently "+ ChatColor.GOLD + SpaceWorldHandler.getSpaceWorlds().size() + ChatColor.GRAY + " space worlds loaded");
         } else {
-            sender.sendMessage(ChatColor.GOLD + "-" + ChatColor.GRAY + " Main developers:");
-            sender.sendMessage(ChatColor.GOLD + "    iffa, kitskub");
-            sender.sendMessage(ChatColor.GOLD + "-" + ChatColor.GRAY + " Other contributors (in no particular order):");
-            sender.sendMessage(ChatColor.GOLD + "    Canis85, BR, SwearWord, HACKhalo2");
+            getSender().sendMessage(ChatColor.GOLD + "-" + ChatColor.GRAY + " Main developers:");
+            getSender().sendMessage(ChatColor.GOLD + "    iffa, kitskub");
+            getSender().sendMessage(ChatColor.GOLD + "-" + ChatColor.GRAY + " Other contributors (in no particular order):");
+            getSender().sendMessage(ChatColor.GOLD + "    Canis85, BR, SwearWord, HACKhalo2");
         }
     }
     

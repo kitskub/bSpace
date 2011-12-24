@@ -22,7 +22,7 @@ global:
     # they won't drown while wearing the helmet
     drowning:
       stopdrowning: false
-      # Ex. [spaceworld1,spaceworld2,nonspaceworld]
+      # For example: [spaceworld1,spaceworld2,nonspaceworld]
       worlds: []
     # Spout features (most features require Spoutcraft)
     spout:

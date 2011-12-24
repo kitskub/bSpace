@@ -50,7 +50,7 @@ public class SpaceExitCommand extends SpaceCommand {
      */
     @Override
     public void command() {
-        Player player = (Player) sender;
+        Player player = (Player) getSender();
         if (SpaceWorldHandler.isInAnySpace(player)) {
             if (SpacePlayerHandler.hasPermission("bSpace.teleport.exit", player)) {
                 if (!Economy.exitCommand(player)) {
@@ -64,13 +64,13 @@ public class SpaceExitCommand extends SpaceCommand {
                     SpaceMessageHandler.debugPrint(Level.INFO, "Teleported player '" + player.getName() + "' out of space.");
                     player.teleport(location);
                     if (Bukkit.getPluginManager().getPlugin("Spout") != null) {
-                        SpaceSpoutHandler.setOrReset(plugin, (SpoutPlayer)player, location);
+                        SpaceSpoutHandler.setOrReset(getPlugin(), (SpoutPlayer)player, location);
                     }
                     return;
                 } else {
                     SpaceEnterCommand.exitDest.put(player, Bukkit.getServer().getWorlds().get(0).getSpawnLocation());
-                    sender.sendMessage(ChatColor.RED + SpaceLangHandler.getNoExitFoundMessage(1));
-                    sender.sendMessage(ChatColor.RED + SpaceLangHandler.getNoExitFoundMessage(2));
+                    getSender().sendMessage(ChatColor.RED + SpaceLangHandler.getNoExitFoundMessage(1));
+                    getSender().sendMessage(ChatColor.RED + SpaceLangHandler.getNoExitFoundMessage(2));
                     return;
                 }
             } else {

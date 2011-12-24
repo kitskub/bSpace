@@ -2,8 +2,6 @@
 package me.iffa.bspace.api;
 
 // bSpace Imports
-import java.io.IOException;
-import java.net.URLConnection;
 import me.iffa.bspace.config.SpaceConfig.Defaults;
 import me.iffa.bspace.config.SpaceConfig;
 import me.iffa.bspace.config.SpaceConfig.ConfigFile;
@@ -14,6 +12,7 @@ import org.bukkit.World;
 import org.bukkit.Bukkit;
 
 // Java Imports
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -28,7 +27,6 @@ import java.util.List;
  * @author Jack
  */
 public class SpaceConfigHandler {
-    //TODO make ALL returns when not using config be defaults, not just some of them
     /**
      * Checks if debugging mode is enabled.
      * 
@@ -559,7 +557,8 @@ public class SpaceConfigHandler {
      * @return True if gravity enabled
      */
     public static List<World> getStopDrowningWorlds() {
-        List<String> strings = SpaceConfig.getConfig(ConfigFile.CONFIG).getList("global.drowning.worlds", new ArrayList<World>());
+        @SuppressWarnings("unchecked")
+        List<String> strings = SpaceConfig.getConfig(ConfigFile.CONFIG).getList("global.drowning.worlds", new ArrayList<String>());
         List<World> worlds = new ArrayList<World>();
         for(String string : strings){
             worlds.add(Bukkit.getWorld(string));

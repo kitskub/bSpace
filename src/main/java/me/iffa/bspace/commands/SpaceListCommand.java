@@ -40,20 +40,20 @@ public class SpaceListCommand extends SpaceCommand {
      */
     @Override
     public void command() {
-        if (!SpacePlayerHandler.hasPermission("bSpace.teleport.list", (Player) sender)) {
-            SpaceMessageHandler.sendNoPermissionMessage((Player) sender);
+        if (!SpacePlayerHandler.hasPermission("bSpace.teleport.list", (Player) this.getSender())) {
+            SpaceMessageHandler.sendNoPermissionMessage((Player) getSender());
             return;
         }
         if (SpaceWorldHandler.getSpaceWorlds().isEmpty()) {
-            sender.sendMessage(ChatColor.RED + SpaceLangHandler.getNoSpaceLoaded());
+            getSender().sendMessage(ChatColor.RED + SpaceLangHandler.getNoSpaceLoaded());
             return;
         }
-        sender.sendMessage(ChatColor.GOLD + Space.getPrefix() + " " + SpaceLangHandler.getListOfSpaceMessage());
+        getSender().sendMessage(ChatColor.GOLD + Space.getPrefix() + " " + SpaceLangHandler.getListOfSpaceMessage());
         List<String> spaceWorlds = new ArrayList<String>();
         for (World world : SpaceWorldHandler.getSpaceWorlds()) {
             spaceWorlds.add(world.getName());
         }
-        sender.sendMessage(ChatColor.GRAY + spaceWorlds.toString().replace("]", "").replace("[", ""));
+        getSender().sendMessage(ChatColor.GRAY + spaceWorlds.toString().replace("]", "").replace("[", ""));
         return;
     }
 }

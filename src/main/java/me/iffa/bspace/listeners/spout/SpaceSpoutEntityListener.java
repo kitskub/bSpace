@@ -80,7 +80,6 @@ public class SpaceSpoutEntityListener extends EntityListener {
 
     /**
      * Called when an entity spawns. This should correctly set all zombies skin to an alien skin when they spawn.
-     * **This code is currently disabled**
      * 
      * @param event Event data
      */

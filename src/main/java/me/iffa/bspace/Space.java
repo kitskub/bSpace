@@ -28,7 +28,7 @@ import me.iffa.bspace.listeners.SpaceEntityListener;
 import me.iffa.bspace.listeners.SpacePlayerListener;
 import me.iffa.bspace.listeners.SpaceSuffocationListener;
 import me.iffa.bspace.listeners.misc.BlackHolePlayerListener;
-import me.iffa.bspace.listeners.misc.BlackHoleChunkScannerListener;
+//import me.iffa.bspace.listeners.misc.BlackHoleChunkScannerListener;
 import me.iffa.bspace.listeners.misc.SpaceWeatherListener;
 import me.iffa.bspace.listeners.misc.SpaceWorldListener;
 import me.iffa.bspace.listeners.spout.SpaceSpoutAreaListener;

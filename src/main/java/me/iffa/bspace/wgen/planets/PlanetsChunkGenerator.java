@@ -130,7 +130,7 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
                                     }
                                     if (xShell || zShell || yShell) {
                                         //world.getBlockAt(worldX, worldY, worldZ).setType(curPl.shellBlk);
-                                        retVal[(chunkX * 16 + chunkZ) * 128 + worldY] = (byte) curPl.shellBlk.getId();                                        
+                                        retVal[(chunkX * 16 + chunkZ) * 128 + worldY] = (byte) curPl.shellBlk.getId();
                                     } else {
                                         //world.getBlockAt(worldX, worldY, worldZ).setType(curPl.coreBlk);
                                         retVal[(chunkX * 16 + chunkZ) * 128 + worldY] = (byte) curPl.coreBlk.getId();
@@ -374,8 +374,9 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
         }
         return retVal;
     }
+
     @Override
-    public Location getFixedSpawnLocation(World world, Random random){
-        return new Location(world,7,70,7);
+    public Location getFixedSpawnLocation(World world, Random random) {
+        return new Location(world, 7, 70, 7);
     }
 }

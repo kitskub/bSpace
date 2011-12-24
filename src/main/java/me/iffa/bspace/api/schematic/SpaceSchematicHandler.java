@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
@@ -50,7 +51,7 @@ public class SpaceSchematicHandler {
      * @return List of schematics loaded
      */
     public static List<Schematic> getSchematics() {
-        return schematics;
+        return Collections.unmodifiableList(schematics);
     }
 
     /**
@@ -60,7 +61,6 @@ public class SpaceSchematicHandler {
      * @param origin Location the schematic should be placed to
      */
     public static void placeSchematic(Schematic schematic, Location origin) {
-        //TODO Schematic placing code (WILL GET MESSY D:)
         Map<BlockVector, Map<String, Tag>> tileEntitiesMap = new HashMap<BlockVector, Map<String, Tag>>();
         Map<Location, Map<Material, MaterialData>> blocksMap = new HashMap<Location, Map<Material, MaterialData>>();
         for (Tag tag : schematic.getTileEntities()) {

@@ -84,6 +84,7 @@ public class BlackHole extends GenericCubeCustomBlock {
         return false;
     }
 
+    @Override
     public void onBlockDestroyed(World world, int i, int i1, int i2, LivingEntity le) {
     }
 }

@@ -30,13 +30,13 @@ public class SpaceHelpCommand extends SpaceCommand {
      */
     @Override
     public void command() {
-        sender.sendMessage(ChatColor.GOLD + "[bSpace] Usage:");
-        sender.sendMessage(ChatColor.GRAY + " /space enter [world] - Go to space (default world or given one)");
-        sender.sendMessage(ChatColor.GRAY + " /space back - Leave space or go back where you were in space");
-        sender.sendMessage(ChatColor.GRAY + " /space list - Brings up a list of all space worlds");
-        sender.sendMessage(ChatColor.GRAY + " /space help - Brings up this help message");
-        sender.sendMessage(ChatColor.GRAY + " /space about [credits] - About bSpace");
-        sender.sendMessage(ChatColor.GRAY + "If you have questions, please visit " + ChatColor.GOLD + "bit.ly/banspace" + ChatColor.GRAY + "!");
-        sender.sendMessage(ChatColor.GRAY + "...or if you prefer IRC, #iffa or #bananacode (Espernet)");
+        getSender().sendMessage(ChatColor.GOLD + "[bSpace] Usage:");
+        getSender().sendMessage(ChatColor.GRAY + " /space enter [world] - Go to space (default world or given one)");
+        getSender().sendMessage(ChatColor.GRAY + " /space back - Leave space or go back where you were in space");
+        getSender().sendMessage(ChatColor.GRAY + " /space list - Brings up a list of all space worlds");
+        getSender().sendMessage(ChatColor.GRAY + " /space help - Brings up this help message");
+        getSender().sendMessage(ChatColor.GRAY + " /space about [credits] - About bSpace");
+        getSender().sendMessage(ChatColor.GRAY + "If you have questions, please visit " + ChatColor.GOLD + "bit.ly/banspace" + ChatColor.GRAY + "!");
+        getSender().sendMessage(ChatColor.GRAY + "...or if you prefer IRC, #iffa or #bananacode (Espernet)");
     }
 }

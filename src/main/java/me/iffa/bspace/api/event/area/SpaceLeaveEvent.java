@@ -46,5 +46,4 @@ public class SpaceLeaveEvent extends SpaceWorldAreaEvent {
     public Location getFrom() {
         return this.from;
     }
-
 }

@@ -47,8 +47,8 @@ public class SpaceEnterCommand extends SpaceCommand {
      */
     @Override
     public void command() {
-        Player player = (Player) this.sender;
-        if (args.length == 1) {
+        Player player = (Player) this.getSender();
+        if (getArgs().length == 1) {
             if (SpacePlayerHandler.hasPermission("bSpace.teleport.enter", player)) {
                 if (SpaceWorldHandler.getSpaceWorlds().isEmpty()) {
                     player.sendMessage(ChatColor.RED + SpaceLangHandler.getNoSpaceLoaded());
@@ -76,21 +76,21 @@ public class SpaceEnterCommand extends SpaceCommand {
             }
             SpaceMessageHandler.sendNoPermissionMessage(player);
             return;
-        } else if (args.length >= 2) {
+        } else if (getArgs().length >= 2) {
             if (SpacePlayerHandler.hasPermission("bSpace.teleport.enter", player)) {
                 if (!Economy.enterCommand(player)) {
                     SpaceMessageHandler.sendNotEnoughMoneyMessage(player);
                     return;
                 }
-                if (Bukkit.getServer().getWorld(args[1]) == null) {
+                if (Bukkit.getServer().getWorld(getArgs()[1]) == null) {
                     player.sendMessage(ChatColor.RED + SpaceLangHandler.getWorldNotFoundMessage());
                     return;
                 }
-                if (!SpaceWorldHandler.isSpaceWorld(Bukkit.getServer().getWorld(args[1]))) {
+                if (!SpaceWorldHandler.isSpaceWorld(Bukkit.getServer().getWorld(this.getArgs()[1]))) {
                     player.sendMessage(ChatColor.RED + SpaceLangHandler.getWorldNotSpaceMessage());
                     return;
                 }
-                if (Bukkit.getServer().getWorld(args[1]) == player.getWorld()) {
+                if (Bukkit.getServer().getWorld(getArgs()[1]) == player.getWorld()) {
                     player.sendMessage(ChatColor.RED + SpaceLangHandler.getAlreadyInThatWorldMessage());
                     return;
                 }
@@ -99,7 +99,7 @@ public class SpaceEnterCommand extends SpaceCommand {
                 if (SpaceExitCommand.enterDest.containsKey(player)) {
                     location = SpaceExitCommand.enterDest.get(player);
                 } else {
-                    location = Bukkit.getServer().getWorld(args[1]).getSpawnLocation();
+                    location = Bukkit.getServer().getWorld(getArgs()[1]).getSpawnLocation();
                 }
                 SpaceMessageHandler.debugPrint(Level.INFO, "Teleported player '" + player.getName() + "' to space.");
                 player.teleport(location, TeleportCause.COMMAND);
