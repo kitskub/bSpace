@@ -48,7 +48,7 @@ public class SpaceConfigHandler {
             PlanetsChunkGenerator theGen = (PlanetsChunkGenerator) world.getGenerator();
             return getRequireHelmet(theGen.ID);
         }
-        return false;
+        return (Boolean) Defaults.REQUIRE_HELMET.getDefault();
     }
 
     /**
@@ -77,7 +77,7 @@ public class SpaceConfigHandler {
             PlanetsChunkGenerator theGen = (PlanetsChunkGenerator) world.getGenerator();
             return getRequireSuit(theGen.ID);
         }
-        return false;
+        return (Boolean) Defaults.REQUIRE_SUIT.getDefault();
     }
 
     /**
@@ -124,7 +124,7 @@ public class SpaceConfigHandler {
             PlanetsChunkGenerator theGen = (PlanetsChunkGenerator) world.getGenerator();
             return allowHostileMobs(theGen.ID);
         }
-        return false;
+        return (Boolean) Defaults.HOSTILE_MOBS_ALLOWED.getDefault();
     }
 
     /**
@@ -153,7 +153,7 @@ public class SpaceConfigHandler {
             PlanetsChunkGenerator theGen = (PlanetsChunkGenerator) world.getGenerator();
             return allowNeutralMobs(theGen.ID);
         }
-        return true;
+        return (Boolean) Defaults.NEUTRAL_MOBS_ALLOWED.getDefault();
     }
 
     /**
@@ -182,7 +182,7 @@ public class SpaceConfigHandler {
             PlanetsChunkGenerator theGen = (PlanetsChunkGenerator) world.getGenerator();
             return forceNight(theGen.ID);
         }
-        return true;
+        return (Boolean) Defaults.FORCE_NIGHT.getDefault();
     }
 
     /**
