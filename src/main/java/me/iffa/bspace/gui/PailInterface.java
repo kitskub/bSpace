@@ -22,12 +22,14 @@ import java.util.logging.Level;
 
 /**
  * Interface for Pail, a Bukkit GUI.
+ * TODO: Once v2 is ready to be released, update this tab.
  * 
  * @author iffa
  * @author Jack
  */
 public class PailInterface extends javax.swing.JPanel {
     // Variables
+
     public static YamlConfiguration spaceConfig = SpaceConfig.getConfig(ConfigFile.CONFIG);
     public static YamlConfiguration idConfig = SpaceConfig.getConfig(ConfigFile.IDS);
     private static final long serialVersionUID = 1L;
@@ -895,7 +897,7 @@ private void Settings_SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN
         if (success) {
             JOptionPane.showMessageDialog(this, "The ID '" + idname + "' has been saved. Please note that most changes take effect after reloading the server.", "ID saved!", JOptionPane.INFORMATION_MESSAGE);
         } else {
-            JOptionPane.showMessageDialog(this, "There was a problem saving '" + idname + "! Please try again.", "Problem while saving ID!" , JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "There was a problem saving '" + idname + "! Please try again.", "Problem while saving ID!", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 }//GEN-LAST:event_Settings_SaveActionPerformed
@@ -934,25 +936,19 @@ private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
 }//GEN-LAST:event_jLabel8MouseClicked
 
     private void Settings_NeutralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Settings_NeutralActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_Settings_NeutralActionPerformed
 
     private void CloudsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CloudsActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_CloudsActionPerformed
 
     private void GravityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GravityActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_GravityActionPerformed
 
     private void UseTextureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UseTextureActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_UseTextureActionPerformed
 
     private void Settings_HelmetRequiredActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Settings_HelmetRequiredActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_Settings_HelmetRequiredActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField ArmorTypeBox;
     private javax.swing.JCheckBox CheckBoxHelmet;

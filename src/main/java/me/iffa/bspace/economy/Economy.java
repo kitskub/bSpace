@@ -63,7 +63,9 @@ public class Economy {
         if (use == false) {
             return true;
         }
-        if(!checkRegister()) return false;
+        if(!checkRegister()) {
+            return false;
+        }
         if (method.hasAccount(player.getName())) {
             int amount = SpaceConfig.getConfig(ConfigFile.CONFIG).getInt("economy.entercost", (Integer) Defaults.ENTER_COST.getDefault());
             return subtract(player, amount);
@@ -83,7 +85,9 @@ public class Economy {
         if (use == false) {
             return true;
         }
-        if(!checkRegister()) return false;
+        if(!checkRegister()) {
+            return false;
+        }
         if (method.hasAccount(player.getName())) {
             int amount = SpaceConfig.getConfig(ConfigFile.CONFIG).getInt("economy.exitcost", (Integer) Defaults.EXIT_COST.getDefault());
             return subtract(player, amount);
@@ -104,7 +108,9 @@ public class Economy {
         if (use == false) {
             return true;
         }
-        if(!checkRegister()) return false;
+        if(!checkRegister()) {
+            return false;
+        }
         if (method.hasAccount(player.getName())) {
             int amount = SpaceConfig.getConfig(ConfigFile.CONFIG).getInt("economy.entercommandcost", (Integer) Defaults.ENTER_COMMAND_COST.getDefault());
             return subtract(player, amount);
@@ -125,7 +131,9 @@ public class Economy {
         if (use == false) {
             return true;
         }
-        if(!checkRegister()) return false;
+        if(!checkRegister()) {
+            return false;
+        }
         if (method.hasAccount(player.getName())) {
             int amount = SpaceConfig.getConfig(ConfigFile.CONFIG).getInt("economy.exitcommandcost", (Integer) Defaults.EXIT_COMMAND_COST.getDefault());
             return subtract(player, amount);

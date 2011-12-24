@@ -14,9 +14,9 @@ import org.bukkit.command.CommandSender;
  */
 public abstract class SpaceCommand {
     // Variables
-    protected Space plugin;
-    protected CommandSender sender;
-    protected String[] args;
+    private Space plugin;
+    private CommandSender sender;
+    private String[] args;
 
     /**
      * Constructor of SpaceCommand.
@@ -36,4 +36,31 @@ public abstract class SpaceCommand {
      * Does the command.
      */
     public abstract void command();
+
+    /**
+     * Gets the plugin.
+     * 
+     * @return the plugin
+     */
+    public Space getPlugin() {
+        return plugin;
+    }
+
+    /**
+     * Gets the sender.
+     * 
+     * @return the sender
+     */
+    public CommandSender getSender() {
+        return sender;
+    }
+
+    /**
+     * Gets the arguments.
+     * 
+     * @return the args
+     */
+    public String[] getArgs() {
+        return args;
+    }
 }

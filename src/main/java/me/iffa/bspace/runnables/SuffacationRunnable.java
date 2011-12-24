@@ -51,7 +51,9 @@ public class SuffacationRunnable implements Runnable {
                     SpaceMessageHandler.debugPrint(Level.INFO, "Player '" + player.getName() + "' is now suffocating in space.");
                 }
             } else {
-                if(suffocating) suffocating = false;
+                if(suffocating) {
+                    suffocating = false;
+                }
             }
             
             if(suffocating){
