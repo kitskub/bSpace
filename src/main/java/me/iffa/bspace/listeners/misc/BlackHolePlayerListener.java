@@ -32,6 +32,7 @@ public class BlackHolePlayerListener extends PlayerListener {
     private static Map<Player, Integer> runnables = new HashMap<Player, Integer>();
     private static Map<Chunk, Boolean> scanned = new HashMap<Chunk,Boolean>();
     private static final int SIZE = 20;
+    private static long lastTime = System.currentTimeMillis();
 
     /**
      * Called when a player attempts to move.
@@ -40,9 +41,14 @@ public class BlackHolePlayerListener extends PlayerListener {
      */
     @Override
     public void onPlayerMove(PlayerMoveEvent event) {
-        if (event.isCancelled()||!SpaceWorldHandler.isInAnySpace(event.getPlayer())&&!event.getPlayer().isDead()) {
+        if (event.isCancelled()||!SpaceWorldHandler.isInAnySpace(event.getPlayer())||event.getPlayer().getHealth()==0) {
             return;
         }
+        long currentTime = System.currentTimeMillis();
+        if(!(lastTime+200<=currentTime)){
+            return;
+        }
+        lastTime=System.currentTimeMillis();
         checkBlocks(event.getTo());
         for (SpoutBlock block : BlackHole.getHolesList()) {
             if (SpaceSpoutHandler.isInsideRadius(event.getPlayer(), block.getLocation(), SIZE)&&!runnables.containsKey(event.getPlayer())) {
@@ -50,9 +56,9 @@ public class BlackHolePlayerListener extends PlayerListener {
                         Bukkit.getPluginManager().getPlugin("bSpace"),
                         new SpoutBlackHoleChaosRunnable(event.getPlayer(), block),
                         0,//Delay
-                        (long) 0.5); //Period
+                        (long) 1); //Period
                 runnables.put(event.getPlayer(), taskId);
-                event.getPlayer().sendMessage("Black Hole Warning! with taskId:" + taskId);
+                event.getPlayer().sendMessage("Black Hole Warning!");
                 return;
             }
         }

@@ -158,6 +158,8 @@ public class SpacePlayerListener extends PlayerListener {
      */
     @Override
     public void onPlayerJoin(PlayerJoinEvent event) {
+        if(!SpaceWorldHandler.isSpaceWorld(
+            event.getPlayer().getWorld())) return;
         boolean insideArea = SpacePlayerHandler.insideArea(event.getPlayer());
         inArea.put(event.getPlayer(), insideArea);
         SpaceEnterEvent e = new SpaceEnterEvent(event.getPlayer(),null,event.getPlayer().getLocation());

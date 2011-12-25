@@ -15,6 +15,7 @@ import org.getspout.spoutapi.block.SpoutBlock;
 // Bukkit Imports
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.util.Vector;
 
 /**
  * Runnable that handles causing chaos with black holes.
@@ -30,7 +31,7 @@ public class SpoutBlackHoleChaosRunnable implements Runnable {
     private double xDistance;
     private double zDistance;
     private double absDistance;
-    private double index = .1;
+    private double index = .05;
 
     /**
      * Constructor of SpoutBlackHoleChaosRunnable.
@@ -66,23 +67,45 @@ public class SpoutBlackHoleChaosRunnable implements Runnable {
         double entityX = player.getLocation().getBlockZ();
         double entityZ = player.getLocation().getBlockZ();
 	if(blockX<entityX){
-            entityX = blockX - xDistance;
-        }
-        else{
             entityX = blockX + xDistance;
         }
-        if(blockZ<entityZ){
-            entityZ = blockZ - zDistance;
-        }
         else{
+            entityX = blockX - xDistance;
+        }
+        if(blockZ<entityZ){
             entityZ = blockZ + zDistance;
         }
-	index += .05;
+        else{
+            entityZ = blockZ - zDistance;
+        }
+	index += .01;
         if (SpaceSpoutHandler.isInsideRadius(player, block.getLocation(), 1)) {
             player.setHealth(0);
             BlackHolePlayerListener.stopRunnable(player);
             return;
         }
-        player.teleport(new Location(player.getWorld(), entityX, block.getY(), entityZ));
+        Location teleport = new Location(player.getWorld(), entityX, block.getY(), entityZ);
+        teleport.setYaw(getLookAtYaw(player.getLocation(), block.getLocation()));
+        //teleport.setPitch(getLookAtPitch(player.getLocation(), block.getLocation()));
+        teleport.setPitch(0f);
+        player.teleport(teleport);
+    }
+    
+    public static float getLookAtYaw(Location from, Location to) {
+        double deltaX=to.getX()-from.getX();
+        double deltaY=to.getY()-from.getY();
+        double deltaZ=to.getZ()-from.getZ();
+        double distance = Math.sqrt(deltaZ * deltaZ + deltaX * deltaX);
+        double yaw = Math.toDegrees(Math.acos(Math.toRadians(deltaZ/distance)));
+        return (float) yaw;
+    }
+    
+    public static float getLookAtPitch(Location from, Location to) {
+        double deltaX=to.getX()-from.getX();
+        double deltaY=to.getY()-from.getY();
+        double deltaZ=to.getZ()-from.getZ();
+        double distance = Math.sqrt(deltaZ * deltaZ + deltaX * deltaX);
+        double pitch = Math.toDegrees(Math.atan(Math.toRadians(distance/deltaY)));
+        return (float) pitch;
     }
 }
