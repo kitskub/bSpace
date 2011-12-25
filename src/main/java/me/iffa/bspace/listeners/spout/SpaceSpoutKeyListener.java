@@ -61,7 +61,6 @@ public class SpaceSpoutKeyListener extends InputListener {
                             //Update the cached reference
                             Space.getLocCache().remove(player);
                             Space.getLocCache().put(temp, temp2);
-                            SpaceMessageHandler.debugPrint(Level.INFO, "Updated Player " + temp.getName() + " in the Location Cache.");
                         }
                     }
                 }
