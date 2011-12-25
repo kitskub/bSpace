@@ -22,7 +22,6 @@ import java.util.logging.Level;
 
 /**
  * Interface for Pail, a Bukkit GUI.
- * TODO: Once v2 is ready to be released, update this tab.
  * 
  * @author iffa
  * @author Jack
@@ -50,7 +49,7 @@ public class PailInterface extends javax.swing.JPanel {
      * Reads the configuration files and changes the interface values to represent the configuration values.
      */
     private void readConfigs() {
-        // Updated to latest v2-dev
+        // Updated to latest v2
         SpoutEnabled.setSelected(SpaceConfigHandler.isUsingSpout());
         Clouds.setSelected(!SpaceConfigHandler.getCloudsEnabled());
         Gravity.setSelected(SpaceConfigHandler.getGravity());
@@ -81,7 +80,7 @@ public class PailInterface extends javax.swing.JPanel {
             SpaceMessageHandler.print(Level.WARNING, SpaceLangHandler.getIdNotFoundMessage(idname));
             return;
         }
-        // Updated for latest v2-dev
+        // Updated for latest v2
         Settings_IDName.setText(idname);
         Settings_Planets.setSelected(idConfig.getBoolean("ids." + idname + ".generation.generateplanets", (Boolean) Defaults.GENERATE_PLANETS.getDefault()));
         Settings_Asteroids.setSelected(idConfig.getBoolean("ids." + idname + "generation.generateasteroids", (Boolean) Defaults.ASTEROIDS_ENABLED.getDefault()));
@@ -792,7 +791,7 @@ public class PailInterface extends javax.swing.JPanel {
     }//GEN-LAST:event_HelmetBlockIdBoxActionPerformed
 
     private void SaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveButtonActionPerformed
-        // Updated for latest v2-dev
+        // Updated for latest v2
         spaceConfig.set("global.givesuit", CheckBoxSuit.isSelected());
         spaceConfig.set("global.givehelmet", CheckBoxHelmet.isSelected());
         spaceConfig.set("global.armortype", ArmorTypeBox.getText());
@@ -829,7 +828,7 @@ private void createIdButtonActionPerformed(java.awt.event.ActionEvent evt) {//GE
         JOptionPane.showMessageDialog(this, "The ID cannot contain spaces! Replace spaces with underscores.", "Invalid ID", JOptionPane.WARNING_MESSAGE);
         return;
     }
-    // Updated to latest v2-dev
+    // Updated to latest v2
     idConfig.set("ids." + idname + ".generation.generateplanets", Defaults.GENERATE_PLANETS.getDefault());
     idConfig.set("ids." + idname + ".generation.generateasteroids", Defaults.ASTEROIDS_ENABLED.getDefault());
     idConfig.set("ids." + idname + ".generation.generateschematics", Defaults.GENERATE_SCHEMATICS.getDefault());

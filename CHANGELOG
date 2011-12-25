@@ -1,4 +1,4 @@
-New in version 2 (not a final changelog):
+New in version 2:
 -----------------------------------------
 -Added new world creating & loading system, now ID based instead of list based
 -Added lang.yml to allow translating messages to your own language
@@ -33,5 +33,3 @@ New in version 2 (not a final changelog):
 -Fixed suffocating not stopping after death (actually fixed in v1.4_2, but not in the changelog)
 -Fixed zombies in space not receiving an alien skin
 -Fixed some bugs with suffocation
-
-NOTE: When making final changelogs to devbukkit etc, use this as reference.
