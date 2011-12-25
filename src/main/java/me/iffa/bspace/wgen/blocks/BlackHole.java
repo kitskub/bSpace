@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 // Bukkit Imports
+import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Entity;
@@ -30,10 +31,10 @@ public class BlackHole extends GenericCubeCustomBlock {
     /**
      * Constructor of BlackHole.
      * 
-     * @param plugin Plugin instance
+     * 
      */
-    public BlackHole(Plugin plugin) {
-        super(plugin, "BlackHole", "http://i.imgur.com/zVBCZ.png", 16);
+    public BlackHole() {
+        super(Bukkit.getPluginManager().getPlugin("bSpace"), "BlackHole", "http://i.imgur.com/zVBCZ.png", 16);
     }
     
     /**

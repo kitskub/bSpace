@@ -28,7 +28,6 @@ import me.iffa.bspace.listeners.SpaceEntityListener;
 import me.iffa.bspace.listeners.SpacePlayerListener;
 import me.iffa.bspace.listeners.SpaceSuffocationListener;
 import me.iffa.bspace.listeners.misc.BlackHolePlayerListener;
-//import me.iffa.bspace.listeners.misc.BlackHoleChunkScannerListener;
 import me.iffa.bspace.listeners.misc.SpaceWeatherListener;
 import me.iffa.bspace.listeners.misc.SpaceWorldListener;
 import me.iffa.bspace.listeners.spout.SpaceSpoutAreaListener;
@@ -182,8 +181,6 @@ public class Space extends JavaPlugin {
             pm.registerEvent(Event.Type.CUSTOM_EVENT, new SpaceSpoutCraftListener(), Event.Priority.High, this); //SpoutCraft Listener
             pm.registerEvent(Event.Type.CUSTOM_EVENT, new SpaceSpoutAreaListener(), Event.Priority.Monitor, this); //Area Listener
             pm.registerEvent(Event.Type.CUSTOM_EVENT, new SpaceSpoutKeyListener(), Event.Priority.Monitor, this); //Key Listener
-            //pm.registerEvent(Event.Type.CHUNK_LOAD, new BlackHoleChunkScannerListener(), Event.Priority.Monitor, this); // Black hole scanner
-            //pm.registerEvent(Event.Type.CHUNK_POPULATED, new BlackHoleChunkScannerListener(), Event.Priority.Monitor, this); // Black hole scanner
             pm.registerEvent(Event.Type.PLAYER_MOVE, new BlackHolePlayerListener(), Event.Priority.Monitor, this);
             SpaceMessageHandler.debugPrint(Level.INFO, "Registered events (Spout).");
         }

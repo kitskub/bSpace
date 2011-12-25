@@ -377,6 +377,6 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
 
     @Override
     public Location getFixedSpawnLocation(World world, Random random) {
-        return new Location(world, 7, 70, 7);
+        return new Location(world, 7, 78, 7);
     }
 }

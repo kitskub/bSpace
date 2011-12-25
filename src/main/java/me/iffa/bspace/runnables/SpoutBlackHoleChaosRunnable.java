@@ -2,6 +2,7 @@
 package me.iffa.bspace.runnables;
 
 // bSpace Imports
+import me.iffa.bspace.api.SpaceSpoutHandler;
 import me.iffa.bspace.listeners.misc.BlackHolePlayerListener;
 
 // Bukkit Imports
@@ -13,6 +14,7 @@ import org.getspout.spoutapi.block.SpoutBlock;
 
 // Bukkit Imports
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
 
 /**
  * Runnable that handles causing chaos with black holes.
@@ -23,23 +25,25 @@ import org.bukkit.entity.Entity;
 public class SpoutBlackHoleChaosRunnable implements Runnable {
     // Variables
     private SpoutBlock block;
-    private Entity entity;
+    private Player player;
     private float angle;
     private double xDistance;
     private double zDistance;
-    private double index;
+    private double absDistance;
+    private double index = .1;
 
     /**
      * Constructor of SpoutBlackHoleChaosRunnable.
      * 
-     * @param entity Entity to suck
+     * @param player Entity to suck
      * @param block Black hole block
      */
-    public SpoutBlackHoleChaosRunnable(Entity entity, SpoutBlock block) {
+    public SpoutBlackHoleChaosRunnable(Player player, SpoutBlock block) {
         this.block = block;
-        this.entity = entity;
-        xDistance = block.getLocation().getX() - entity.getLocation().getX();
-        zDistance = block.getLocation().getZ() - entity.getLocation().getZ();
+        this.player = player;
+        xDistance = block.getLocation().getX() - player.getLocation().getX();
+        zDistance = block.getLocation().getZ() - player.getLocation().getZ();
+        absDistance = Math.sqrt((xDistance*xDistance) + (zDistance*zDistance));
         angle = (float) Math.atan(zDistance / xDistance);
     }
 
@@ -48,22 +52,37 @@ public class SpoutBlackHoleChaosRunnable implements Runnable {
      */
     @Override
     public void run() {
-        if (entity.isDead()) {
-            Bukkit.getScheduler().cancelTask(BlackHolePlayerListener.getRunningTasks().get(entity));
-            BlackHolePlayerListener.getRunningTasks().remove(entity);
+        if (player.isDead()) {
+            Integer i = BlackHolePlayerListener.getRunningTasks().get(player);
+            if(i==null||!Bukkit.getScheduler().isQueued(i)) return;
+            BlackHolePlayerListener.stopRunnable(player);
             return;
         }
-	double x = xDistance - index;
-	double z = Math.tan(angle) * x;
-	x += block.getLocation().getBlockX();
-	z += block.getLocation().getBlockZ();
-	index += 0.1;
-        if (index > xDistance) {
-            entity.remove(); // OH NO!
-            Bukkit.getScheduler().cancelTask(BlackHolePlayerListener.getRunningTasks().get(entity));
-            BlackHolePlayerListener.getRunningTasks().remove(entity);
+        absDistance -= index;
+        xDistance = Math.cos(angle) * absDistance;
+        zDistance = Math.sin(angle) * absDistance;
+        double blockX = block.getLocation().getBlockX();
+        double blockZ = block.getLocation().getBlockZ();
+        double entityX = player.getLocation().getBlockZ();
+        double entityZ = player.getLocation().getBlockZ();
+	if(blockX<entityX){
+            entityX = blockX - xDistance;
+        }
+        else{
+            entityX = blockX + xDistance;
+        }
+        if(blockZ<entityZ){
+            entityZ = blockZ - zDistance;
+        }
+        else{
+            entityZ = blockZ + zDistance;
+        }
+	index += .05;
+        if (SpaceSpoutHandler.isInsideRadius(player, block.getLocation(), 1)) {
+            player.setHealth(0);
+            BlackHolePlayerListener.stopRunnable(player);
             return;
         }
-        entity.teleport(new Location(entity.getWorld(), x, block.getY(), z));
+        player.teleport(new Location(player.getWorld(), entityX, block.getY(), entityZ));
     }
 }

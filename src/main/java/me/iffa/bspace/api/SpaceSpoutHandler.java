@@ -10,6 +10,7 @@ import me.iffa.bspace.Space;
 import me.iffa.bspace.runnables.SpoutFixRunnable;
 
 // Bukkit Imports
+import me.iffa.bspace.wgen.blocks.BlackHole;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -18,6 +19,7 @@ import org.bukkit.entity.Entity;
 
 // Spout Imports
 import org.getspout.spoutapi.SpoutManager;
+import org.getspout.spoutapi.material.CustomBlock;
 import org.getspout.spoutapi.player.SkyManager;
 import org.getspout.spoutapi.player.SpoutPlayer;
 
@@ -28,6 +30,7 @@ import org.getspout.spoutapi.player.SpoutPlayer;
  * @author Adamki11s
  */
 public class SpaceSpoutHandler {
+    public static CustomBlock blackHole = new BlackHole();
     /**
      * Sets or resets Spoutcraft-only features.
      * 
@@ -81,11 +84,11 @@ public class SpaceSpoutHandler {
      * @return True if inside radius
      */
     public static boolean isInsideRadius(Entity entity, Location centre, int radius) {
-        Location point1 = new Location(centre.getWorld(), centre.getX() - radius, centre.getY() - radius, centre.getZ() - radius);
-        Location point2 = new Location(centre.getWorld(), centre.getX() + radius, centre.getY() + radius, centre.getZ() + radius);
-        double x1 = point1.getX(), x2 = point2.getX(),
-                y1 = point1.getY(), y2 = point2.getY(),
-                z1 = point1.getZ(), z2 = point2.getZ(),
+        Location negMost = new Location(centre.getWorld(), centre.getX() - radius, centre.getY() - radius, centre.getZ() - radius);
+        Location posMost     = new Location(centre.getWorld(), centre.getX() + radius, centre.getY() + radius, centre.getZ() + radius);
+        double x1 = negMost.getX(), x2 = posMost.getX(),
+                y1 = negMost.getY(), y2 = posMost.getY(),
+                z1 = negMost.getZ(), z2 = posMost.getZ(),
                 px = entity.getLocation().getX(),
                 py = entity.getLocation().getY(),
                 pz = entity.getLocation().getZ();
