@@ -18,6 +18,7 @@ import org.getspout.spoutapi.player.SpoutPlayer;
 
 /**
  * PlayerListener for things which require Spout.
+ * *Disabled*
  * 
  * @author iffa
  * @author HACKhalo2

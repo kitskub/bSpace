@@ -13,11 +13,13 @@ import me.iffa.bspace.runnables.SpoutFixRunnable;
 import me.iffa.bspace.wgen.blocks.BlackHole;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 
 // Spout Imports
+import org.bukkit.entity.Player;
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.material.CustomBlock;
 import org.getspout.spoutapi.player.SkyManager;
@@ -111,6 +113,34 @@ public class SpaceSpoutHandler {
             return true;
         }
         return false;
+    }
+    
+    public static void resetGravity(Player player){
+        SpoutPlayer spoutPlayer = SpoutManager.getPlayer(player);
+        if (spoutPlayer.isSpoutCraftEnabled()) {
+            Location temp = spoutPlayer.getLocation();
+            Block under = Bukkit.getServer().getWorld(spoutPlayer.getWorld().getName()).getBlockAt(temp.getBlockX(), temp.getBlockY() - 1, temp.getBlockZ());
+            if (under.getType() != Material.AIR) {
+                //set the movement multipliers for space
+                spoutPlayer.setAirSpeedMultiplier(1);
+                spoutPlayer.setGravityMultiplier(1);
+                spoutPlayer.setWalkingMultiplier(1);
+            }
+        }
+    }
+    
+    public static void setGravity(Player player){
+        SpoutPlayer spoutPlayer = SpoutManager.getPlayer(player);
+        if (spoutPlayer.isSpoutCraftEnabled()) {
+            Location temp = spoutPlayer.getLocation();
+            Block under = Bukkit.getServer().getWorld(spoutPlayer.getWorld().getName()).getBlockAt(temp.getBlockX(), temp.getBlockY() - 1, temp.getBlockZ());
+            if (under.getType() != Material.AIR) {
+                //set the movement multipliers for space
+                spoutPlayer.setAirSpeedMultiplier(1.2);
+                spoutPlayer.setGravityMultiplier(0.3);
+                spoutPlayer.setWalkingMultiplier(0.7);
+            }
+        }
     }
 
     /**
