@@ -5,6 +5,7 @@ package me.iffa.bspace.wgen.populators;
 import java.util.Random;
 
 // bSpace Imports
+import me.iffa.bspace.api.SpaceConfigHandler;
 import me.iffa.bspace.api.SpaceSpoutHandler;
 
 // Bukkit Imports
@@ -32,7 +33,7 @@ public class SpaceBlackHolePopulator extends BlockPopulator {
      */
     @Override
     public void populate(World world, Random random, Chunk source) {
-        if (random.nextInt(100) <= 10) { // If you are going to make a random amount, use 100/ something to make a real percentage to understand it easier
+        if (random.nextInt(100) <= SpaceConfigHandler.getBlackHoleChance(world)) {
             //short[] blockIds = new short[16*16*128];
             int chunkX = source.getX();
             int chunkZ = source.getZ();

@@ -26,6 +26,8 @@ ids:
 #            # From 1-200. This can be turned off with the generateschematics-setting.
 #            schematicchance: 5
 #            # Spout only generation settings
+#            # From 1-100. This can be turned off with the blackholes-setting below.
+#            blackholechance: 8
 #            spout-only:
 #                # True if black holes should be generated (will suck entities into it, once touching the block, death)
 #                blackholes: true
@@ -55,6 +57,7 @@ ids:
             stonechance: 3
             satellitechance: 1
             schematicchance: 5
+            blackholechance: 8
             spout-only:
                 blackholes: false
         suit:

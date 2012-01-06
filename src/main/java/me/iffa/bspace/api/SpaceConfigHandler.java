@@ -525,12 +525,27 @@ public class SpaceConfigHandler {
      * 
      * @return True if generating black holes
      */
-    public static boolean getGenerateBlacks(World world) {
+    public static boolean getGenerateBlackHoles(World world) {
         if (world.getGenerator() instanceof PlanetsChunkGenerator) {
             PlanetsChunkGenerator theGen = (PlanetsChunkGenerator) world.getGenerator();
             return SpaceConfig.getConfig(ConfigFile.IDS).getBoolean("ids." + theGen.ID + ".generation.spout-only.blackholes", (Boolean) Defaults.BLACKHOLES.getDefault());
         }
         return (Boolean) Defaults.BLACKHOLES.getDefault();
+    }
+    
+    /**
+     * Gets the black hole chance.
+     * 
+     * @param world World
+     * 
+     * @return Black hole chance
+     */
+    public static int getBlackHoleChance(World world) {
+        if (world.getGenerator() instanceof PlanetsChunkGenerator) {
+            PlanetsChunkGenerator theGen = (PlanetsChunkGenerator) world.getGenerator();
+            return SpaceConfig.getConfig(ConfigFile.IDS).getInt("ids." + theGen.ID + ".generation.blackholechance", (Integer) Defaults.BLACKHOLE_CHANCE.getDefault());
+        }
+        return (Integer) Defaults.BLACKHOLE_CHANCE.getDefault();
     }
     
     /**
