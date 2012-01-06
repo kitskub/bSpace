@@ -27,7 +27,6 @@ import org.bukkit.entity.Player;
 public class SpaceSuffocationListener extends SpaceAreaListener {
     // Variables
     public static Map<Player, Integer> taskid = new HashMap<Player, Integer>();
-    private static Map<Player, Boolean> isVulnerable = new HashMap<Player, Boolean>();
     private static Space plugin;
 
     /**
@@ -95,7 +94,6 @@ public class SpaceSuffocationListener extends SpaceAreaListener {
             SuffacationRunnable task = new SuffacationRunnable(player);
             int taskInt = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, task, 20L, 20L);
             taskid.put(player, taskInt);
-            isVulnerable.put(player, true);
         }
     }
 
@@ -110,12 +108,9 @@ public class SpaceSuffocationListener extends SpaceAreaListener {
         if (!taskid.containsKey(player)) {
             return false;
         }
-        if (isVulnerable.containsKey(player)) {
-            if (isVulnerable.get(player) == true && Bukkit.getScheduler().isQueued(taskid.get(player))) {
-                Bukkit.getScheduler().cancelTask(taskid.get(player));
-                isVulnerable.put(player, false);
-                taskid.remove(player);
-            }
+        if (Bukkit.getScheduler().isQueued(taskid.get(player))) {
+            Bukkit.getScheduler().cancelTask(taskid.get(player));
+            taskid.remove(player);
             return true;
         }
         return false;

@@ -148,6 +148,26 @@ public class SpacePlayerHandler {
         }
         return insideArea;
     }
+    
+    public static void giveSuitOrHelmet(Player player){
+        //Suit and helmet giving
+        if (SpaceConfigHandler.isHelmetGiven()) {
+            player.getInventory().setHelmet(
+                    new ItemStack(SpaceConfigHandler.getHelmetBlock(), 1));
+        }
+        if (SpaceConfigHandler.isSuitGiven()) {
+            SpacePlayerHandler.giveSpaceSuit(SpaceConfigHandler.getArmorType(), player);
+        }
+    }
+    
+    public static void removeSuitOrHelmet(Player player){
+        if (SpaceConfigHandler.isHelmetGiven()) {
+            player.getInventory().setHelmet(new ItemStack(0, 1));
+        }
+        if (SpaceConfigHandler.isSuitGiven()) {
+            SpacePlayerHandler.giveSpaceSuit("air", player);
+        }    
+    }
     /**
      * Enum to make things easier.
      */
