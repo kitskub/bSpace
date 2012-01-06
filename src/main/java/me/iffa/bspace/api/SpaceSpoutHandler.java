@@ -33,6 +33,7 @@ import org.getspout.spoutapi.player.SpoutPlayer;
  */
 public class SpaceSpoutHandler {
     public static CustomBlock blackHole = new BlackHole();
+    
     /**
      * Sets or resets Spoutcraft-only features.
      * 
