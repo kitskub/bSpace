@@ -56,7 +56,7 @@ public class SpaceEnterCommand extends SpaceCommand {
                 }
                 if (SpaceWorldHandler.getSpaceWorlds().get(0) == player.getWorld()) {
                     player.sendMessage(ChatColor.RED + SpaceLangHandler.getAlreadyInThatWorldMessage());
-                    SpaceMessageHandler.debugPrint(Level.INFO, "Someone tried to use /space enter, but he was already in that space world.");
+                    SpaceMessageHandler.debugPrint(Level.INFO, player.getName() + "tried to use /space enter, but he was already in that space world.");
                     return;
                 }
                 if (!Economy.enterCommand(player)) {

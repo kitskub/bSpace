@@ -6,6 +6,7 @@ import java.util.logging.Level;
 
 // Bukkit Imports
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -134,10 +135,16 @@ public class SpacePlayerHandler {
     }
     
     public static boolean insideArea(Player player){
+        boolean insideArea = insideArea(player.getLocation());
+        return insideArea;
+    }
+    
+    //Used to check if a location is in an area.
+    public static boolean insideArea(Location loc){
         int i = 0;
-        Block block = player.getLocation().getBlock().getRelative(BlockFace.UP);
+        Block block = loc.getBlock().getRelative(BlockFace.UP);
         boolean insideArea = false;
-        while (i < SpaceConfigHandler.getRoomHeight(player.getWorld())) {
+        while (i < SpaceConfigHandler.getRoomHeight(loc.getWorld())) {
             if (block.getTypeId() != 0) {
                 insideArea = true;
                 i = 0;

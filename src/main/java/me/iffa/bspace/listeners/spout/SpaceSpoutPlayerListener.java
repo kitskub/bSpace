@@ -5,6 +5,7 @@ package me.iffa.bspace.listeners.spout;
 import me.iffa.bspace.Space;
 import me.iffa.bspace.api.SpaceSpoutHandler;
 import me.iffa.bspace.api.SpaceWorldHandler;
+import me.iffa.bspace.api.SpacePlayerHandler;
 
 // Bukkit Imports
 import org.bukkit.event.player.PlayerListener;
@@ -18,7 +19,6 @@ import org.getspout.spoutapi.player.SpoutPlayer;
 
 /**
  * PlayerListener for things which require Spout.
- * *Disabled*
  * 
  * @author iffa
  * @author HACKhalo2
@@ -40,7 +40,9 @@ public class SpaceSpoutPlayerListener extends PlayerListener {
     /**
      * Called when a player attempts to teleport.
      * 
+     * 
      * @param event Event data
+     * @deprecated
      */
     @Override
     public void onPlayerTeleport(PlayerTeleportEvent event) {
@@ -53,10 +55,14 @@ public class SpaceSpoutPlayerListener extends PlayerListener {
         /* Player teleports to spaceworld */
         if (SpaceWorldHandler.isSpaceWorld(event.getTo().getWorld())) {
             SpaceSpoutHandler.setOrReset(plugin, player, event.getTo());
+            if(!SpacePlayerHandler.insideArea(player)){
+                SpaceSpoutHandler.setGravity(player);
+            }
         }
         /* Player teleports out of spaceworld */
         if (SpaceWorldHandler.isSpaceWorld(event.getFrom().getWorld())) {
             SpaceSpoutHandler.setOrReset(plugin, player, event.getFrom());
+            SpaceSpoutHandler.resetGravity(player);
         }
     }
     
@@ -69,5 +75,12 @@ public class SpaceSpoutPlayerListener extends PlayerListener {
     public void onPlayerRespawn(PlayerRespawnEvent event) {
         SpoutPlayer player = SpoutManager.getPlayer(event.getPlayer());
         SpaceSpoutHandler.setOrReset(plugin, player, event.getRespawnLocation());
+        if (SpaceWorldHandler.isSpaceWorld(event.getRespawnLocation().getWorld())) {
+            if(!SpacePlayerHandler.insideArea(player)){
+                SpaceSpoutHandler.setGravity(player);
+                return;
+            }
+        }
+        SpaceSpoutHandler.resetGravity(player);
     }
 }

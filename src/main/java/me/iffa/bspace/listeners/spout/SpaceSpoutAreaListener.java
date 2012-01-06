@@ -5,6 +5,7 @@ package me.iffa.bspace.listeners.spout;
 import me.iffa.bspace.Space;
 import me.iffa.bspace.api.SpaceSpoutHandler;
 import me.iffa.bspace.api.SpaceWorldHandler;
+import me.iffa.bspace.api.SpacePlayerHandler;
 import me.iffa.bspace.api.event.area.AreaEnterEvent;
 import me.iffa.bspace.api.event.area.AreaLeaveEvent;
 import me.iffa.bspace.api.event.area.SpaceAreaListener;
@@ -56,6 +57,9 @@ public class SpaceSpoutAreaListener extends SpaceAreaListener {
             return;
         }
         SpaceSpoutHandler.setOrReset(plugin, player, event.getTo());
+        if(!SpacePlayerHandler.insideArea(event.getTo())){
+            SpaceSpoutHandler.setGravity(player);
+        }
         
         
     }
