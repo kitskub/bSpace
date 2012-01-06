@@ -152,6 +152,9 @@ public class SpacePlayerListener extends PlayerListener {
             SpaceEnterEvent e = new SpaceEnterEvent(event.getPlayer(),null,event.getRespawnLocation());
             Bukkit.getServer().getPluginManager().callEvent(e);
         }
+        else{
+            SpaceSuffocationListener.stopSuffocating(event.getPlayer());
+        }
     }
     
     
