@@ -124,8 +124,7 @@ class Pinger implements Runnable
                 authors = authors + " " + auth;
             }
             authors = authors.trim();
-
-            String url = String.format("http://pluginstats.randomappdev.com/ping.aspx?snam=%s&sprt=%s&shsh=%s&sver=%s&spcnt=%s&pnam=%s&pmcla=%s&paut=%s&pweb=%s&pver=%s",
+            String url = String.format("http://pluginstats.randomappdev.com/ping.php?snam=%s&sprt=%s&shsh=%s&sver=%s&spcnt=%s&pnam=%s&pmcla=%s&paut=%s&pweb=%s&pver=%s",
                     URLEncoder.encode(plugin.getServer().getServerName(), "UTF-8"),
                     plugin.getServer().getPort(),
                     guid,
@@ -134,10 +133,9 @@ class Pinger implements Runnable
                     URLEncoder.encode(plugin.getDescription().getName(), "UTF-8"),
                     URLEncoder.encode(plugin.getDescription().getMain(), "UTF-8"),
                     URLEncoder.encode(authors, "UTF-8"),
-                    URLEncoder.encode(plugin.getDescription().getWebsite(), "UTF-8"),
+                    URLEncoder.encode(plugin.getDescription().getWebsite().toLowerCase().replace("http://","").replace("https://",""), "UTF-8"),
                     URLEncoder.encode(plugin.getDescription().getVersion(), "UTF-8"));
 
-            Ping.logger.log(Level.INFO, url);
 
             new URL(url).openConnection().getInputStream();
             Ping.logger.log(Level.INFO, "bSpace sent statistics.");
