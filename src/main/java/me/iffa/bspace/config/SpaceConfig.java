@@ -227,6 +227,7 @@ public class SpaceConfig {
         SATELLITE_CHANCE(1),
         GENERATE_PLANETS(true),
         GENERATE_SCHEMATICS(true),
+        BLACKHOLE_CHANCE(8),
         BLACKHOLES(true),
         SCHEMATIC_CHANCE(5),
         // ConfigFile.PLANETS
