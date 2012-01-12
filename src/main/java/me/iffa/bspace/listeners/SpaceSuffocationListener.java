@@ -75,7 +75,7 @@ public class SpaceSuffocationListener extends SpaceAreaListener {
      */
     @Override
     public void onSpaceEnter(SpaceEnterEvent event) {
-        if (!SpacePlayerHandler.insideArea(event.getPlayer())) {
+        if (!SpacePlayerHandler.insideArea(event.getTo())) {
             startSuffocating(event.getPlayer());
         }
     }
