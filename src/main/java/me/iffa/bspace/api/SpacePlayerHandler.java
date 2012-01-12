@@ -169,11 +169,22 @@ public class SpacePlayerHandler {
     
     public static void removeSuitOrHelmet(Player player){
         if (SpaceConfigHandler.isHelmetGiven()) {
-            player.getInventory().setHelmet(new ItemStack(0, 1));
+            removeHelmet(player);
         }
         if (SpaceConfigHandler.isSuitGiven()) {
-            SpacePlayerHandler.giveSpaceSuit("air", player);
+            removeSuit(player);
         }    
+    }
+    
+    public static void removeSuit(Player player){
+        player.getInventory().setHelmet(null);
+        player.getInventory().setChestplate(null);
+        player.getInventory().setLeggings(null);
+        player.getInventory().setBoots(null);
+    }
+    
+    public static void removeHelmet(Player player){
+        player.getInventory().setHelmet(null);
     }
     /**
      * Enum to make things easier.

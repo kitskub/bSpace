@@ -19,6 +19,8 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import org.bukkit.Material;
 
 /**
  * Static methods to use internally (and externally, why not?) to handle world-specific configuration.
@@ -214,6 +216,11 @@ public class SpaceConfigHandler {
      * @return armortype string
      */
     public static String getArmorType() {
+        String armorType = SpaceConfig.getConfig(ConfigFile.CONFIG).getString("global.armortype", (String) Defaults.ARMOR_TYPE.getDefault());
+        if(Material.getMaterial(armorType+ "_HELMET")==null){
+            SpaceMessageHandler.print(Level.SEVERE, "Invalid armortype '" + SpaceConfig.getConfig(ConfigFile.CONFIG).getString("global.armortype") + "' in config!");
+            return (String) Defaults.ARMOR_TYPE.getDefault();
+        }
         return SpaceConfig.getConfig(ConfigFile.CONFIG).getString("global.armortype", (String) Defaults.ARMOR_TYPE.getDefault());
     }
 

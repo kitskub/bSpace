@@ -13,6 +13,8 @@ import me.escapeNT.pail.Pail;
 import com.randomappdev.pluginstats.Ping;
 
 // bSpace Imports
+import me.iffa.bspace.api.SpaceAddon;
+import me.iffa.bspace.api.SpaceAddonHandler;
 import me.iffa.bspace.api.SpaceConfigHandler;
 import me.iffa.bspace.api.SpaceLangHandler;
 import me.iffa.bspace.api.SpaceMessageHandler;
@@ -77,6 +79,9 @@ public class Space extends JavaPlugin {
     @Override
     public void onDisable() {
         Bukkit.getScheduler().cancelTasks(this);
+        for(SpaceAddon addon : SpaceAddonHandler.addons){
+            addon.onSpaceDisable();
+        }
         // Finishing up disablation.
         SpaceMessageHandler.print(Level.INFO, SpaceLangHandler.getDisabledMessage());
     }
