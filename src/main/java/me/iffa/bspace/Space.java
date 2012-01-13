@@ -63,7 +63,7 @@ public class Space extends JavaPlugin {
     private static String version;
     private static PailInterface pailInterface;
     private static Map<Player, Location> locCache = null;
-    private static Map<Player, Boolean> jumpPressed = new HashMap<Player, Boolean>(); // Map to a player
+    private static Map<Player, Boolean> jumpPressed = new HashMap<Player, Boolean>();
     private PluginManager pm;
     private SpaceCommandHandler sce = null;
     private Economy economy;
