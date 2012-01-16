@@ -1,4 +1,12 @@
-New in version 2:
+v2.1
+-----------------------------------------
+-Fixed some armor stuff
+-Fixed some more suffocation stuff
+-Updated Ping
+-Fixed gravity resetting
+-Blackhole chance now configurable
+
+v2
 -----------------------------------------
 -Added new world creating & loading system, now ID based instead of list based
 -Added lang.yml to allow translating messages to your own language
