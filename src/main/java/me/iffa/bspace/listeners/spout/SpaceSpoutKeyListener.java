@@ -39,7 +39,7 @@ public class SpaceSpoutKeyListener extends InputListener {
         if (event.getScreenType().equals(ScreenType.GAME_SCREEN) && WorldHandler.isInAnySpace(player)) {
             //Log the jump location for future use
             if (event.getKey().equals(player.getJumpKey())) {
-                Space.setJumpPressed(true);
+                Space.setJumpPressed(event.getPlayer(), true);
                 if (!Space.getLocCache().containsKey(temp)) {
                     Location jumpLocation = event.getPlayer().getLocation(); //Get the starting jump location
                     Space.getLocCache().put(temp, jumpLocation);
@@ -72,7 +72,7 @@ public class SpaceSpoutKeyListener extends InputListener {
     @Override
     public void onKeyReleasedEvent(KeyReleasedEvent event) {
         if (event.getKey().equals(event.getPlayer().getJumpKey())) {
-            Space.setJumpPressed(true);
+            Space.setJumpPressed(event.getPlayer(), true);
         }
     }
 }

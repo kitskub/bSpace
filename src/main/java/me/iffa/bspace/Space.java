@@ -63,7 +63,7 @@ public class Space extends JavaPlugin {
     private static String version;
     private static PailInterface pailInterface;
     private static Map<Player, Location> locCache = null;
-    private static boolean jumpPressed = false;//TODO should be map to a player...
+    private static Map<Player, Boolean> jumpPressed = new HashMap<Player, Boolean>();
     private PluginManager pm;
     private SpaceCommandHandler sce = null;
     private Economy economy;
@@ -225,17 +225,18 @@ public class Space extends JavaPlugin {
      * 
      * @return Jump pressed
      */
-    public static boolean getJumpPressed() {
-        return jumpPressed;
+    public static boolean getJumpPressed(Player player) {
+        return jumpPressed.get(player);
     }
     
     /**
      * Sets the jump pressed value. (ie = wtf is this ??)
      * 
+     * @param player Player
      * @param newJumpPressed New jump pressed value
      */
-    public static void setJumpPressed(boolean newJumpPressed) {
-        jumpPressed = newJumpPressed;
+    public static void setJumpPressed(Player player, boolean newJumpPressed) {
+        jumpPressed.put(player, newJumpPressed);
     }
     
     /**

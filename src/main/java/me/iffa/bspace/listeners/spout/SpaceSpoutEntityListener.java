@@ -61,7 +61,7 @@ public class SpaceSpoutEntityListener extends EntityListener {
                         }
                         Space.getLocCache().remove(player); //Remove the player reference
                         //bSpace.debugLog("Removing "+player.getName()+" from the cache.");
-                        if (Space.getJumpPressed()) {
+                        if (Space.getJumpPressed(player)) {
                             Location jumpLocation = player.getLocation();
                             Space.getLocCache().put(player, jumpLocation); //readd the player is the jump key is pressed
                             //bSpace.debugLog("Added player "+player.getName()+" to the Location Cache");
