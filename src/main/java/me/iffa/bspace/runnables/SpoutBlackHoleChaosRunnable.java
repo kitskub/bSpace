@@ -2,7 +2,7 @@
 package me.iffa.bspace.runnables;
 
 // bSpace Imports
-import me.iffa.bspace.api.SpaceSpoutHandler;
+import me.iffa.bspace.handlers.SpoutHandler;
 import me.iffa.bspace.listeners.misc.BlackHolePlayerListener;
 
 // Bukkit Imports
@@ -13,9 +13,7 @@ import org.bukkit.Location;
 import org.getspout.spoutapi.block.SpoutBlock;
 
 // Bukkit Imports
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.util.Vector;
 
 /**
  * Runnable that handles causing chaos with black holes.
@@ -79,7 +77,7 @@ public class SpoutBlackHoleChaosRunnable implements Runnable {
             entityZ = blockZ - zDistance;
         }
 	index += .01;
-        if (SpaceSpoutHandler.isInsideRadius(player, block.getLocation(), 1)) {
+        if (SpoutHandler.isInsideRadius(player, block.getLocation(), 1)) {
             player.setHealth(0);
             BlackHolePlayerListener.stopRunnable(player);
             return;

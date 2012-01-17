@@ -9,6 +9,8 @@ import me.iffa.bspace.config.SpaceConfig.ConfigFile;
 /**
  * Useful methods to get localized strings from lang.yml. Try keeping params to a minimum!
  * Oh, and you can use this if you ever need bSpace's default strings :).
+ *
+ * External use only
  * 
  * @author iffamies
  */
@@ -182,6 +184,6 @@ public class SpaceLangHandler {
     /**
      * Constructor of SpaceLangHandler.
      */
-    private SpaceLangHandler() {
+    protected SpaceLangHandler() {
     }
 }

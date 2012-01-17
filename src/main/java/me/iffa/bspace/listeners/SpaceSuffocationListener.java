@@ -7,13 +7,13 @@ import java.util.Map;
 
 // bSpace Imports
 import me.iffa.bspace.Space;
-import me.iffa.bspace.api.SpaceConfigHandler;
-import me.iffa.bspace.api.SpacePlayerHandler;
 import me.iffa.bspace.api.event.area.AreaEnterEvent;
 import me.iffa.bspace.api.event.area.AreaLeaveEvent;
 import me.iffa.bspace.api.event.area.SpaceAreaListener;
 import me.iffa.bspace.api.event.area.SpaceEnterEvent;
 import me.iffa.bspace.api.event.area.SpaceLeaveEvent;
+import me.iffa.bspace.handlers.ConfigHandler;
+import me.iffa.bspace.handlers.PlayerHandler;
 import me.iffa.bspace.runnables.SuffacationRunnable;
 
 // Bukkit Imports
@@ -75,7 +75,7 @@ public class SpaceSuffocationListener extends SpaceAreaListener {
      */
     @Override
     public void onSpaceEnter(SpaceEnterEvent event) {
-        if (!SpacePlayerHandler.insideArea(event.getTo())) {
+        if (!PlayerHandler.insideArea(event.getTo())) {
             startSuffocating(event.getPlayer());
         }
     }
@@ -89,7 +89,8 @@ public class SpaceSuffocationListener extends SpaceAreaListener {
         if (player.hasPermission("bSpace.ignoresuitchecks")) {
             return;
         }
-        boolean suffocatingOn = (SpaceConfigHandler.getRequireHelmet(player.getWorld()) || SpaceConfigHandler.getRequireSuit(player.getWorld()));
+        String id = ConfigHandler.getID(player.getWorld());
+        boolean suffocatingOn = (ConfigHandler.getRequireHelmet(id) || ConfigHandler.getRequireSuit(id));
         if (suffocatingOn) {
             SuffacationRunnable task = new SuffacationRunnable(player);
             int taskInt = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, task, 20L, 20L);

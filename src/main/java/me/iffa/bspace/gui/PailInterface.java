@@ -3,12 +3,12 @@ package me.iffa.bspace.gui;
 
 // bSpace Imports
 import me.iffa.bspace.Space;
-import me.iffa.bspace.api.SpaceMessageHandler;
-import me.iffa.bspace.api.SpaceConfigHandler;
 import me.iffa.bspace.config.SpaceConfig;
 import me.iffa.bspace.config.SpaceConfig.ConfigFile;
 import me.iffa.bspace.config.SpaceConfig.Defaults;
-import me.iffa.bspace.api.SpaceLangHandler;
+import me.iffa.bspace.handlers.ConfigHandler;
+import me.iffa.bspace.handlers.LangHandler;
+import me.iffa.bspace.handlers.MessageHandler;
 
 // Bukkit Imports
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -50,20 +50,20 @@ public class PailInterface extends javax.swing.JPanel {
      */
     private void readConfigs() {
         // Updated to latest v2
-        SpoutEnabled.setSelected(SpaceConfigHandler.isUsingSpout());
-        Clouds.setSelected(!SpaceConfigHandler.getCloudsEnabled());
-        Gravity.setSelected(SpaceConfigHandler.getGravity());
-        UseTexture.setSelected(SpaceConfigHandler.getUseTexturePack());
-        CheckBoxHelmet.setSelected(SpaceConfigHandler.isHelmetGiven());
-        CheckBoxSuit.setSelected(SpaceConfigHandler.isSuitGiven());
-        ArmorTypeBox.setText(SpaceConfigHandler.getArmorType());
-        HelmetBlockIdBox.setText(String.valueOf(SpaceConfigHandler.getHelmetBlock()));
-        TexturePackURL.setText(SpaceConfigHandler.getSpoutTexturePack());
+        SpoutEnabled.setSelected(ConfigHandler.isUsingSpout());
+        Clouds.setSelected(!ConfigHandler.getCloudsEnabled());
+        Gravity.setSelected(ConfigHandler.getGravity());
+        UseTexture.setSelected(ConfigHandler.getUseTexturePack());
+        CheckBoxHelmet.setSelected(ConfigHandler.isHelmetGiven());
+        CheckBoxSuit.setSelected(ConfigHandler.isSuitGiven());
+        ArmorTypeBox.setText(ConfigHandler.getArmorType());
+        HelmetBlockIdBox.setText(String.valueOf(ConfigHandler.getHelmetBlock()));
+        TexturePackURL.setText(ConfigHandler.getSpoutTexturePack());
         SpaceList.setModel(new DefaultListModel());
         if (idConfig.getConfigurationSection("ids") != null) {
             for (String id : idConfig.getConfigurationSection("ids").getKeys(false)) {
                 ((DefaultListModel) SpaceList.getModel()).addElement(id);
-                SpaceMessageHandler.debugPrint(Level.INFO, "Added ID '" + id + "' to list of IDs (Pail).");
+                MessageHandler.debugPrint(Level.INFO, "Added ID '" + id + "' to list of IDs (Pail).");
             }
         }
         CurrentVersion.setText(plugin.getDescription().getVersion());
@@ -77,7 +77,7 @@ public class PailInterface extends javax.swing.JPanel {
      */
     private void loadSpaceListConfig(String idname) {
         if (idConfig.get("ids." + idname) == null) {
-            SpaceMessageHandler.print(Level.WARNING, SpaceLangHandler.getIdNotFoundMessage(idname));
+            MessageHandler.print(Level.WARNING, LangHandler.getIdNotFoundMessage(idname));
             return;
         }
         // Updated for latest v2
@@ -96,7 +96,7 @@ public class PailInterface extends javax.swing.JPanel {
         Settings_RoomHeight.setValue(idConfig.getInt("ids." + idname + ".breathingarea.maxroomheight", (Integer) Defaults.ROOM_HEIGHT.getDefault()));
         Settings_Neutral.setSelected(idConfig.getBoolean("ids." + idname + ".neutralmobs", (Boolean) Defaults.NEUTRAL_MOBS_ALLOWED.getDefault()));
         Settings_Hostile.setSelected(idConfig.getBoolean("ids." + idname + ".hostilemobs", (Boolean) Defaults.HOSTILE_MOBS_ALLOWED.getDefault()));
-        SpaceMessageHandler.debugPrint(Level.INFO, "Loaded settings for id '" + idname + "'.");
+        MessageHandler.debugPrint(Level.INFO, "Loaded settings for id '" + idname + "'.");
     }
 
     /**
@@ -107,7 +107,7 @@ public class PailInterface extends javax.swing.JPanel {
      */
     private boolean saveIdConfig(String idname) {
         if (idConfig.get("ids." + idname) == null) {
-            SpaceMessageHandler.print(Level.WARNING, SpaceLangHandler.getIdNotFoundMessage(idname));
+            MessageHandler.print(Level.WARNING, LangHandler.getIdNotFoundMessage(idname));
             return false;
         }
         idConfig.set("ids." + idname + ".generation.generateplanets", Settings_Planets.isSelected());
@@ -128,10 +128,10 @@ public class PailInterface extends javax.swing.JPanel {
         try {
             idConfig.save(SpaceConfig.getConfigFile(ConfigFile.IDS));
         } catch (IOException ex) {
-            SpaceMessageHandler.print(Level.WARNING, ex.getMessage());
+            MessageHandler.print(Level.WARNING, ex.getMessage());
             return false;
         }
-        SpaceMessageHandler.debugPrint(Level.INFO, "Saved settings for id '" + idname + "'.");
+        MessageHandler.debugPrint(Level.INFO, "Saved settings for id '" + idname + "'.");
         return true;
     }
 
@@ -804,7 +804,7 @@ public class PailInterface extends javax.swing.JPanel {
         try {
             spaceConfig.save(SpaceConfig.getConfigFile(ConfigFile.CONFIG));
         } catch (IOException ex) {
-            SpaceMessageHandler.print(Level.WARNING, ex.getMessage());
+            MessageHandler.print(Level.WARNING, ex.getMessage());
         }
         JOptionPane.showMessageDialog(this, "Your general settings have been saved!", "Settings saved!", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_SaveButtonActionPerformed
@@ -848,10 +848,10 @@ private void createIdButtonActionPerformed(java.awt.event.ActionEvent evt) {//GE
     try {
         idConfig.save(SpaceConfig.getConfigFile(ConfigFile.IDS));
     } catch (IOException ex) {
-        SpaceMessageHandler.print(Level.WARNING, ex.getMessage());
+        MessageHandler.print(Level.WARNING, ex.getMessage());
     }
     ((DefaultListModel) SpaceList.getModel()).addElement(idname);
-    SpaceMessageHandler.debugPrint(Level.INFO, "Created ID '" + idname + "' through Pail.");
+    MessageHandler.debugPrint(Level.INFO, "Created ID '" + idname + "' through Pail.");
     JOptionPane.showMessageDialog(this, "A new ID called '" + idname + "' has been created! You can change the settings through this tab.", "ID created", JOptionPane.INFORMATION_MESSAGE);
     newID.setText("ID");
 }//GEN-LAST:event_createIdButtonActionPerformed
@@ -873,7 +873,7 @@ private void deleteIdButtonActionPerformed(java.awt.event.ActionEvent evt) {//GE
         try {
             idConfig.save(SpaceConfig.getConfigFile(ConfigFile.IDS));
         } catch (IOException ex) {
-            SpaceMessageHandler.print(Level.WARNING, ex.getMessage());
+            MessageHandler.print(Level.WARNING, ex.getMessage());
         }
         ((DefaultListModel) SpaceList.getModel()).remove(SpaceList.getSelectedIndex());
         Settings_IDName.setText("None");
@@ -930,7 +930,7 @@ private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
     try {
         Desktop.getDesktop().browse(java.net.URI.create("http://forums.bukkit.org/threads/32546/"));
     } catch (IOException ex) {
-        SpaceMessageHandler.print(Level.WARNING, "Something went wrong while opening a page on your web browser!");
+        MessageHandler.print(Level.WARNING, "Something went wrong while opening a page on your web browser!");
     }
 }//GEN-LAST:event_jLabel8MouseClicked
 

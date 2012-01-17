@@ -5,19 +5,20 @@ package me.iffa.bspace.api;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-// Bukkit Imports
-import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
+// bSpace Imports
+import me.iffa.bspace.handlers.ConfigHandler;
 
 /**
  * Useful methods to send messages to players and console.
+ * 
+ * External use only
  * 
  * @author iffa
  */
 public class SpaceMessageHandler {
     // Variables
-    private static final Logger log = Logger.getLogger("Minecraft");
-    private static String printPrefix = "[bSpace]";
+    protected static final Logger log = Logger.getLogger("Minecraft");
+    private static String printPrefix = "[Unknown]";
     
     /**
      * Prints a message to the console.
@@ -37,32 +38,14 @@ public class SpaceMessageHandler {
      */
     public static void debugPrint(Level level, String message) {
         
-        if (SpaceConfigHandler.getDebugging()) {
+        if (ConfigHandler.getDebugging()) {
             log.log(level, printPrefix + " " + message);
         }
     }
 
     /**
-     * Sends a "You don't have permission!"-message to a player.
-     * 
-     * @param player Player
-     */
-    public static void sendNoPermissionMessage(Player player) {
-        player.sendMessage(ChatColor.RED + SpaceLangHandler.getNoPermissionMessage());
-    }
-
-    /**
-     * sends a "You don't have enough money!"-message to a player.
-     * 
-     * @param player Player
-     */
-    public static void sendNotEnoughMoneyMessage(Player player) {
-        player.sendMessage(ChatColor.RED + SpaceLangHandler.getNotEnoughMoneyMessage());
-    }
-
-    /**
      * Constructor of SpaceMessageHandler.
      */
-    private SpaceMessageHandler() {
+    protected SpaceMessageHandler() {
     }
 }

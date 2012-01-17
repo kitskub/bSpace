@@ -5,8 +5,8 @@ package me.iffa.bspace.wgen.populators;
 import java.util.Random;
 
 // bSpace Imports
-import me.iffa.bspace.api.SpaceConfigHandler;
-import me.iffa.bspace.api.SpaceSpoutHandler;
+import me.iffa.bspace.handlers.ConfigHandler;
+import me.iffa.bspace.handlers.SpoutHandler;
 
 // Bukkit Imports
 import org.bukkit.Chunk;
@@ -33,19 +33,20 @@ public class SpaceBlackHolePopulator extends BlockPopulator {
      */
     @Override
     public void populate(World world, Random random, Chunk source) {
-        if (random.nextInt(100) <= SpaceConfigHandler.getBlackHoleChance(world)) {
+        String id = ConfigHandler.getID(world);
+        if (random.nextInt(100) <= ConfigHandler.getBlackHoleChance(id)) {
             //short[] blockIds = new short[16*16*128];
             int chunkX = source.getX();
             int chunkZ = source.getZ();
             int x = random.nextInt(16);
             int z = random.nextInt(16);
             int y = random.nextInt(127);
-            //blockIds[(x * 16 + z) * 128 + y] = (short) SpaceSpoutHandler.blackHole.getCustomId();
+            //blockIds[(x * 16 + z) * 128 + y] = (short) SpoutHandler.blackHole.getCustomId();
             //SpoutManager.getChunkDataManager().setCustomBlockIds(world, chunkX, chunkZ, blockIds);
             SpoutBlock sb = (SpoutBlock)world.getBlockAt((chunkX*16+x), y, (chunkZ*16+z));
-            //sb.setCustomBlock(SpaceSpoutHandler.blackHole);
-            //SpoutManager.getMaterialManager().overrideBlock(world, (chunkX*16+x), y, (chunkZ*16+z), SpaceSpoutHandler.blackHole);
-            SpoutManager.getMaterialManager().overrideBlock(sb, SpaceSpoutHandler.blackHole);
+            //sb.setCustomBlock(SpoutHandler.blackHole);
+            //SpoutManager.getMaterialManager().overrideBlock(world, (chunkX*16+x), y, (chunkZ*16+z), SpoutHandler.blackHole);
+            SpoutManager.getMaterialManager().overrideBlock(sb, SpoutHandler.blackHole);
         }
     }
 }

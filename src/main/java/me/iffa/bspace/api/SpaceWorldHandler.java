@@ -19,6 +19,7 @@ import org.bukkit.entity.Player;
 
 /**
  * Class that handles space worlds.
+ * External use only.
  * 
  * @author iffa
  * @author Jack
@@ -145,6 +146,13 @@ public class SpaceWorldHandler {
         }
     }
 
-    private SpaceWorldHandler() {
+    public static String getID(World world) {
+        if (world.getGenerator() instanceof PlanetsChunkGenerator) {
+            return ((PlanetsChunkGenerator) world.getGenerator()).ID;
+        }
+        return "planets";
+    }
+
+    protected SpaceWorldHandler() {
     }  
 }

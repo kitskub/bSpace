@@ -6,8 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 // bSpace Imports
-import me.iffa.bspace.api.SpaceSpoutHandler;
-import me.iffa.bspace.api.SpaceWorldHandler;
+import me.iffa.bspace.handlers.SpoutHandler;
+import me.iffa.bspace.handlers.WorldHandler;
 import me.iffa.bspace.runnables.SpoutBlackHoleChaosRunnable;
 import me.iffa.bspace.wgen.blocks.BlackHole;
 
@@ -41,7 +41,7 @@ public class BlackHolePlayerListener extends PlayerListener {
      */
     @Override
     public void onPlayerMove(PlayerMoveEvent event) {
-        if (event.isCancelled()||!SpaceWorldHandler.isInAnySpace(event.getPlayer())||event.getPlayer().getHealth()==0) {
+        if (event.isCancelled()||!WorldHandler.isInAnySpace(event.getPlayer())||event.getPlayer().getHealth()==0) {
             return;
         }
         long currentTime = System.currentTimeMillis();
@@ -51,7 +51,7 @@ public class BlackHolePlayerListener extends PlayerListener {
         lastTime=System.currentTimeMillis();
         checkBlocks(event.getTo());
         for (SpoutBlock block : BlackHole.getHolesList()) {
-            if (SpaceSpoutHandler.isInsideRadius(event.getPlayer(), block.getLocation(), SIZE)&&!runnables.containsKey(event.getPlayer())) {
+            if (SpoutHandler.isInsideRadius(event.getPlayer(), block.getLocation(), SIZE)&&!runnables.containsKey(event.getPlayer())) {
                 int taskId = Bukkit.getScheduler().scheduleSyncRepeatingTask(
                         Bukkit.getPluginManager().getPlugin("bSpace"),
                         new SpoutBlackHoleChaosRunnable(event.getPlayer(), block),

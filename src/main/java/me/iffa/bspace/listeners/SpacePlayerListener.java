@@ -7,14 +7,13 @@ import java.util.Map;
 import java.util.logging.Level;
 
 // bSpace Imports
-import me.iffa.bspace.api.SpaceConfigHandler;
-import me.iffa.bspace.api.SpaceMessageHandler;
-import me.iffa.bspace.api.SpacePlayerHandler;
-import me.iffa.bspace.api.SpaceWorldHandler;
 import me.iffa.bspace.api.event.area.AreaEnterEvent;
 import me.iffa.bspace.api.event.area.AreaLeaveEvent;
 import me.iffa.bspace.api.event.area.SpaceLeaveEvent;
 import me.iffa.bspace.api.event.area.SpaceEnterEvent;
+import me.iffa.bspace.handlers.MessageHandler;
+import me.iffa.bspace.handlers.PlayerHandler;
+import me.iffa.bspace.handlers.WorldHandler;
 
 // Bukkit Imports
 import org.bukkit.Bukkit;
@@ -48,7 +47,7 @@ public class SpacePlayerListener extends PlayerListener {
             return;
         }
         Player player = event.getPlayer();
-        if (SpaceWorldHandler.isSpaceWorld(event.getTo().getWorld()) && event.getTo().getWorld() != event.getFrom().getWorld()) {
+        if (WorldHandler.isSpaceWorld(event.getTo().getWorld()) && event.getTo().getWorld() != event.getFrom().getWorld()) {
             /* Notify listeners start */
             SpaceEnterEvent e = new SpaceEnterEvent(event.getPlayer(), event.getFrom(), event.getTo());
             Bukkit.getServer().getPluginManager().callEvent(e);
@@ -57,10 +56,10 @@ public class SpacePlayerListener extends PlayerListener {
                 return;
             }
             /* Notify listeners end */
-            SpaceMessageHandler.debugPrint(Level.INFO, "Player '" + event.getPlayer().getName() + "' teleported to space.");
-            SpacePlayerHandler.giveSuitOrHelmet(player);
-        } else if (!SpaceWorldHandler.isSpaceWorld(event.getTo().getWorld())
-                && SpaceWorldHandler.isSpaceWorld(event.getFrom().getWorld())) {
+            MessageHandler.debugPrint(Level.INFO, "Player '" + event.getPlayer().getName() + "' teleported to space.");
+            PlayerHandler.giveSuitOrHelmet(player);
+        } else if (!WorldHandler.isSpaceWorld(event.getTo().getWorld())
+                && WorldHandler.isSpaceWorld(event.getFrom().getWorld())) {
             /* Notify listeners start */
             SpaceLeaveEvent e = new SpaceLeaveEvent(event.getPlayer(), event.getFrom(), event.getTo());
             Bukkit.getServer().getPluginManager().callEvent(e);
@@ -69,7 +68,7 @@ public class SpacePlayerListener extends PlayerListener {
                 return;
             }
             /* Notify listeners end */
-            SpacePlayerHandler.removeSuitOrHelmet(player);
+            PlayerHandler.removeSuitOrHelmet(player);
         }
     }
 
@@ -83,9 +82,9 @@ public class SpacePlayerListener extends PlayerListener {
         if (event.isCancelled()) {
             return;
         }
-        if (SpaceWorldHandler.isInAnySpace(event.getPlayer())) {
+        if (WorldHandler.isInAnySpace(event.getPlayer())) {
             if(!inArea.containsKey(event.getPlayer())) inArea.put(event.getPlayer(), false);
-            boolean insideArea=SpacePlayerHandler.insideArea(event.getPlayer());
+            boolean insideArea=PlayerHandler.insideArea(event.getPlayer());
             if (insideArea == true) {
                 if (inArea.get(event.getPlayer()) == false) {
                     inArea.put(event.getPlayer(), true);
@@ -93,7 +92,7 @@ public class SpacePlayerListener extends PlayerListener {
                     AreaEnterEvent e = new AreaEnterEvent(event.getPlayer());
                     Bukkit.getServer().getPluginManager().callEvent(e);
                     /* Notify listeners end */
-                    SpaceMessageHandler.debugPrint(Level.INFO, "Player '" + event.getPlayer().getName() + "' entered an area.");
+                    MessageHandler.debugPrint(Level.INFO, "Player '" + event.getPlayer().getName() + "' entered an area.");
                 }
             } else {
                 if (inArea.get(event.getPlayer()) == true) {
@@ -102,7 +101,7 @@ public class SpacePlayerListener extends PlayerListener {
                     AreaLeaveEvent e = new AreaLeaveEvent(event.getPlayer());
                     Bukkit.getServer().getPluginManager().callEvent(e);
                     /* Notify listeners end */
-                    SpaceMessageHandler.debugPrint(Level.INFO, "Player '" + event.getPlayer().getName() + "' left an area.");
+                    MessageHandler.debugPrint(Level.INFO, "Player '" + event.getPlayer().getName() + "' left an area.");
                 }
             }
         }
@@ -117,7 +116,7 @@ public class SpacePlayerListener extends PlayerListener {
     @Override
     public void onPlayerQuit(PlayerQuitEvent event) {
         if(SpaceSuffocationListener.stopSuffocating(event.getPlayer())){
-            SpaceMessageHandler.debugPrint(Level.INFO, "Cancelled suffocation task for player '" + event.getPlayer().getName() + "'. (reason: left server)");
+            MessageHandler.debugPrint(Level.INFO, "Cancelled suffocation task for player '" + event.getPlayer().getName() + "'. (reason: left server)");
         }
        if (inArea.containsKey(event.getPlayer())) {
            inArea.remove(event.getPlayer());
@@ -131,9 +130,9 @@ public class SpacePlayerListener extends PlayerListener {
      */
     @Override
     public void onPlayerJoin(PlayerJoinEvent event) {
-        if(!SpaceWorldHandler.isSpaceWorld(
+        if(!WorldHandler.isSpaceWorld(
             event.getPlayer().getWorld())) return;
-        boolean insideArea = SpacePlayerHandler.insideArea(event.getPlayer());
+        boolean insideArea = PlayerHandler.insideArea(event.getPlayer());
         inArea.put(event.getPlayer(), insideArea);
         SpaceEnterEvent e = new SpaceEnterEvent(event.getPlayer(),null,event.getPlayer().getLocation());
         Bukkit.getServer().getPluginManager().callEvent(e);
@@ -145,9 +144,9 @@ public class SpacePlayerListener extends PlayerListener {
      */
     @Override
     public void onPlayerRespawn(PlayerRespawnEvent event) {
-        if(SpaceWorldHandler.isSpaceWorld(event.getRespawnLocation().getWorld())){
-            SpacePlayerHandler.giveSuitOrHelmet(event.getPlayer());
-            boolean insideArea = SpacePlayerHandler.insideArea(event.getPlayer());
+        if(WorldHandler.isSpaceWorld(event.getRespawnLocation().getWorld())){
+            PlayerHandler.giveSuitOrHelmet(event.getPlayer());
+            boolean insideArea = PlayerHandler.insideArea(event.getPlayer());
             inArea.put(event.getPlayer(), insideArea);
             SpaceEnterEvent e = new SpaceEnterEvent(event.getPlayer(),null,event.getRespawnLocation());
             Bukkit.getServer().getPluginManager().callEvent(e);

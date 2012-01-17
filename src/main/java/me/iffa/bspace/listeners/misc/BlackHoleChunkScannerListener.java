@@ -2,7 +2,7 @@
 package me.iffa.bspace.listeners.misc;
 
 // bSpace Imports
-import me.iffa.bspace.api.SpaceWorldHandler;
+import me.iffa.bspace.handlers.WorldHandler;
 import me.iffa.bspace.wgen.blocks.BlackHole;
 
 // Bukkit Imports
@@ -28,7 +28,7 @@ public class BlackHoleChunkScannerListener extends WorldListener {
      */
     @Override
     public void onChunkLoad(ChunkLoadEvent event) {
-        if (!SpaceWorldHandler.isSpaceWorld(event.getWorld())) {
+        if (!WorldHandler.isSpaceWorld(event.getWorld())) {
             return;
         }
         if(event.isNewChunk()){
@@ -49,7 +49,7 @@ public class BlackHoleChunkScannerListener extends WorldListener {
     
     @Override
     public void onChunkPopulate(ChunkPopulateEvent event){
-        if (!SpaceWorldHandler.isSpaceWorld(event.getWorld())) {
+        if (!WorldHandler.isSpaceWorld(event.getWorld())) {
             return;
         }
         

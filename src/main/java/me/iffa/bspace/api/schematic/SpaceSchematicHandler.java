@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.logging.Level;
 
 // bSpace Imports
-import me.iffa.bspace.api.SpaceMessageHandler;
+import me.iffa.bspace.handlers.MessageHandler;
 
 // Bukkit Imports
 import org.bukkit.Location;
@@ -114,7 +114,7 @@ public class SpaceSchematicHandler {
             }
         }
         // Builds the schematic.
-        SpaceMessageHandler.debugPrint(Level.INFO, "Now going inside buildSchematic.");
+        MessageHandler.debugPrint(Level.INFO, "Now going inside buildSchematic.");
         buildSchematic(origin, blocksMap, tileEntitiesMap);
     }
 
@@ -127,7 +127,7 @@ public class SpaceSchematicHandler {
      */
     private static void buildSchematic(Location origin, Map<Location, Map<Material, MaterialData>> blocksMap, Map<BlockVector, Map<String, Tag>> tileEntitiesMap) {
         // Variables
-        SpaceMessageHandler.debugPrint(Level.INFO, "Inside buildSchematic with origin location: '" + origin.toString() + "'.");
+        MessageHandler.debugPrint(Level.INFO, "Inside buildSchematic with origin location: '" + origin.toString() + "'.");
         World world = origin.getWorld();
 
         // Setting blocks
@@ -187,9 +187,9 @@ public class SpaceSchematicHandler {
             }
             Schematic schematic = new Schematic(file.getName().replace(".schematic", ""), blocks, data, width, height, length, entities, tileentities);
             schematics.add(schematic);
-            SpaceMessageHandler.debugPrint(Level.INFO, "Added Schematic '" + file.getName() + "' to schematics list:\n" + width + "\n" + height + "\n" + length + "\n" + blocks + "\n" + data);
+            MessageHandler.debugPrint(Level.INFO, "Added Schematic '" + file.getName() + "' to schematics list:\n" + width + "\n" + height + "\n" + length + "\n" + blocks + "\n" + data);
         } catch (Exception e) {
-            SpaceMessageHandler.print(Level.WARNING, "There was a problem while loading schematic file '" + file.getName() + "'! Are you sure it's a schematic: " + e.getMessage());
+            MessageHandler.print(Level.WARNING, "There was a problem while loading schematic file '" + file.getName() + "'! Are you sure it's a schematic: " + e.getMessage());
         }
     }
 

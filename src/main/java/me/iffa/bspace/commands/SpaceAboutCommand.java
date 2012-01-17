@@ -3,7 +3,7 @@ package me.iffa.bspace.commands;
 
 // bSpace Imports
 import me.iffa.bspace.Space;
-import me.iffa.bspace.api.SpaceWorldHandler;
+import me.iffa.bspace.handlers.WorldHandler;
 
 // Bukkit Imports
 import org.bukkit.ChatColor;
@@ -34,7 +34,7 @@ public class SpaceAboutCommand extends SpaceCommand {
         if (getArgs().length < 2) {
             getSender().sendMessage(ChatColor.GOLD + Space.getPrefix() + " About:");
             getSender().sendMessage(ChatColor.GOLD + "-" + ChatColor.GRAY + " You're running version " + ChatColor.GOLD + getPlugin().getDescription().getVersion());
-            getSender().sendMessage(ChatColor.GOLD + "-" + ChatColor.GRAY + " There are currently "+ ChatColor.GOLD + SpaceWorldHandler.getSpaceWorlds().size() + ChatColor.GRAY + " space worlds loaded");
+            getSender().sendMessage(ChatColor.GOLD + "-" + ChatColor.GRAY + " There are currently "+ ChatColor.GOLD + WorldHandler.getSpaceWorlds().size() + ChatColor.GRAY + " space worlds loaded");
         } else {
             getSender().sendMessage(ChatColor.GOLD + "-" + ChatColor.GRAY + " Main developers:");
             getSender().sendMessage(ChatColor.GOLD + "    iffa, kitskub");

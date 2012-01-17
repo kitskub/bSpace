@@ -6,10 +6,10 @@ import java.util.Random;
 import java.util.logging.Level;
 
 // bSpace Imports
-import me.iffa.bspace.api.SpaceConfigHandler;
-import me.iffa.bspace.api.SpaceMessageHandler;
 import me.iffa.bspace.api.schematic.SpaceSchematicHandler;
 import me.iffa.bspace.api.schematic.Schematic;
+import me.iffa.bspace.handlers.ConfigHandler;
+import me.iffa.bspace.handlers.MessageHandler;
 
 // Bukkit Imports
 import org.bukkit.Chunk;
@@ -37,9 +37,10 @@ public class SpaceSchematicPopulator extends BlockPopulator {
             return;
         }
         int y = new Random().nextInt(128);
+        String id = ConfigHandler.getID(world);
         Schematic randomSchematic = SpaceSchematicHandler.getSchematics().get(new Random().nextInt(SpaceSchematicHandler.getSchematics().size()));
-        if (new Random().nextInt(200) <= SpaceConfigHandler.getSchematicChance(world)) {
-            SpaceMessageHandler.debugPrint(Level.INFO, "Starting schematic population process with schematic '" + randomSchematic.getName() + "'.");
+        if (new Random().nextInt(200) <= ConfigHandler.getSchematicChance(id)) {
+            MessageHandler.debugPrint(Level.INFO, "Starting schematic population process with schematic '" + randomSchematic.getName() + "'.");
             SpaceSchematicHandler.placeSchematic(randomSchematic, new Location(world, (chunk.getX() << 4) + new Random().nextInt(10), y, (chunk.getZ() << 4) + new Random().nextInt(10)));
         }
     }

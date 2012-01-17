@@ -5,8 +5,8 @@ package me.iffa.bspace.listeners.spout;
 import java.util.logging.Level;
 
 // bSpace Imports
-import me.iffa.bspace.api.SpaceMessageHandler;
-import me.iffa.bspace.api.SpaceWorldHandler;
+import me.iffa.bspace.handlers.MessageHandler;
+import me.iffa.bspace.handlers.WorldHandler;
 
 // Bukkit Imports
 import org.bukkit.World;
@@ -39,7 +39,7 @@ public class SpaceSpoutCraftListener extends SpoutListener {
     @Override
     public void onSpoutCraftEnable(SpoutCraftEnableEvent event) {
         SpoutPlayer player = event.getPlayer();
-        if (SpaceWorldHandler.isSpaceWorld(player.getWorld())) {
+        if (WorldHandler.isSpaceWorld(player.getWorld())) {
             World space = player.getWorld();
             player.setCanFly(true);
             //[18:44] <Afforess> iffa: setEntitySkin was fixed in the 703/510 RB series
@@ -50,16 +50,16 @@ public class SpaceSpoutCraftListener extends SpoutListener {
                     player.setEntitySkin(entity, "http://cloud.github.com/downloads/iffa/bSpace/bananaspace_alien.png", EntitySkinType.DEFAULT);
                 }
             }
-            SpaceMessageHandler.debugPrint(Level.INFO, "Made zombies have an alien skin for player '" + player.getName() + "'.");
+            MessageHandler.debugPrint(Level.INFO, "Made zombies have an alien skin for player '" + player.getName() + "'.");
             //Set the sky properties
             sky.setMoonVisible(player, false);
             sky.setCloudsVisible(player, false);
-            SpaceMessageHandler.debugPrint(Level.INFO, "Made clouds invisible for player '" + player.getName() + "'.");
+            MessageHandler.debugPrint(Level.INFO, "Made clouds invisible for player '" + player.getName() + "'.");
             //Set the player properties
             player.setAirSpeedMultiplier(1.2);
             player.setGravityMultiplier(0.3);
             player.setWalkingMultiplier(0.7);
-            SpaceMessageHandler.debugPrint(Level.INFO, "Changed player '" + player.getName() + "'s gravity settings (" + player.getAirSpeedMultiplier() + ", " + player.getGravityMultiplier() + ", " + player.getJumpingMultiplier() + ").");
+            MessageHandler.debugPrint(Level.INFO, "Changed player '" + player.getName() + "'s gravity settings (" + player.getAirSpeedMultiplier() + ", " + player.getGravityMultiplier() + ", " + player.getJumpingMultiplier() + ").");
         }
     }
 }

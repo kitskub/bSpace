@@ -5,7 +5,7 @@ package me.iffa.bspace.wgen.populators;
 import java.util.Random;
 
 // bSpace Imports
-import me.iffa.bspace.api.SpaceConfigHandler;
+import me.iffa.bspace.handlers.ConfigHandler;
 
 // Bukkit Imports
 import org.bukkit.Chunk;
@@ -29,7 +29,8 @@ public class SpaceSatellitePopulator extends BlockPopulator {
      */
     @Override
     public void populate(World world, Random random, Chunk source) {
-        if (random.nextInt(1337) <= SpaceConfigHandler.getSatelliteChance(world)) {
+        String id = ConfigHandler.getID(world);
+        if (random.nextInt(1337) <= ConfigHandler.getSatelliteChance(id)) {
             int height = random.nextInt(128);
             buildSatellite(world, height, source);
             return;

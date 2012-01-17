@@ -6,8 +6,8 @@ import java.util.logging.Level;
 
 // bSpace Imports
 import me.iffa.bspace.Space;
-import me.iffa.bspace.api.SpaceMessageHandler;
-import me.iffa.bspace.api.SpaceWorldHandler;
+import me.iffa.bspace.handlers.MessageHandler;
+import me.iffa.bspace.handlers.WorldHandler;
 
 // Bukkit Imports
 import org.bukkit.Location;
@@ -43,7 +43,7 @@ public class SpaceSpoutEntityListener extends EntityListener {
         Entity entity = event.getEntity();
         if (entity instanceof Player) {
             SpoutPlayer player = SpoutManager.getPlayer((Player) entity);
-            if (SpaceWorldHandler.isInAnySpace(player) && event.getCause().equals(DamageCause.FALL) && player.isSpoutCraftEnabled()) {
+            if (WorldHandler.isInAnySpace(player) && event.getCause().equals(DamageCause.FALL) && player.isSpoutCraftEnabled()) {
                 if (Space.getLocCache().containsKey(player)) {
                     Location landing = player.getLocation(); //The landing point
                     Location starting = Space.getLocCache().get(player); //The starting point
@@ -67,11 +67,11 @@ public class SpaceSpoutEntityListener extends EntityListener {
                             //bSpace.debugLog("Added player "+player.getName()+" to the Location Cache");
                         }
                     } else {
-                        SpaceMessageHandler.debugPrint(Level.WARNING, "Worlds are not the same! Canceling event!");
+                        MessageHandler.debugPrint(Level.WARNING, "Worlds are not the same! Canceling event!");
                         event.setCancelled(true);
                     }
                 } else {
-                    SpaceMessageHandler.debugPrint(Level.WARNING, "Player " + player.getName() + " wasn't in the Location Cache! Canceling event!");
+                    MessageHandler.debugPrint(Level.WARNING, "Player " + player.getName() + " wasn't in the Location Cache! Canceling event!");
                     event.setCancelled(true);
                 }
             }
@@ -85,7 +85,7 @@ public class SpaceSpoutEntityListener extends EntityListener {
      */
     @Override
     public void onCreatureSpawn(CreatureSpawnEvent event) {
-        if (!event.isCancelled() && SpaceWorldHandler.isSpaceWorld(event.getLocation().getWorld()) && event.getCreatureType().equals(CreatureType.ZOMBIE)) {
+        if (!event.isCancelled() && WorldHandler.isSpaceWorld(event.getLocation().getWorld()) && event.getCreatureType().equals(CreatureType.ZOMBIE)) {
             for (Player player : event.getLocation().getWorld().getPlayers()) {
                 SpoutPlayer p = SpoutManager.getPlayer(player);
                 if (p.isSpoutCraftEnabled()) {

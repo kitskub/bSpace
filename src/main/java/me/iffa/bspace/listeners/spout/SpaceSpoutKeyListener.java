@@ -1,13 +1,9 @@
 // Package Declaration
 package me.iffa.bspace.listeners.spout;
 
-// Java Imports
-import java.util.logging.Level;
-
 // bSpace Imports
 import me.iffa.bspace.Space;
-import me.iffa.bspace.api.SpaceMessageHandler;
-import me.iffa.bspace.api.SpaceWorldHandler;
+import me.iffa.bspace.handlers.WorldHandler;
 
 // Bukkit Imports
 import org.bukkit.Bukkit;
@@ -40,7 +36,7 @@ public class SpaceSpoutKeyListener extends InputListener {
         SpoutPlayer player = event.getPlayer();
         Player temp = player;
 
-        if (event.getScreenType().equals(ScreenType.GAME_SCREEN) && SpaceWorldHandler.isInAnySpace(player)) {
+        if (event.getScreenType().equals(ScreenType.GAME_SCREEN) && WorldHandler.isInAnySpace(player)) {
             //Log the jump location for future use
             if (event.getKey().equals(player.getJumpKey())) {
                 Space.setJumpPressed(true);
@@ -53,7 +49,7 @@ public class SpaceSpoutKeyListener extends InputListener {
                     Location temp2 = event.getPlayer().getLocation();
                     if ((temp1.getBlock().getX() == temp2.getBlock().getX()) && (temp1.getBlock().getY() == temp2.getBlock().getY())
                             && (temp1.getBlock().getZ() == temp2.getBlock().getZ()) && (temp1.getWorld().equals(temp2.getWorld()))) {
-                        //SpaceMessageHandler.debugPrint(Level.WARNING, "Player " + temp.getName() + " is in the Location Cache already! Skipping...");
+                        //MessageHandler.debugPrint(Level.WARNING, "Player " + temp.getName() + " is in the Location Cache already! Skipping...");
                     } else {
                         Block under = Bukkit.getServer().getWorld(player.getWorld().getName()).getBlockAt(
                                 temp2.getBlockX(), temp2.getBlockY() - 1, temp2.getBlockZ());

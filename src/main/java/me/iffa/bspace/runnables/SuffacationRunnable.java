@@ -3,9 +3,9 @@ package me.iffa.bspace.runnables;
 
 // bSpace Imports
 import java.util.logging.Level;
-import me.iffa.bspace.api.SpaceMessageHandler;
-import me.iffa.bspace.api.SpacePlayerHandler;
 import me.iffa.bspace.api.event.misc.SpaceSuffocationEvent;
+import me.iffa.bspace.handlers.MessageHandler;
+import me.iffa.bspace.handlers.PlayerHandler;
 import me.iffa.bspace.listeners.SpaceSuffocationListener;
 
 // Bukkit Imports
@@ -37,7 +37,7 @@ public class SuffacationRunnable implements Runnable {
     @Override
     public void run() {
         if (!player.isDead()) {
-            if(SpacePlayerHandler.checkNeedsSuffocation(player)){
+            if(PlayerHandler.checkNeedsSuffocation(player)){
                 if(!suffocating){
                     /* Notify listeners start */
                     SpaceSuffocationEvent e = new SpaceSuffocationEvent(player);
@@ -48,7 +48,7 @@ public class SuffacationRunnable implements Runnable {
                     /* Notify listeners end */
                     suffocating=true;
                     player.sendMessage("You left an area and are now suffocating.");
-                    SpaceMessageHandler.debugPrint(Level.INFO, "Player '" + player.getName() + "' is now suffocating in space.");
+                    MessageHandler.debugPrint(Level.INFO, "Player '" + player.getName() + "' is now suffocating in space.");
                 }
             } else {
                 if(suffocating) {

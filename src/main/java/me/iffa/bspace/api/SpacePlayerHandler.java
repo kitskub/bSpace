@@ -5,6 +5,8 @@ package me.iffa.bspace.api;
 import java.util.logging.Level;
 
 // Bukkit Imports
+import me.iffa.bspace.handlers.ConfigHandler;
+import me.iffa.bspace.handlers.MessageHandler;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -15,6 +17,7 @@ import org.bukkit.inventory.ItemStack;
 
 /**
  * Player related methods.
+ * External use only
  * 
  * @author iffa
  */
@@ -46,7 +49,7 @@ public class SpacePlayerHandler {
         Material leggings = Material.getMaterial(armortype.toUpperCase() + "_LEGGINGS");
         Material boots = Material.getMaterial(armortype.toUpperCase() + "_BOOTS");
         if (helmet == null) {
-            SpaceMessageHandler.print(Level.SEVERE, "Invalid armortype '" + armortype + "' in config!");
+            MessageHandler.print(Level.SEVERE, "Invalid armortype '" + armortype + "' in config!");
             player.sendMessage(ChatColor.RED + "Nag at server owner: Invalid armortype in bSpace config!");
             return;
         }
@@ -107,27 +110,28 @@ public class SpacePlayerHandler {
      */
     public static boolean checkNeedsSuffocation(Player player) {
         SuitCheck suit = null;
-        if (SpaceConfigHandler.getRequireHelmet(player.getWorld()) && SpaceConfigHandler.getRequireSuit(player.getWorld())) {
+        String id = ConfigHandler.getID(player.getWorld());
+        if (ConfigHandler.getRequireHelmet(id) && ConfigHandler.getRequireSuit(id)) {
             suit = SuitCheck.BOTH;
-        } else if (SpaceConfigHandler.getRequireHelmet(player.getWorld())) {
+        } else if (ConfigHandler.getRequireHelmet(id)) {
             suit = SuitCheck.HELMET_ONLY;
-        } else if (SpaceConfigHandler.getRequireSuit(player.getWorld())) {
+        } else if (ConfigHandler.getRequireSuit(id)) {
             suit = SuitCheck.SUIT_ONLY;
         } else{
             return false;
         }
         if (suit == SuitCheck.SUIT_ONLY) {
-            if (hasSuit(player, SpaceConfigHandler.getArmorType())){
+            if (hasSuit(player, ConfigHandler.getArmorType())){
                 return false;
             }
         }
         else if (suit == SuitCheck.HELMET_ONLY) {
-            if(player.getInventory().getHelmet().getTypeId() == SpaceConfigHandler.getHelmetBlock()){
+            if(player.getInventory().getHelmet().getTypeId() == ConfigHandler.getHelmetBlock()){
                 return false;
             }
         } else if (suit == SuitCheck.BOTH) {
-            if(player.getInventory().getHelmet().getTypeId() == SpaceConfigHandler.getHelmetBlock() 
-                    && hasSuit(player, SpaceConfigHandler.getArmorType())){
+            if(player.getInventory().getHelmet().getTypeId() == ConfigHandler.getHelmetBlock() 
+                    && hasSuit(player, ConfigHandler.getArmorType())){
                 return false;
             }          
         }
@@ -144,7 +148,8 @@ public class SpacePlayerHandler {
         int i = 0;
         Block block = loc.getBlock().getRelative(BlockFace.UP);
         boolean insideArea = false;
-        while (i < SpaceConfigHandler.getRoomHeight(loc.getWorld())) {
+        String id = ConfigHandler.getID(loc.getWorld());
+        while (i < ConfigHandler.getRoomHeight(id)) {
             if (block.getTypeId() != 0) {
                 insideArea = true;
                 i = 0;
@@ -158,20 +163,20 @@ public class SpacePlayerHandler {
     
     public static void giveSuitOrHelmet(Player player){
         //Suit and helmet giving
-        if (SpaceConfigHandler.isHelmetGiven()) {
+        if (ConfigHandler.isHelmetGiven()) {
             player.getInventory().setHelmet(
-                    new ItemStack(SpaceConfigHandler.getHelmetBlock(), 1));
+                    new ItemStack(ConfigHandler.getHelmetBlock(), 1));
         }
-        if (SpaceConfigHandler.isSuitGiven()) {
-            SpacePlayerHandler.giveSpaceSuit(SpaceConfigHandler.getArmorType(), player);
+        if (ConfigHandler.isSuitGiven()) {
+            SpacePlayerHandler.giveSpaceSuit(ConfigHandler.getArmorType(), player);
         }
     }
     
     public static void removeSuitOrHelmet(Player player){
-        if (SpaceConfigHandler.isHelmetGiven()) {
+        if (ConfigHandler.isHelmetGiven()) {
             removeHelmet(player);
         }
-        if (SpaceConfigHandler.isSuitGiven()) {
+        if (ConfigHandler.isSuitGiven()) {
             removeSuit(player);
         }    
     }
@@ -199,6 +204,6 @@ public class SpacePlayerHandler {
     /**
      * Constructor of SpacePlayerHandler.
      */
-    private SpacePlayerHandler() {
+    protected SpacePlayerHandler() {
     }
 }

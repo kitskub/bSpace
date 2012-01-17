@@ -17,6 +17,6 @@ public class SpaceAddonHandler {
         addons.add(addon);
     }
     
-    private SpaceAddonHandler(){}
+    protected SpaceAddonHandler(){}
     
 }

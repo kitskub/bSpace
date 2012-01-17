@@ -8,12 +8,12 @@ import java.util.logging.Level;
 
 // bSpace Imports
 import me.iffa.bspace.Space;
-import me.iffa.bspace.api.SpaceSpoutHandler;
-import me.iffa.bspace.api.SpaceWorldHandler;
 import me.iffa.bspace.economy.Economy;
-import me.iffa.bspace.api.SpaceLangHandler;
-import me.iffa.bspace.api.SpaceMessageHandler;
-import me.iffa.bspace.api.SpacePlayerHandler;
+import me.iffa.bspace.handlers.LangHandler;
+import me.iffa.bspace.handlers.MessageHandler;
+import me.iffa.bspace.handlers.PlayerHandler;
+import me.iffa.bspace.handlers.SpoutHandler;
+import me.iffa.bspace.handlers.WorldHandler;
 
 // Bukkit Imports
 import org.bukkit.Bukkit;
@@ -51,34 +51,34 @@ public class SpaceExitCommand extends SpaceCommand {
     @Override
     public void command() {
         Player player = (Player) getSender();
-        if (SpaceWorldHandler.isInAnySpace(player)) {
-            if (SpacePlayerHandler.hasPermission("bSpace.teleport.exit", player)) {
+        if (WorldHandler.isInAnySpace(player)) {
+            if (PlayerHandler.hasPermission("bSpace.teleport.exit", player)) {
                 if (!Economy.exitCommand(player)) {
-                    SpaceMessageHandler.sendNotEnoughMoneyMessage(player);
+                    MessageHandler.sendNotEnoughMoneyMessage(player);
                     return;
                 }
                 enterDest.put(player, player.getLocation());
                 Location location;
                 if (SpaceEnterCommand.exitDest.containsKey(player)) {
                     location = SpaceEnterCommand.exitDest.get(player);
-                    SpaceMessageHandler.debugPrint(Level.INFO, "Teleported player '" + player.getName() + "' out of space.");
+                    MessageHandler.debugPrint(Level.INFO, "Teleported player '" + player.getName() + "' out of space.");
                     player.teleport(location);
                     if (Bukkit.getPluginManager().getPlugin("Spout") != null) {
-                        SpaceSpoutHandler.setOrReset(getPlugin(), (SpoutPlayer)player, location);
+                        SpoutHandler.setOrReset(getPlugin(), (SpoutPlayer)player, location);
                     }
                     return;
                 } else {
                     SpaceEnterCommand.exitDest.put(player, Bukkit.getServer().getWorlds().get(0).getSpawnLocation());
-                    getSender().sendMessage(ChatColor.RED + SpaceLangHandler.getNoExitFoundMessage(1));
-                    getSender().sendMessage(ChatColor.RED + SpaceLangHandler.getNoExitFoundMessage(2));
+                    getSender().sendMessage(ChatColor.RED + LangHandler.getNoExitFoundMessage(1));
+                    getSender().sendMessage(ChatColor.RED + LangHandler.getNoExitFoundMessage(2));
                     return;
                 }
             } else {
-                SpaceMessageHandler.sendNoPermissionMessage(player);
+                MessageHandler.sendNoPermissionMessage(player);
                 return;
             }
         } else {
-            player.sendMessage(ChatColor.RED + SpaceLangHandler.getNotInSpaceMessage());
+            player.sendMessage(ChatColor.RED + LangHandler.getNotInSpaceMessage());
             return;
         }
     }

@@ -3,14 +3,14 @@ package me.iffa.bspace.listeners.spout;
 
 // bSpace Imports
 import me.iffa.bspace.Space;
-import me.iffa.bspace.api.SpaceSpoutHandler;
-import me.iffa.bspace.api.SpaceWorldHandler;
-import me.iffa.bspace.api.SpacePlayerHandler;
 import me.iffa.bspace.api.event.area.AreaEnterEvent;
 import me.iffa.bspace.api.event.area.AreaLeaveEvent;
 import me.iffa.bspace.api.event.area.SpaceAreaListener;
 import me.iffa.bspace.api.event.area.SpaceEnterEvent;
 import me.iffa.bspace.api.event.area.SpaceLeaveEvent;
+import me.iffa.bspace.handlers.PlayerHandler;
+import me.iffa.bspace.handlers.SpoutHandler;
+import me.iffa.bspace.handlers.WorldHandler;
 
 // Bukkit Imports
 import org.bukkit.Bukkit;
@@ -35,7 +35,7 @@ public class SpaceSpoutAreaListener extends SpaceAreaListener {
      */
     @Override
     public void onAreaEnter(AreaEnterEvent event) {
-        SpaceSpoutHandler.resetGravity(event.getPlayer());
+        SpoutHandler.resetGravity(event.getPlayer());
     }
 
     /**
@@ -45,20 +45,20 @@ public class SpaceSpoutAreaListener extends SpaceAreaListener {
      */
     @Override
     public void onAreaLeave(AreaLeaveEvent event) {
-        SpaceSpoutHandler.setGravity(event.getPlayer());
+        SpoutHandler.setGravity(event.getPlayer());
     }
     
     @Override
     public void onSpaceEnter(SpaceEnterEvent event) {
         SpoutPlayer player = SpoutManager.getPlayer(event.getPlayer());
         if (event.isCancelled() || !player.isSpoutCraftEnabled() || event.getFrom().getWorld().equals(event.getTo().getWorld())
-                || (SpaceWorldHandler.isSpaceWorld(event.getFrom().getWorld()) && SpaceWorldHandler.isSpaceWorld(event.getTo().getWorld()))) {
+                || (WorldHandler.isSpaceWorld(event.getFrom().getWorld()) && WorldHandler.isSpaceWorld(event.getTo().getWorld()))) {
             //Return if the event is canceled, if player doesn't have spoutcraft, if teleporting interworld, or it teleporting between space worlds
             return;
         }
-        SpaceSpoutHandler.setOrReset(plugin, player, event.getTo());
-        if(!SpacePlayerHandler.insideArea(event.getTo())){
-            SpaceSpoutHandler.setGravity(player);
+        SpoutHandler.setOrReset(plugin, player, event.getTo());
+        if(!PlayerHandler.insideArea(event.getTo())){
+            SpoutHandler.setGravity(player);
         }
         
         
@@ -68,11 +68,11 @@ public class SpaceSpoutAreaListener extends SpaceAreaListener {
     public void onSpaceLeave(SpaceLeaveEvent event) {
         SpoutPlayer player = SpoutManager.getPlayer(event.getPlayer());
         if (event.isCancelled() || !player.isSpoutCraftEnabled() || event.getFrom().getWorld().equals(event.getTo().getWorld())
-                || (SpaceWorldHandler.isSpaceWorld(event.getFrom().getWorld()) && SpaceWorldHandler.isSpaceWorld(event.getTo().getWorld()))) {
+                || (WorldHandler.isSpaceWorld(event.getFrom().getWorld()) && WorldHandler.isSpaceWorld(event.getTo().getWorld()))) {
             //Return if the event is canceled, if player doesn't have spoutcraft, if teleporting interworld, or it teleporting between space worlds
             return;
         }
-        SpaceSpoutHandler.setOrReset(plugin, player, event.getFrom());
-        SpaceSpoutHandler.resetGravity(player);
+        SpoutHandler.setOrReset(plugin, player, event.getFrom());
+        SpoutHandler.resetGravity(player);
     }
 }

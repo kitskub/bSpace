@@ -5,9 +5,9 @@ package me.iffa.bspace.listeners;
 import java.util.logging.Level;
 
 // bSpace Imports
-import me.iffa.bspace.api.SpaceConfigHandler;
-import me.iffa.bspace.api.SpaceMessageHandler;
-import me.iffa.bspace.api.SpaceWorldHandler;
+import me.iffa.bspace.handlers.ConfigHandler;
+import me.iffa.bspace.handlers.MessageHandler;
+import me.iffa.bspace.handlers.WorldHandler;
 
 // Bukkit Imports
 import org.bukkit.World;
@@ -33,8 +33,9 @@ public class SpaceEntityListener extends EntityListener {
      */
     @Override
     public void onCreatureSpawn(CreatureSpawnEvent event) {
-        if (SpaceWorldHandler.isSpaceWorld(event.getEntity().getWorld())) {
-            if (!SpaceConfigHandler.allowHostileMobs(event.getEntity().getWorld())) {
+        if (WorldHandler.isSpaceWorld(event.getEntity().getWorld())) {
+            String id = ConfigHandler.getID(event.getEntity().getWorld());
+            if (!ConfigHandler.allowHostileMobs(id)) {
                 if (event.getCreatureType() == CreatureType.CREEPER
                         || event.getCreatureType() == CreatureType.GHAST
                         || event.getCreatureType() == CreatureType.GIANT
@@ -50,7 +51,7 @@ public class SpaceEntityListener extends EntityListener {
 
                 }
             }
-            if (!SpaceConfigHandler.allowNeutralMobs(event.getEntity().getWorld())) {
+            if (!ConfigHandler.allowNeutralMobs(id)) {
                 if (event.getCreatureType() == CreatureType.CHICKEN
                         || event.getCreatureType() == CreatureType.COW
                         || event.getCreatureType() == CreatureType.PIG
@@ -72,9 +73,9 @@ public class SpaceEntityListener extends EntityListener {
     public void onEntityDamage(EntityDamageEvent event) {
         if (event.getEntity() instanceof Player && event.getCause() == DamageCause.DROWNING) {
             Player player = (Player) event.getEntity();
-            if (SpaceConfigHandler.getStopDrowning()) {
-                for (World world : SpaceConfigHandler.getStopDrowningWorlds()) {
-                    if (world == player.getWorld() && player.getInventory().getHelmet().getTypeId() == SpaceConfigHandler.getHelmetBlock()) {
+            if (ConfigHandler.getStopDrowning()) {
+                for (World world : ConfigHandler.getStopDrowningWorlds()) {
+                    if (world == player.getWorld() && player.getInventory().getHelmet().getTypeId() == ConfigHandler.getHelmetBlock()) {
                         event.setCancelled(true);
                     }
                 }
@@ -92,7 +93,7 @@ public class SpaceEntityListener extends EntityListener {
         if (event.getEntity() instanceof Player) {
             Player p = (Player) event.getEntity();
             if(SpaceSuffocationListener.stopSuffocating(p)){
-                SpaceMessageHandler.debugPrint(Level.INFO, "Cancelled suffocating task for player '" + p.getName() + "' because (s)he died.");
+                MessageHandler.debugPrint(Level.INFO, "Cancelled suffocating task for player '" + p.getName() + "' because (s)he died.");
             }
         }
     }

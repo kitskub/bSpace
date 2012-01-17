@@ -5,10 +5,10 @@ package me.iffa.bspace.runnables;
 import java.util.logging.Level;
 
 // bSpace Imports
-import me.iffa.bspace.api.SpaceMessageHandler;
+import me.iffa.bspace.handlers.MessageHandler;
+import me.iffa.bspace.handlers.WorldHandler;
 
 // Bukkit Imports
-import me.iffa.bspace.api.SpaceWorldHandler;
 import org.bukkit.entity.Player;
 
 // Spout Imports
@@ -38,12 +38,12 @@ public class SpoutFixRunnable implements Runnable {
      * Sets a player's gravity settings. (hacky solution!!)
      */
     public void run() {
-        if (SpaceWorldHandler.isInAnySpace(player)) {
+        if (WorldHandler.isInAnySpace(player)) {
             SpoutPlayer p = SpoutManager.getPlayer(player); // Abuse Afforess because of bugs
             p.setAirSpeedMultiplier(0.7);
             p.setGravityMultiplier(0.15);
             p.setWalkingMultiplier(0.7);
-            SpaceMessageHandler.debugPrint(Level.INFO, "Changed player '" + p.getName() + "'s gravity settings (" + p.getAirSpeedMultiplier() + ", " + p.getGravityMultiplier() + ", " + p.getJumpingMultiplier() + ").");
+            MessageHandler.debugPrint(Level.INFO, "Changed player '" + p.getName() + "'s gravity settings (" + p.getAirSpeedMultiplier() + ", " + p.getGravityMultiplier() + ", " + p.getJumpingMultiplier() + ").");
         }
 
     }

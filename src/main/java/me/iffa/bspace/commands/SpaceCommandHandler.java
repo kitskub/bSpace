@@ -6,8 +6,8 @@ import java.util.logging.Level;
 
 // bSpace Imports
 import me.iffa.bspace.Space;
-import me.iffa.bspace.api.SpaceMessageHandler;
 import me.iffa.bspace.api.event.misc.SpaceCommandEvent;
+import me.iffa.bspace.handlers.MessageHandler;
 
 // Bukkit Imports
 import org.bukkit.command.Command;
@@ -47,12 +47,12 @@ public class SpaceCommandHandler implements CommandExecutor {
         /* Notify listeners start */
         SpaceCommandEvent e = new SpaceCommandEvent("SpaceCommandEvent", sender, args);
         if (e.isCancelled()) {
-            SpaceMessageHandler.debugPrint(Level.INFO, "External plugin cancelled SpaceCommandEvent using the API.");
+            MessageHandler.debugPrint(Level.INFO, "External plugin cancelled SpaceCommandEvent using the API.");
             return true;
         }
         /* Notify listeners end */
         if (!(sender instanceof Player)) {
-            SpaceMessageHandler.debugPrint(Level.INFO, "An unknown person tried to use the command. (sorry if it's you, console!)");
+            MessageHandler.debugPrint(Level.INFO, "An unknown person tried to use the command. (sorry if it's you, console!)");
             return true;
         }
         Player player = (Player) sender;

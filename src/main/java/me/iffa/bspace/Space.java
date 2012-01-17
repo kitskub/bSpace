@@ -14,17 +14,17 @@ import com.randomappdev.pluginstats.Ping;
 
 // bSpace Imports
 import me.iffa.bspace.api.SpaceAddon;
-import me.iffa.bspace.api.SpaceAddonHandler;
-import me.iffa.bspace.api.SpaceConfigHandler;
-import me.iffa.bspace.api.SpaceLangHandler;
-import me.iffa.bspace.api.SpaceMessageHandler;
 import me.iffa.bspace.api.schematic.SpaceSchematicHandler;
-import me.iffa.bspace.api.SpaceWorldHandler;
 import me.iffa.bspace.commands.SpaceCommandHandler;
 import me.iffa.bspace.config.SpaceConfig;
 import me.iffa.bspace.config.SpaceConfigUpdater;
 import me.iffa.bspace.economy.Economy;
 import me.iffa.bspace.gui.PailInterface;
+import me.iffa.bspace.handlers.AddonHandler;
+import me.iffa.bspace.handlers.ConfigHandler;
+import me.iffa.bspace.handlers.LangHandler;
+import me.iffa.bspace.handlers.MessageHandler;
+import me.iffa.bspace.handlers.WorldHandler;
 import me.iffa.bspace.listeners.SpaceEconomyListener;
 import me.iffa.bspace.listeners.SpaceEntityListener;
 import me.iffa.bspace.listeners.SpacePlayerListener;
@@ -79,11 +79,11 @@ public class Space extends JavaPlugin {
     @Override
     public void onDisable() {
         Bukkit.getScheduler().cancelTasks(this);
-        for(SpaceAddon addon : SpaceAddonHandler.addons){
+        for(SpaceAddon addon : AddonHandler.addons){
             addon.onSpaceDisable();
         }
         // Finishing up disablation.
-        SpaceMessageHandler.print(Level.INFO, SpaceLangHandler.getDisabledMessage());
+        MessageHandler.print(Level.INFO, LangHandler.getDisabledMessage());
     }
 
     /**
@@ -93,11 +93,11 @@ public class Space extends JavaPlugin {
     public void onEnable() {
         // Initializing variables.
         initVariables();
-        SpaceMessageHandler.debugPrint(Level.INFO, "Initialized startup variables.");
+        MessageHandler.debugPrint(Level.INFO, "Initialized startup variables.");
 
         // Loading configuration files.
         SpaceConfig.loadConfigs();
-        SpaceMessageHandler.debugPrint(Level.INFO, "Loaded configuration files, now checking if they need to be updated...");
+        MessageHandler.debugPrint(Level.INFO, "Loaded configuration files, now checking if they need to be updated...");
         // Updating configuration files (if needed).
         SpaceConfigUpdater.updateConfigs();
 
@@ -108,18 +108,19 @@ public class Space extends JavaPlugin {
         SpaceSchematicHandler.loadSchematics();
 
         // Loading space worlds (startup).
-        SpaceWorldHandler.loadSpaceWorlds();
+        WorldHandler.loadSpaceWorlds();
 
         // Initializing the CommandExecutor for /space.
         sce = new SpaceCommandHandler(this);
         getCommand("space").setExecutor(sce);
-        SpaceMessageHandler.debugPrint(Level.INFO, "Initialized CommandExecutors.");
+        MessageHandler.debugPrint(Level.INFO, "Initialized CommandExecutors.");
 
         // Checking if it should always be night in space worlds.
-        for (World world : SpaceWorldHandler.getSpaceWorlds()) {
-            if (SpaceConfigHandler.forceNight(world)) {
-                SpaceWorldHandler.startForceNightTask(world);
-                SpaceMessageHandler.debugPrint(Level.INFO, "Started night forcing task for world '" + world.getName() + "'.");
+        for (World world : WorldHandler.getSpaceWorlds()) {
+            String id = ConfigHandler.getID(world);
+            if (ConfigHandler.forceNight(id)) {
+                WorldHandler.startForceNightTask(world);
+                MessageHandler.debugPrint(Level.INFO, "Started night forcing task for world '" + world.getName() + "'.");
             }
         }
 
@@ -132,15 +133,15 @@ public class Space extends JavaPlugin {
 
         // Initializing the Pail tab.
         if (pm.getPlugin("Pail") != null) {
-            SpaceMessageHandler.debugPrint(Level.INFO, "Starting up the Pail tab.");
+            MessageHandler.debugPrint(Level.INFO, "Starting up the Pail tab.");
             pailInterface = new PailInterface(this);
             ((Pail) pm.getPlugin("Pail")).loadInterfaceComponent("bSpace", pailInterface);
         }
 
         // Finishing up enablation.
-        SpaceMessageHandler.print(Level.INFO, SpaceLangHandler.getUsageStatsMessage());
+        MessageHandler.print(Level.INFO, LangHandler.getUsageStatsMessage());
         Ping.init(this);
-        SpaceMessageHandler.print(Level.INFO, SpaceLangHandler.getEnabledMessage());
+        MessageHandler.print(Level.INFO, LangHandler.getEnabledMessage());
     }
 
     /**
@@ -150,7 +151,7 @@ public class Space extends JavaPlugin {
         pm = getServer().getPluginManager();
         version = getDescription().getVersion();
         prefix = "[" + getDescription().getName() + "]";
-        if (pm.getPlugin("Spout") != null && SpaceConfigHandler.isUsingSpout()) {
+        if (pm.getPlugin("Spout") != null && ConfigHandler.isUsingSpout()) {
             locCache = new HashMap<Player, Location>();
         }
     }
@@ -162,7 +163,7 @@ public class Space extends JavaPlugin {
         // Registering other events.
         pm.registerEvent(Event.Type.WEATHER_CHANGE, weatherListener, Event.Priority.Highest, this);
         pm.registerEvent(Event.Type.WORLD_LOAD, worldListener, Event.Priority.Monitor, this);
-        SpaceMessageHandler.debugPrint(Level.INFO, "Registered events (other).");
+        MessageHandler.debugPrint(Level.INFO, "Registered events (other).");
 
         // Registering entity & player events.
         pm.registerEvent(Event.Type.ENTITY_DEATH, entityListener, Event.Priority.Monitor, this);
@@ -175,10 +176,10 @@ public class Space extends JavaPlugin {
         pm.registerEvent(Event.Type.PLAYER_JOIN, playerListener, Event.Priority.Monitor, this);
         pm.registerEvent(Event.Type.CUSTOM_EVENT, suffocationListener, Event.Priority.Monitor, this); //Suffocation Listener
         pm.registerEvent(Event.Type.CUSTOM_EVENT, new SpaceEconomyListener(), Event.Priority.Highest, this); //Economy Listener
-        SpaceMessageHandler.debugPrint(Level.INFO, "Registered events (entity & player).");
+        MessageHandler.debugPrint(Level.INFO, "Registered events (entity & player).");
 
         // Registering events for Spout.
-        if (pm.getPlugin("Spout") != null && SpaceConfigHandler.isUsingSpout()) {
+        if (pm.getPlugin("Spout") != null && ConfigHandler.isUsingSpout()) {
             //pm.registerEvent(Event.Type.PLAYER_TELEPORT, new SpaceSpoutPlayerListener(this), Event.Priority.Monitor, this); //Player listener
             pm.registerEvent(Event.Type.PLAYER_RESPAWN, new SpaceSpoutPlayerListener(this), Event.Priority.Monitor, this); // Player listener
             pm.registerEvent(Event.Type.ENTITY_DAMAGE, new SpaceSpoutEntityListener(), Event.Priority.Normal, this); //Entity Listener
@@ -187,7 +188,7 @@ public class Space extends JavaPlugin {
             pm.registerEvent(Event.Type.CUSTOM_EVENT, new SpaceSpoutAreaListener(), Event.Priority.Monitor, this); //Area Listener
             pm.registerEvent(Event.Type.CUSTOM_EVENT, new SpaceSpoutKeyListener(), Event.Priority.Monitor, this); //Key Listener
             pm.registerEvent(Event.Type.PLAYER_MOVE, new BlackHolePlayerListener(), Event.Priority.Monitor, this);
-            SpaceMessageHandler.debugPrint(Level.INFO, "Registered events (Spout).");
+            MessageHandler.debugPrint(Level.INFO, "Registered events (Spout).");
         }
     }
 
@@ -206,11 +207,11 @@ public class Space extends JavaPlugin {
             realID=false;
         }
         if(realID){
-            SpaceMessageHandler.debugPrint(Level.INFO, "Getting generator for '" + worldName + "' using id: '" + id + "'");
+            MessageHandler.debugPrint(Level.INFO, "Getting generator for '" + worldName + "' using id: '" + id + "'");
         }else{
-            SpaceMessageHandler.debugPrint(Level.INFO, "Getting generator for '" + worldName + "' using default id,planets.");
+            MessageHandler.debugPrint(Level.INFO, "Getting generator for '" + worldName + "' using default id,planets.");
         }
-        SpaceWorldHandler.checkWorld(worldName);
+        WorldHandler.checkWorld(worldName);
         if (!realID) {
             return new PlanetsChunkGenerator("planets");
         }

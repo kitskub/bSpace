@@ -7,10 +7,10 @@ import java.util.List;
 
 // bSpace Imports
 import me.iffa.bspace.Space;
-import me.iffa.bspace.api.SpaceLangHandler;
-import me.iffa.bspace.api.SpaceMessageHandler;
-import me.iffa.bspace.api.SpacePlayerHandler;
-import me.iffa.bspace.api.SpaceWorldHandler;
+import me.iffa.bspace.handlers.LangHandler;
+import me.iffa.bspace.handlers.MessageHandler;
+import me.iffa.bspace.handlers.PlayerHandler;
+import me.iffa.bspace.handlers.WorldHandler;
 
 // Bukkit Imports
 import org.bukkit.ChatColor;
@@ -40,17 +40,17 @@ public class SpaceListCommand extends SpaceCommand {
      */
     @Override
     public void command() {
-        if (!SpacePlayerHandler.hasPermission("bSpace.teleport.list", (Player) this.getSender())) {
-            SpaceMessageHandler.sendNoPermissionMessage((Player) getSender());
+        if (!PlayerHandler.hasPermission("bSpace.teleport.list", (Player) this.getSender())) {
+            MessageHandler.sendNoPermissionMessage((Player) getSender());
             return;
         }
-        if (SpaceWorldHandler.getSpaceWorlds().isEmpty()) {
-            getSender().sendMessage(ChatColor.RED + SpaceLangHandler.getNoSpaceLoaded());
+        if (WorldHandler.getSpaceWorlds().isEmpty()) {
+            getSender().sendMessage(ChatColor.RED + LangHandler.getNoSpaceLoaded());
             return;
         }
-        getSender().sendMessage(ChatColor.GOLD + Space.getPrefix() + " " + SpaceLangHandler.getListOfSpaceMessage());
+        getSender().sendMessage(ChatColor.GOLD + Space.getPrefix() + " " + LangHandler.getListOfSpaceMessage());
         List<String> spaceWorlds = new ArrayList<String>();
-        for (World world : SpaceWorldHandler.getSpaceWorlds()) {
+        for (World world : WorldHandler.getSpaceWorlds()) {
             spaceWorlds.add(world.getName());
         }
         getSender().sendMessage(ChatColor.GRAY + spaceWorlds.toString().replace("]", "").replace("[", ""));

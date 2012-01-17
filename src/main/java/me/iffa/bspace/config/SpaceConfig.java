@@ -12,9 +12,9 @@ import java.util.Map;
 import java.util.logging.Level;
 
 // bSpace Imports
-import me.iffa.bspace.api.SpaceLangHandler;
-import me.iffa.bspace.api.SpaceMessageHandler;
 import me.iffa.bspace.api.schematic.SpaceSchematicHandler;
+import me.iffa.bspace.handlers.LangHandler;
+import me.iffa.bspace.handlers.MessageHandler;
 
 // Bukkit Imports
 import org.bukkit.Bukkit;
@@ -94,15 +94,15 @@ public class SpaceConfig {
             try {
                 config.get(configFile).load(fileMap.get(configFile));
             } catch (FileNotFoundException ex) {
-                SpaceMessageHandler.print(Level.WARNING, ex.getMessage());
+                MessageHandler.print(Level.WARNING, ex.getMessage());
                 loaded.put(configFile, false);
                 return;
             } catch (IOException ex) {
-                SpaceMessageHandler.print(Level.WARNING, ex.getMessage());
+                MessageHandler.print(Level.WARNING, ex.getMessage());
                 loaded.put(configFile, false);
                 return;
             } catch (InvalidConfigurationException ex) {
-                SpaceMessageHandler.print(Level.WARNING, ex.getMessage());
+                MessageHandler.print(Level.WARNING, ex.getMessage());
                 loaded.put(configFile, false);
                 return;
             }
@@ -115,9 +115,9 @@ public class SpaceConfig {
                 config.put(configFile, new YamlConfiguration());
                 config.get(configFile).load(fileMap.get(configFile));
                 loaded.put(configFile, true);
-                SpaceMessageHandler.print(Level.INFO, SpaceLangHandler.getConfigLoadedMessage(configFile));
+                MessageHandler.print(Level.INFO, LangHandler.getConfigLoadedMessage(configFile));
             } catch (Exception e) {
-                SpaceMessageHandler.print(Level.SEVERE, e.toString());
+                MessageHandler.print(Level.SEVERE, e.toString());
             }
         }
     }

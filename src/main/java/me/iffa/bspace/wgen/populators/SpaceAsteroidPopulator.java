@@ -5,9 +5,10 @@ package me.iffa.bspace.wgen.populators;
 import java.util.Random;
 
 // bSpace Imports
-import me.iffa.bspace.api.SpaceConfigHandler;
+import me.iffa.bspace.handlers.ConfigHandler;
 
 // Bukkit Imports
+
 import org.bukkit.Chunk;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -38,7 +39,8 @@ public class SpaceAsteroidPopulator extends BlockPopulator {
     public void populate(World world, Random random, Chunk source) {
         for (int i = 0; i < 2; i++) {
             Block block = getRandomBlock(source, random);
-            if (random.nextInt(200) <= SpaceConfigHandler.getStoneChance(world) && block.getTypeId() == 0) {
+            String id = ConfigHandler.getID(world);
+            if (random.nextInt(200) <= ConfigHandler.getStoneChance(id) && block.getTypeId() == 0) {
                 block.setTypeId(1);
                 for (int j = 0; j < 1500; j++) {
                     Block current = block.getRelative(random.nextInt(8) - random.nextInt(8),
@@ -59,7 +61,7 @@ public class SpaceAsteroidPopulator extends BlockPopulator {
                 }
             }
             block = getRandomBlock(source, random);
-            if (random.nextInt(200) <= SpaceConfigHandler.getGlowstoneChance(world) && block.getTypeId() == 0) {
+            if (random.nextInt(200) <= ConfigHandler.getGlowstoneChance(id) && block.getTypeId() == 0) {
                 block.setTypeId(89);
 
                 for (int j = 0; j < 1500; j++) {

@@ -2,11 +2,11 @@
 package me.iffa.bspace.listeners;
 
 // bSpace Imports
-import me.iffa.bspace.api.SpaceMessageHandler;
 import me.iffa.bspace.api.event.area.SpaceAreaListener;
 import me.iffa.bspace.api.event.area.SpaceEnterEvent;
 import me.iffa.bspace.api.event.area.SpaceLeaveEvent;
 import me.iffa.bspace.economy.Economy;
+import me.iffa.bspace.handlers.MessageHandler;
 
 /**
  * Listener for economy stuff.
@@ -26,7 +26,7 @@ public class SpaceEconomyListener extends SpaceAreaListener{
             return;
         }
         if (!Economy.enter(event.getPlayer())) {
-            SpaceMessageHandler.sendNotEnoughMoneyMessage(event.getPlayer());
+            MessageHandler.sendNotEnoughMoneyMessage(event.getPlayer());
             event.setCancelled(true);
             return;
         }

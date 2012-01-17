@@ -2,19 +2,20 @@
 package me.iffa.bspace.api;
 
 // Java Imports
-import java.util.List;
 import java.util.logging.Level;
 
 // bSpace Imports
 import me.iffa.bspace.Space;
+import me.iffa.bspace.handlers.ConfigHandler;
+import me.iffa.bspace.handlers.MessageHandler;
+import me.iffa.bspace.handlers.WorldHandler;
 import me.iffa.bspace.runnables.SpoutFixRunnable;
+import me.iffa.bspace.wgen.blocks.BlackHole;
 
 // Bukkit Imports
-import me.iffa.bspace.wgen.blocks.BlackHole;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 
@@ -27,6 +28,7 @@ import org.getspout.spoutapi.player.SpoutPlayer;
 
 /**
  * Useful methods for Spout&Spoutcraft-only features.
+ * External use only
  * 
  * @author iffamies
  * @author Adamki11s
@@ -43,36 +45,36 @@ public class SpaceSpoutHandler {
      */
     public static void setOrReset(Space plugin, SpoutPlayer player, Location location) {
         SkyManager sky = SpoutManager.getSkyManager();
-        if (SpaceWorldHandler.isSpaceWorld(location.getWorld())) {
-            if (!SpaceConfigHandler.getCloudsEnabled()) {
+        if (WorldHandler.isSpaceWorld(location.getWorld())) {
+            if (!ConfigHandler.getCloudsEnabled()) {
                 sky.setCloudsVisible(player, false);
                 sky.setMoonVisible(player, false);
                 sky.setCloudsVisible(player, false);
                 sky.setStarFrequency(player, 4200);
             }
-            if (SpaceConfigHandler.getUseTexturePack()) {
-                player.setTexturePack(SpaceConfigHandler.getSpoutTexturePack());
-                SpaceMessageHandler.debugPrint(Level.INFO, "Set " + player.getName() + "'s texture pack");
+            if (ConfigHandler.getUseTexturePack()) {
+                player.setTexturePack(ConfigHandler.getSpoutTexturePack());
+                MessageHandler.debugPrint(Level.INFO, "Set " + player.getName() + "'s texture pack");
             }
-            if (SpaceConfigHandler.getGravity()) {
+            if (ConfigHandler.getGravity()) {
                 Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new SpoutFixRunnable(player), 10L);
-                SpaceMessageHandler.debugPrint(Level.INFO, "Made clouds and the moon invisible for player '" + player.getName() + "'. Starting runnable thread to setup Player movements...");
+                MessageHandler.debugPrint(Level.INFO, "Made clouds and the moon invisible for player '" + player.getName() + "'. Starting runnable thread to setup Player movements...");
             }
         } else {
-            if (!SpaceConfigHandler.getCloudsEnabled()) {
+            if (!ConfigHandler.getCloudsEnabled()) {
                 sky.setCloudsVisible(player, true);
                 sky.setMoonVisible(player, true);
                 sky.setStarFrequency(player, 500);
-                SpaceMessageHandler.debugPrint(Level.INFO, "Made clouds visible again for player '" + player.getName() + "'.");
+                MessageHandler.debugPrint(Level.INFO, "Made clouds visible again for player '" + player.getName() + "'.");
             }
-            if (SpaceConfigHandler.getUseTexturePack()) {
+            if (ConfigHandler.getUseTexturePack()) {
                 player.resetTexturePack();
-                SpaceMessageHandler.debugPrint(Level.INFO, "Reset " + player.getName() + "'s texture pack");
+                MessageHandler.debugPrint(Level.INFO, "Reset " + player.getName() + "'s texture pack");
             }
-            if (SpaceConfigHandler.getGravity()) {
+            if (ConfigHandler.getGravity()) {
                 player.setCanFly(false);
                 player.resetMovement();
-                SpaceMessageHandler.debugPrint(Level.INFO, "Reset player '" + player.getName() + "'s gravity and visual settings.");
+                MessageHandler.debugPrint(Level.INFO, "Reset player '" + player.getName() + "'s gravity and visual settings.");
             }
         }
     }
@@ -147,6 +149,6 @@ public class SpaceSpoutHandler {
     /**
      * Constructor of SpaceSpoutHandler.
      */
-    private SpaceSpoutHandler() {
+    protected SpaceSpoutHandler() {
     }
 }

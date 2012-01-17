@@ -15,7 +15,7 @@ import me.iffa.bspace.config.SpaceConfig;
 import me.iffa.bspace.config.SpaceConfig.ConfigFile;
 import me.iffa.bspace.wgen.populators.SpaceSatellitePopulator;
 import me.iffa.bspace.config.SpaceConfig.Defaults;
-import me.iffa.bspace.api.SpaceConfigHandler;
+import me.iffa.bspace.handlers.ConfigHandler;
 import me.iffa.bspace.wgen.populators.SpaceAsteroidPopulator;
 import me.iffa.bspace.wgen.populators.SpaceBlackHolePopulator;
 import me.iffa.bspace.wgen.populators.SpaceSchematicPopulator;
@@ -57,7 +57,7 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
      * @param id ID
      */
     public PlanetsChunkGenerator(String id) {
-        this(id, SpaceConfigHandler.getGeneratePlanets(id));
+        this(id, ConfigHandler.getGeneratePlanets(id));
     }
 
     /**
@@ -270,16 +270,16 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
     @Override
     public List<BlockPopulator> getDefaultPopulators(World world) {
         ArrayList<BlockPopulator> populators = new ArrayList<BlockPopulator>();
-        if (SpaceConfigHandler.getSatellitesEnabled(world)) {
+        if (ConfigHandler.getSatellitesEnabled(ID)) {
             populators.add(new SpaceSatellitePopulator());
         }
-        if (SpaceConfigHandler.getAsteroidsEnabled(world)) {
+        if (ConfigHandler.getAsteroidsEnabled(ID)) {
             populators.add(new SpaceAsteroidPopulator());
         }
-        if (SpaceConfigHandler.getGenerateSchematics(ID)) {
+        if (ConfigHandler.getGenerateSchematics(ID)) {
             populators.add(new SpaceSchematicPopulator());
         }
-        if (SpaceConfigHandler.getGenerateBlackHoles(world) && SpaceConfigHandler.isUsingSpout() && Bukkit.getPluginManager().isPluginEnabled("Spout")) {
+        if (ConfigHandler.getGenerateBlackHoles(ID) && ConfigHandler.isUsingSpout() && Bukkit.getPluginManager().isPluginEnabled("Spout")) {
             populators.add(new SpaceBlackHolePopulator());
         }
         return populators;

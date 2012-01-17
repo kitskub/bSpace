@@ -8,11 +8,11 @@ import java.util.logging.Level;
 
 // bSpace Imports
 import me.iffa.bspace.Space;
-import me.iffa.bspace.api.SpaceLangHandler;
-import me.iffa.bspace.api.SpaceMessageHandler;
-import me.iffa.bspace.api.SpacePlayerHandler;
-import me.iffa.bspace.api.SpaceWorldHandler;
 import me.iffa.bspace.economy.Economy;
+import me.iffa.bspace.handlers.LangHandler;
+import me.iffa.bspace.handlers.MessageHandler;
+import me.iffa.bspace.handlers.PlayerHandler;
+import me.iffa.bspace.handlers.WorldHandler;
 
 // Bukkit Imports
 import org.bukkit.Bukkit;
@@ -49,18 +49,18 @@ public class SpaceEnterCommand extends SpaceCommand {
     public void command() {
         Player player = (Player) this.getSender();
         if (getArgs().length == 1) {
-            if (SpacePlayerHandler.hasPermission("bSpace.teleport.enter", player)) {
-                if (SpaceWorldHandler.getSpaceWorlds().isEmpty()) {
-                    player.sendMessage(ChatColor.RED + SpaceLangHandler.getNoSpaceLoaded());
+            if (PlayerHandler.hasPermission("bSpace.teleport.enter", player)) {
+                if (WorldHandler.getSpaceWorlds().isEmpty()) {
+                    player.sendMessage(ChatColor.RED + LangHandler.getNoSpaceLoaded());
                     return;
                 }
-                if (SpaceWorldHandler.getSpaceWorlds().get(0) == player.getWorld()) {
-                    player.sendMessage(ChatColor.RED + SpaceLangHandler.getAlreadyInThatWorldMessage());
-                    SpaceMessageHandler.debugPrint(Level.INFO, player.getName() + "tried to use /space enter, but he was already in that space world.");
+                if (WorldHandler.getSpaceWorlds().get(0) == player.getWorld()) {
+                    player.sendMessage(ChatColor.RED + LangHandler.getAlreadyInThatWorldMessage());
+                    MessageHandler.debugPrint(Level.INFO, player.getName() + "tried to use /space enter, but he was already in that space world.");
                     return;
                 }
                 if (!Economy.enterCommand(player)) {
-                    SpaceMessageHandler.sendNotEnoughMoneyMessage(player);
+                    MessageHandler.sendNotEnoughMoneyMessage(player);
                     return;
                 }
                 exitDest.put(player, player.getLocation());
@@ -68,30 +68,30 @@ public class SpaceEnterCommand extends SpaceCommand {
                 if (SpaceExitCommand.enterDest.containsKey(player)) {
                     location = SpaceExitCommand.enterDest.get(player);
                 } else {
-                    location = SpaceWorldHandler.getSpaceWorlds().get(0).getSpawnLocation();
+                    location = WorldHandler.getSpaceWorlds().get(0).getSpawnLocation();
                 }
-                SpaceMessageHandler.debugPrint(Level.INFO, "Teleported player '" + player.getName() + "' to space.");
+                MessageHandler.debugPrint(Level.INFO, "Teleported player '" + player.getName() + "' to space.");
                 player.teleport(location, TeleportCause.COMMAND);
                 return;
             }
-            SpaceMessageHandler.sendNoPermissionMessage(player);
+            MessageHandler.sendNoPermissionMessage(player);
             return;
         } else if (getArgs().length >= 2) {
-            if (SpacePlayerHandler.hasPermission("bSpace.teleport.enter", player)) {
+            if (PlayerHandler.hasPermission("bSpace.teleport.enter", player)) {
                 if (!Economy.enterCommand(player)) {
-                    SpaceMessageHandler.sendNotEnoughMoneyMessage(player);
+                    MessageHandler.sendNotEnoughMoneyMessage(player);
                     return;
                 }
                 if (Bukkit.getServer().getWorld(getArgs()[1]) == null) {
-                    player.sendMessage(ChatColor.RED + SpaceLangHandler.getWorldNotFoundMessage());
+                    player.sendMessage(ChatColor.RED + LangHandler.getWorldNotFoundMessage());
                     return;
                 }
-                if (!SpaceWorldHandler.isSpaceWorld(Bukkit.getServer().getWorld(this.getArgs()[1]))) {
-                    player.sendMessage(ChatColor.RED + SpaceLangHandler.getWorldNotSpaceMessage());
+                if (!WorldHandler.isSpaceWorld(Bukkit.getServer().getWorld(this.getArgs()[1]))) {
+                    player.sendMessage(ChatColor.RED + LangHandler.getWorldNotSpaceMessage());
                     return;
                 }
                 if (Bukkit.getServer().getWorld(getArgs()[1]) == player.getWorld()) {
-                    player.sendMessage(ChatColor.RED + SpaceLangHandler.getAlreadyInThatWorldMessage());
+                    player.sendMessage(ChatColor.RED + LangHandler.getAlreadyInThatWorldMessage());
                     return;
                 }
                 exitDest.put(player, player.getLocation());
@@ -101,11 +101,11 @@ public class SpaceEnterCommand extends SpaceCommand {
                 } else {
                     location = Bukkit.getServer().getWorld(getArgs()[1]).getSpawnLocation();
                 }
-                SpaceMessageHandler.debugPrint(Level.INFO, "Teleported player '" + player.getName() + "' to space.");
+                MessageHandler.debugPrint(Level.INFO, "Teleported player '" + player.getName() + "' to space.");
                 player.teleport(location, TeleportCause.COMMAND);
                 return;
             }
         }
-        SpaceMessageHandler.sendNoPermissionMessage(player);
+        MessageHandler.sendNoPermissionMessage(player);
     }
 }

@@ -11,10 +11,10 @@ import java.util.logging.Level;
 
 // bSpace Imports
 import me.iffa.bspace.config.SpaceConfig.Defaults;
-import me.iffa.bspace.api.SpaceMessageHandler;
-import me.iffa.bspace.api.SpacePlayerHandler;
 import me.iffa.bspace.config.SpaceConfig;
 import me.iffa.bspace.config.SpaceConfig.ConfigFile;
+import me.iffa.bspace.handlers.MessageHandler;
+import me.iffa.bspace.handlers.PlayerHandler;
 
 // Bukkit Imports
 import org.bukkit.Bukkit;
@@ -37,7 +37,7 @@ public class Economy {
     public Economy() {
         use = true;
         getMethod();
-        SpaceMessageHandler.debugPrint(Level.INFO, "Hooked into " + method.getName());
+        MessageHandler.debugPrint(Level.INFO, "Hooked into " + method.getName());
     }
 
     /**
@@ -151,7 +151,7 @@ public class Economy {
      * @return True if subtract was successful
      */
     private static boolean subtract(Player player, int amount) {
-        if (SpacePlayerHandler.hasPermission("bananspace.economy.exempt", player)) {
+        if (PlayerHandler.hasPermission("bananspace.economy.exempt", player)) {
             return true;
         }
         MethodAccount balance = method.getAccount(player.getName());
@@ -178,7 +178,7 @@ public class Economy {
     
     private static boolean checkRegister() {
         if(Bukkit.getPluginManager().getPlugin("Register") == null){
-            SpaceMessageHandler.debugPrint(Level.WARNING, "Economy is enabled, but Register is not active! Disabling economy");
+            MessageHandler.debugPrint(Level.WARNING, "Economy is enabled, but Register is not active! Disabling economy");
             use=false;
             return false;
         }
