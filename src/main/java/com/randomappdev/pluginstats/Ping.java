@@ -37,73 +37,73 @@ import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
-/**
- * 
- * @author jblaske
- * @author Jack
- */
 public class Ping
 {
 
-    private static final File configFile = new File("plugins/bSpace/config.yml");
-    private static final String logFile = "plugins/bSpace/usagelog.txt";
-    private static final YamlConfiguration config = YamlConfiguration.loadConfiguration(configFile);
-    protected static final Logger logger = Logger.getLogger("bSpace");
+    private final File configFile = new File("plugins/PluginStats/config.yml");
+    private final String logFile = "plugins/PluginStats/log.txt";
+    private final YamlConfiguration config = YamlConfiguration.loadConfiguration(configFile);
+    private Logger logger = null;
 
-    public static void init(Plugin plugin)
+    public void init(Plugin plugin)
     {
-        if (configExists() && logExists() && !config.getBoolean("usage.opt-out"))
+        if (configExists() && logExists() && !config.getBoolean("opt-out"))
         {
-            plugin.getServer().getScheduler().scheduleAsyncRepeatingTask(plugin, new Pinger(plugin, config.getString("usage.guid")), 10L, 20L * 60L * 60 * 24);
+            plugin.getServer().getScheduler().scheduleAsyncRepeatingTask(plugin, new Pinger(plugin, config.getString("guid"), logger), 10L, 20L * 60L * 60 * 24);
+            System.out.println("[" + plugin.getDescription().getName() + "] Usage statistics are being kept for this plugin. To opt-out for any reason, check plugins/PluginStats/config.yml");
         }
     }
 
-    private static Boolean configExists()
+    private Boolean configExists()
     {
-        config.addDefault("usage.opt-out", false);
-        config.addDefault("usage.guid", UUID.randomUUID().toString());
-        if (!configFile.exists())
+        config.addDefault("opt-out", false);
+        config.addDefault("guid", UUID.randomUUID().toString());
+        if (!configFile.exists() || config.get("guid", null) == null)
         {
+            System.out.println("PluginStats is initializing for the first time. To opt-out for any reason check plugins/PluginStats/config.yml");
             try
             {
                 config.options().copyDefaults(true);
                 config.save(configFile);
             } catch (Exception ex)
             {
-                logger.log(Level.SEVERE, "Error with config file!");
-                logger.log(Level.SEVERE, "", ex);
+                System.out.println("Error creating PluginStats configuration file.");
+                ex.printStackTrace();
                 return false;
             }
         }
         return true;
     }
 
-    private static Boolean logExists()
+    private Boolean logExists()
     {
         try
         {
             FileHandler handler = new FileHandler(logFile, true);
+            logger = Logger.getLogger("com.randomappdev");
             logger.setUseParentHandlers(false);
             logger.addHandler(handler);
         } catch (Exception ex)
         {
-            logger.log(Level.SEVERE, "Error creating log file!");
-            logger.log(Level.SEVERE, "", ex);
+            System.out.println("Error creating PluginStats log file.");
+            ex.printStackTrace();
             return false;
         }
         return true;
     }
 }
+
 class Pinger implements Runnable
 {
     private Plugin plugin;
     private String guid;
+    private Logger logger;
 
-    public Pinger(Plugin plugin, String guid)
+    public Pinger(Plugin plugin, String guid, Logger theLogger)
     {
         this.plugin = plugin;
         this.guid = guid;
+        this.logger = theLogger;
     }
 
     public void run()
@@ -124,6 +124,7 @@ class Pinger implements Runnable
                 authors = authors + " " + auth;
             }
             authors = authors.trim();
+
             String url = String.format("http://pluginstats.randomappdev.com/ping.php?snam=%s&sprt=%s&shsh=%s&sver=%s&spcnt=%s&pnam=%s&pmcla=%s&paut=%s&pweb=%s&pver=%s",
                     URLEncoder.encode(plugin.getServer().getServerName(), "UTF-8"),
                     plugin.getServer().getPort(),
@@ -136,14 +137,13 @@ class Pinger implements Runnable
                     URLEncoder.encode(plugin.getDescription().getWebsite().toLowerCase().replace("http://","").replace("https://",""), "UTF-8"),
                     URLEncoder.encode(plugin.getDescription().getVersion(), "UTF-8"));
 
-
             new URL(url).openConnection().getInputStream();
-            Ping.logger.log(Level.INFO, "bSpace sent statistics.");
+            logger.log(Level.INFO, "PluginStats pinged the central server.");
 
         } catch (Exception ex)
         {
             //Fail Silently to avoid console spam.
-            Ping.logger.log(Level.SEVERE, ex.getStackTrace().toString());
+            logger.log(Level.SEVERE, ex.getStackTrace().toString());
         }
 
     }

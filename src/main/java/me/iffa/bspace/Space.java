@@ -58,7 +58,6 @@ import org.bukkit.plugin.java.JavaPlugin;
  */
 public class Space extends JavaPlugin {
     // Variables
-    // And here goes all public statics!
     private static String prefix;
     private static String version;
     private static PailInterface pailInterface;
@@ -140,7 +139,8 @@ public class Space extends JavaPlugin {
 
         // Finishing up enablation.
         MessageHandler.print(Level.INFO, LangHandler.getUsageStatsMessage());
-        Ping.init(this);
+        Ping ping = new Ping();
+        ping.init(this);
         MessageHandler.print(Level.INFO, LangHandler.getEnabledMessage());
     }
 
@@ -160,6 +160,7 @@ public class Space extends JavaPlugin {
      * Registers events for bSpace.
      */
     private void registerEvents() {
+        // TODO: Migrate to new event system - https://github.com/Bukkit/Bukkit/commit/e35037ab50157b006d00cba6d1b2c898e2bf5258
         // Registering other events.
         pm.registerEvent(Event.Type.WEATHER_CHANGE, weatherListener, Event.Priority.Highest, this);
         pm.registerEvent(Event.Type.WORLD_LOAD, worldListener, Event.Priority.Monitor, this);
@@ -222,6 +223,8 @@ public class Space extends JavaPlugin {
 
     /**
      * Gets the jump pressed value. (ie = wtf is this)
+     * 
+     * @param player Player
      * 
      * @return Jump pressed
      */

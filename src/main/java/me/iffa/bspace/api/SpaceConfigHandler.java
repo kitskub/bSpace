@@ -5,7 +5,6 @@ package me.iffa.bspace.api;
 import me.iffa.bspace.config.SpaceConfig.Defaults;
 import me.iffa.bspace.config.SpaceConfig;
 import me.iffa.bspace.config.SpaceConfig.ConfigFile;
-import me.iffa.bspace.wgen.planets.PlanetsChunkGenerator;
 import me.iffa.bspace.handlers.MessageHandler;
 import me.iffa.bspace.handlers.WorldHandler;
 
@@ -164,7 +163,7 @@ public class SpaceConfigHandler {
      */
     public static List<World> getStopDrowningWorlds() {
         @SuppressWarnings("unchecked")
-        List<String> strings = SpaceConfig.getConfig(ConfigFile.CONFIG).getList("global.drowning.worlds", new ArrayList<String>());
+        List<String> strings = SpaceConfig.getConfig(ConfigFile.CONFIG).getStringList("global.drowning.worlds");
         List<World> worlds = new ArrayList<World>();
         for(String string : strings){
             worlds.add(Bukkit.getWorld(string));

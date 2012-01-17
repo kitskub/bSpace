@@ -6,9 +6,6 @@
 #        ask on BukkitDev! Thanks.
 # Debugging mode
 debug: false
-# Usage Stats
-usage:
-  opt-out: false
 # Global settings
 global:
     # Spacesuit armortype
