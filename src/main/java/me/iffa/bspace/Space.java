@@ -216,6 +216,7 @@ public class Space extends JavaPlugin {
         if (!realID) {
             return new PlanetsChunkGenerator("planets");
         }
+        //TODO check if id is in ids.yml
         return new PlanetsChunkGenerator(id);
     }
 
