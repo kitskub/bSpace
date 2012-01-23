@@ -13,25 +13,27 @@ import me.iffa.bspace.handlers.WorldHandler;
 import org.bukkit.World;
 import org.bukkit.entity.CreatureType;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
-import org.bukkit.event.entity.EntityListener;
 
 /**
  * EntityListener.
  * 
  * @author iffa
  */
-public class SpaceEntityListener extends EntityListener {
+public class SpaceEntityListener implements Listener {
 
     /**
      * Called when a creature attempts to spawn.
      * 
      * @param event Event data
      */
-    @Override
+    @EventHandler(event = CreatureSpawnEvent.class, priority = EventPriority.HIGH)
     public void onCreatureSpawn(CreatureSpawnEvent event) {
         if (WorldHandler.isSpaceWorld(event.getEntity().getWorld())) {
             String id = ConfigHandler.getID(event.getEntity().getWorld());
@@ -69,7 +71,7 @@ public class SpaceEntityListener extends EntityListener {
      * 
      * @param event Event data
      */
-    @Override
+    @EventHandler(event = EntityDamageEvent.class, priority = EventPriority.NORMAL)
     public void onEntityDamage(EntityDamageEvent event) {
         if (event.getEntity() instanceof Player && event.getCause() == DamageCause.DROWNING) {
             Player player = (Player) event.getEntity();
@@ -88,7 +90,7 @@ public class SpaceEntityListener extends EntityListener {
      * 
      * @param event Event data
      */
-    @Override
+    @EventHandler(event = EntityDeathEvent.class, priority = EventPriority.MONITOR)
     public void onEntityDeath(EntityDeathEvent event) {
         if (event.getEntity() instanceof Player) {
             Player p = (Player) event.getEntity();

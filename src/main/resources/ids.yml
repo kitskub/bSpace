@@ -40,8 +40,8 @@ ids:
 #        # Breathing area options (the higher this is, the higher a "breathable" area can be.
 #        maxroomheight: 5
 #        # Miscellaneous options
-#        weather: false
 #        alwaysnight: true
+#        # TODO: Perhaps delete these 2 as they are also controlled by Multiverse etc?
 #        neutralmobs: true
 #        hostilemobs: false
 ############# YOUR ID'S HERE:
@@ -65,7 +65,6 @@ ids:
         helmet:
             required: false
         maxroomheight: 5
-        weather: false
         alwaysnight: true
         neutralmobs: false
         hostilemobs: false

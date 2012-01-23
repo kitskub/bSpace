@@ -12,11 +12,13 @@ import me.iffa.bspace.handlers.WorldHandler;
 import org.bukkit.World;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Zombie;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
 
 // Spout Imports
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.event.spout.SpoutCraftEnableEvent;
-import org.getspout.spoutapi.event.spout.SpoutListener;
 import org.getspout.spoutapi.player.EntitySkinType;
 import org.getspout.spoutapi.player.SkyManager;
 import org.getspout.spoutapi.player.SpoutPlayer;
@@ -27,7 +29,7 @@ import org.getspout.spoutapi.player.SpoutPlayer;
  * @author HACKhalo2
  * @author iffa
  */
-public class SpaceSpoutCraftListener extends SpoutListener {
+public class SpaceSpoutCraftListener implements Listener {
     // Variables
     private final SkyManager sky = SpoutManager.getSkyManager();
 
@@ -36,7 +38,7 @@ public class SpaceSpoutCraftListener extends SpoutListener {
      * 
      * @param event Event data
      */
-    @Override
+    @EventHandler(event = SpoutCraftEnableEvent.class, priority = EventPriority.HIGH)
     public void onSpoutCraftEnable(SpoutCraftEnableEvent event) {
         SpoutPlayer player = event.getPlayer();
         if (WorldHandler.isSpaceWorld(player.getWorld())) {

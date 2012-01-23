@@ -9,7 +9,9 @@ import org.bukkit.event.Event;
  * Listener for misc. events of bSpace.
  * 
  * @author iffa
+ * @deprecated Use Bukkit's new event system
  */
+@Deprecated
 public class SpaceMiscListener extends CustomEventListener {
     /**
      * Called when a player starts suffocating (for having no helmet, suit or

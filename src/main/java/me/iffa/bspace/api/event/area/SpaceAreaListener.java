@@ -9,8 +9,11 @@ import org.bukkit.event.Event;
  * Listener for area events of bSpace.
  * 
  * @author iffa
+ * @deprecated Use Bukkit's new event system
  */
+@Deprecated
 public class SpaceAreaListener extends CustomEventListener {
+
     /**
      * Called when a player enters a breathable area.
      * 
@@ -26,7 +29,7 @@ public class SpaceAreaListener extends CustomEventListener {
      */
     public void onAreaLeave(AreaLeaveEvent event) {
     }
-    
+
     /**
      * Called when enter Space. If player is joining server or respawning, location from will be empty.
      * 
@@ -59,5 +62,4 @@ public class SpaceAreaListener extends CustomEventListener {
             onSpaceLeave((SpaceLeaveEvent) event);
         }
     }
-
 }

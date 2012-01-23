@@ -2,11 +2,15 @@
 package me.iffa.bspace.listeners;
 
 // bSpace Imports
-import me.iffa.bspace.api.event.area.SpaceAreaListener;
 import me.iffa.bspace.api.event.area.SpaceEnterEvent;
 import me.iffa.bspace.api.event.area.SpaceLeaveEvent;
 import me.iffa.bspace.economy.Economy;
 import me.iffa.bspace.handlers.MessageHandler;
+
+// Bukkit Imports
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
 
 /**
  * Listener for economy stuff.
@@ -14,15 +18,16 @@ import me.iffa.bspace.handlers.MessageHandler;
  * @author Jack
  * @author iffa
  */
-public class SpaceEconomyListener extends SpaceAreaListener{
+public class SpaceEconomyListener implements Listener {
+
     /**
      * Called when someone enters space.
      * 
      * @param event Event data
      */
-    @Override
-    public void onSpaceEnter(SpaceEnterEvent event){
-        if(event.getFrom()==event.getTo()){
+    @EventHandler(event = SpaceEnterEvent.class, priority = EventPriority.HIGHEST)
+    public void onSpaceEnter(SpaceEnterEvent event) {
+        if (event.getFrom() == event.getTo()) {
             return;
         }
         if (!Economy.enter(event.getPlayer())) {
@@ -31,14 +36,14 @@ public class SpaceEconomyListener extends SpaceAreaListener{
             return;
         }
     }
-    
+
     /**
      * Called when someone leaves space.
      * 
      * @param event Event data
      */
-    @Override
-    public void onSpaceLeave(SpaceLeaveEvent event){
+    @EventHandler(event = SpaceLeaveEvent.class, priority = EventPriority.NORMAL)
+    public void onSpaceLeave(SpaceLeaveEvent event) {
         if (!Economy.exit(event.getPlayer())) {
             event.setCancelled(true);
             return;

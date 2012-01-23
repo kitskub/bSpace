@@ -5,7 +5,6 @@ package me.iffa.bspace.listeners.spout;
 import me.iffa.bspace.Space;
 import me.iffa.bspace.api.event.area.AreaEnterEvent;
 import me.iffa.bspace.api.event.area.AreaLeaveEvent;
-import me.iffa.bspace.api.event.area.SpaceAreaListener;
 import me.iffa.bspace.api.event.area.SpaceEnterEvent;
 import me.iffa.bspace.api.event.area.SpaceLeaveEvent;
 import me.iffa.bspace.handlers.PlayerHandler;
@@ -14,6 +13,9 @@ import me.iffa.bspace.handlers.WorldHandler;
 
 // Bukkit Imports
 import org.bukkit.Bukkit;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
 
 // Spout Imports
 import org.getspout.spoutapi.SpoutManager;
@@ -26,14 +28,14 @@ import org.getspout.spoutapi.player.SpoutPlayer;
  * @author iffa
  * @author kitskub
  */
-public class SpaceSpoutAreaListener extends SpaceAreaListener {
+public class SpaceSpoutAreaListener implements Listener {
     private final Space plugin = (Space) Bukkit.getPluginManager().getPlugin("bSpace");
     /**
      * Called when a player enters an area.
      * 
      * @param event Event data
      */
-    @Override
+    @EventHandler(event = AreaEnterEvent.class, priority = EventPriority.MONITOR)
     public void onAreaEnter(AreaEnterEvent event) {
         SpoutHandler.resetGravity(event.getPlayer());
     }
@@ -43,12 +45,12 @@ public class SpaceSpoutAreaListener extends SpaceAreaListener {
      * 
      * @param event Event data
      */
-    @Override
+    @EventHandler(event = AreaLeaveEvent.class, priority = EventPriority.MONITOR)
     public void onAreaLeave(AreaLeaveEvent event) {
         SpoutHandler.setGravity(event.getPlayer());
     }
     
-    @Override
+    @EventHandler(event = SpaceEnterEvent.class, priority = EventPriority.MONITOR)
     public void onSpaceEnter(SpaceEnterEvent event) {
         SpoutPlayer player = SpoutManager.getPlayer(event.getPlayer());
         if (event.isCancelled() || !player.isSpoutCraftEnabled() || event.getFrom().getWorld().equals(event.getTo().getWorld())
@@ -64,7 +66,7 @@ public class SpaceSpoutAreaListener extends SpaceAreaListener {
         
     }
     
-    @Override
+    @EventHandler(event = SpaceLeaveEvent.class, priority = EventPriority.MONITOR)
     public void onSpaceLeave(SpaceLeaveEvent event) {
         SpoutPlayer player = SpoutManager.getPlayer(event.getPlayer());
         if (event.isCancelled() || !player.isSpoutCraftEnabled() || event.getFrom().getWorld().equals(event.getTo().getWorld())

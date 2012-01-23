@@ -15,10 +15,12 @@ import org.bukkit.entity.CreatureType;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
-import org.bukkit.event.entity.EntityListener;
 
 // Spout Imports
 import org.getspout.spoutapi.SpoutManager;
@@ -31,14 +33,14 @@ import org.getspout.spoutapi.player.SpoutPlayer;
  * @author HACKhalo2
  * @author iffa
  */
-public class SpaceSpoutEntityListener extends EntityListener {
+public class SpaceSpoutEntityListener implements Listener {
 
     /**
      * Called when an entity takes damage.
      * 
      * @param event Event data
      */
-    @Override
+    @EventHandler(event = EntityDamageEvent.class, priority = EventPriority.NORMAL)
     public void onEntityDamage(EntityDamageEvent event) {
         Entity entity = event.getEntity();
         if (entity instanceof Player) {
@@ -83,7 +85,7 @@ public class SpaceSpoutEntityListener extends EntityListener {
      * 
      * @param event Event data
      */
-    @Override
+    @EventHandler(event = CreatureSpawnEvent.class, priority = EventPriority.HIGH)
     public void onCreatureSpawn(CreatureSpawnEvent event) {
         if (!event.isCancelled() && WorldHandler.isSpaceWorld(event.getLocation().getWorld()) && event.getCreatureType().equals(CreatureType.ZOMBIE)) {
             for (Player player : event.getLocation().getWorld().getPlayers()) {

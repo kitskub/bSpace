@@ -30,7 +30,6 @@ import me.iffa.bspace.listeners.SpaceEntityListener;
 import me.iffa.bspace.listeners.SpacePlayerListener;
 import me.iffa.bspace.listeners.SpaceSuffocationListener;
 import me.iffa.bspace.listeners.misc.BlackHolePlayerListener;
-import me.iffa.bspace.listeners.misc.SpaceWeatherListener;
 import me.iffa.bspace.listeners.misc.SpaceWorldListener;
 import me.iffa.bspace.listeners.spout.SpaceSpoutAreaListener;
 import me.iffa.bspace.listeners.spout.SpaceSpoutCraftListener;
@@ -44,7 +43,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -66,11 +64,11 @@ public class Space extends JavaPlugin {
     private PluginManager pm;
     private SpaceCommandHandler sce = null;
     private Economy economy;
-    private final SpaceWeatherListener weatherListener = new SpaceWeatherListener();
     private final SpaceEntityListener entityListener = new SpaceEntityListener();
     private final SpaceWorldListener worldListener = new SpaceWorldListener();
     private final SpacePlayerListener playerListener = new SpacePlayerListener();
     private final SpaceSuffocationListener suffocationListener = new SpaceSuffocationListener(this);
+    private final SpaceEconomyListener economyListener = new SpaceEconomyListener();
 
     /**
      * Called when the plugin is disabled.
@@ -160,35 +158,45 @@ public class Space extends JavaPlugin {
      * Registers events for bSpace.
      */
     private void registerEvents() {
-        // TODO: Migrate to new event system - https://github.com/Bukkit/Bukkit/commit/e35037ab50157b006d00cba6d1b2c898e2bf5258
         // Registering other events.
-        pm.registerEvent(Event.Type.WEATHER_CHANGE, weatherListener, Event.Priority.Highest, this);
-        pm.registerEvent(Event.Type.WORLD_LOAD, worldListener, Event.Priority.Monitor, this);
+        //pm.registerEvent(Event.Type.WEATHER_CHANGE, weatherListener, Event.Priority.Highest, this); - removed, see @deprecated tag
+        //pm.registerEvent(Event.Type.WORLD_LOAD, worldListener, Event.Priority.Monitor, this);
+        pm.registerEvents(worldListener, this);
         MessageHandler.debugPrint(Level.INFO, "Registered events (other).");
 
         // Registering entity & player events.
-        pm.registerEvent(Event.Type.ENTITY_DEATH, entityListener, Event.Priority.Monitor, this);
-        pm.registerEvent(Event.Type.ENTITY_DAMAGE, entityListener, Event.Priority.Normal, this);
-        pm.registerEvent(Event.Type.CREATURE_SPAWN, entityListener, Event.Priority.High, this);
-        pm.registerEvent(Event.Type.PLAYER_TELEPORT, playerListener, Event.Priority.High, this);
-        pm.registerEvent(Event.Type.PLAYER_MOVE, playerListener, Event.Priority.Monitor, this);
-        pm.registerEvent(Event.Type.PLAYER_RESPAWN, playerListener, Event.Priority.Monitor, this);
-        pm.registerEvent(Event.Type.PLAYER_QUIT, playerListener, Event.Priority.Monitor, this);
-        pm.registerEvent(Event.Type.PLAYER_JOIN, playerListener, Event.Priority.Monitor, this);
-        pm.registerEvent(Event.Type.CUSTOM_EVENT, suffocationListener, Event.Priority.Monitor, this); //Suffocation Listener
-        pm.registerEvent(Event.Type.CUSTOM_EVENT, new SpaceEconomyListener(), Event.Priority.Highest, this); //Economy Listener
+        //pm.registerEvent(Event.Type.ENTITY_DEATH, entityListener, Event.Priority.Monitor, this);
+        //pm.registerEvent(Event.Type.ENTITY_DAMAGE, entityListener, Event.Priority.Normal, this);
+        //pm.registerEvent(Event.Type.CREATURE_SPAWN, entityListener, Event.Priority.High, this);
+        pm.registerEvents(entityListener, this);
+        //pm.registerEvent(Event.Type.PLAYER_TELEPORT, playerListener, Event.Priority.High, this);
+        //pm.registerEvent(Event.Type.PLAYER_MOVE, playerListener, Event.Priority.Monitor, this);
+        //pm.registerEvent(Event.Type.PLAYER_RESPAWN, playerListener, Event.Priority.Monitor, this);
+        //pm.registerEvent(Event.Type.PLAYER_QUIT, playerListener, Event.Priority.Monitor, this);
+        //pm.registerEvent(Event.Type.PLAYER_JOIN, playerListener, Event.Priority.Monitor, this);
+        pm.registerEvents(playerListener, this);
+        //pm.registerEvent(Event.Type.CUSTOM_EVENT, suffocationListener, Event.Priority.Monitor, this); //Suffocation Listener
+        pm.registerEvents(suffocationListener, this);
+        //pm.registerEvent(Event.Type.CUSTOM_EVENT, new SpaceEconomyListener(), Event.Priority.Highest, this); //Economy Listener
+        pm.registerEvents(economyListener, this);
         MessageHandler.debugPrint(Level.INFO, "Registered events (entity & player).");
 
         // Registering events for Spout.
         if (pm.getPlugin("Spout") != null && ConfigHandler.isUsingSpout()) {
             //pm.registerEvent(Event.Type.PLAYER_TELEPORT, new SpaceSpoutPlayerListener(this), Event.Priority.Monitor, this); //Player listener
-            pm.registerEvent(Event.Type.PLAYER_RESPAWN, new SpaceSpoutPlayerListener(this), Event.Priority.Monitor, this); // Player listener
-            pm.registerEvent(Event.Type.ENTITY_DAMAGE, new SpaceSpoutEntityListener(), Event.Priority.Normal, this); //Entity Listener
-            pm.registerEvent(Event.Type.CREATURE_SPAWN, new SpaceSpoutEntityListener(), Event.Priority.High, this); //Disabled until Limitations in Spout is fixed
-            pm.registerEvent(Event.Type.CUSTOM_EVENT, new SpaceSpoutCraftListener(), Event.Priority.High, this); //SpoutCraft Listener
-            pm.registerEvent(Event.Type.CUSTOM_EVENT, new SpaceSpoutAreaListener(), Event.Priority.Monitor, this); //Area Listener
-            pm.registerEvent(Event.Type.CUSTOM_EVENT, new SpaceSpoutKeyListener(), Event.Priority.Monitor, this); //Key Listener
-            pm.registerEvent(Event.Type.PLAYER_MOVE, new BlackHolePlayerListener(), Event.Priority.Monitor, this);
+            //pm.registerEvent(Event.Type.PLAYER_RESPAWN, new SpaceSpoutPlayerListener(this), Event.Priority.Monitor, this); // Player listener
+            pm.registerEvents(new SpaceSpoutPlayerListener(this), this);
+            //pm.registerEvent(Event.Type.ENTITY_DAMAGE, new SpaceSpoutEntityListener(), Event.Priority.Normal, this); //Entity Listener
+            //pm.registerEvent(Event.Type.CREATURE_SPAWN, new SpaceSpoutEntityListener(), Event.Priority.High, this); //Disabled until Limitations in Spout is fixed
+            pm.registerEvents(new SpaceSpoutEntityListener(), this);
+            //pm.registerEvent(Event.Type.CUSTOM_EVENT, new SpaceSpoutCraftListener(), Event.Priority.High, this); //SpoutCraft Listener
+            pm.registerEvents(new SpaceSpoutCraftListener(), this);
+            //pm.registerEvent(Event.Type.CUSTOM_EVENT, new SpaceSpoutAreaListener(), Event.Priority.Monitor, this); //Area Listener
+            pm.registerEvents(new SpaceSpoutAreaListener(), this);
+            //pm.registerEvent(Event.Type.CUSTOM_EVENT, new SpaceSpoutKeyListener(), Event.Priority.Monitor, this); //Key Listener
+            pm.registerEvents(new SpaceSpoutKeyListener(), this);
+            //pm.registerEvent(Event.Type.PLAYER_MOVE, new BlackHolePlayerListener(), Event.Priority.Monitor, this);
+            pm.registerEvents(new BlackHolePlayerListener(), this);
             MessageHandler.debugPrint(Level.INFO, "Registered events (Spout).");
         }
     }

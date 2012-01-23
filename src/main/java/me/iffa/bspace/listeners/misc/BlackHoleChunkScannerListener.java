@@ -19,7 +19,9 @@ import org.getspout.spoutapi.block.SpoutBlock;
  * added to the List.
  * 
  * @author iffamies
+ * @deprecated Is this used? NetBeans says it's not. I guess no reason to update to new event system.
  */
+@Deprecated
 public class BlackHoleChunkScannerListener extends WorldListener {
     /**
      * Called when a chunk is loaded.

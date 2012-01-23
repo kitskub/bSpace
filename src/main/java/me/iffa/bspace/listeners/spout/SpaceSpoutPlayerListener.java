@@ -8,7 +8,9 @@ import me.iffa.bspace.handlers.SpoutHandler;
 import me.iffa.bspace.handlers.WorldHandler;
 
 // Bukkit Imports
-import org.bukkit.event.player.PlayerListener;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 
@@ -23,7 +25,7 @@ import org.getspout.spoutapi.player.SpoutPlayer;
  * @author iffa
  * @author HACKhalo2
  */
-public class SpaceSpoutPlayerListener extends PlayerListener {
+public class SpaceSpoutPlayerListener implements Listener {
     // Variables
     private final SkyManager sky = SpoutManager.getSkyManager();
     private final Space plugin;
@@ -42,9 +44,9 @@ public class SpaceSpoutPlayerListener extends PlayerListener {
      * 
      * 
      * @param event Event data
-     * @deprecated
+     * @deprecated Why?
      */
-    @Override
+    @EventHandler(event = PlayerTeleportEvent.class, priority = EventPriority.HIGH)
     public void onPlayerTeleport(PlayerTeleportEvent event) {
         SpoutPlayer player = SpoutManager.getPlayer(event.getPlayer());
         if (event.isCancelled() || !player.isSpoutCraftEnabled() || event.getFrom().getWorld().equals(event.getTo().getWorld())
@@ -71,7 +73,7 @@ public class SpaceSpoutPlayerListener extends PlayerListener {
      * 
      * @param event Event data
      */
-    @Override
+    @EventHandler(event = PlayerRespawnEvent.class, priority = EventPriority.HIGH)
     public void onPlayerRespawn(PlayerRespawnEvent event) {
         SpoutPlayer player = SpoutManager.getPlayer(event.getPlayer());
         SpoutHandler.setOrReset(plugin, player, event.getRespawnLocation());

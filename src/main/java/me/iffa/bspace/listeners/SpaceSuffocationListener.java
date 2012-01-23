@@ -9,7 +9,6 @@ import java.util.Map;
 import me.iffa.bspace.Space;
 import me.iffa.bspace.api.event.area.AreaEnterEvent;
 import me.iffa.bspace.api.event.area.AreaLeaveEvent;
-import me.iffa.bspace.api.event.area.SpaceAreaListener;
 import me.iffa.bspace.api.event.area.SpaceEnterEvent;
 import me.iffa.bspace.api.event.area.SpaceLeaveEvent;
 import me.iffa.bspace.handlers.ConfigHandler;
@@ -19,12 +18,15 @@ import me.iffa.bspace.runnables.SuffacationRunnable;
 // Bukkit Imports
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
 
 /**
  *
  * @author Jack
  */
-public class SpaceSuffocationListener extends SpaceAreaListener {
+public class SpaceSuffocationListener implements Listener {
     // Variables
     public static Map<Player, Integer> taskid = new HashMap<Player, Integer>();
     private static Space plugin;
@@ -43,7 +45,7 @@ public class SpaceSuffocationListener extends SpaceAreaListener {
      * 
      * @param event Event data 
      */
-    @Override
+    @EventHandler(event = AreaEnterEvent.class, priority = EventPriority.MONITOR)
     public void onAreaEnter(AreaEnterEvent event) {
         stopSuffocating(event.getPlayer());
     }
@@ -53,7 +55,7 @@ public class SpaceSuffocationListener extends SpaceAreaListener {
      * 
      * @param event Event data 
      */
-    @Override
+    @EventHandler(event = AreaLeaveEvent.class, priority = EventPriority.MONITOR)
     public void onAreaLeave(AreaLeaveEvent event) {
         startSuffocating(event.getPlayer());
     }
@@ -63,7 +65,7 @@ public class SpaceSuffocationListener extends SpaceAreaListener {
      * 
      * @param event Event data 
      */
-    @Override
+    @EventHandler(event = SpaceLeaveEvent.class, priority = EventPriority.MONITOR)
     public void onSpaceLeave(SpaceLeaveEvent event) {
         stopSuffocating(event.getPlayer());
     }
@@ -73,7 +75,7 @@ public class SpaceSuffocationListener extends SpaceAreaListener {
      * 
      * @param event Event data 
      */
-    @Override
+    @EventHandler(event = SpaceEnterEvent.class, priority = EventPriority.MONITOR)
     public void onSpaceEnter(SpaceEnterEvent event) {
         if (!PlayerHandler.insideArea(event.getTo())) {
             startSuffocating(event.getPlayer());

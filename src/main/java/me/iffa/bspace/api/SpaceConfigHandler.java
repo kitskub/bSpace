@@ -263,7 +263,9 @@ public class SpaceConfigHandler {
      * @param id Id
      * 
      * @return true if weather is allowed
+     * @deprecated No longer needed
      */
+    @Deprecated
     public static boolean allowWeather(String id) {
         if (id.equalsIgnoreCase("planets")) {
             return (Boolean) Defaults.ALLOW_WEATHER.getDefault();

@@ -10,21 +10,25 @@ import me.iffa.bspace.handlers.MessageHandler;
 import me.iffa.bspace.handlers.WorldHandler;
 
 // Bukkit Imports
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
 import org.bukkit.event.weather.WeatherChangeEvent;
-import org.bukkit.event.weather.WeatherListener;
 
 /**
  * WeatherListener for weather changes.
  * 
  * @author iffa
+ * @deprecated Multiverse (and most world managers, really) does this
  */
-public class SpaceWeatherListener extends WeatherListener {
+@Deprecated
+public class SpaceWeatherListener implements Listener {
     /**
      * Called when the weather attempts to change.
      * 
      * @param event Event data
      */
-    @Override
+    @EventHandler(event = WeatherChangeEvent.class, priority = EventPriority.NORMAL)
     public void onWeatherChange(WeatherChangeEvent event) {
         if (WorldHandler.isSpaceWorld(event.getWorld()) 
                 && !ConfigHandler.allowWeather(ConfigHandler.getID(event.getWorld())) 

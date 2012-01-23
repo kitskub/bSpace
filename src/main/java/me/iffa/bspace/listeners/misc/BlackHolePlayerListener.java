@@ -16,7 +16,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
-import org.bukkit.event.player.PlayerListener;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 // Spout Imports
@@ -27,7 +29,7 @@ import org.getspout.spoutapi.block.SpoutBlock;
  * 
  * @author iffamies
  */
-public class BlackHolePlayerListener extends PlayerListener {
+public class BlackHolePlayerListener implements Listener {
     // Variables
     private static Map<Player, Integer> runnables = new HashMap<Player, Integer>();
     private static Map<Chunk, Boolean> scanned = new HashMap<Chunk,Boolean>();
@@ -39,7 +41,7 @@ public class BlackHolePlayerListener extends PlayerListener {
      * 
      * @param event Event data
      */
-    @Override
+    @EventHandler(event = PlayerMoveEvent.class, priority = EventPriority.MONITOR)
     public void onPlayerMove(PlayerMoveEvent event) {
         if (event.isCancelled()||!WorldHandler.isInAnySpace(event.getPlayer())||event.getPlayer().getHealth()==0) {
             return;
@@ -58,7 +60,7 @@ public class BlackHolePlayerListener extends PlayerListener {
                         0,//Delay
                         (long) 1); //Period
                 runnables.put(event.getPlayer(), taskId);
-                event.getPlayer().sendMessage("Black Hole Warning!");
+                event.getPlayer().sendMessage("Black hole. -bam-, you're dead.");
                 return;
             }
         }

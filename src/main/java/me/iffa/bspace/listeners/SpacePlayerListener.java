@@ -18,8 +18,10 @@ import me.iffa.bspace.handlers.WorldHandler;
 // Bukkit Imports
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerListener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
@@ -30,7 +32,7 @@ import org.bukkit.event.player.PlayerTeleportEvent;
  * 
  * @author iffa
  */
-public class SpacePlayerListener extends PlayerListener {
+public class SpacePlayerListener implements Listener {
     // Variables
     private final Map<Player, Boolean> inArea = new HashMap<Player, Boolean>();
     //private final Map<Player, Boolean> fixDupe = new HashMap<Player, Boolean>();
@@ -41,7 +43,7 @@ public class SpacePlayerListener extends PlayerListener {
      * 
      * @param event Event data
      */
-    @Override
+    @EventHandler(event = PlayerTeleportEvent.class, priority = EventPriority.HIGH)
     public void onPlayerTeleport(PlayerTeleportEvent event) {
         if (event.isCancelled()) {
             return;
@@ -77,7 +79,7 @@ public class SpacePlayerListener extends PlayerListener {
      * 
      * @param event Event data
      */
-    @Override
+    @EventHandler(event = PlayerMoveEvent.class, priority = EventPriority.MONITOR)
     public void onPlayerMove(PlayerMoveEvent event) {
         if (event.isCancelled()) {
             return;
@@ -113,7 +115,7 @@ public class SpacePlayerListener extends PlayerListener {
      * 
      * @param event Event data
      */
-    @Override
+    @EventHandler(event = PlayerQuitEvent.class, priority = EventPriority.MONITOR)
     public void onPlayerQuit(PlayerQuitEvent event) {
         if(SpaceSuffocationListener.stopSuffocating(event.getPlayer())){
             MessageHandler.debugPrint(Level.INFO, "Cancelled suffocation task for player '" + event.getPlayer().getName() + "'. (reason: left server)");
@@ -128,10 +130,11 @@ public class SpacePlayerListener extends PlayerListener {
      * 
      * @param event Event data
      */
-    @Override
+    @EventHandler(event = PlayerTeleportEvent.class, priority = EventPriority.MONITOR)
     public void onPlayerJoin(PlayerJoinEvent event) {
-        if(!WorldHandler.isSpaceWorld(
-            event.getPlayer().getWorld())) return;
+        if(!WorldHandler.isSpaceWorld(event.getPlayer().getWorld())) {
+            return;
+        }
         boolean insideArea = PlayerHandler.insideArea(event.getPlayer());
         inArea.put(event.getPlayer(), insideArea);
         SpaceEnterEvent e = new SpaceEnterEvent(event.getPlayer(),null,event.getPlayer().getLocation());
@@ -142,7 +145,7 @@ public class SpacePlayerListener extends PlayerListener {
      * 
      * @param event Event data
      */
-    @Override
+    @EventHandler(event = PlayerRespawnEvent.class, priority = EventPriority.MONITOR)
     public void onPlayerRespawn(PlayerRespawnEvent event) {
         if(WorldHandler.isSpaceWorld(event.getRespawnLocation().getWorld())){
             PlayerHandler.giveSuitOrHelmet(event.getPlayer());

@@ -4,14 +4,16 @@ package me.iffa.bspace.api.event.area;
 // Bukkit Imports
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
+import org.bukkit.event.HandlerList;
 
 /**
  * Event data for various area related events.
  * 
  * @author iffa
  */
-public abstract class AreaEvent extends Event{
+public abstract class AreaEvent extends Event {
     // Variables
+    private static final HandlerList handlers = new HandlerList();
     private static final long serialVersionUID = -316124458220245924L;
     private Player player;
 
@@ -33,5 +35,18 @@ public abstract class AreaEvent extends Event{
      */
     public Player getPlayer() {
         return this.player;
+    }
+
+    /**
+     * {@inheritDoc}
+     * @return Handler list
+     */
+    @Override
+    public HandlerList getHandlers() {
+        return handlers;
+    }
+
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 }

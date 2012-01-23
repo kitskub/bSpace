@@ -11,9 +11,11 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
 
 // Spout Imports
-import org.getspout.spoutapi.event.input.InputListener;
 import org.getspout.spoutapi.event.input.KeyPressedEvent;
 import org.getspout.spoutapi.event.input.KeyReleasedEvent;
 import org.getspout.spoutapi.gui.ScreenType;
@@ -25,13 +27,13 @@ import org.getspout.spoutapi.player.SpoutPlayer;
  * @author HACKhalo2
  * @author iffamies
  */
-public class SpaceSpoutKeyListener extends InputListener {
+public class SpaceSpoutKeyListener implements Listener {
     /**
      * Called when a key is pressed on a SpoutCraft client.
      * 
      * @param event Event data
      */
-    @Override
+    @EventHandler(event = KeyPressedEvent.class, priority = EventPriority.MONITOR)
     public void onKeyPressedEvent(KeyPressedEvent event) {
         SpoutPlayer player = event.getPlayer();
         Player temp = player;
@@ -69,7 +71,7 @@ public class SpaceSpoutKeyListener extends InputListener {
      * 
      * @param event Event data
      */
-    @Override
+    @EventHandler(event = KeyReleasedEvent.class, priority = EventPriority.MONITOR)
     public void onKeyReleasedEvent(KeyReleasedEvent event) {
         if (event.getKey().equals(event.getPlayer().getJumpKey())) {
             Space.setJumpPressed(event.getPlayer(), true);

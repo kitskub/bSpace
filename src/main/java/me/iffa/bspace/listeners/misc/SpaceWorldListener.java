@@ -12,7 +12,9 @@ import me.iffa.bspace.wgen.planets.PlanetsChunkGenerator;
 
 // Bukkit Imports
 import org.bukkit.World;
-import org.bukkit.event.world.WorldListener;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
 import org.bukkit.event.world.WorldLoadEvent;
 
 /**
@@ -20,14 +22,14 @@ import org.bukkit.event.world.WorldLoadEvent;
  * 
  * @author iffamies
  */
-public class SpaceWorldListener extends WorldListener {
+public class SpaceWorldListener implements Listener {
 
     /**
      * Called when a world is loaded.
      * 
      * @param event Event data
      */
-    @Override
+    @EventHandler(event = WorldLoadEvent.class, priority = EventPriority.MONITOR)
     public void onWorldLoad(WorldLoadEvent event) {
         World world = event.getWorld();
         if (!(world.getGenerator() instanceof PlanetsChunkGenerator)) {
