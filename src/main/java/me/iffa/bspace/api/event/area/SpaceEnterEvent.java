@@ -4,6 +4,7 @@ package me.iffa.bspace.api.event.area;
 // Bukkit Imports
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.bukkit.event.HandlerList;
 
 /**
  * Event data for when a player enters space. 
@@ -13,6 +14,7 @@ import org.bukkit.entity.Player;
  */
 public class SpaceEnterEvent extends SpaceWorldAreaEvent{
     // Variables
+    private static final HandlerList handlers = new HandlerList();
     private static final long serialVersionUID = 8744071438699676557L;
     private Location to = null;
     private Location from = null;
@@ -47,5 +49,18 @@ public class SpaceEnterEvent extends SpaceWorldAreaEvent{
      */
     public Location getFrom() {
         return this.from;
+    }
+    
+    /**
+     * {@inheritDoc}
+     * @return Handler list
+     */
+    @Override
+    public HandlerList getHandlers() {
+        return handlers;
+    }
+
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 }
