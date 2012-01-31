@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>me.iffa.bspace</groupId>
     <artifactId>bSpace</artifactId>
-    <version>v2</version>
+    <version>v2.1</version>
     <name>bSpace</name>
     <url>http://github.com/iffa/bSpace</url>
     <!-- Repositories -->

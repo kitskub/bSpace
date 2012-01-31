@@ -84,7 +84,7 @@ public class SpaceSuffocationListener implements Listener {
 
     /**
      * Starts suffocation for a player.
-     * ¨
+     * 
      * @param player Player to suffocate
      */
     public static void startSuffocating(Player player) {
