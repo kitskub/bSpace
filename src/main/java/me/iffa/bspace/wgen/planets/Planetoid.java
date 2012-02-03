@@ -6,6 +6,7 @@ import java.io.Serializable;
 
 // Bukkit Imports
 import org.bukkit.Material;
+import org.bukkit.material.MaterialData;
 
 /**
  * Holder class for an individual planetoid.
@@ -16,8 +17,8 @@ import org.bukkit.Material;
 public class Planetoid implements Serializable {
     // Variables
     private static final long serialVersionUID = 1L;
-    public Material coreBlk;
-    public Material shellBlk;
+    public MaterialData coreBlkId;
+    public MaterialData shellBlkId;
     public int shellThickness;
     public int radius;
     public int xPos;
@@ -41,9 +42,9 @@ public class Planetoid implements Serializable {
      * @param y Y-coord
      * @param z Z-coord
      */
-    public Planetoid(Material coreID, Material shellID, int shellThick, int radius, int x, int y, int z) {
-        this.coreBlk = coreID;
-        this.shellBlk = shellID;
+    public Planetoid(MaterialData coreID, MaterialData shellID, int shellThick, int radius, int x, int y, int z) {
+        this.coreBlkId = coreID;
+        this.shellBlkId = shellID;
         this.shellThickness = shellThick;
         this.radius = radius;
         this.xPos = x;

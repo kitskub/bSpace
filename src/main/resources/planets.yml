@@ -18,6 +18,12 @@ maxSize: 40
 # Minimum & maximum shell size
 minShellSize: 10
 maxShellSize: 20
+# All have the option of having a set probability or not
+# Data values are optional
+# Can be in the following formats:
+#   - WOOL:12 *FULLY QUALIFIED NAME
+#   - 43:12   *VANILLA
+#   - 1654:12 *(NOT A VANILLA ID)
 blocks:
     # Planet shells & probabilities
     shells:

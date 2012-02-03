@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.logging.Level;
 
 // bSpace Imports
 import me.iffa.bspace.config.SpaceConfig;
@@ -16,6 +17,7 @@ import me.iffa.bspace.config.SpaceConfig.ConfigFile;
 import me.iffa.bspace.wgen.populators.SpaceSatellitePopulator;
 import me.iffa.bspace.config.SpaceConfig.Defaults;
 import me.iffa.bspace.handlers.ConfigHandler;
+import me.iffa.bspace.handlers.MessageHandler;
 import me.iffa.bspace.wgen.populators.SpaceAsteroidPopulator;
 import me.iffa.bspace.wgen.populators.SpaceBlackHolePopulator;
 import me.iffa.bspace.wgen.populators.SpaceSchematicPopulator;
@@ -27,6 +29,7 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.generator.BlockPopulator;
 import org.bukkit.generator.ChunkGenerator;
+import org.bukkit.material.MaterialData;
 
 /**
  * Generates a space world with planets.
@@ -37,8 +40,8 @@ import org.bukkit.generator.ChunkGenerator;
  */
 public class PlanetsChunkGenerator extends ChunkGenerator {
     // Variables
-    private Map<Material, Float> allowedShells;
-    private Map<Material, Float> allowedCores;
+    private Map<MaterialData, Float> allowedShellIds;
+    private Map<MaterialData, Float> allowedCoreIds;
     private int density = SpaceConfig.getConfig(ConfigFile.PLANETS).getInt("density", (Integer) Defaults.DENSITY.getDefault()); // Number of planetoids it will try to create per
     private int minSize = SpaceConfig.getConfig(ConfigFile.PLANETS).getInt("minSize", (Integer) Defaults.MIN_SIZE.getDefault()); // Minimum radius
     private int maxSize = SpaceConfig.getConfig(ConfigFile.PLANETS).getInt("maxSize", (Integer) Defaults.MAX_SIZE.getDefault()); // Maximum radius
@@ -130,10 +133,10 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
                                     }
                                     if (xShell || zShell || yShell) {
                                         //world.getBlockAt(worldX, worldY, worldZ).setType(curPl.shellBlk);
-                                        retVal[(chunkX * 16 + chunkZ) * 128 + worldY] = (byte) curPl.shellBlk.getId();
+                                        retVal[(chunkX * 16 + chunkZ) * 128 + worldY] = (byte) curPl.shellBlkId.getItemTypeId();
                                     } else {
                                         //world.getBlockAt(worldX, worldY, worldZ).setType(curPl.coreBlk);
-                                        retVal[(chunkX * 16 + chunkZ) * 128 + worldY] = (byte) curPl.coreBlk.getId();
+                                        retVal[(chunkX * 16 + chunkZ) * 128 + worldY] = (byte) curPl.coreBlkId.getItemTypeId();
                                     }
                                 }
                             }
@@ -186,8 +189,8 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
             spawnPl.xPos = 7;
             spawnPl.yPos = 70;
             spawnPl.zPos = 7;
-            spawnPl.coreBlk = Material.LOG;
-            spawnPl.shellBlk = Material.LEAVES;
+            spawnPl.coreBlkId = new MaterialData(Material.LOG, (byte) 0);
+            spawnPl.shellBlkId = new MaterialData(Material.LEAVES, (byte) 0);
             spawnPl.shellThickness = 3;
             spawnPl.radius = 6;
             planets.get(world).add(spawnPl);
@@ -210,19 +213,23 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
         for (int i = 0; i < density; i++) {
             // Try to make a planet
             Planetoid curPl = new Planetoid();
-            curPl.shellBlk = getBlockType(rand, false, true);
-            switch (curPl.shellBlk) {
-                case LEAVES:
-                    curPl.coreBlk = Material.LOG;
-                    break;
-                case ICE:
-                case WOOL:
-                    curPl.coreBlk = getBlockType(rand, true, true);
-                default:
-                    curPl.coreBlk = getBlockType(rand, true, false);
-                    break;
+            curPl.shellBlkId = getBlockType(rand, false, true);
+            if(curPl.shellBlkId.getItemType() == null){//Not a Vanilla Material. Default.
+                curPl.coreBlkId = getBlockType(rand, true, false);
             }
-
+            else{
+                switch (curPl.shellBlkId.getItemType()) {
+                    case LEAVES:
+                        curPl.coreBlkId = new MaterialData(Material.LOG, (byte) 0);
+                        break;
+                    case ICE:
+                    case WOOL:
+                        curPl.coreBlkId = getBlockType(rand, true, true);
+                    default:
+                        curPl.coreBlkId = getBlockType(rand, true, false);
+                        break;
+                }
+            }
             curPl.shellThickness = rand.nextInt(maxShellSize - minShellSize)
                     + minShellSize;
             curPl.radius = rand.nextInt(maxSize - minSize) + minSize;
@@ -290,27 +297,84 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
      */
     @SuppressWarnings("unchecked")
     private void loadAllowedBlocks() {
-        allowedCores = new EnumMap<Material, Float>(Material.class);
-        allowedShells = new EnumMap<Material, Float>(Material.class);
+        allowedCoreIds = new HashMap<MaterialData, Float>();
+        allowedShellIds = new HashMap<MaterialData, Float>();
         for (String s : SpaceConfig.getConfig(ConfigFile.PLANETS).getStringList("blocks.cores")) {
             String[] sSplit = s.split("-");
-            Material newMat = Material.matchMaterial(sSplit[0]);
-            if (newMat.isBlock()) {
-                if (sSplit.length == 2) {
-                    allowedCores.put(newMat, Float.valueOf(sSplit[1]));
-                } else {
-                    allowedCores.put(newMat, 1.0f);
+            int data = 0;
+            String material = "";
+            float value = 0;
+            if(sSplit[0].split(":").length==2){
+                try {
+                    material = sSplit[0].split(":")[0];
+                    data = Integer.parseInt(sSplit[0].split(":")[1]);
+                } catch (NumberFormatException numberFormatException) {
+                    MessageHandler.print(Level.WARNING, "Invalid core block in planets.yml");
+                }
+            }
+            else{
+                material = sSplit[0];
+            }
+            value = Float.valueOf(sSplit[1]);
+            Material newMat = Material.matchMaterial(material);
+
+            if(newMat!=null){//Vanilla id
+                if (newMat.isBlock()) {
+                    if (sSplit.length == 2) {
+                        //allowedCores.put(newMat, Float.valueOf(sSplit[1]));
+                        allowedCoreIds.put(new MaterialData(newMat, (byte) data), value);
+                    } else {
+                        //allowedCores.put(newMat, 1.0f);
+                        allowedCoreIds.put(new MaterialData(newMat, (byte) data), 1.0f);
+                    }
+                }
+            }
+            else{
+                //UNSAFE! Does not check if id represents a block
+                try {
+                    allowedCoreIds.put(new MaterialData(Integer.parseInt(material), (byte) data), value);
+                } catch (NumberFormatException numberFormatException) {
+                    MessageHandler.print(Level.WARNING, "Unrecognized id (" + material + ") in planets.yml");
                 }
             }
         }
+
         for (String s : SpaceConfig.getConfig(ConfigFile.PLANETS).getStringList("blocks.shells")) {
             String[] sSplit = s.split("-");
-            Material newMat = Material.matchMaterial(sSplit[0]);
-            if (newMat.isBlock()) {
-                if (sSplit.length == 2) {
-                    allowedShells.put(newMat, Float.valueOf(sSplit[1]));
-                } else {
-                    allowedShells.put(newMat, 1.0f);
+            int data = 0;
+            String material = "";
+            float value = 0;
+            if(sSplit[0].split(":").length==2){
+                try {
+                    material = sSplit[0].split(":")[0];
+                    data = Integer.parseInt(sSplit[0].split(":")[1]);
+                } catch (NumberFormatException numberFormatException) {
+                    MessageHandler.print(Level.WARNING, "Invalid core block in planets.yml");
+                }
+            }
+            else{
+                material = sSplit[0];
+            }
+            value = Float.valueOf(sSplit[1]);
+            Material newMat = Material.matchMaterial(material);
+
+            if(newMat!=null){//Vanilla id
+                if (newMat.isBlock()) {
+                    if (sSplit.length == 2) {
+                        //allowedShells.put(newMat, Float.valueOf(sSplit[1]));
+                        allowedShellIds.put(new MaterialData(newMat, (byte) data), Float.valueOf(sSplit[1]));
+                    } else {
+                        //allowedShells.put(newMat, 1.0f);
+                        allowedShellIds.put(new MaterialData(newMat, (byte) data), 1.0f);
+                    }
+                }
+            }
+            else{
+                //UNSAFE! Does not check if id represents a block
+                try {
+                    allowedShellIds.put(new MaterialData(Integer.parseInt(material), (byte) data), value);
+                } catch (NumberFormatException numberFormatException) {
+                    MessageHandler.print(Level.WARNING, "Unrecognized id (" + material + ") in planets.yml");
                 }
             }
         }
@@ -340,21 +404,25 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
      * 
      * @return Material
      */
-    private Material getBlockType(Random rand, boolean core, boolean noHeat) {
-        Material retVal = null;
-        Map<Material, Float> refMap;
+    private MaterialData getBlockType(Random rand, boolean core, boolean noHeat) {
+        MaterialData retVal = null;
+        Map<MaterialData, Float> refMap;
         if (core) {
-            refMap = allowedCores;
+            refMap = allowedCoreIds;
         } else {
-            refMap = allowedShells;
+            refMap = allowedShellIds;
         }
         while (retVal == null) {
             int arrayPos = rand.nextInt(refMap.size());
-            Material blkID = (Material) refMap.keySet().toArray()[arrayPos];
+            MaterialData blkID = (MaterialData) refMap.keySet().toArray()[arrayPos];
             float testVal = rand.nextFloat();
             if (refMap.get(blkID) >= testVal) {
                 if (noHeat) {
-                    switch (blkID) {
+                    if(blkID.getItemType()==null){//Not a Vanilla Material. Don't care.
+                        retVal = blkID;
+                        return retVal;
+                    }
+                    switch (blkID.getItemType()) {
                         case BURNING_FURNACE:
                         case FIRE:
                         case GLOWSTONE:
