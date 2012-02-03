@@ -86,7 +86,7 @@ public class SpaceConfigHandler {
      */
     public static String getArmorType() {
         String armorType = SpaceConfig.getConfig(ConfigFile.CONFIG).getString("global.armortype", (String) Defaults.ARMOR_TYPE.getDefault());
-        if(Material.getMaterial(armorType+ "_HELMET")==null){
+        if(Material.matchMaterial(armorType+ "_HELMET")==null){
             MessageHandler.print(Level.SEVERE, "Invalid armortype '" + SpaceConfig.getConfig(ConfigFile.CONFIG).getString("global.armortype") + "' in config!");
             return (String) Defaults.ARMOR_TYPE.getDefault();
         }

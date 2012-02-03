@@ -46,9 +46,9 @@ public class SpacePlayerHandler {
      */
     public static void giveSpaceSuit(String armortype, int helmetid, Player player) {
         Material helmet = Material.getMaterial(helmetid);
-        Material chestplate = Material.getMaterial(armortype.toUpperCase() + "_CHESTPLATE");
-        Material leggings = Material.getMaterial(armortype.toUpperCase() + "_LEGGINGS");
-        Material boots = Material.getMaterial(armortype.toUpperCase() + "_BOOTS");
+        Material chestplate = Material.matchMaterial(armortype + "_CHESTPLATE");
+        Material leggings = Material.matchMaterial(armortype + "_LEGGINGS");
+        Material boots = Material.matchMaterial(armortype + "_BOOTS");
         if (helmet == null){
             MessageHandler.print(Level.SEVERE, "Invalid helmet '" + helmetid + "' in config!");
             player.sendMessage(ChatColor.RED + "Nag at server owner: Invalid helmet in bSpace config!");
