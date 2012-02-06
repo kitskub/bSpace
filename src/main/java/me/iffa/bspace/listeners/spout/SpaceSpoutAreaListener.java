@@ -35,7 +35,7 @@ public class SpaceSpoutAreaListener implements Listener {
      * 
      * @param event Event data
      */
-    @EventHandler(event = AreaEnterEvent.class, priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onAreaEnter(AreaEnterEvent event) {
         SpoutHandler.resetGravity(event.getPlayer());
     }
@@ -45,12 +45,12 @@ public class SpaceSpoutAreaListener implements Listener {
      * 
      * @param event Event data
      */
-    @EventHandler(event = AreaLeaveEvent.class, priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onAreaLeave(AreaLeaveEvent event) {
         SpoutHandler.setGravity(event.getPlayer());
     }
     
-    @EventHandler(event = SpaceEnterEvent.class, priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onSpaceEnter(SpaceEnterEvent event) {
         SpoutPlayer player = SpoutManager.getPlayer(event.getPlayer());
         if (event.isCancelled() || !player.isSpoutCraftEnabled() || event.getFrom().getWorld().equals(event.getTo().getWorld())
@@ -66,7 +66,7 @@ public class SpaceSpoutAreaListener implements Listener {
         
     }
     
-    @EventHandler(event = SpaceLeaveEvent.class, priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onSpaceLeave(SpaceLeaveEvent event) {
         SpoutPlayer player = SpoutManager.getPlayer(event.getPlayer());
         if (event.isCancelled() || !player.isSpoutCraftEnabled() || event.getFrom().getWorld().equals(event.getTo().getWorld())

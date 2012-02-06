@@ -33,7 +33,7 @@ public class SpaceSpoutKeyListener implements Listener {
      * 
      * @param event Event data
      */
-    @EventHandler(event = KeyPressedEvent.class, priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onKeyPressedEvent(KeyPressedEvent event) {
         SpoutPlayer player = event.getPlayer();
         Player temp = player;
@@ -71,7 +71,7 @@ public class SpaceSpoutKeyListener implements Listener {
      * 
      * @param event Event data
      */
-    @EventHandler(event = KeyReleasedEvent.class, priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onKeyReleasedEvent(KeyReleasedEvent event) {
         if (event.getKey().equals(event.getPlayer().getJumpKey())) {
             Space.setJumpPressed(event.getPlayer(), true);

@@ -28,7 +28,7 @@ public class SpaceWeatherListener implements Listener {
      * 
      * @param event Event data
      */
-    @EventHandler(event = WeatherChangeEvent.class, priority = EventPriority.NORMAL)
+    @EventHandler(priority = EventPriority.NORMAL)
     public void onWeatherChange(WeatherChangeEvent event) {
         if (WorldHandler.isSpaceWorld(event.getWorld()) 
                 && !ConfigHandler.allowWeather(ConfigHandler.getID(event.getWorld())) 

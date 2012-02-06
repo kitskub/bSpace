@@ -38,7 +38,7 @@ public class SpaceSpoutCraftListener implements Listener {
      * 
      * @param event Event data
      */
-    @EventHandler(event = SpoutCraftEnableEvent.class, priority = EventPriority.HIGH)
+    @EventHandler(priority = EventPriority.HIGH)
     public void onSpoutCraftEnable(SpoutCraftEnableEvent event) {
         SpoutPlayer player = event.getPlayer();
         if (WorldHandler.isSpaceWorld(player.getWorld())) {

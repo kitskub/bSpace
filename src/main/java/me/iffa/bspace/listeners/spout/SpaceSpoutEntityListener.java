@@ -40,7 +40,7 @@ public class SpaceSpoutEntityListener implements Listener {
      * 
      * @param event Event data
      */
-    @EventHandler(event = EntityDamageEvent.class, priority = EventPriority.NORMAL)
+    @EventHandler(priority = EventPriority.NORMAL)
     public void onEntityDamage(EntityDamageEvent event) {
         Entity entity = event.getEntity();
         if (entity instanceof Player) {
@@ -85,7 +85,7 @@ public class SpaceSpoutEntityListener implements Listener {
      * 
      * @param event Event data
      */
-    @EventHandler(event = CreatureSpawnEvent.class, priority = EventPriority.HIGH)
+    @EventHandler(priority = EventPriority.HIGH)
     public void onCreatureSpawn(CreatureSpawnEvent event) {
         if (!event.isCancelled() && WorldHandler.isSpaceWorld(event.getLocation().getWorld()) && event.getCreatureType().equals(CreatureType.ZOMBIE)) {
             for (Player player : event.getLocation().getWorld().getPlayers()) {

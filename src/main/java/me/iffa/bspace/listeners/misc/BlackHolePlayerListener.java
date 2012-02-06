@@ -41,7 +41,7 @@ public class BlackHolePlayerListener implements Listener {
      * 
      * @param event Event data
      */
-    @EventHandler(event = PlayerMoveEvent.class, priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onPlayerMove(PlayerMoveEvent event) {
         if (event.isCancelled()||!WorldHandler.isInAnySpace(event.getPlayer())||event.getPlayer().getHealth()==0) {
             return;

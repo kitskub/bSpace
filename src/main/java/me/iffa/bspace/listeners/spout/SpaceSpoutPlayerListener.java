@@ -46,7 +46,7 @@ public class SpaceSpoutPlayerListener implements Listener {
      * @param event Event data
      * @deprecated Why?
      */
-    @EventHandler(event = PlayerTeleportEvent.class, priority = EventPriority.HIGH)
+    @EventHandler(priority = EventPriority.HIGH)
     public void onPlayerTeleport(PlayerTeleportEvent event) {
         SpoutPlayer player = SpoutManager.getPlayer(event.getPlayer());
         if (event.isCancelled() || !player.isSpoutCraftEnabled() || event.getFrom().getWorld().equals(event.getTo().getWorld())
@@ -73,7 +73,7 @@ public class SpaceSpoutPlayerListener implements Listener {
      * 
      * @param event Event data
      */
-    @EventHandler(event = PlayerRespawnEvent.class, priority = EventPriority.HIGH)
+    @EventHandler(priority = EventPriority.HIGH)
     public void onPlayerRespawn(PlayerRespawnEvent event) {
         SpoutPlayer player = SpoutManager.getPlayer(event.getPlayer());
         SpoutHandler.setOrReset(plugin, player, event.getRespawnLocation());

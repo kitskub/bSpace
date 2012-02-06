@@ -29,7 +29,7 @@ public class SpaceWorldListener implements Listener {
      * 
      * @param event Event data
      */
-    @EventHandler(event = WorldLoadEvent.class, priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onWorldLoad(WorldLoadEvent event) {
         World world = event.getWorld();
         if (!(world.getGenerator() instanceof PlanetsChunkGenerator)) {
