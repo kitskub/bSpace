@@ -34,6 +34,7 @@ public class SpaceBlackHolePopulator extends BlockPopulator {
     @Override
     public void populate(World world, Random random, Chunk source) {
         String id = ConfigHandler.getID(world);
+        if(withinSpawn(source)) return;
         if (random.nextInt(100) <= ConfigHandler.getBlackHoleChance(id)) {
             //short[] blockIds = new short[16*16*128];
             int chunkX = source.getX();
@@ -48,5 +49,16 @@ public class SpaceBlackHolePopulator extends BlockPopulator {
             //SpoutManager.getMaterialManager().overrideBlock(world, (chunkX*16+x), y, (chunkZ*16+z), SpoutHandler.blackHole);
             SpoutManager.getMaterialManager().overrideBlock(sb, SpoutHandler.blackHole);
         }
+    }
+    
+    //Might be configurable later. Depends on the want.
+    private boolean withinSpawn(Chunk source) {
+        int x = source.getX();
+        int z = source.getZ();
+        
+        if(x>-2 && x<2 && z>-2 && z<2){
+            return true;
+        }
+        return false;
     }
 }
