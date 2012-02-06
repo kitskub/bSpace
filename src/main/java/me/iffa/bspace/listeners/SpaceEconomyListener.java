@@ -25,7 +25,7 @@ public class SpaceEconomyListener implements Listener {
      * 
      * @param event Event data
      */
-    @EventHandler(event = SpaceEnterEvent.class, priority = EventPriority.HIGHEST)
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onSpaceEnter(SpaceEnterEvent event) {
         if (event.getFrom() == event.getTo()) {
             return;
@@ -42,7 +42,7 @@ public class SpaceEconomyListener implements Listener {
      * 
      * @param event Event data
      */
-    @EventHandler(event = SpaceLeaveEvent.class, priority = EventPriority.NORMAL)
+    @EventHandler(priority = EventPriority.NORMAL)
     public void onSpaceLeave(SpaceLeaveEvent event) {
         if (!Economy.exit(event.getPlayer())) {
             event.setCancelled(true);

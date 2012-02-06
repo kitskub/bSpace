@@ -17,6 +17,7 @@ import me.iffa.bspace.runnables.SuffacationRunnable;
 
 // Bukkit Imports
 import org.bukkit.Bukkit;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -45,7 +46,7 @@ public class SpaceSuffocationListener implements Listener {
      * 
      * @param event Event data 
      */
-    @EventHandler(event = AreaEnterEvent.class, priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onAreaEnter(AreaEnterEvent event) {
         stopSuffocating(event.getPlayer());
     }
@@ -55,7 +56,7 @@ public class SpaceSuffocationListener implements Listener {
      * 
      * @param event Event data 
      */
-    @EventHandler(event = AreaLeaveEvent.class, priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onAreaLeave(AreaLeaveEvent event) {
         startSuffocating(event.getPlayer());
     }
@@ -65,7 +66,7 @@ public class SpaceSuffocationListener implements Listener {
      * 
      * @param event Event data 
      */
-    @EventHandler(event = SpaceLeaveEvent.class, priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onSpaceLeave(SpaceLeaveEvent event) {
         stopSuffocating(event.getPlayer());
     }
@@ -75,23 +76,35 @@ public class SpaceSuffocationListener implements Listener {
      * 
      * @param event Event data 
      */
-    @EventHandler(event = SpaceEnterEvent.class, priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onSpaceEnter(SpaceEnterEvent event) {
         if (!PlayerHandler.insideArea(event.getTo())) {
-            startSuffocating(event.getPlayer());
+            startSuffocating(event.getPlayer(), event.getTo().getWorld());
         }
     }
 
     /**
      * Starts suffocation for a player.
+     * This is only a convience method.
+     * This should NOT be used on cross-world teleportation.
      * 
      * @param player Player to suffocate
      */
     public static void startSuffocating(Player player) {
+        startSuffocating(player, player.getWorld());
+    }
+    
+    /**
+     * Starts suffocation for a player.
+     * 
+     * @param player Player to suffocate
+     * @param world the world
+     */
+    public static void startSuffocating(Player player, World world) {
         if (player.hasPermission("bSpace.ignoresuitchecks")) {
             return;
         }
-        String id = ConfigHandler.getID(player.getWorld());
+        String id = ConfigHandler.getID(world);
         boolean suffocatingOn = (ConfigHandler.getRequireHelmet(id) || ConfigHandler.getRequireSuit(id));
         if (suffocatingOn) {
             SuffacationRunnable task = new SuffacationRunnable(player);

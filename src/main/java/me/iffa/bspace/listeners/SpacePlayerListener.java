@@ -43,7 +43,7 @@ public class SpacePlayerListener implements Listener {
      * 
      * @param event Event data
      */
-    @EventHandler(event = PlayerTeleportEvent.class, priority = EventPriority.HIGH)
+    @EventHandler(priority = EventPriority.HIGH)
     public void onPlayerTeleport(PlayerTeleportEvent event) {
         if (event.isCancelled()) {
             return;
@@ -79,7 +79,7 @@ public class SpacePlayerListener implements Listener {
      * 
      * @param event Event data
      */
-    @EventHandler(event = PlayerMoveEvent.class, priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onPlayerMove(PlayerMoveEvent event) {
         if (event.isCancelled()) {
             return;
@@ -115,7 +115,7 @@ public class SpacePlayerListener implements Listener {
      * 
      * @param event Event data
      */
-    @EventHandler(event = PlayerQuitEvent.class, priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onPlayerQuit(PlayerQuitEvent event) {
         if(SpaceSuffocationListener.stopSuffocating(event.getPlayer())){
             MessageHandler.debugPrint(Level.INFO, "Cancelled suffocation task for player '" + event.getPlayer().getName() + "'. (reason: left server)");
@@ -130,7 +130,7 @@ public class SpacePlayerListener implements Listener {
      * 
      * @param event Event data
      */
-    @EventHandler(event = PlayerTeleportEvent.class, priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onPlayerJoin(PlayerJoinEvent event) {
         if(!WorldHandler.isSpaceWorld(event.getPlayer().getWorld())) {
             return;
@@ -145,7 +145,7 @@ public class SpacePlayerListener implements Listener {
      * 
      * @param event Event data
      */
-    @EventHandler(event = PlayerRespawnEvent.class, priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onPlayerRespawn(PlayerRespawnEvent event) {
         if(WorldHandler.isSpaceWorld(event.getRespawnLocation().getWorld())){
             PlayerHandler.giveSuitOrHelmet(event.getPlayer());

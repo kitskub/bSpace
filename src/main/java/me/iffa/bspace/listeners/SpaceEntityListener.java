@@ -33,7 +33,7 @@ public class SpaceEntityListener implements Listener {
      * 
      * @param event Event data
      */
-    @EventHandler(event = CreatureSpawnEvent.class, priority = EventPriority.HIGH)
+    @EventHandler(priority = EventPriority.HIGH)
     public void onCreatureSpawn(CreatureSpawnEvent event) {
         if (WorldHandler.isSpaceWorld(event.getEntity().getWorld())) {
             String id = ConfigHandler.getID(event.getEntity().getWorld());
@@ -71,7 +71,7 @@ public class SpaceEntityListener implements Listener {
      * 
      * @param event Event data
      */
-    @EventHandler(event = EntityDamageEvent.class, priority = EventPriority.NORMAL)
+    @EventHandler(priority = EventPriority.NORMAL)
     public void onEntityDamage(EntityDamageEvent event) {
         if (event.getEntity() instanceof Player && event.getCause() == DamageCause.DROWNING) {
             Player player = (Player) event.getEntity();
@@ -90,7 +90,7 @@ public class SpaceEntityListener implements Listener {
      * 
      * @param event Event data
      */
-    @EventHandler(event = EntityDeathEvent.class, priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onEntityDeath(EntityDeathEvent event) {
         if (event.getEntity() instanceof Player) {
             Player p = (Player) event.getEntity();

@@ -196,7 +196,7 @@ public class SpaceConfig {
      */
     public enum Defaults {
         // ConfigFile.CONFIG
-        REQUIRE_HELMET(true),
+        REQUIRE_HELMET(false),
         DEBUGGING(false),
         REQUIRE_SUIT(false),
         ARMOR_TYPE("iron"),
