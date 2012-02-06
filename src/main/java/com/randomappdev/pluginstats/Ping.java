@@ -40,21 +40,20 @@ import java.util.logging.Logger;
 public class Ping
 {
 
-    private final File configFile = new File("plugins/PluginStats/config.yml");
-    private final String logFile = "plugins/PluginStats/log.txt";
-    private final YamlConfiguration config = YamlConfiguration.loadConfiguration(configFile);
-    private Logger logger = null;
+    private static final File configFile = new File("plugins/PluginStats/config.yml");
+    private static final String logFile = "plugins/PluginStats/log.txt";
+    private static final YamlConfiguration config = YamlConfiguration.loadConfiguration(configFile);
+    private static Logger logger = null;
 
-    public void init(Plugin plugin)
+    public static void init(Plugin plugin)
     {
         if (configExists() && logExists() && !config.getBoolean("opt-out"))
         {
             plugin.getServer().getScheduler().scheduleAsyncRepeatingTask(plugin, new Pinger(plugin, config.getString("guid"), logger), 10L, 20L * 60L * 60 * 24);
-            System.out.println("[" + plugin.getDescription().getName() + "] Usage statistics are being kept for this plugin. To opt-out for any reason, check plugins/PluginStats/config.yml");
         }
     }
 
-    private Boolean configExists()
+    private static Boolean configExists()
     {
         config.addDefault("opt-out", false);
         config.addDefault("guid", UUID.randomUUID().toString());
@@ -75,7 +74,7 @@ public class Ping
         return true;
     }
 
-    private Boolean logExists()
+    private static Boolean logExists()
     {
         try
         {
@@ -85,8 +84,8 @@ public class Ping
             logger.addHandler(handler);
         } catch (Exception ex)
         {
-            System.out.println("Error creating PluginStats log file.");
-            ex.printStackTrace();
+            logger.log(Level.SEVERE, "Error with config file!");
+            logger.log(Level.SEVERE, "", ex);
             return false;
         }
         return true;
@@ -95,15 +94,15 @@ public class Ping
 
 class Pinger implements Runnable
 {
-    private Plugin plugin;
-    private String guid;
-    private Logger logger;
+    private static Plugin plugin;
+    private static String guid;
+    private static Logger logger;
 
     public Pinger(Plugin plugin, String guid, Logger theLogger)
     {
-        this.plugin = plugin;
-        this.guid = guid;
-        this.logger = theLogger;
+        Pinger.plugin = plugin;
+        Pinger.guid = guid;
+        Pinger.logger = theLogger;
     }
 
     public void run()
@@ -111,7 +110,7 @@ class Pinger implements Runnable
         pingServer();
     }
 
-    private void pingServer()
+    private static void pingServer()
     {
 
         String authors = "";
