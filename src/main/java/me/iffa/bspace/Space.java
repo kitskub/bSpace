@@ -137,8 +137,7 @@ public class Space extends JavaPlugin {
 
         // Finishing up enablation.
         MessageHandler.print(Level.INFO, LangHandler.getUsageStatsMessage());
-        Ping ping = new Ping();
-        ping.init(this);
+        Ping.init(this);
         MessageHandler.print(Level.INFO, LangHandler.getEnabledMessage());
     }
 
