@@ -1,10 +1,17 @@
 v2.2
 -----------------------------------------
- - Data can now be in planets.yml
- - Fixed more suffocation stuff
- - Black holes are not generated with 2 chunks of 0,0
- - When getting sucked into a black hole, player looks around randomly
- - EventHandler stuff updated
+(added/modified/removed features)
+    - Added permission node bSpace.ignoreblackholes to make the player immune to black holes effects
+    - Added permission node bSpace.ignore.* to make the player immune to all bullshit that might occur (currently only suit checks & black holes)
+    - Damage/data values can now be in planets.yml cores & shells
+    - Black holes are not generated within 2 chunks of 0,0
+    - When getting sucked into a black hole, player looks around randomly instead of the epilepsy inducing forced one
+ 
+ (fixes)
+    - Fixed more of the old fix related to suffocation stuff
+
+ (code changes)
+    - EventHandler stuff updated
 
 v2.1
 -----------------------------------------

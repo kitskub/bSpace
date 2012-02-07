@@ -26,39 +26,35 @@ import org.getspout.spoutapi.block.SpoutBlock;
 
 /**
  * Player listener to trigger black hole sucking.
- * 
+ *
  * @author iffamies
  */
 public class BlackHolePlayerListener implements Listener {
     // Variables
     private static Map<Player, Integer> runnables = new HashMap<Player, Integer>();
-    private static Map<Chunk, Boolean> scanned = new HashMap<Chunk,Boolean>();
+    private static Map<Chunk, Boolean> scanned = new HashMap<Chunk, Boolean>();
     private static final int SIZE = 20;
     private static long lastTime = System.currentTimeMillis();
 
     /**
      * Called when a player attempts to move.
-     * 
+     *
      * @param event Event data
      */
     @EventHandler(priority = EventPriority.MONITOR)
     public void onPlayerMove(PlayerMoveEvent event) {
-        if (event.isCancelled()||!WorldHandler.isInAnySpace(event.getPlayer())||event.getPlayer().getHealth()==0) {
+        if (event.isCancelled() || !WorldHandler.isInAnySpace(event.getPlayer()) || event.getPlayer().getHealth() == 0 || event.getPlayer().hasPermission("bSpace.ignoreblackholes")) {
             return;
         }
         long currentTime = System.currentTimeMillis();
-        if(!(lastTime+200<=currentTime)){
+        if (!(lastTime + 200 <= currentTime)) {
             return;
         }
-        lastTime=System.currentTimeMillis();
+        lastTime = System.currentTimeMillis();
         checkBlocks(event.getTo());
         for (SpoutBlock block : BlackHole.getHolesList()) {
-            if (SpoutHandler.isInsideRadius(event.getPlayer(), block.getLocation(), SIZE)&&!runnables.containsKey(event.getPlayer())) {
-                int taskId = Bukkit.getScheduler().scheduleSyncRepeatingTask(
-                        Bukkit.getPluginManager().getPlugin("bSpace"),
-                        new SpoutBlackHoleChaosRunnable(event.getPlayer(), block),
-                        0,//Delay
-                        (long) 1); //Period
+            if (SpoutHandler.isInsideRadius(event.getPlayer(), block.getLocation(), SIZE) && !runnables.containsKey(event.getPlayer())) {
+                int taskId = Bukkit.getScheduler().scheduleSyncRepeatingTask(Bukkit.getPluginManager().getPlugin("bSpace"), new SpoutBlackHoleChaosRunnable(event.getPlayer(), block), 0, (long) 1); //Period
                 runnables.put(event.getPlayer(), taskId);
                 event.getPlayer().sendMessage("Black hole. -bam-, you're dead.");
                 return;
@@ -68,27 +64,27 @@ public class BlackHolePlayerListener implements Listener {
 
     /**
      * Gets all running suck tasks.
-     * 
+     *
      * @return All tasks
      */
     public static Map<Player, Integer> getRunningTasks() {
         return runnables;
     }
-    
-    public static void stopRunnable(Player player){
+
+    public static void stopRunnable(Player player) {
         Bukkit.getScheduler().cancelTask(runnables.get(player));
         runnables.remove(player);
     }
-    
+
     private static void checkBlocks(Location loc) {
         Chunk center = loc.getChunk();
-        int chunks = (int) Math.ceil((SIZE-1)/16);
-        chunks = chunks>Bukkit.getViewDistance()?Bukkit.getViewDistance():chunks;       
-        for (int chunkX=-chunks; chunkX<=chunks; chunkX++){
-            for (int chunkZ=-chunks; chunkZ<=chunks; chunkZ++){
-                Chunk chunk = loc.getWorld().getChunkAt(center.getX()+chunkX, center.getZ()+chunkZ);
-                if(scanned.containsKey(chunk)&&scanned.get(chunk)==true){
-                   continue;
+        int chunks = (int) Math.ceil((SIZE - 1) / 16);
+        chunks = chunks > Bukkit.getViewDistance() ? Bukkit.getViewDistance() : chunks;
+        for (int chunkX = -chunks; chunkX <= chunks; chunkX++) {
+            for (int chunkZ = -chunks; chunkZ <= chunks; chunkZ++) {
+                Chunk chunk = loc.getWorld().getChunkAt(center.getX() + chunkX, center.getZ() + chunkZ);
+                if (scanned.containsKey(chunk) && scanned.get(chunk) == true) {
+                    continue;
                 }
                 for (int x = 0; x < 16; x++) {
                     for (int y = 0; y < 128; y++) {

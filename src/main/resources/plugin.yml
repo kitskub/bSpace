@@ -23,11 +23,17 @@ commands:
 # Permission nodes
 permissions:
   # Permission groups
-      # All permissions group
+      # All command permissions group
   bSpace.commands.*:
     description: Access to all bSpace commands.
     children:
       bSpace.teleport.*: true
+      # Ignores
+  bSpace.ignore.*:
+    description: Access to all ignore permissions (no suit check, black hole effects etc.).
+    children:
+      bSpace.ignoresuitcheck: true
+      bSpace.ignoreblackholes: true
       # Teleport
   bSpace.teleport.*:
     description: Access to all teleportation commands.
@@ -47,4 +53,7 @@ permissions:
     default: op
   bSpace.ignoresuitchecks:
     description: Ignores all suit and helmet checks for the player.
+    default: false
+  bSpace.ignoreblackholes:
+    description: Ignores all black holes (i.e. they will not suck) for the player.
     default: false
