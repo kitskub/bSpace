@@ -1,6 +1,11 @@
 v2.2
 -----------------------------------------
  - Data can now be in planets.yml
+ - Fixed more suffocation stuff
+ - Black holes are not generated with 2 chunks of 0,0
+ - When getting sucked into a black hole, player looks around randomly
+ - EventHandler stuff updated
+
 v2.1
 -----------------------------------------
 (added/modified/removed features)

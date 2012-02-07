@@ -8,12 +8,13 @@ import me.iffa.bspace.listeners.misc.BlackHolePlayerListener;
 // Bukkit Imports
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.entity.Player;
 
 // Spout Imports
 import org.getspout.spoutapi.block.SpoutBlock;
 
-// Bukkit Imports
-import org.bukkit.entity.Player;
+// Java Imports
+import java.util.Random;
 
 /**
  * Runnable that handles causing chaos with black holes.
@@ -90,20 +91,26 @@ public class SpoutBlackHoleChaosRunnable implements Runnable {
     }
     
     public static float getLookAtYaw(Location from, Location to) {
+        /*
         double deltaX=to.getX()-from.getX();
         double deltaY=to.getY()-from.getY();
         double deltaZ=to.getZ()-from.getZ();
         double distance = Math.sqrt(deltaZ * deltaZ + deltaX * deltaX);
         double yaw = Math.toDegrees(Math.acos(Math.toRadians(deltaZ/distance)));
+         */
+        double yaw = new Random().nextInt(360)-180;
         return (float) yaw;
     }
     
     public static float getLookAtPitch(Location from, Location to) {
+        /*
         double deltaX=to.getX()-from.getX();
         double deltaY=to.getY()-from.getY();
         double deltaZ=to.getZ()-from.getZ();
         double distance = Math.sqrt(deltaZ * deltaZ + deltaX * deltaX);
         double pitch = Math.toDegrees(Math.atan(Math.toRadians(distance/deltaY)));
+         */
+        double pitch = new Random().nextInt(180)-90;
         return (float) pitch;
     }
 }
