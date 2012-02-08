@@ -41,9 +41,6 @@ ids:
 #        maxroomheight: 5
 #        # Miscellaneous options
 #        alwaysnight: true
-#        # TODO: Perhaps delete these 2 as they are also controlled by Multiverse etc?
-#        neutralmobs: true
-#        hostilemobs: false
 ############# YOUR ID'S HERE:
     # Example ID - totally empty (to simulate the old empty generator with the new one)
     empty:
@@ -66,5 +63,3 @@ ids:
             required: false
         maxroomheight: 5
         alwaysnight: true
-        neutralmobs: false
-        hostilemobs: false

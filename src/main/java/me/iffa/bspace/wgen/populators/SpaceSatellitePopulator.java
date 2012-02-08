@@ -31,14 +31,13 @@ public class SpaceSatellitePopulator extends BlockPopulator {
     public void populate(World world, Random random, Chunk source) {
         String id = ConfigHandler.getID(world);
         if (random.nextInt(1337) <= ConfigHandler.getSatelliteChance(id)) {
-            int height = random.nextInt(128);
+            int height = random.nextInt(world.getMaxHeight());
             buildSatellite(world, height, source);
-            return;
         }
     }
 
     /**
-     * Builds a satellite. However badly!
+     * Builds a satellite. However badly! (but it looks cool)
      * 
      * @param world World
      * @param height Height

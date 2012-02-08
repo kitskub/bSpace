@@ -29,44 +29,6 @@ import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 public class SpaceEntityListener implements Listener {
 
     /**
-     * Called when a creature attempts to spawn.
-     * 
-     * @param event Event data
-     */
-    @EventHandler(priority = EventPriority.HIGH)
-    public void onCreatureSpawn(CreatureSpawnEvent event) {
-        if (WorldHandler.isSpaceWorld(event.getEntity().getWorld())) {
-            String id = ConfigHandler.getID(event.getEntity().getWorld());
-            if (!ConfigHandler.allowHostileMobs(id)) {
-                if (event.getCreatureType() == CreatureType.CREEPER
-                        || event.getCreatureType() == CreatureType.GHAST
-                        || event.getCreatureType() == CreatureType.GIANT
-                        || event.getCreatureType() == CreatureType.MONSTER
-                        || event.getCreatureType() == CreatureType.SKELETON
-                        || event.getCreatureType() == CreatureType.PIG_ZOMBIE
-                        || event.getCreatureType() == CreatureType.SPIDER
-                        || event.getCreatureType() == CreatureType.ZOMBIE
-                        || event.getCreatureType() == CreatureType.SLIME
-                        || event.getCreatureType() == CreatureType.CAVE_SPIDER
-                        || event.getCreatureType() == CreatureType.SILVERFISH) {
-                    event.setCancelled(true);
-
-                }
-            }
-            if (!ConfigHandler.allowNeutralMobs(id)) {
-                if (event.getCreatureType() == CreatureType.CHICKEN
-                        || event.getCreatureType() == CreatureType.COW
-                        || event.getCreatureType() == CreatureType.PIG
-                        || event.getCreatureType() == CreatureType.SHEEP
-                        || event.getCreatureType() == CreatureType.SQUID
-                        || event.getCreatureType() == CreatureType.WOLF) {
-                    event.setCancelled(true);
-                }
-            }
-        }
-    }
-
-    /**
      * Called when an entity (attempts) to take damage.
      * 
      * @param event Event data

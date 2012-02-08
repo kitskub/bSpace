@@ -11,7 +11,6 @@ import org.bukkit.World;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
-import org.bukkit.plugin.Plugin;
 
 // Spout Imports
 import org.getspout.spoutapi.block.SpoutBlock;
@@ -20,26 +19,24 @@ import org.getspout.spoutapi.player.SpoutPlayer;
 
 /**
  * Represents a black hole block.
- * 
+ *
  * @author Jack
  * @author iffa
  */
 public class BlackHole extends GenericCubeCustomBlock {
     // Variables
     private static List<SpoutBlock> holesMap = new ArrayList<SpoutBlock>();
-    
+
     /**
      * Constructor of BlackHole.
-     * 
-     * 
      */
     public BlackHole() {
         super(Bukkit.getPluginManager().getPlugin("bSpace"), "BlackHole", "http://i.imgur.com/zVBCZ.png", 16);
     }
-    
+
     /**
      * Gets the list containing all black holes.
-     * 
+     *
      * @return List of black holes
      */
     public static List<SpoutBlock> getHolesList() {

@@ -36,7 +36,7 @@ public class SpaceSchematicPopulator extends BlockPopulator {
         if (SpaceSchematicHandler.getSchematics().isEmpty()) {
             return;
         }
-        int y = new Random().nextInt(128);
+        int y = new Random().nextInt(world.getMaxHeight());
         String id = ConfigHandler.getID(world);
         Schematic randomSchematic = SpaceSchematicHandler.getSchematics().get(new Random().nextInt(SpaceSchematicHandler.getSchematics().size()));
         if (new Random().nextInt(200) <= ConfigHandler.getSchematicChance(id)) {

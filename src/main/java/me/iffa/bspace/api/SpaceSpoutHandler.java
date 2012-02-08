@@ -52,11 +52,11 @@ public class SpaceSpoutHandler {
                 sky.setCloudsVisible(player, false);
                 sky.setStarFrequency(player, 4200);
             }
-            if (ConfigHandler.getUseTexturePack()) {
+            if (ConfigHandler.getTexturePackEnabled()) {
                 player.setTexturePack(ConfigHandler.getSpoutTexturePack());
                 MessageHandler.debugPrint(Level.INFO, "Set " + player.getName() + "'s texture pack");
             }
-            if (ConfigHandler.getGravity()) {
+            if (ConfigHandler.getGravityEnabled()) {
                 Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, new SpoutFixRunnable(player), 10L);
                 MessageHandler.debugPrint(Level.INFO, "Made clouds and the moon invisible for player '" + player.getName() + "'. Starting runnable thread to setup Player movements...");
             }
@@ -67,11 +67,11 @@ public class SpaceSpoutHandler {
                 sky.setStarFrequency(player, 500);
                 MessageHandler.debugPrint(Level.INFO, "Made clouds visible again for player '" + player.getName() + "'.");
             }
-            if (ConfigHandler.getUseTexturePack()) {
+            if (ConfigHandler.getTexturePackEnabled()) {
                 player.resetTexturePack();
                 MessageHandler.debugPrint(Level.INFO, "Reset " + player.getName() + "'s texture pack");
             }
-            if (ConfigHandler.getGravity()) {
+            if (ConfigHandler.getGravityEnabled()) {
                 player.setCanFly(false);
                 player.resetMovement();
                 MessageHandler.debugPrint(Level.INFO, "Reset player '" + player.getName() + "'s gravity and visual settings.");

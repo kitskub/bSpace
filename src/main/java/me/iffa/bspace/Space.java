@@ -49,13 +49,14 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 /**
  * Main class of bSpace.
- * 
+ *
  * @author iffa
  * @author kitskub
  * @author HACKhalo2
  */
 public class Space extends JavaPlugin {
     // Variables
+
     private static String prefix;
     private static String version;
     private static PailInterface pailInterface;
@@ -76,7 +77,7 @@ public class Space extends JavaPlugin {
     @Override
     public void onDisable() {
         Bukkit.getScheduler().cancelTasks(this);
-        for(SpaceAddon addon : AddonHandler.addons){
+        for (SpaceAddon addon : AddonHandler.addons) {
             addon.onSpaceDisable();
         }
         // Finishing up disablation.
@@ -158,43 +159,23 @@ public class Space extends JavaPlugin {
      */
     private void registerEvents() {
         // Registering other events.
-        //pm.registerEvent(Event.Type.WEATHER_CHANGE, weatherListener, Event.Priority.Highest, this); - removed, see @deprecated tag
-        //pm.registerEvent(Event.Type.WORLD_LOAD, worldListener, Event.Priority.Monitor, this);
         pm.registerEvents(worldListener, this);
         MessageHandler.debugPrint(Level.INFO, "Registered events (other).");
 
         // Registering entity & player events.
-        //pm.registerEvent(Event.Type.ENTITY_DEATH, entityListener, Event.Priority.Monitor, this);
-        //pm.registerEvent(Event.Type.ENTITY_DAMAGE, entityListener, Event.Priority.Normal, this);
-        //pm.registerEvent(Event.Type.CREATURE_SPAWN, entityListener, Event.Priority.High, this);
         pm.registerEvents(entityListener, this);
-        //pm.registerEvent(Event.Type.PLAYER_TELEPORT, playerListener, Event.Priority.High, this);
-        //pm.registerEvent(Event.Type.PLAYER_MOVE, playerListener, Event.Priority.Monitor, this);
-        //pm.registerEvent(Event.Type.PLAYER_RESPAWN, playerListener, Event.Priority.Monitor, this);
-        //pm.registerEvent(Event.Type.PLAYER_QUIT, playerListener, Event.Priority.Monitor, this);
-        //pm.registerEvent(Event.Type.PLAYER_JOIN, playerListener, Event.Priority.Monitor, this);
         pm.registerEvents(playerListener, this);
-        //pm.registerEvent(Event.Type.CUSTOM_EVENT, suffocationListener, Event.Priority.Monitor, this); //Suffocation Listener
         pm.registerEvents(suffocationListener, this);
-        //pm.registerEvent(Event.Type.CUSTOM_EVENT, new SpaceEconomyListener(), Event.Priority.Highest, this); //Economy Listener
         pm.registerEvents(economyListener, this);
         MessageHandler.debugPrint(Level.INFO, "Registered events (entity & player).");
 
         // Registering events for Spout.
         if (pm.getPlugin("Spout") != null && ConfigHandler.isUsingSpout()) {
-            //pm.registerEvent(Event.Type.PLAYER_TELEPORT, new SpaceSpoutPlayerListener(this), Event.Priority.Monitor, this); //Player listener
-            //pm.registerEvent(Event.Type.PLAYER_RESPAWN, new SpaceSpoutPlayerListener(this), Event.Priority.Monitor, this); // Player listener
             pm.registerEvents(new SpaceSpoutPlayerListener(this), this);
-            //pm.registerEvent(Event.Type.ENTITY_DAMAGE, new SpaceSpoutEntityListener(), Event.Priority.Normal, this); //Entity Listener
-            //pm.registerEvent(Event.Type.CREATURE_SPAWN, new SpaceSpoutEntityListener(), Event.Priority.High, this); //Disabled until Limitations in Spout is fixed
             pm.registerEvents(new SpaceSpoutEntityListener(), this);
-            //pm.registerEvent(Event.Type.CUSTOM_EVENT, new SpaceSpoutCraftListener(), Event.Priority.High, this); //SpoutCraft Listener
             pm.registerEvents(new SpaceSpoutCraftListener(), this);
-            //pm.registerEvent(Event.Type.CUSTOM_EVENT, new SpaceSpoutAreaListener(), Event.Priority.Monitor, this); //Area Listener
             pm.registerEvents(new SpaceSpoutAreaListener(), this);
-            //pm.registerEvent(Event.Type.CUSTOM_EVENT, new SpaceSpoutKeyListener(), Event.Priority.Monitor, this); //Key Listener
             pm.registerEvents(new SpaceSpoutKeyListener(), this);
-            //pm.registerEvent(Event.Type.PLAYER_MOVE, new BlackHolePlayerListener(), Event.Priority.Monitor, this);
             pm.registerEvents(new BlackHolePlayerListener(), this);
             MessageHandler.debugPrint(Level.INFO, "Registered events (Spout).");
         }
@@ -202,21 +183,21 @@ public class Space extends JavaPlugin {
 
     /**
      * Gets the default world generator of the plugin.
-     * 
+     *
      * @param worldName World name
      * @param id ID (cow, fish etc)
-     * 
+     *
      * @return ChunkGenerator to use
      */
     @Override
     public ChunkGenerator getDefaultWorldGenerator(String worldName, String id) {
-        boolean realID=true;
-        if(id == null || id.isEmpty() || id.length() == 0){
-            realID=false;
+        boolean realID = true;
+        if (id == null || id.isEmpty() || id.length() == 0) {
+            realID = false;
         }
-        if(realID){
+        if (realID) {
             MessageHandler.debugPrint(Level.INFO, "Getting generator for '" + worldName + "' using id: '" + id + "'");
-        }else{
+        } else {
             MessageHandler.debugPrint(Level.INFO, "Getting generator for '" + worldName + "' using default id,planets.");
         }
         WorldHandler.checkWorld(worldName);
@@ -224,53 +205,55 @@ public class Space extends JavaPlugin {
             return new PlanetsChunkGenerator("planets");
         }
         //TODO check if id is in ids.yml
+        // ^ Still a TODO?
         return new PlanetsChunkGenerator(id);
     }
 
-    /* Some API methods */
-
+    /*
+     * Some API methods
+     */
     /**
      * Gets the jump pressed value. (ie = wtf is this)
-     * 
+     *
      * @param player Player
-     * 
+     *
      * @return Jump pressed
      */
     public static boolean getJumpPressed(Player player) {
         return jumpPressed.get(player);
     }
-    
+
     /**
      * Sets the jump pressed value. (ie = wtf is this ??)
-     * 
+     *
      * @param player Player
      * @param newJumpPressed New jump pressed value
      */
     public static void setJumpPressed(Player player, boolean newJumpPressed) {
         jumpPressed.put(player, newJumpPressed);
     }
-    
+
     /**
      * Gets the location cache.
-     * 
+     *
      * @return Location cach
      */
     public static Map<Player, Location> getLocCache() {
         return locCache;
     }
-    
+
     /**
      * Gets the plugin's prefix.
-     * 
+     *
      * @return Prefix
      */
     public static String getPrefix() {
         return prefix;
     }
-    
+
     /**
      * Gets the plugin's version.
-     * 
+     *
      * @return Version
      */
     public static String getVersion() {
@@ -279,7 +262,7 @@ public class Space extends JavaPlugin {
 
     /**
      * Gets the Economy-class.
-     * 
+     *
      * @return Economy
      */
     public Economy getEconomy() {

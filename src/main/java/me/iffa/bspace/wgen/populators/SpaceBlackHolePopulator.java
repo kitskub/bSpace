@@ -18,15 +18,16 @@ import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.block.SpoutBlock;
 
 /**
- * Populates
- * 
+ * Populates a world with black holes.
+ *
  * @author Jack
  * @author iffa
  */
 public class SpaceBlackHolePopulator extends BlockPopulator {
+
     /**
      * Populates a chunk with black holes.
-     * 
+     *
      * @param world World
      * @param random Random
      * @param source Source chunk
@@ -34,29 +35,32 @@ public class SpaceBlackHolePopulator extends BlockPopulator {
     @Override
     public void populate(World world, Random random, Chunk source) {
         String id = ConfigHandler.getID(world);
-        if(withinSpawn(source)) return;
+        if (withinSpawn(source)) {
+            return;
+        }
         if (random.nextInt(100) <= ConfigHandler.getBlackHoleChance(id)) {
-            //short[] blockIds = new short[16*16*128];
             int chunkX = source.getX();
             int chunkZ = source.getZ();
             int x = random.nextInt(16);
             int z = random.nextInt(16);
-            int y = random.nextInt(127);
-            //blockIds[(x * 16 + z) * 128 + y] = (short) SpoutHandler.blackHole.getCustomId();
-            //SpoutManager.getChunkDataManager().setCustomBlockIds(world, chunkX, chunkZ, blockIds);
-            SpoutBlock sb = (SpoutBlock)world.getBlockAt((chunkX*16+x), y, (chunkZ*16+z));
-            //sb.setCustomBlock(SpoutHandler.blackHole);
-            //SpoutManager.getMaterialManager().overrideBlock(world, (chunkX*16+x), y, (chunkZ*16+z), SpoutHandler.blackHole);
+            int y = random.nextInt(world.getMaxHeight());
+            SpoutBlock sb = (SpoutBlock) world.getBlockAt((chunkX * 16 + x), y, (chunkZ * 16 + z));
             SpoutManager.getMaterialManager().overrideBlock(sb, SpoutHandler.blackHole);
         }
     }
-    
-    //Might be configurable later. Depends on the want.
+
+    /**
+     * Checks if the source chunk is in the spawn area.
+     * 
+     * @param source Source chunk
+     * 
+     * @return True if within spawn
+     */
     private boolean withinSpawn(Chunk source) {
         int x = source.getX();
         int z = source.getZ();
-        
-        if(x>-2 && x<2 && z>-2 && z<2){
+
+        if (x > -2 && x < 2 && z > -2 && z < 2) {
             return true;
         }
         return false;

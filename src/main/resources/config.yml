@@ -32,6 +32,8 @@ global:
       texturepack: 'https://github.com/downloads/iffa/bSpace/spacetexture.zip'
       # True if the space tex. pack should be used
       usetp: true
+      # The texture to use for Spout black holes
+      blackhole-texture: 'http://i.imgur.com/zVBCZ.png'
 # Economy settings
 economy:
   # True if economy should be enabled

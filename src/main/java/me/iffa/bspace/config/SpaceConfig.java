@@ -202,6 +202,7 @@ public class SpaceConfig {
         ARMOR_TYPE("iron"),
         USE_SPOUT(true),
         TEXTURE_PACK("https://github.com/downloads/iffa/bSpace/spacetexture.zip"),
+        BLACKHOLE_TEXTURE("http://i.imgur.com/zVBCZ.png"),
         CLOUDS(false),
         USE_TEXTURE_PACK(true),
         HELMET_GIVEN(false),

@@ -3,15 +3,19 @@ v2.2
 (added/modified/removed features)
     - Added permission node bSpace.ignoreblackholes to make the player immune to black holes effects
     - Added permission node bSpace.ignore.* to make the player immune to all bullshit that might occur (currently only suit checks & black holes)
+    - Added a config setting for black hole texture
+    - Removed mob spawning settings (they should be handled by your world manager)
     - Damage/data values can now be in planets.yml cores & shells
+    - Reorganized the Pail tab (TODO: Economy settings in there)
     - Black holes are not generated within 2 chunks of 0,0
     - When getting sucked into a black hole, player looks around randomly instead of the epilepsy inducing forced one
  
  (fixes)
     - Fixed more of the old fix related to suffocation stuff
+    - In preparation for a new MC version (1.2 ->), use World.getMaxHeight() instead of hardcoded 128 for populators & generators
 
  (code changes)
-    - EventHandler stuff updated
+    - Updated EventHandlers
 
 v2.1
 -----------------------------------------

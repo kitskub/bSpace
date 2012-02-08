@@ -95,7 +95,7 @@ public class SpaceAsteroidPopulator extends BlockPopulator {
      */
     private Block getRandomBlock(Chunk source, Random random) {
         int x = random.nextInt(16);
-        int y = random.nextInt(128);
+        int y = random.nextInt(source.getWorld().getMaxHeight());
         int z = random.nextInt(16);
         return source.getBlock(x, y, z);
     }
