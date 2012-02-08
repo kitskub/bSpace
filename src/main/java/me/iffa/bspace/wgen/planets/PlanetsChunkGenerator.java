@@ -4,7 +4,6 @@ package me.iffa.bspace.wgen.planets;
 // Java Imports
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -87,6 +86,7 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
      */
     @Override
     public byte[] generate(World world, Random random, int x, int z) {
+        // TODO: Use maxWorldHeight here
         if (!planets.containsKey(world)) {
             planets.put(world, new ArrayList<Planetoid>());
         }
