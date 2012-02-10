@@ -32,6 +32,7 @@ ids:
 #                # True if black holes should be generated (will suck entities into it, once touching the block, death)
 #                blackholes: true
 #        # Spacesuit options
+#        # NOTE: Suit CONTAINS the space helmet!
 #        suit:
 #            required: false
 #        # Spacehelmet options
