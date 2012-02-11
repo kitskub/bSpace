@@ -8,6 +8,9 @@ import java.util.logging.Logger;
 // bSpace Imports
 import me.iffa.bspace.handlers.ConfigHandler;
 
+// Bukkit Imports
+import org.bukkit.Bukkit;
+
 /**
  * Useful methods to send messages to players and console.
  * 
@@ -17,7 +20,7 @@ import me.iffa.bspace.handlers.ConfigHandler;
  */
 public class SpaceMessageHandler {
     // Variables
-    protected static final Logger log = Logger.getLogger("Minecraft");
+    protected static final Logger log = Bukkit.getLogger();
     private static String printPrefix = "[Unknown]";
     
     /**

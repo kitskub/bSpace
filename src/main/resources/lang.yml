@@ -10,7 +10,7 @@
 general:
   enabled: 'Enabled version {version}.'
   disabled: 'Disabled version {version}.'
-  usagestats: 'The plugin will now start sending usage stats. You can disable this in config.yml!'
+  usagestats: 'The plugin will now start sending usage stats. You can disable this plugins/PluginMetrics/config.yml!'
   configload: 'Generated {configfile} file.'
   configupdatestart: 'Starting to update configs for compatability with v2.'
   configupdatefinish: 'Your pre-v2 config.yml was succesfully converted to the new v2 format. Your worlds can now be found in ids.yml.'

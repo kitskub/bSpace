@@ -2,15 +2,13 @@
 package me.iffa.bspace;
 
 // Java Imports
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 
 // Pail Imports
 import me.escapeNT.pail.Pail;
-
-// PluginStats Imports
-import com.randomappdev.pluginstats.Ping;
 
 // bSpace Imports
 import me.iffa.bspace.api.SpaceAddon;
@@ -138,7 +136,13 @@ public class Space extends JavaPlugin {
 
         // Finishing up enablation.
         MessageHandler.print(Level.INFO, LangHandler.getUsageStatsMessage());
-        Ping.init(this);
+        try {
+            Metrics metrics = new Metrics();
+            metrics.beginMeasuringPlugin(this);
+        } catch (IOException e) {
+            // Fail silently
+            MessageHandler.debugPrint(Level.WARNING, "Failed to contact Metrics (usage stats)");
+        }
         MessageHandler.print(Level.INFO, LangHandler.getEnabledMessage());
     }
 
