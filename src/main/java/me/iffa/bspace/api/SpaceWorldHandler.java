@@ -26,7 +26,7 @@ import org.bukkit.entity.Player;
  */
 public class SpaceWorldHandler {
     // Variables
-    private static List<String> spaceWorldNames = new ArrayList<String>();
+    protected static List<String> spaceWorldNames = new ArrayList<String>();
     private static Space plugin = (Space) Bukkit.getPluginManager().getPlugin("bSpace");
     private static Map<World, Integer> forcenightId = new HashMap<World, Integer>();
 

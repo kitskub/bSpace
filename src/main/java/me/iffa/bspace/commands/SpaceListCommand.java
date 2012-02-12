@@ -54,6 +54,5 @@ public class SpaceListCommand extends SpaceCommand {
             spaceWorlds.add(world.getName());
         }
         getSender().sendMessage(ChatColor.GRAY + spaceWorlds.toString().replace("]", "").replace("[", ""));
-        return;
     }
 }

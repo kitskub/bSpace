@@ -16,17 +16,18 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.world.WorldLoadEvent;
+import org.bukkit.event.world.WorldUnloadEvent;
 
 /**
  * Listener for world load events etc.
- * 
+ *
  * @author iffamies
  */
 public class SpaceWorldListener implements Listener {
 
     /**
      * Called when a world is loaded.
-     * 
+     *
      * @param event Event data
      */
     @EventHandler(priority = EventPriority.MONITOR)
@@ -40,6 +41,19 @@ public class SpaceWorldListener implements Listener {
             WorldHandler.startForceNightTask(world);
             MessageHandler.debugPrint(Level.INFO, "Started night forcing task for world '" + world.getName() + "'.");
         }
-
+    }
+    
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onWorldUnload(WorldUnloadEvent event) {
+        World world = event.getWorld();
+        if (!(world.getGenerator() instanceof PlanetsChunkGenerator)) {
+            return;
+        }
+        String id = ConfigHandler.getID(world);
+        if (ConfigHandler.forceNight(id)) {
+            WorldHandler.stopForceNightTask(world);
+            MessageHandler.debugPrint(Level.INFO, "Stopped night forcing task for world '" + world.getName() + "'. Reason: World unload");
+        }
+        WorldHandler.removeSpaceWorld(world);
     }
 }

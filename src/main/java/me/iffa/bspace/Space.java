@@ -54,7 +54,6 @@ import org.bukkit.plugin.java.JavaPlugin;
  */
 public class Space extends JavaPlugin {
     // Variables
-
     private static String prefix;
     private static String version;
     private static PailInterface pailInterface;

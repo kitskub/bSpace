@@ -17,9 +17,7 @@ import me.iffa.bspace.wgen.populators.SpaceSatellitePopulator;
 import me.iffa.bspace.config.SpaceConfig.Defaults;
 import me.iffa.bspace.handlers.ConfigHandler;
 import me.iffa.bspace.handlers.MessageHandler;
-import me.iffa.bspace.wgen.populators.SpaceAsteroidPopulator;
-import me.iffa.bspace.wgen.populators.SpaceBlackHolePopulator;
-import me.iffa.bspace.wgen.populators.SpaceSchematicPopulator;
+import me.iffa.bspace.wgen.populators.*;
 
 // Bukkit Imports
 import org.bukkit.Bukkit;
@@ -288,6 +286,10 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
         }
         if (ConfigHandler.getGenerateBlackHoles(ID) && ConfigHandler.isUsingSpout() && Bukkit.getPluginManager().isPluginEnabled("Spout")) {
             populators.add(new SpaceBlackHolePopulator());
+        }
+        // Not FPS friendly
+        if (false) {
+            populators.add(new SpaceEffectPopulator());
         }
         return populators;
     }
