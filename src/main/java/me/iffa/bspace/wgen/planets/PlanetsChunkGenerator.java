@@ -88,7 +88,7 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
         if (!planets.containsKey(world)) {
             planets.put(world, new ArrayList<Planetoid>());
         }
-        byte[] retVal = new byte[32768];
+        byte[] retVal = new byte[16 * 16 * world.getMaxHeight()];
         Arrays.fill(retVal, (byte) 0);
 
         if (GENERATE) {
@@ -131,10 +131,10 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
                                     }
                                     if (xShell || zShell || yShell) {
                                         //world.getBlockAt(worldX, worldY, worldZ).setType(curPl.shellBlk);
-                                        retVal[(chunkX * 16 + chunkZ) * 128 + worldY] = (byte) curPl.shellBlkId.getItemTypeId();
+                                        retVal[(chunkX * 16 + chunkZ) * world.getMaxHeight() + worldY] = (byte) curPl.shellBlkId.getItemTypeId();
                                     } else {
                                         //world.getBlockAt(worldX, worldY, worldZ).setType(curPl.coreBlk);
-                                        retVal[(chunkX * 16 + chunkZ) * 128 + worldY] = (byte) curPl.coreBlkId.getItemTypeId();
+                                        retVal[(chunkX * 16 + chunkZ) * world.getMaxHeight() + worldY] = (byte) curPl.coreBlkId.getItemTypeId();
                                     }
                                 }
                             }
@@ -149,9 +149,9 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
             for (int floorX = 0; floorX < 16; floorX++) {
                 for (int floorZ = 0; floorZ < 16; floorZ++) {
                     if (floorY == 0) {
-                        retVal[floorX * 2048 + floorZ * 128 + floorY] = (byte) Material.BEDROCK.getId();
+                        retVal[floorX * 2048 + floorZ * world.getMaxHeight() + floorY] = (byte) Material.BEDROCK.getId();
                     } else {
-                        retVal[floorX * 2048 + floorZ * 128 + floorY] = (byte) floorBlock.getId();
+                        retVal[floorX * 2048 + floorZ * world.getMaxHeight() + floorY] = (byte) floorBlock.getId();
                     }
                 }
             }
@@ -234,7 +234,7 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
 
             // Set position
             curPl.xPos = (x * 16) - minDistance + rand.nextInt(minDistance + 16 + minDistance);
-            curPl.yPos = rand.nextInt(128 - curPl.radius * 2 - floorHeight)
+            curPl.yPos = rand.nextInt(world.getMaxHeight() - curPl.radius * 2 - floorHeight)
                     + curPl.radius;
             curPl.zPos = (z * 16) - minDistance + rand.nextInt(minDistance + 16 + minDistance);
 
