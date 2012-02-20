@@ -25,7 +25,6 @@ public class SpaceSuffocationEvent extends Event implements Cancellable {
      * @param player Player
      */
     public SpaceSuffocationEvent(Player player) {
-        super("SpaceSuffocationEvent");
         this.player = player;
     }
 

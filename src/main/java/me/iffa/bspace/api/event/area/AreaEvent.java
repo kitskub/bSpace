@@ -24,7 +24,6 @@ public abstract class AreaEvent extends Event {
      * @param player Player
      */
     public AreaEvent(String event, Player player) {
-        super(event);
         this.player = player;
     }
 
