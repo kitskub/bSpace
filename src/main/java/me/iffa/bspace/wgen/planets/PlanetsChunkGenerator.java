@@ -34,6 +34,7 @@ import org.bukkit.material.MaterialData;
  * @author Jack
  * @author Canis85
  * @author iffa
+ * @author SpoutDev //for world gen. utils
  */
 public class PlanetsChunkGenerator extends ChunkGenerator {
     // Variables
@@ -170,14 +171,14 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
     private void generatePlanetoids(World world, int x, int z) {
         long seed = world.getSeed();
         List<Planetoid> planetoids = new ArrayList<Planetoid>();
-        //Seed shift;
-        // if X is negative, left shift seed by one
-        if (x < 0) {
-            seed <<= 1;
-        } // if Z is negative, change sign on seed.
-        if (z < 0) {
-            seed = -seed;
-        }
+//        //Seed shift;
+//        // if X is negative, left shift seed by one
+//        if (x < 0) {
+//            seed <<= 1;
+//        } // if Z is negative, change sign on seed.
+//        if (z < 0) {
+//            seed = -seed;
+//        }
 
 
 
@@ -196,17 +197,17 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
 
         //x = (x*16) - minDistance;
         //z = (z*16) - minDistance;
-        Random rand = new Random(seed);
-        for (int i = 0; i < Math.abs(x) + Math.abs(z); i++) {
-            // cycle generator
-            rand.nextInt();
-            rand.nextInt();
-            rand.nextInt();
-            //rand.nextInt();
-            //rand.nextInt();
-            //rand.nextInt();
-            //rand.nextInt();
-        }
+        Random rand = new Random(getSeed(world, x, 0, z, 0));
+//        for (int i = 0; i < Math.abs(x) + Math.abs(z); i++) {
+//            // cycle generator
+//            rand.nextInt();
+//            rand.nextInt();
+//            rand.nextInt();
+//            //rand.nextInt();
+//            //rand.nextInt();
+//            //rand.nextInt();
+//            //rand.nextInt();
+//        }
 
         for (int i = 0; i < density; i++) {
             // Try to make a planet
@@ -446,5 +447,36 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
     @Override
     public Location getFixedSpawnLocation(World world, Random random) {
         return new Location(world, 7, 78, 7);
+    }
+    
+    private final static int HASH_SHIFT = 19;
+    private final static long HASH_SHIFT_MASK = (1L << HASH_SHIFT) - 1;
+
+    /**
+     * Returns the particular seed a Random should use for a position
+     *
+     * The meaning of the x, y and z coordinates can be determined by the
+     * generator.
+     *
+     * This gives consistent results for world generation.
+     *
+     * The extra seed allows multiple Randoms to be returned for the same
+     * position for use by populators and different stages of generation.
+     *
+     * @param world the World
+     * @param x the x coordinate
+     * @param y the y coordinate
+     * @param z the z coordinate
+     * @param extraSeed the extra seed value
+     * @return the seed 
+     */
+    public static long getSeed(World world, int x, int y, int z, int extraSeed) {
+            long hash = world.getSeed();
+            hash += (hash << HASH_SHIFT) + (hash >> 64 - HASH_SHIFT & HASH_SHIFT_MASK) + extraSeed;
+            hash += (hash << HASH_SHIFT) + (hash >> 64 - HASH_SHIFT & HASH_SHIFT_MASK) + x;
+            hash += (hash << HASH_SHIFT) + (hash >> 64 - HASH_SHIFT & HASH_SHIFT_MASK) + y;
+            hash += (hash << HASH_SHIFT) + (hash >> 64 - HASH_SHIFT & HASH_SHIFT_MASK) + z;
+
+            return hash;
     }
 }
