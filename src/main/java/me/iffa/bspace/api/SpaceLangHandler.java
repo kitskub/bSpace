@@ -52,7 +52,7 @@ public class SpaceLangHandler {
      * @return Localized config loaded message
      */
     public static String getConfigLoadedMessage(ConfigFile configfile) {
-        return SpaceConfig.getConfig(ConfigFile.LANG).getString("general.configload").replace("{configfile}", configfile.getFile());
+        return SpaceConfig.getConfig(ConfigFile.LANG).getString("general.configload").replace("{configfile}", configfile.getName());
     }
 
     /**

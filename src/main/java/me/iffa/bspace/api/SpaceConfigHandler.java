@@ -184,6 +184,20 @@ public class SpaceConfigHandler {
 
     //ID-specific
     /**
+     * Gets the name of the planets file. Not checked if it exists.
+     *
+     * @param id Id
+     *
+     * @return name of planets file
+     */
+    public static String getPlanetsFile(String id) {
+        if (id.equalsIgnoreCase("planets")) {
+            return "planets.yml";//Never going to change; unless of course someone demands it
+        }
+        return SpaceConfig.getConfig(ConfigFile.IDS).getString("ids." + id + ".generation.planets-file", "planets.yml");
+    }
+
+    /**
      * Gets the required helmet-state of a world.
      *
      * @param id Id

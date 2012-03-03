@@ -9,6 +9,7 @@ v2.2
     - Reorganized the Pail tab (TODO: Economy settings in there)
     - Black holes are not generated within 2 chunks of 0,0
     - When getting sucked into a black hole, player looks around randomly instead of the epilepsy inducing forced one
+    - Each id can now have a separate planets file
  
  (fixes)
     - Fixed more of the old fix related to suffocation stuff

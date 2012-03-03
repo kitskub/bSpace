@@ -88,7 +88,7 @@ public class SpaceConfig {
      * @param configFile ConfigFile to load
      */
     public static void loadConfig(ConfigFile configFile) {
-        fileMap.put(configFile, new File(Bukkit.getServer().getPluginManager().getPlugin("bSpace").getDataFolder(), configFile.getFile()));
+        fileMap.put(configFile, new File(Bukkit.getServer().getPluginManager().getPlugin("bSpace").getDataFolder(), configFile.getNameWithLocation()));
         if (fileMap.get(configFile).exists()) {
             config.put(configFile, new YamlConfiguration());
             try {
@@ -110,14 +110,17 @@ public class SpaceConfig {
         } else {
             try {
                 Bukkit.getServer().getPluginManager().getPlugin("bSpace").getDataFolder().mkdir();
-                InputStream jarURL = SpaceConfig.class.getResourceAsStream("/" + configFile.getFile());
+                fileMap.get(configFile).getParentFile().mkdir();
+                if(!fileMap.get(configFile).exists()) fileMap.get(configFile).createNewFile();
+                InputStream jarURL = SpaceConfig.class.getResourceAsStream("/" + configFile.getName());
                 copyFile(jarURL, fileMap.get(configFile));
                 config.put(configFile, new YamlConfiguration());
                 config.get(configFile).load(fileMap.get(configFile));
                 loaded.put(configFile, true);
                 MessageHandler.print(Level.INFO, LangHandler.getConfigLoadedMessage(configFile));
             } catch (Exception e) {
-                MessageHandler.print(Level.SEVERE, e.toString());
+                e.printStackTrace();
+                //MessageHandler.print(Level.SEVERE, e.toString());
             }
         }
     }
@@ -163,28 +166,39 @@ public class SpaceConfig {
     public enum ConfigFile {
         // Enums
 
-        PLANETS("planets.yml"),
-        CONFIG("config.yml"),
-        IDS("ids.yml"),
-        LANG("lang.yml");
+        DEFAULT_PLANETS("planets.yml", "planets/planets.yml"),
+        CONFIG("config.yml", "config.yml"),
+        IDS("ids.yml", "ids.yml"),
+        LANG("lang.yml", "lang.yml");
         // Variables
-        private String file;
+        private String name;
+        private String location;
 
         /**
          * Constructor of ConfigFile.
          * @param file 
          */
-        ConfigFile(String file) {
-            this.file = file;
+        ConfigFile(String file, String location) {
+            this.name = file;
+            this.location = location;
         }
 
         /**
          * Gets the file associated with the enum.
          * 
-         * @return File associated wiht the enum
+         * @return File associated with the enum
          */
-        public String getFile() {
-            return this.file;
+        public String getName() {
+            return name;
+        }
+        
+        /**
+         * Gets the location associated with the enum.
+         * 
+         * @return File associated with the enum
+         */
+        public String getNameWithLocation() {
+            return location;
         }
     }
 
@@ -231,7 +245,7 @@ public class SpaceConfig {
         BLACKHOLE_CHANCE(8),
         BLACKHOLES(true),
         SCHEMATIC_CHANCE(5),
-        // ConfigFile.PLANETS
+        // ConfigFile.DEFAULT_PLANETS
         DENSITY(15000),
         MIN_SIZE(4),
         MAX_SIZE(20),
