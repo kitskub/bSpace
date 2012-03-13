@@ -1,3 +1,13 @@
+v2.3
+-----------------------------------------
+ (added/modified/removed features)
+    - Can now have either spout or non-spout blackholes
+
+ (fixes)
+
+ (code changes)
+    - mass usages of Defaults changed to static imports for better readability
+
 v2.2
 -----------------------------------------
 (added/modified/removed features)

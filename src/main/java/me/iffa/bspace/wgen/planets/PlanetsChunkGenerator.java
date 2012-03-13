@@ -134,10 +134,10 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
                                     }
                                     if (xShell || zShell || yShell) {
                                         //world.getBlockAt(worldX, worldY, worldZ).setType(curPl.shellBlk);
-                                        retVal[(chunkX * 16 + chunkZ) * world.getMaxHeight() + worldY] = (byte) curPl.shellBlkId.getItemTypeId();
+                                        retVal[(chunkX * 16 + chunkZ) * 128 + worldY] = (byte) curPl.shellBlkId.getItemTypeId();
                                     } else {
                                         //world.getBlockAt(worldX, worldY, worldZ).setType(curPl.coreBlk);
-                                        retVal[(chunkX * 16 + chunkZ) * world.getMaxHeight() + worldY] = (byte) curPl.coreBlkId.getItemTypeId();
+                                        retVal[(chunkX * 16 + chunkZ) * 128  + worldY] = (byte) curPl.coreBlkId.getItemTypeId();
                                     }
                                 }
                             }
