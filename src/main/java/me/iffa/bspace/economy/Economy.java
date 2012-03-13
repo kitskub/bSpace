@@ -10,7 +10,7 @@ import com.nijikokun.register.payment.Methods;
 import java.util.logging.Level;
 
 // bSpace Imports
-import me.iffa.bspace.config.SpaceConfig.Defaults;
+import static me.iffa.bspace.config.SpaceConfig.Defaults.*;
 import me.iffa.bspace.config.SpaceConfig;
 import me.iffa.bspace.config.SpaceConfig.ConfigFile;
 import me.iffa.bspace.handlers.MessageHandler;
@@ -46,7 +46,7 @@ public class Economy {
      * @return True if economy is enabled
      */
     public static boolean checkEconomy() {
-        if (SpaceConfig.getConfig(ConfigFile.CONFIG).getBoolean("economy.enabled", (Boolean) Defaults.ECONOMY_ENABLED.getDefault())) {
+        if (SpaceConfig.getConfig(ConfigFile.CONFIG).getBoolean("economy.enabled", (Boolean) ECONOMY_ENABLED.getDefault())) {
             return (getMethod() != null);
         }
         return false;
@@ -67,7 +67,7 @@ public class Economy {
             return false;
         }
         if (method.hasAccount(player.getName())) {
-            int amount = SpaceConfig.getConfig(ConfigFile.CONFIG).getInt("economy.entercost", (Integer) Defaults.ENTER_COST.getDefault());
+            int amount = SpaceConfig.getConfig(ConfigFile.CONFIG).getInt("economy.entercost", (Integer) ENTER_COST.getDefault());
             return subtract(player, amount);
         } else {
             return false;
@@ -89,7 +89,7 @@ public class Economy {
             return false;
         }
         if (method.hasAccount(player.getName())) {
-            int amount = SpaceConfig.getConfig(ConfigFile.CONFIG).getInt("economy.exitcost", (Integer) Defaults.EXIT_COST.getDefault());
+            int amount = SpaceConfig.getConfig(ConfigFile.CONFIG).getInt("economy.exitcost", (Integer) EXIT_COST.getDefault());
             return subtract(player, amount);
         } else {
             return false;
@@ -112,7 +112,7 @@ public class Economy {
             return false;
         }
         if (method.hasAccount(player.getName())) {
-            int amount = SpaceConfig.getConfig(ConfigFile.CONFIG).getInt("economy.entercommandcost", (Integer) Defaults.ENTER_COMMAND_COST.getDefault());
+            int amount = SpaceConfig.getConfig(ConfigFile.CONFIG).getInt("economy.entercommandcost", (Integer) ENTER_COMMAND_COST.getDefault());
             return subtract(player, amount);
         } else {
             return false;
@@ -135,7 +135,7 @@ public class Economy {
             return false;
         }
         if (method.hasAccount(player.getName())) {
-            int amount = SpaceConfig.getConfig(ConfigFile.CONFIG).getInt("economy.exitcommandcost", (Integer) Defaults.EXIT_COMMAND_COST.getDefault());
+            int amount = SpaceConfig.getConfig(ConfigFile.CONFIG).getInt("economy.exitcommandcost", (Integer) EXIT_COMMAND_COST.getDefault());
             return subtract(player, amount);
         } else {
             return false;

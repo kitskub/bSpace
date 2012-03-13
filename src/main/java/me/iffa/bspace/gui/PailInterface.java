@@ -5,7 +5,7 @@ package me.iffa.bspace.gui;
 import me.iffa.bspace.Space;
 import me.iffa.bspace.config.SpaceConfig;
 import me.iffa.bspace.config.SpaceConfig.ConfigFile;
-import me.iffa.bspace.config.SpaceConfig.Defaults;
+import static me.iffa.bspace.config.SpaceConfig.Defaults.*;
 import me.iffa.bspace.handlers.ConfigHandler;
 import me.iffa.bspace.handlers.LangHandler;
 import me.iffa.bspace.handlers.MessageHandler;
@@ -19,7 +19,6 @@ import javax.swing.JOptionPane;
 import javax.swing.DefaultListModel;
 import java.io.IOException;
 import java.util.logging.Level;
-
 /**
  * Interface for Pail, a Bukkit GUI.
  * 
@@ -82,17 +81,18 @@ public class PailInterface extends javax.swing.JPanel {
         }
         // Updated for latest v2
         Settings_IDName.setText(idname);
-        Settings_Planets.setSelected(idConfig.getBoolean("ids." + idname + ".generation.generateplanets", (Boolean) Defaults.GENERATE_PLANETS.getDefault()));
-        Settings_Asteroids.setSelected(idConfig.getBoolean("ids." + idname + "generation.generateasteroids", (Boolean) Defaults.ASTEROIDS_ENABLED.getDefault()));
-        Settings_Schematics.setSelected(idConfig.getBoolean("ids." + idname + "generation.generateschematics", (Boolean) Defaults.GENERATE_SCHEMATICS.getDefault()));
-        Settings_Satellites.setSelected(idConfig.getBoolean("ids." + idname + "generation.generatesatellites", (Boolean) Defaults.SATELLITES_ENABLED.getDefault()));
-        Settings_Blackholes.setSelected(idConfig.getBoolean("ids." + idname + "generation.spout-only.blackholes", (Boolean) Defaults.BLACKHOLES.getDefault()));
-        Settings_GlowstoneChance.setValue(idConfig.getInt("ids." + idname + ".generation.glowstonechance", (Integer) Defaults.GLOWSTONE_CHANCE.getDefault()));
-        Settings_StoneChance.setValue(idConfig.getInt("ids." + idname + ".generation.stonechance", (Integer) Defaults.STONE_CHANCE.getDefault()));
-        Settings_Night.setSelected(idConfig.getBoolean("ids." + idname + ".alwaysnight", (Boolean) Defaults.FORCE_NIGHT.getDefault()));
-        Settings_HelmetRequired.setSelected(idConfig.getBoolean("ids." + idname + ".helmet.required", (Boolean) Defaults.REQUIRE_HELMET.getDefault()));
-        Settings_SuitRequired.setSelected(idConfig.getBoolean("ids." + idname + ".suit.required", (Boolean) Defaults.REQUIRE_SUIT.getDefault()));
-        Settings_RoomHeight.setValue(idConfig.getInt("ids." + idname + ".breathingarea.maxroomheight", (Integer) Defaults.ROOM_HEIGHT.getDefault()));
+        Settings_Planets.setSelected(idConfig.getBoolean("ids." + idname + ".generation.generateplanets", (Boolean) GENERATE_PLANETS.getDefault()));
+        Settings_Asteroids.setSelected(idConfig.getBoolean("ids." + idname + "generation.generateasteroids", (Boolean) ASTEROIDS_ENABLED.getDefault()));
+        Settings_Schematics.setSelected(idConfig.getBoolean("ids." + idname + "generation.generateschematics", (Boolean) GENERATE_SCHEMATICS.getDefault()));
+        Settings_Satellites.setSelected(idConfig.getBoolean("ids." + idname + "generation.generatesatellites", (Boolean) SATELLITES_ENABLED.getDefault()));
+        Settings_SpoutBlackholes.setSelected(idConfig.getBoolean("ids." + idname + "generation.spoutblackholes", (Boolean) SPOUT_BLACKHOLES.getDefault()));
+	Settings_NonSpoutBlackholes.setSelected(idConfig.getBoolean("ids." + idname + "generation.nonspoutblackholes", (Boolean) NONSPOUT_BLACKHOLES.getDefault()));
+        Settings_GlowstoneChance.setValue(idConfig.getInt("ids." + idname + ".generation.glowstonechance", (Integer) GLOWSTONE_CHANCE.getDefault()));
+        Settings_StoneChance.setValue(idConfig.getInt("ids." + idname + ".generation.stonechance", (Integer) STONE_CHANCE.getDefault()));
+        Settings_Night.setSelected(idConfig.getBoolean("ids." + idname + ".alwaysnight", (Boolean) FORCE_NIGHT.getDefault()));
+        Settings_HelmetRequired.setSelected(idConfig.getBoolean("ids." + idname + ".helmet.required", (Boolean) REQUIRE_HELMET.getDefault()));
+        Settings_SuitRequired.setSelected(idConfig.getBoolean("ids." + idname + ".suit.required", (Boolean) REQUIRE_SUIT.getDefault()));
+        Settings_RoomHeight.setValue(idConfig.getInt("ids." + idname + ".breathingarea.maxroomheight", (Integer) ROOM_HEIGHT.getDefault()));
         MessageHandler.debugPrint(Level.INFO, "Loaded settings for id '" + idname + "'.");
     }
 
@@ -111,7 +111,8 @@ public class PailInterface extends javax.swing.JPanel {
         idConfig.set("ids." + idname + ".generation.generateasteroids", Settings_Asteroids.isSelected());
         idConfig.set("ids." + idname + ".generation.generatesatellites", Settings_Satellites.isSelected());
         idConfig.set("ids." + idname + ".generation.generateschematics", Settings_Schematics.isSelected());
-        idConfig.set("ids." + idname + ".generation.spout-only.blackholes", Settings_Blackholes.isSelected());
+        idConfig.set("ids." + idname + ".generation.spoutblackholes", Settings_SpoutBlackholes.isSelected());
+	idConfig.set("ids." + idname + ".generation.nonspoutblackholes", Settings_SpoutBlackholes.isSelected());
         idConfig.set("ids." + idname + ".generation.glowstonechance", (Integer) Settings_GlowstoneChance.getValue());
         idConfig.set("ids." + idname + ".generation.stonechance", (Integer) Settings_StoneChance.getValue());
         idConfig.set("ids." + idname + ".generation.schematicchance", (Integer) Settings_SchematicChance.getValue());
@@ -144,7 +145,8 @@ public class PailInterface extends javax.swing.JPanel {
      * always regenerated by the Form Editor.
      */
     @SuppressWarnings("unchecked")
-    private void initComponents() {//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
 
         GlobalSettings = new javax.swing.JPanel();
         CheckBoxHelmet = new javax.swing.JCheckBox();
@@ -189,13 +191,14 @@ public class PailInterface extends javax.swing.JPanel {
         Settings_SatelliteChance = new javax.swing.JSpinner();
         Settings_Satellites = new javax.swing.JCheckBox();
         Settings_Schematics = new javax.swing.JCheckBox();
-        Settings_Blackholes = new javax.swing.JCheckBox();
+        Settings_SpoutBlackholes = new javax.swing.JCheckBox();
+        Settings_NonSpoutBlackholes = new javax.swing.JCheckBox();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         CurrentVersion = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
 
-        setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        setFont(new java.awt.Font("Arial", 0, 11));
         setInheritsPopupMenu(true);
         setMaximumSize(new java.awt.Dimension(850, 450));
         setMinimumSize(new java.awt.Dimension(850, 450));
@@ -221,7 +224,7 @@ public class PailInterface extends javax.swing.JPanel {
             }
         });
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 10));
         jLabel5.setText("Helmet block id:");
         jLabel5.setToolTipText("The block id that will be the helmet.");
 
@@ -232,7 +235,7 @@ public class PailInterface extends javax.swing.JPanel {
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 10));
         jLabel4.setText("Suit armortype:");
 
         ArmorTypeBox.setText("iron");
@@ -308,14 +311,14 @@ public class PailInterface extends javax.swing.JPanel {
                     .addGroup(GlobalSettingsLayout.createSequentialGroup()
                         .addGroup(GlobalSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(GlobalSettingsLayout.createSequentialGroup()
-                                .addComponent(CheckBoxHelmet, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(CheckBoxHelmet, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(HelmetBlockIdBox, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(GlobalSettingsLayout.createSequentialGroup()
                                 .addComponent(CheckBoxSuit)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(ArmorTypeBox, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -335,9 +338,8 @@ public class PailInterface extends javax.swing.JPanel {
                                             .addComponent(UseTexture)
                                             .addComponent(Gravity))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(TexturePackURL, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(1, 1, 1)))
-                        .addGap(63, 63, 63)))
+                                        .addComponent(TexturePackURL, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(64, 64, 64)))
                 .addContainerGap())
         );
         GlobalSettingsLayout.setVerticalGroup(
@@ -375,7 +377,7 @@ public class PailInterface extends javax.swing.JPanel {
         ids.setToolTipText("Panel with buttons to create and delete IDs.");
         ids.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        SpaceList.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        SpaceList.setFont(new java.awt.Font("Arial", 0, 12));
         SpaceList.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "No user IDs" };
             public int getSize() { return strings.length; }
@@ -398,7 +400,7 @@ public class PailInterface extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(SpaceList);
 
-        createIdButton.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        createIdButton.setFont(new java.awt.Font("Arial", 0, 11));
         createIdButton.setText("Create");
         createIdButton.setToolTipText("Creates a new ID with the name on the box above.");
         createIdButton.addActionListener(new java.awt.event.ActionListener() {
@@ -407,7 +409,7 @@ public class PailInterface extends javax.swing.JPanel {
             }
         });
 
-        deleteIdButton.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        deleteIdButton.setFont(new java.awt.Font("Arial", 0, 11));
         deleteIdButton.setText("Delete");
         deleteIdButton.setToolTipText("Select an ID from the list and click this button to delete the ID.");
         deleteIdButton.addActionListener(new java.awt.event.ActionListener() {
@@ -445,16 +447,15 @@ public class PailInterface extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(idsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(idsLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                        .addComponent(jLabel1))
                     .addGroup(idsLayout.createSequentialGroup()
                         .addComponent(createIdButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(deleteIdButton))))
             .addGroup(idsLayout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 4, Short.MAX_VALUE))
         );
 
         Settings.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "ID Settings", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
@@ -478,10 +479,10 @@ public class PailInterface extends javax.swing.JPanel {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel2.setText("Currently editing:");
 
-        Settings_IDName.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        Settings_IDName.setFont(new java.awt.Font("Tahoma", 1, 12));
         Settings_IDName.setText("None");
 
         Settings_Planets.setSelected(true);
@@ -552,9 +553,13 @@ public class PailInterface extends javax.swing.JPanel {
         Settings_Schematics.setText("Generate schematics");
         Settings_Schematics.setToolTipText("Schematics are custom .schematic-files placed in plugins/bSpace/schematics. The frequency can be changed.");
 
-        Settings_Blackholes.setSelected(true);
-        Settings_Blackholes.setText("Generate black holes");
-        Settings_Blackholes.setToolTipText("Black holes are custom blocks using Spout (and Spoutcraft). They will suck entities and kill them. Deadly!");
+        Settings_SpoutBlackholes.setSelected(true);
+        Settings_SpoutBlackholes.setText("Generate black holes with spout");
+        Settings_SpoutBlackholes.setToolTipText("Black holes are custom blocks using Spout (and Spoutcraft). They will suck entities and kill them. Deadly!");
+
+        Settings_NonSpoutBlackholes.setSelected(true);
+        Settings_NonSpoutBlackholes.setText("Generate black holes without spout");
+        Settings_NonSpoutBlackholes.setToolTipText("Black holes are custom blocks using Spout (and Spoutcraft). They will suck entities and kill them. Deadly!");
 
         javax.swing.GroupLayout SettingsLayout = new javax.swing.GroupLayout(Settings);
         Settings.setLayout(SettingsLayout);
@@ -564,51 +569,54 @@ public class PailInterface extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(SettingsLayout.createSequentialGroup()
-                        .addComponent(Settings_Night)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(SettingsLayout.createSequentialGroup()
-                        .addGroup(SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(SettingsLayout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(Settings_StoneChance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(SettingsLayout.createSequentialGroup()
-                                .addGroup(SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(Settings_Planets)
-                                    .addComponent(Settings_Asteroids)
-                                    .addComponent(Settings_Satellites)
-                                    .addComponent(Settings_Schematics)
-                                    .addComponent(Settings_Blackholes)
+                        .addComponent(Settings_NonSpoutBlackholes)
+                        .addContainerGap())
+                    .addGroup(SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(SettingsLayout.createSequentialGroup()
+                            .addGroup(SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(Settings_Planets)
+                                .addComponent(Settings_Asteroids)
+                                .addComponent(Settings_Satellites)
+                                .addComponent(Settings_Schematics)
+                                .addComponent(Settings_SpoutBlackholes)
+                                .addGroup(SettingsLayout.createSequentialGroup()
                                     .addGroup(SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, SettingsLayout.createSequentialGroup()
-                                            .addComponent(jLabel10)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(Settings_SchematicChance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, SettingsLayout.createSequentialGroup()
-                                            .addComponent(jLabel6)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(Settings_GlowstoneChance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(SettingsLayout.createSequentialGroup()
-                                            .addGroup(SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jLabel11)
-                                                .addComponent(jLabel7))
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addGroup(SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addComponent(Settings_SatelliteChance)
-                                                .addComponent(Settings_RoomHeight))))
-                                    .addComponent(Settings_SuitRequired)
-                                    .addComponent(Settings_HelmetRequired))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addGap(261, 261, 261))
-                    .addGroup(SettingsLayout.createSequentialGroup()
-                        .addGroup(SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(Settings_Save, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(Settings_Reset, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2)
-                            .addComponent(Settings_IDName, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap())))
+                                        .addComponent(Settings_Save, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(Settings_Reset, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel2)
+                                        .addComponent(Settings_IDName, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(SettingsLayout.createSequentialGroup()
+                            .addGroup(SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(SettingsLayout.createSequentialGroup()
+                                    .addComponent(Settings_Night)
+                                    .addGap(0, 132, Short.MAX_VALUE))
+                                .addGroup(SettingsLayout.createSequentialGroup()
+                                    .addComponent(jLabel3)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                                    .addComponent(Settings_StoneChance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, SettingsLayout.createSequentialGroup()
+                                        .addComponent(jLabel10)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(Settings_SchematicChance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, SettingsLayout.createSequentialGroup()
+                                        .addComponent(jLabel6)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(Settings_GlowstoneChance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(SettingsLayout.createSequentialGroup()
+                                        .addGroup(SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel11)
+                                            .addComponent(jLabel7))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(Settings_SatelliteChance)
+                                            .addComponent(Settings_RoomHeight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(Settings_SuitRequired)
+                                .addComponent(Settings_HelmetRequired))
+                            .addGap(4, 4, 4)))))
         );
         SettingsLayout.setVerticalGroup(
             SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -632,8 +640,10 @@ public class PailInterface extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Settings_Schematics, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Settings_Blackholes, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6)
+                .addComponent(Settings_SpoutBlackholes, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
+                .addComponent(Settings_NonSpoutBlackholes, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1)
                 .addGroup(SettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(Settings_StoneChance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -659,7 +669,7 @@ public class PailInterface extends javax.swing.JPanel {
                 .addComponent(Settings_HelmetRequired, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Settings_Night, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bspace.png"))); // NOI18N
@@ -671,10 +681,10 @@ public class PailInterface extends javax.swing.JPanel {
             }
         });
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14));
         jLabel9.setText("Current bSpace version:");
 
-        CurrentVersion.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        CurrentVersion.setFont(new java.awt.Font("Tahoma", 1, 14));
         CurrentVersion.setText("Unknown");
 
         jLabel14.setText("TODO: Economy settings");
@@ -698,10 +708,10 @@ public class PailInterface extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(CurrentVersion))
                             .addComponent(jLabel8))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 131, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Settings, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(Settings, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel14)
                 .addGap(175, 175, 175))
         );
@@ -721,16 +731,16 @@ public class PailInterface extends javax.swing.JPanel {
                             .addComponent(jLabel9)
                             .addComponent(CurrentVersion)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(Settings, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(29, 29, 29)
-                        .addComponent(jLabel14)))
-                .addContainerGap(36, Short.MAX_VALUE))
+                        .addComponent(jLabel14))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(Settings, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         ids.getAccessibleContext().setAccessibleName("Ids");
-    }//GEN-END:initComponents
+    }// </editor-fold>//GEN-END:initComponents
 
     private void CheckBoxHelmetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckBoxHelmetActionPerformed
     }//GEN-LAST:event_CheckBoxHelmetActionPerformed
@@ -783,22 +793,23 @@ private void createIdButtonActionPerformed(java.awt.event.ActionEvent evt) {//GE
         return;
     }
     // Updated to latest v2
-    idConfig.set("ids." + idname + ".generation.generateplanets", Defaults.GENERATE_PLANETS.getDefault());
-    idConfig.set("ids." + idname + ".generation.generateasteroids", Defaults.ASTEROIDS_ENABLED.getDefault());
-    idConfig.set("ids." + idname + ".generation.generateschematics", Defaults.GENERATE_SCHEMATICS.getDefault());
-    idConfig.set("ids." + idname + ".generation.generatesatellites", Defaults.SATELLITES_ENABLED.getDefault());
-    idConfig.set("ids." + idname + ".generation.spout-only.blackholes", Defaults.BLACKHOLES.getDefault());
-    idConfig.set("ids." + idname + ".generation.glowstonechance", Defaults.GLOWSTONE_CHANCE.getDefault());
-    idConfig.set("ids." + idname + ".generation.stonechance", Defaults.STONE_CHANCE.getDefault());
-    idConfig.set("ids." + idname + ".generation.satellitechance", Defaults.SATELLITE_CHANCE.getDefault());
-    idConfig.set("ids." + idname + ".generation.schematicchance", Defaults.SCHEMATIC_CHANCE.getDefault());
-    idConfig.set("ids." + idname + ".weather", Defaults.ALLOW_WEATHER.getDefault());
-    idConfig.set("ids." + idname + ".hostilemobs", Defaults.HOSTILE_MOBS_ALLOWED.getDefault());
-    idConfig.set("ids." + idname + ".neutralmobs", Defaults.NEUTRAL_MOBS_ALLOWED.getDefault());
-    idConfig.set("ids." + idname + ".alwaysnight", Defaults.FORCE_NIGHT);
+    idConfig.set("ids." + idname + ".generation.generateplanets", GENERATE_PLANETS.getDefault());
+    idConfig.set("ids." + idname + ".generation.generateasteroids", ASTEROIDS_ENABLED.getDefault());
+    idConfig.set("ids." + idname + ".generation.generateschematics", GENERATE_SCHEMATICS.getDefault());
+    idConfig.set("ids." + idname + ".generation.generatesatellites", SATELLITES_ENABLED.getDefault());
+    idConfig.set("ids." + idname + ".generation.spoutblackholes", SPOUT_BLACKHOLES.getDefault());
+    idConfig.set("ids." + idname + ".generation.nonblackholes", SPOUT_BLACKHOLES.getDefault());
+    idConfig.set("ids." + idname + ".generation.glowstonechance", GLOWSTONE_CHANCE.getDefault());
+    idConfig.set("ids." + idname + ".generation.stonechance", STONE_CHANCE.getDefault());
+    idConfig.set("ids." + idname + ".generation.satellitechance", SATELLITE_CHANCE.getDefault());
+    idConfig.set("ids." + idname + ".generation.schematicchance", SCHEMATIC_CHANCE.getDefault());
+    idConfig.set("ids." + idname + ".weather", ALLOW_WEATHER.getDefault());
+    idConfig.set("ids." + idname + ".hostilemobs", HOSTILE_MOBS_ALLOWED.getDefault());
+    idConfig.set("ids." + idname + ".neutralmobs", NEUTRAL_MOBS_ALLOWED.getDefault());
+    idConfig.set("ids." + idname + ".alwaysnight", FORCE_NIGHT);
     idConfig.set("ids." + idname + ".nethermode", false);
-    idConfig.set("ids." + idname + ".suit.required", Defaults.REQUIRE_SUIT.getDefault());
-    idConfig.set("ids." + idname + ".helmet.required", Defaults.REQUIRE_HELMET.getDefault());
+    idConfig.set("ids." + idname + ".suit.required", REQUIRE_SUIT.getDefault());
+    idConfig.set("ids." + idname + ".helmet.required", REQUIRE_HELMET.getDefault());
     try {
         idConfig.save(SpaceConfig.getConfigFile(ConfigFile.IDS));
     } catch (IOException ex) {
@@ -911,11 +922,11 @@ private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
     private javax.swing.JButton SaveButton;
     private javax.swing.JPanel Settings;
     private javax.swing.JCheckBox Settings_Asteroids;
-    private javax.swing.JCheckBox Settings_Blackholes;
     private javax.swing.JSpinner Settings_GlowstoneChance;
     private javax.swing.JCheckBox Settings_HelmetRequired;
     private javax.swing.JLabel Settings_IDName;
     private javax.swing.JCheckBox Settings_Night;
+    private javax.swing.JCheckBox Settings_NonSpoutBlackholes;
     private javax.swing.JCheckBox Settings_Planets;
     private javax.swing.JButton Settings_Reset;
     private javax.swing.JSpinner Settings_RoomHeight;
@@ -924,6 +935,7 @@ private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
     private javax.swing.JButton Settings_Save;
     private javax.swing.JSpinner Settings_SchematicChance;
     private javax.swing.JCheckBox Settings_Schematics;
+    private javax.swing.JCheckBox Settings_SpoutBlackholes;
     private javax.swing.JSpinner Settings_StoneChance;
     private javax.swing.JCheckBox Settings_SuitRequired;
     private javax.swing.JList SpaceList;

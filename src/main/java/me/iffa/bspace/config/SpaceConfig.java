@@ -243,7 +243,8 @@ public class SpaceConfig {
         GENERATE_PLANETS(true),
         GENERATE_SCHEMATICS(true),
         BLACKHOLE_CHANCE(8),
-        BLACKHOLES(true),
+        SPOUT_BLACKHOLES(true),
+	NONSPOUT_BLACKHOLES(true),
         SCHEMATIC_CHANCE(5),
         // ConfigFile.DEFAULT_PLANETS
         DENSITY(15000),

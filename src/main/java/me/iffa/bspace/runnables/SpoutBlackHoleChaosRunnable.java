@@ -15,6 +15,7 @@ import org.getspout.spoutapi.block.SpoutBlock;
 
 // Java Imports
 import java.util.Random;
+import org.bukkit.block.Block;
 
 /**
  * Runnable that handles causing chaos with black holes.
@@ -24,7 +25,7 @@ import java.util.Random;
  */
 public class SpoutBlackHoleChaosRunnable implements Runnable {
     // Variables
-    private SpoutBlock block;
+    private Block block;
     private Player player;
     private float angle;
     private double xDistance;
@@ -38,7 +39,7 @@ public class SpoutBlackHoleChaosRunnable implements Runnable {
      * @param player Entity to suck
      * @param block Black hole block
      */
-    public SpoutBlackHoleChaosRunnable(Player player, SpoutBlock block) {
+    public SpoutBlackHoleChaosRunnable(Player player, Block block) {
         this.block = block;
         this.player = player;
         xDistance = block.getLocation().getX() - player.getLocation().getX();

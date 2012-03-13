@@ -12,9 +12,9 @@ general:
   disabled: 'Disabled version {version}.'
   usagestats: 'The plugin will now start sending usage stats. You can disable this plugins/PluginMetrics/config.yml!'
   configload: 'Generated {configfile} file.'
-  configupdatestart: 'Starting to update configs for compatability with v2.'
-  configupdatefinish: 'Your pre-v2 config.yml was succesfully converted to the new v2 format. Your worlds can now be found in ids.yml.'
-  configupdatefailure: 'There was a problem converting configuration files to v2 format: {exception}'
+  configupdatestart: 'Starting to update a configuration file.'
+  configupdatefinish: ' One of your configuration files was succesfully updated.'
+  configupdatefailure: 'There was a problem updating a configuration file: {exception}'
 # Command-related strings
 commands:
   notinspace: 'You are not in space!'

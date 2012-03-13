@@ -14,7 +14,7 @@ import java.util.logging.Level;
 // bSpace Imports
 import me.iffa.bspace.config.SpaceConfig;
 import me.iffa.bspace.config.SpaceConfig.ConfigFile;
-import me.iffa.bspace.config.SpaceConfig.Defaults;
+import static me.iffa.bspace.config.SpaceConfig.Defaults.*;
 import me.iffa.bspace.handlers.ConfigHandler;
 import me.iffa.bspace.handlers.MessageHandler;
 import me.iffa.bspace.wgen.populators.*;
@@ -41,14 +41,14 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
     // Variables
     private Map<MaterialData, Float> allowedShellIds;
     private Map<MaterialData, Float> allowedCoreIds;
-    private int density = SpaceConfig.getConfig(ConfigFile.DEFAULT_PLANETS).getInt("density", (Integer) Defaults.DENSITY.getDefault()); // Number of planetoids it will try to create per
-    private int minSize = SpaceConfig.getConfig(ConfigFile.DEFAULT_PLANETS).getInt("minSize", (Integer) Defaults.MIN_SIZE.getDefault()); // Minimum radius
-    private int maxSize = SpaceConfig.getConfig(ConfigFile.DEFAULT_PLANETS).getInt("maxSize", (Integer) Defaults.MAX_SIZE.getDefault()); // Maximum radius
-    private int minDistance = SpaceConfig.getConfig(ConfigFile.DEFAULT_PLANETS).getInt("minDistance", (Integer) Defaults.MIN_DISTANCE.getDefault()); // Minimum distance between planets, in blocks
-    private int floorHeight = SpaceConfig.getConfig(ConfigFile.DEFAULT_PLANETS).getInt("floorHeight", (Integer) Defaults.FLOOR_HEIGHT.getDefault()); // Floor height
-    private int maxShellSize = SpaceConfig.getConfig(ConfigFile.DEFAULT_PLANETS).getInt("maxShellSize", (Integer) Defaults.MAX_SHELL_SIZE.getDefault()); // Maximum shell thickness
-    private int minShellSize = SpaceConfig.getConfig(ConfigFile.DEFAULT_PLANETS).getInt("minShellSize", (Integer) Defaults.MIN_SHELL_SIZE.getDefault()); // Minimum shell thickness, should be at least 3
-    private Material floorBlock = Material.matchMaterial(SpaceConfig.getConfig(ConfigFile.DEFAULT_PLANETS).getString("floorBlock", (String) Defaults.FLOOR_BLOCK.getDefault()));// BlockID for the floor 
+    private int density = SpaceConfig.getConfig(ConfigFile.DEFAULT_PLANETS).getInt("density", (Integer) DENSITY.getDefault()); // Number of planetoids it will try to create per
+    private int minSize = SpaceConfig.getConfig(ConfigFile.DEFAULT_PLANETS).getInt("minSize", (Integer) MIN_SIZE.getDefault()); // Minimum radius
+    private int maxSize = SpaceConfig.getConfig(ConfigFile.DEFAULT_PLANETS).getInt("maxSize", (Integer) MAX_SIZE.getDefault()); // Maximum radius
+    private int minDistance = SpaceConfig.getConfig(ConfigFile.DEFAULT_PLANETS).getInt("minDistance", (Integer) MIN_DISTANCE.getDefault()); // Minimum distance between planets, in blocks
+    private int floorHeight = SpaceConfig.getConfig(ConfigFile.DEFAULT_PLANETS).getInt("floorHeight", (Integer) FLOOR_HEIGHT.getDefault()); // Floor height
+    private int maxShellSize = SpaceConfig.getConfig(ConfigFile.DEFAULT_PLANETS).getInt("maxShellSize", (Integer) MAX_SHELL_SIZE.getDefault()); // Maximum shell thickness
+    private int minShellSize = SpaceConfig.getConfig(ConfigFile.DEFAULT_PLANETS).getInt("minShellSize", (Integer) MIN_SHELL_SIZE.getDefault()); // Minimum shell thickness, should be at least 3
+    private Material floorBlock = Material.matchMaterial(SpaceConfig.getConfig(ConfigFile.DEFAULT_PLANETS).getString("floorBlock", (String) FLOOR_BLOCK.getDefault()));// BlockID for the floor 
     private static HashMap<World, List<Planetoid>> planets = new HashMap<World, List<Planetoid>>();
     public final String ID;
     public final boolean GENERATE;
@@ -287,9 +287,12 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
         if (ConfigHandler.getGenerateSchematics(ID)) {
             populators.add(new SpaceSchematicPopulator());
         }
-        if (ConfigHandler.getGenerateBlackHoles(ID) && ConfigHandler.isUsingSpout() && Bukkit.getPluginManager().isPluginEnabled("Spout")) {
-            populators.add(new SpaceBlackHolePopulator());
+        if (ConfigHandler.getGenerateBlackHolesSpout(ID) && ConfigHandler.isUsingSpout() && Bukkit.getPluginManager().isPluginEnabled("Spout")) {
+            populators.add(new SpaceBlackHolePopulator(true));
         }
+	else if (ConfigHandler.getGenerateBlackHolesNonSpout(ID)){
+	    populators.add(new SpaceBlackHolePopulator(false));
+	}
         // Not FPS friendly
         if (false) {
             populators.add(new SpaceEffectPopulator());
@@ -487,14 +490,14 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
         try {
             YamlConfiguration config = new YamlConfiguration();
             config.load(new File(Bukkit.getPluginManager().getPlugin("bSpace").getDataFolder(), "planets/" + ConfigHandler.getPlanetsFile(ID)));
-            density = config.getInt("density", (Integer) Defaults.DENSITY.getDefault()); // Number of planetoids it will try to create per
-            minSize = config.getInt("minSize", (Integer) Defaults.MIN_SIZE.getDefault()); // Minimum radius
-            maxSize = config.getInt("maxSize", (Integer) Defaults.MAX_SIZE.getDefault()); // Maximum radius
-            minDistance = config.getInt("minDistance", (Integer) Defaults.MIN_DISTANCE.getDefault()); // Minimum distance between planets, in blocks
-            floorHeight = config.getInt("floorHeight", (Integer) Defaults.FLOOR_HEIGHT.getDefault()); // Floor height
-            maxShellSize = config.getInt("maxShellSize", (Integer) Defaults.MAX_SHELL_SIZE.getDefault()); // Maximum shell thickness
-            minShellSize = config.getInt("minShellSize", (Integer) Defaults.MIN_SHELL_SIZE.getDefault()); // Minimum shell thickness, should be at least 3
-            floorBlock = Material.matchMaterial(config.getString("floorBlock", (String) Defaults.FLOOR_BLOCK.getDefault()));// BlockID for the floor 
+            density = config.getInt("density", (Integer) DENSITY.getDefault()); // Number of planetoids it will try to create per
+            minSize = config.getInt("minSize", (Integer) MIN_SIZE.getDefault()); // Minimum radius
+            maxSize = config.getInt("maxSize", (Integer) MAX_SIZE.getDefault()); // Maximum radius
+            minDistance = config.getInt("minDistance", (Integer) MIN_DISTANCE.getDefault()); // Minimum distance between planets, in blocks
+            floorHeight = config.getInt("floorHeight", (Integer) FLOOR_HEIGHT.getDefault()); // Floor height
+            maxShellSize = config.getInt("maxShellSize", (Integer) MAX_SHELL_SIZE.getDefault()); // Maximum shell thickness
+            minShellSize = config.getInt("minShellSize", (Integer) MIN_SHELL_SIZE.getDefault()); // Minimum shell thickness, should be at least 3
+            floorBlock = Material.matchMaterial(config.getString("floorBlock", (String) FLOOR_BLOCK.getDefault()));// BlockID for the floor 
         } catch (Exception ex) {
             MessageHandler.debugPrint(Level.WARNING, "Something went wrong when getting info for planets file for id "+ ID);
         } //Just use defaults if something goes wrong

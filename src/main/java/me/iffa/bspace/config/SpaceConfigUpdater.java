@@ -55,12 +55,19 @@ public class SpaceConfigUpdater {
                 }
             }
         }
+	if(configfile.equals(ConfigFile.IDS)){
+	    for(String id : SpaceConfig.getConfig(configfile).getConfigurationSection("ids").getKeys(false)){
+		if(SpaceConfig.getConfig(configfile).contains("ids."+id+".generation.spout-only.blackholes")){
+		    hadToBeUpdated = true;
+		    return true;
+		}
+	    }
+	}
         return false;
     }
 
     /**
-     * Updates pre-v2 config files to be compatible with v2. This way the only thing the
-     * user has to do to fix configs for v2 is actually update and run it.
+     * Updates config files to be compatible with latest.
      */
     public static void updateConfigs() {
         if (needsUpdate(ConfigFile.CONFIG)) {
@@ -108,6 +115,30 @@ public class SpaceConfigUpdater {
                 configFile.save(SpaceConfig.getConfigFile(ConfigFile.CONFIG));
                 idsFile.save(SpaceConfig.getConfigFile(ConfigFile.IDS));
                 MessageHandler.debugPrint(Level.INFO, "Saved changes to ids and config.yml.");
+            } catch (IOException ex) {
+                // In case of any error.
+                MessageHandler.print(Level.SEVERE, LangHandler.getConfigUpdateFailureMessage(ex));
+            }
+            // It was all done.
+            MessageHandler.print(Level.INFO, LangHandler.getConfigUpdateFinishMessage());
+        }
+
+	if (needsUpdate(ConfigFile.IDS)) {
+            // Variables
+            MessageHandler.print(Level.INFO, LangHandler.getConfigUpdateStartMessage());
+            YamlConfiguration idsFile = SpaceConfig.getConfig(ConfigFile.IDS);
+
+            for (String id : idsFile.getConfigurationSection("ids").getKeys(false)) {
+		if(idsFile.contains("ids."+id+".generation.spout-only.blackholes")){
+		    idsFile.set("ids."+id+".generation.spoutblackholes", idsFile.get("ids."+id+".generation.spout-only.blackholes"));
+		    idsFile.set("ids."+id+".generation.spout-only.blackholes", null);
+		}
+            }
+
+            // Saving files since converting is done.
+            try {
+                idsFile.save(SpaceConfig.getConfigFile(ConfigFile.IDS));
+                MessageHandler.debugPrint(Level.INFO, "Saved changes to ids.yml.");
             } catch (IOException ex) {
                 // In case of any error.
                 MessageHandler.print(Level.SEVERE, LangHandler.getConfigUpdateFailureMessage(ex));

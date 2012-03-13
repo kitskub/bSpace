@@ -11,6 +11,7 @@ import me.iffa.bspace.handlers.SpoutHandler;
 // Bukkit Imports
 import org.bukkit.Chunk;
 import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.generator.BlockPopulator;
 
 // Spout Imports
@@ -24,6 +25,13 @@ import org.getspout.spoutapi.block.SpoutBlock;
  * @author iffa
  */
 public class SpaceBlackHolePopulator extends BlockPopulator {
+    public static final int ID_TO_USE = 120; //for easier changing if needed
+    private static boolean useSpout;
+
+    public SpaceBlackHolePopulator(boolean spout) {
+	useSpout = spout;
+    }
+
 
     /**
      * Populates a chunk with black holes.
@@ -44,8 +52,14 @@ public class SpaceBlackHolePopulator extends BlockPopulator {
             int x = random.nextInt(16);
             int z = random.nextInt(16);
             int y = random.nextInt(world.getMaxHeight());
-            SpoutBlock sb = (SpoutBlock) world.getBlockAt((chunkX * 16 + x), y, (chunkZ * 16 + z));
-            SpoutManager.getMaterialManager().overrideBlock(sb, SpoutHandler.blackHole);
+	    if(useSpout){
+		SpoutBlock sb = (SpoutBlock) world.getBlockAt((chunkX * 16 + x), y, (chunkZ * 16 + z));
+		SpoutManager.getMaterialManager().overrideBlock(sb, SpoutHandler.blackHole);
+	    }
+	    else{
+		Block block = world.getBlockAt(x, y, z);
+		block.setTypeId(ID_TO_USE);
+	    }
         }
     }
 

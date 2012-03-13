@@ -29,9 +29,10 @@ ids:
 #            # Spout only generation settings
 #            # From 1-100. This can be turned off with the blackholes-setting below.
 #            blackholechance: 8
-#            spout-only:
-#                # True if black holes should be generated (will suck entities into it, once touching the block, death)
-#                blackholes: true
+#            # True if black holes should be generated with spout(will suck entities into it, once touching the block, death)
+#            spoutblackholes: true
+#			       # True if black holes should be generated without spout (will suck entities into it, once touching the block, death)
+#            nonspoutblackholes: true
 #        # Spacesuit options
 #        # NOTE: Suit CONTAINS the space helmet!
 #        suit:
