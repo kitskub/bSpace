@@ -173,7 +173,7 @@ public class Space extends JavaPlugin {
         MessageHandler.debugPrint(Level.INFO, "Registered events (entity & player).");
 
         // Registering events for Spout.
-        if (pm.getPlugin("Spout") != null && ConfigHandler.isUsingSpout()) {
+        if (pm.getPlugin("Spout") != null && pm.getPlugin("Spout").isEnabled() && ConfigHandler.isUsingSpout()) {
             pm.registerEvents(new SpaceSpoutPlayerListener(this), this);
             pm.registerEvents(new SpaceSpoutEntityListener(), this);
             pm.registerEvents(new SpaceSpoutCraftListener(), this);
