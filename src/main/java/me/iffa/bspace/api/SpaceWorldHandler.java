@@ -8,7 +8,11 @@ import java.util.List;
 import java.util.Map;
 
 // bSpace Imports
+import java.util.logging.Level;
 import me.iffa.bspace.Space;
+import me.iffa.bspace.handlers.ConfigHandler;
+import me.iffa.bspace.handlers.MessageHandler;
+import me.iffa.bspace.handlers.WorldHandler;
 import me.iffa.bspace.runnables.NightForceRunnable;
 import me.iffa.bspace.wgen.planets.PlanetsChunkGenerator;
 
@@ -142,7 +146,7 @@ public class SpaceWorldHandler {
             }
         }
         if (!in) {
-            spaceWorldNames.add(worldName);
+            addSpaceWorld(worldName);
         }
     }
 
@@ -151,6 +155,16 @@ public class SpaceWorldHandler {
             return ((PlanetsChunkGenerator) world.getGenerator()).ID;
         }
         return "planets";
+    }
+
+    private static void addSpaceWorld(String worldName) {
+        spaceWorldNames.add(worldName);
+        World world = Bukkit.getWorld(worldName);
+        String id = ConfigHandler.getID(world);
+        if (ConfigHandler.forceNight(id)) {
+            WorldHandler.startForceNightTask(world);
+            MessageHandler.debugPrint(Level.INFO, "Started night forcing task for world '" + world.getName() + "'.");
+        }
     }
 
     protected SpaceWorldHandler() {
