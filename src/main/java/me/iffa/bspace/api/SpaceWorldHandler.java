@@ -160,6 +160,7 @@ public class SpaceWorldHandler {
     private static void addSpaceWorld(String worldName) {
         spaceWorldNames.add(worldName);
         World world = Bukkit.getWorld(worldName);
+        if(world == null) return;
         String id = ConfigHandler.getID(world);
         if (ConfigHandler.forceNight(id)) {
             WorldHandler.startForceNightTask(world);

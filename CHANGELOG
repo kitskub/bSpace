@@ -5,6 +5,7 @@ v2.3
 
  (fixes)
     - Probable world gen fix
+    - Always night Fix!
 
  (code changes)
     - mass usages of Defaults changed to static imports for better readability
