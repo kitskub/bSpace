@@ -8,7 +8,7 @@ dev-url: http://dev.bukkit.org/server-mods/bSpace
 jenkins-url: http://ci.chrisgward.com/jobs/bSpace
 # Load on startup for bukkit.yml, and all that support
 load: startup
-version: 'v2.2'
+version: 'v2.3'
 softdepend: [Spout, Pail, Register]
 # Commands
 commands:

@@ -4,6 +4,7 @@ v2.3
     - Can now have either spout or non-spout blackholes
 
  (fixes)
+    - Probable world gen fix
 
  (code changes)
     - mass usages of Defaults changed to static imports for better readability
