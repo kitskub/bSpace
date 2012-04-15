@@ -7,16 +7,13 @@ import java.util.logging.Level;
 // bSpace Imports
 import me.iffa.bspace.handlers.ConfigHandler;
 import me.iffa.bspace.handlers.MessageHandler;
-import me.iffa.bspace.handlers.WorldHandler;
 
 // Bukkit Imports
 import org.bukkit.World;
-import org.bukkit.entity.CreatureType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
@@ -39,7 +36,7 @@ public class SpaceEntityListener implements Listener {
             Player player = (Player) event.getEntity();
             if (ConfigHandler.getStopDrowning()) {
                 for (World world : ConfigHandler.getStopDrowningWorlds()) {
-                    if (world == player.getWorld() && player.getInventory().getHelmet().getTypeId() == ConfigHandler.getHelmetBlock()) {
+                    if (world == player.getWorld() && player.getInventory().getHelmet() != null && player.getInventory().getHelmet().getTypeId() == ConfigHandler.getHelmetBlock()) {
                         event.setCancelled(true);
                     }
                 }
