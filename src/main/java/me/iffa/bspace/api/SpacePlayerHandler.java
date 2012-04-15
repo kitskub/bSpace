@@ -79,10 +79,15 @@ public class SpacePlayerHandler {
      * 
      * @param p Player
      * @param armortype Can be diamond, chainmail, gold, iron or leather
-     * 
+     * @param helmetid Id of helmet
      * @return true if the player has a spacesuit of the type
      */
     public static boolean hasSuit(Player p, String armortype, int helmetid) {
+        if(p.getInventory().getChestplate() == null 
+                || p.getInventory().getLeggings() == null 
+                || p.getInventory().getBoots() == null){
+            return false;
+        }
         Material playerChest = p.getInventory().getChestplate().getType();
         Material playerLeg = p.getInventory().getLeggings().getType();
         Material playerBoot = p.getInventory().getBoots().getType();
@@ -134,7 +139,8 @@ public class SpacePlayerHandler {
      * @return true if player's helmet id is <code>id</code>
      */
     public static boolean hasHelmet(Player p, int id) {
-        return p.getInventory().getHelmet().getTypeId()==id;
+        if(p.getInventory().getHelmet() == null) return false;
+        return p.getInventory().getHelmet().getTypeId() == id;
     }
         
     /**
