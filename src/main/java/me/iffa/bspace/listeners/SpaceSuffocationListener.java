@@ -6,12 +6,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 // bSpace Imports
+import java.util.logging.Level;
 import me.iffa.bspace.Space;
 import me.iffa.bspace.api.event.area.AreaEnterEvent;
 import me.iffa.bspace.api.event.area.AreaLeaveEvent;
 import me.iffa.bspace.api.event.area.SpaceEnterEvent;
 import me.iffa.bspace.api.event.area.SpaceLeaveEvent;
 import me.iffa.bspace.handlers.ConfigHandler;
+import me.iffa.bspace.handlers.MessageHandler;
 import me.iffa.bspace.handlers.PlayerHandler;
 import me.iffa.bspace.runnables.SuffacationRunnable;
 
@@ -106,6 +108,7 @@ public class SpaceSuffocationListener implements Listener {
         }
         String id = ConfigHandler.getID(world);
         boolean suffocatingOn = (ConfigHandler.getRequireHelmet(id) || ConfigHandler.getRequireSuit(id));
+        MessageHandler.debugPrint(Level.INFO, "Started SuffocationRunnable for " + player.getName());
         if (suffocatingOn) {
             SuffacationRunnable task = new SuffacationRunnable(player);
             int taskInt = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, task, 20L, 20L);

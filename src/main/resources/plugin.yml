@@ -32,7 +32,7 @@ permissions:
   bSpace.ignore.*:
     description: Access to all ignore permissions (no suit check, black hole effects etc.).
     children:
-      bSpace.ignoresuitcheck: true
+      bSpace.ignoresuitchecks: true
       bSpace.ignoreblackholes: true
       # Teleport
   bSpace.teleport.*:

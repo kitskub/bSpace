@@ -151,7 +151,7 @@ public class SpaceWorldHandler {
     }
 
     public static String getID(World world) {
-        if (world.getGenerator() instanceof PlanetsChunkGenerator) {
+        if (world != null && world.getGenerator() != null && world.getGenerator() instanceof PlanetsChunkGenerator) {
             return ((PlanetsChunkGenerator) world.getGenerator()).ID;
         }
         return "planets";
