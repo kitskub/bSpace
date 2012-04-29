@@ -20,7 +20,7 @@ public class Schematic {
     private short width;
     private short height;
     private short length;
-    private List<Object> entities;
+    private List<Tag> entities;
     private List<Tag> tileEntities;
     
     /**
@@ -35,7 +35,9 @@ public class Schematic {
      * @param entities Entities
      * @param tileEntities Tile entities
      */
-    public Schematic(String name, byte[] blocks, byte[] data, short width, short height, short length, List<Object> entities, List<Tag> tileEntities) {
+    public Schematic(String name, 
+            byte[] blocks, byte[] data, short width, short height, short length, 
+            List<Tag> entities, List<Tag> tileEntities) {
         this.name = name;
         this.blocks = blocks;
         this.data = data;
@@ -105,7 +107,7 @@ public class Schematic {
      * 
      * @return Entities
      */
-    public List<Object> getEntities() {
+    public List<Tag> getEntities() {
         return entities;
     }
     
