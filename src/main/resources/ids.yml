@@ -27,7 +27,7 @@ ids:
 #            # From 1-200. This can be turned off with the generateschematics-setting.
 #            schematicchance: 5
 #            # Spout only generation settings
-#            # From 1-100. This can be turned off with the blackholes-setting below.
+#            # From 1-100, percent chance that a blackhole will be in a chunk. This can be turned off with the blackholes-setting below.
 #            blackholechance: 8
 #            # True if black holes should be generated with spout(will suck entities into it, once touching the block, death)
 #            spoutblackholes: true
