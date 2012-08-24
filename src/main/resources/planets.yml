@@ -14,10 +14,10 @@ bedrock: false
 floorBlock: STATIONARY_WATER
 # Alter this value if you want a floor
 floorHeight: 0
-# Minimum & maximum planet size
+# Minimum & maximum planet size (radius)
 minSize: 10
 maxSize: 40
-# Minimum & maximum shell size
+# Minimum & maximum shell size (radius)
 minShellSize: 10
 maxShellSize: 20
 # All have the option of having a set probability or not

@@ -134,9 +134,15 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
                                     if (xShell || zShell || yShell) {
                                         //world.getBlockAt(worldX, worldY, worldZ).setType(curPl.shellBlk);
                                         setBlock(retVal, chunkX, worldY, chunkZ, (byte) curPl.shellBlkId.getItemTypeId());
+                                        if (curPl.shellBlkId.getData() != 0) { //Has data
+                                            SpaceDataPopulator.addCoords(world, x, z, chunkX, worldY, chunkZ, curPl.shellBlkId.getData());
+                                        }
                                     } else {
                                         //world.getBlockAt(worldX, worldY, worldZ).setType(curPl.coreBlk);
                                         setBlock(retVal, chunkX, worldY, chunkZ, (byte) curPl.coreBlkId.getItemTypeId());
+                                        if (curPl.coreBlkId.getData() != 0) { //Has data
+                                            SpaceDataPopulator.addCoords(world, x, z, chunkX, worldY, chunkZ, curPl.coreBlkId.getData());
+                                        }
                                     }
                                 }
                             }
@@ -167,6 +173,7 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
         }
         result[y >> 4][((y & 0xF) << 8) | (z << 4) | x] = blkid;
     }
+
     /**
      * Generates planets.
      * 
@@ -242,7 +249,8 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
 
             // Set position
             curPl.xPos = (x * 16) - minDistance + rand.nextInt(minDistance + 16 + minDistance);
-            curPl.yPos = rand.nextInt(world.getMaxHeight() - curPl.radius * 2 - floorHeight)
+            int randInt = world.getMaxHeight() - curPl.radius * 2 - floorHeight;
+            curPl.yPos = rand.nextInt(randInt >= 0 ? randInt : 0)
                     + curPl.radius;
             curPl.zPos = (z * 16) - minDistance + rand.nextInt(minDistance + 16 + minDistance);
 
@@ -295,9 +303,10 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
         if (ConfigHandler.getGenerateBlackHolesSpout(ID) && ConfigHandler.isUsingSpout() && Bukkit.getPluginManager().isPluginEnabled("Spout")) {
             populators.add(new SpaceBlackHolePopulator(true));
         }
-	else if (ConfigHandler.getGenerateBlackHolesNonSpout(ID)){
-	    populators.add(new SpaceBlackHolePopulator(false));
-	}
+        else if (ConfigHandler.getGenerateBlackHolesNonSpout(ID)){
+            populators.add(new SpaceBlackHolePopulator(false));
+        }
+        populators.add(new SpaceDataPopulator());
         // Not FPS friendly
         if (false) {
             populators.add(new SpaceEffectPopulator());
@@ -317,7 +326,7 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
             int data = 0;
             String material = "";
             float value = 0;
-            if(sSplit[0].split(":").length==2){
+            if(sSplit[0].split(":").length == 2){
                 try {
                     material = sSplit[0].split(":")[0];
                     data = Integer.parseInt(sSplit[0].split(":")[1]);
@@ -330,8 +339,8 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
             }
             value = Float.valueOf(sSplit[1]);
             Material newMat = Material.matchMaterial(material);
-
-            if(newMat!=null){//Vanilla id
+	    
+            if(newMat != null){//Vanilla id
                 if (newMat.isBlock()) {
                     if (sSplit.length == 2) {
                         //allowedCores.put(newMat, Float.valueOf(sSplit[1]));
@@ -431,7 +440,7 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
             float testVal = rand.nextFloat();
             if (refMap.get(blkID) >= testVal) {
                 if (noHeat) {
-                    if(blkID.getItemType()==null){//Not a Vanilla Material. Don't care.
+                    if(blkID.getItemType() == null){//Not a Vanilla Material. Don't care.
                         retVal = blkID;
                         return retVal;
                     }

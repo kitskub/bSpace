@@ -21,7 +21,7 @@ import org.getspout.spoutapi.block.SpoutBlock;
 /**
  * Populates a world with black holes.
  *
- * @author Jack
+ * @author kitskub
  * @author iffa
  */
 public class SpaceBlackHolePopulator extends BlockPopulator {
@@ -29,7 +29,7 @@ public class SpaceBlackHolePopulator extends BlockPopulator {
     private static boolean useSpout;
 
     public SpaceBlackHolePopulator(boolean spout) {
-	useSpout = spout;
+        useSpout = spout;
     }
 
 
@@ -52,14 +52,14 @@ public class SpaceBlackHolePopulator extends BlockPopulator {
             int x = random.nextInt(16);
             int z = random.nextInt(16);
             int y = random.nextInt(world.getMaxHeight());
-	    if(useSpout){
-		SpoutBlock sb = (SpoutBlock) world.getBlockAt((chunkX * 16 + x), y, (chunkZ * 16 + z));
-		SpoutManager.getMaterialManager().overrideBlock(sb, SpoutHandler.blackHole);
-	    }
-	    else{
-		Block block = world.getBlockAt(x, y, z);
-		block.setTypeId(ID_TO_USE);
-	    }
+            if(useSpout){
+                SpoutBlock sb = (SpoutBlock) world.getBlockAt((chunkX * 16 + x), y, (chunkZ * 16 + z));
+                SpoutManager.getMaterialManager().overrideBlock(sb, SpoutHandler.blackHole);
+            }
+            else {
+                Block block = world.getBlockAt((chunkX * 16 + x), y, (chunkZ * 16 + z));
+                block.setTypeId(ID_TO_USE);
+            }
         }
     }
 
