@@ -30,6 +30,7 @@ public class SpaceDataPopulator extends BlockPopulator {
 
     @Override
     public void populate(World world, Random random, Chunk chunk) {
+        if (coords.get(world) == null) return;
         for (WrappedCoords c : coords.get(world).keySet()) {
             if (c.chunkX == chunk.getX() && c.chunkZ == chunk.getZ()) {
                 chunk.getBlock(c.x, c.y, c.z).setData(coords.get(world).get(c));
