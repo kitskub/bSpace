@@ -27,6 +27,7 @@ maxShellSize: 20
 #   - 43:12   *VANILLA
 #   - 1654:12 *(NOT A VANILLA ID)
 blocks:
+    # 1 is 100%; 0 is 0%
     # Planet shells & probabilities
     shells:
     - STONE-1.0

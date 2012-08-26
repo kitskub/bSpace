@@ -322,7 +322,7 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
         allowedCoreIds = new HashMap<MaterialData, Float>();
         allowedShellIds = new HashMap<MaterialData, Float>();
         for (String s : SpaceConfig.getConfig(ConfigFile.DEFAULT_PLANETS).getStringList("blocks.cores")) {
-            String[] sSplit = s.split("-");
+            String[] sSplit = s.replaceAll("\\s","").split("-");
             int data = 0;
             String material = "";
             float value = 0;
@@ -362,7 +362,7 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
         }
 
         for (String s : SpaceConfig.getConfig(ConfigFile.DEFAULT_PLANETS).getStringList("blocks.shells")) {
-            String[] sSplit = s.split("-");
+            String[] sSplit = s.replaceAll("\\s","").split("-");
             int data = 0;
             String material = "";
             float value = 0;
@@ -438,7 +438,7 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
             int arrayPos = rand.nextInt(refMap.size());
             MaterialData blkID = (MaterialData) refMap.keySet().toArray()[arrayPos];
             float testVal = rand.nextFloat();
-            if (refMap.get(blkID) >= testVal) {
+            if (refMap.get(blkID) > testVal) {
                 if (noHeat) {
                     if(blkID.getItemType() == null){//Not a Vanilla Material. Don't care.
                         retVal = blkID;
