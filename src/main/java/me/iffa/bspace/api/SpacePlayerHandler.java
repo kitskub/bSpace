@@ -44,54 +44,68 @@ public class SpacePlayerHandler {
      * @param helmetid helmet id
      * @param player Player to give 
      */
-    public static void giveSpaceSuit(String armortype, int helmetid, Player player) {
-        Material helmet = Material.getMaterial(helmetid);
-        Material chestplate = Material.matchMaterial(armortype + "_CHESTPLATE");
-        Material leggings = Material.matchMaterial(armortype + "_LEGGINGS");
-        Material boots = Material.matchMaterial(armortype + "_BOOTS");
-        if (helmet == null){
-            MessageHandler.print(Level.SEVERE, "Invalid helmet '" + helmetid + "' in config!");
-            player.sendMessage(ChatColor.RED + "Nag at server owner: Invalid helmet in bSpace config!");
-            return;
-        }
-        if (chestplate == null) {
-            MessageHandler.print(Level.SEVERE, "Invalid armortype '" + armortype + "' in config!");
-            player.sendMessage(ChatColor.RED + "Nag at server owner: Invalid armortype in bSpace config!");
-            return;
-        }
-        player.getInventory().setHelmet(new ItemStack(helmet));
+    public static void giveSpaceSuit(Player player) {
+		String armortype = ConfigHandler.getArmorType();
+		ItemStack chestplate;
+		ItemStack leggings;
+		ItemStack boots;
+		if (!ConfigHandler.getArmorType().equalsIgnoreCase("id")) {
+			Material chestplate_material;
+			Material leggings_material;
+			Material boots_material;
+			chestplate_material = Material.matchMaterial(armortype + "_CHESTPLATE");
+			leggings_material = Material.matchMaterial(armortype + "_LEGGINGS");
+			boots_material = Material.matchMaterial(armortype + "_BOOTS");
+			if (chestplate_material == null) {
+				MessageHandler.print(Level.SEVERE, "Invalid armortype '" + armortype + "' in config!");
+				player.sendMessage(ChatColor.RED + "Nag at server owner: Invalid armortype in bSpace config!");
+				return;
+			}
+			chestplate = new ItemStack(chestplate_material);
+			leggings = new ItemStack(leggings_material);
+			boots = new ItemStack(boots_material);
+		} else {
+			chestplate = toItemStack(ConfigHandler.getChestPlate());
+			leggings = toItemStack(ConfigHandler.getLeggings());
+			boots = toItemStack(ConfigHandler.getBoots());
+		}
         player.getInventory().setChestplate(new ItemStack(chestplate));
         player.getInventory().setLeggings(new ItemStack(leggings));
         player.getInventory().setBoots(new ItemStack(boots));
+		giveHelmet(player);
     }
     
     /**
      * Gives a player the specified helmet
      * 
-     * @param id helmet id
      * @param player Player to give 
      */
-    public static void giveHelmet(int id, Player player){
-        player.getInventory().setHelmet(new ItemStack(id, 1));
+    public static void giveHelmet(Player player){
+		ItemStack helmet = toItemStack(ConfigHandler.getHelmet());
+		if (helmet == null){
+			MessageHandler.print(Level.SEVERE, "Invalid helmet '" + ConfigHandler.getHelmet() + "' in config!");
+			player.sendMessage(ChatColor.RED + "Nag at server owner: Invalid helmet in bSpace config!");
+			return;
+		}
+        player.getInventory().setHelmet(helmet);
     }
     /**
      * Checks if a player has a spacesuit (of the given armortype)
      * 
      * @param p Player
-     * @param armortype Can be diamond, chainmail, gold, iron or leather
-     * @param helmetid Id of helmet
      * @return true if the player has a spacesuit of the type
      */
-    public static boolean hasSuit(Player p, String armortype, int helmetid) {
+    public static boolean hasSuit(Player p) {
         if(p.getInventory().getChestplate() == null 
                 || p.getInventory().getLeggings() == null 
                 || p.getInventory().getBoots() == null){
             return false;
         }
+		String armortype = ConfigHandler.getArmorType();
         Material playerChest = p.getInventory().getChestplate().getType();
         Material playerLeg = p.getInventory().getLeggings().getType();
         Material playerBoot = p.getInventory().getBoots().getType();
-        
+
         if (armortype.equalsIgnoreCase("diamond")) {
             // Diamond
             if (playerBoot != Material.DIAMOND_BOOTS 
@@ -127,22 +141,39 @@ public class SpacePlayerHandler {
                     || playerLeg != Material.LEATHER_LEGGINGS) {
                 return false;
             }
-        }
-        return hasHelmet(p, helmetid); //Made it this far, has bottom 3
+        } else if (armortype.equalsIgnoreCase("id")) {
+			// By id
+			if (p.getInventory().getChestplate() != toItemStack(ConfigHandler.getChestPlate())
+					|| p.getInventory().getLeggings() != toItemStack(ConfigHandler.getLeggings())
+					|| p.getInventory().getBoots() != toItemStack(ConfigHandler.getBoots())) {
+				return false;
+			}
+		}
+        return hasHelmet(p); //Made it this far, has bottom 3
     }
     
     
     /**
      * 
      * @param p Player
-     * @param id helmetid
      * @return true if player's helmet id is <code>id</code>
      */
-    public static boolean hasHelmet(Player p, int id) {
-        if(p.getInventory().getHelmet() == null) return false;
-        return p.getInventory().getHelmet().getTypeId() == id;
+    public static boolean hasHelmet(Player p) {
+        return p.getInventory().getHelmet() == toItemStack(ConfigHandler.getHelmet());
     }
-        
+
+    public static ItemStack toItemStack(String materialOrId) {
+		Material matchMaterial = Material.matchMaterial(materialOrId);
+		if (matchMaterial != null) {
+			return new ItemStack(matchMaterial);
+		}
+		try {
+			int id = Integer.parseInt(materialOrId);
+			return new ItemStack(id);
+		} catch (NumberFormatException ex) {}
+		return null;
+    }
+
     /**
      * Checks if a player should start suffocating.
      * 
@@ -160,12 +191,12 @@ public class SpacePlayerHandler {
             return false;
         }
         if (suit == SuitCheck.FULL_SUIT) {
-            if(hasSuit(player, ConfigHandler.getArmorType(), ConfigHandler.getHelmetBlock())){
+            if(hasSuit(player)){
                 return false;
             }          
         }
         else if (suit == SuitCheck.HELMET_ONLY) {
-            if(hasHelmet(player,ConfigHandler.getHelmetBlock())){
+            if(hasHelmet(player)){
                 return false;
             }
         } 
@@ -198,11 +229,11 @@ public class SpacePlayerHandler {
     public static void giveSuitOrHelmet(Player player){
         //Suit and helmet giving
         if (ConfigHandler.isSuitGiven()) {
-            SpacePlayerHandler.giveSpaceSuit(ConfigHandler.getArmorType(), ConfigHandler.getHelmetBlock(), player);
+            SpacePlayerHandler.giveSpaceSuit(player);
             return;
         }
         if (ConfigHandler.isHelmetGiven()) {
-            giveHelmet(ConfigHandler.getHelmetBlock(), player);
+            giveHelmet(player);
         }       
     }
     

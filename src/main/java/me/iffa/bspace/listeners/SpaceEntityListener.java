@@ -3,6 +3,7 @@ package me.iffa.bspace.listeners;
 
 // Java Imports
 import java.util.logging.Level;
+import me.iffa.bspace.api.SpacePlayerHandler;
 
 // bSpace Imports
 import me.iffa.bspace.handlers.ConfigHandler;
@@ -36,7 +37,7 @@ public class SpaceEntityListener implements Listener {
             Player player = (Player) event.getEntity();
             if (ConfigHandler.getStopDrowning()) {
                 for (World world : ConfigHandler.getStopDrowningWorlds()) {
-                    if (world == player.getWorld() && player.getInventory().getHelmet() != null && player.getInventory().getHelmet().getTypeId() == ConfigHandler.getHelmetBlock()) {
+                    if (world == player.getWorld() && player.getInventory().getHelmet() != null && player.getInventory().getHelmet() == SpacePlayerHandler.toItemStack(ConfigHandler.getHelmet())) {
                         event.setCancelled(true);
                     }
                 }

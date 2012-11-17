@@ -1,6 +1,6 @@
 # bSpace - plugin.yml
 # All developers/contributors are here!
-authors: [iffa, kitskub, SwearWord, HACKhalo2, Canis85, BR]
+authors: [kitskub, iffa, SwearWord, HACKhalo2, Canis85, BR]
 main: me.iffa.bspace.Space
 name: bSpace
 url: http://github.com/iffa/bSpace
@@ -8,7 +8,7 @@ dev-url: http://dev.bukkit.org/server-mods/bSpace
 jenkins-url: http://ci.chrisgward.com/jobs/bSpace
 # Load on startup for bukkit.yml, and all that support
 load: startup
-version: 'v2.3.1'
+version: 'v2.3.2-dev'
 softdepend: [Spout, Pail, Register]
 # Commands
 commands:

@@ -8,10 +8,14 @@
 debug: false
 # Global settings
 global:
-    # Spacesuit armortype
-    armortype: iron
+    # Spacesuit armortype - Does not include helmet
+    # "id" if you want to use the ids below
+    armortype: id
+    chestplate: 133
+    leggings: 134
+    boots: 135
     # Spacehelmet block id
-    blockid: 86
+    helmet: 86
     # Other global settings
     givehelmet: false
     givesuit: false

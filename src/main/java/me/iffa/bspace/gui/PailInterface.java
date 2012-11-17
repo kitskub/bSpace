@@ -56,7 +56,7 @@ public class PailInterface extends javax.swing.JPanel {
         CheckBoxHelmet.setSelected(ConfigHandler.isHelmetGiven());
         CheckBoxSuit.setSelected(ConfigHandler.isSuitGiven());
         ArmorTypeBox.setText(ConfigHandler.getArmorType());
-        HelmetBlockIdBox.setText(String.valueOf(ConfigHandler.getHelmetBlock()));
+        HelmetBlockIdBox.setText(String.valueOf(ConfigHandler.getHelmet()));
         TexturePackURL.setText(ConfigHandler.getSpoutTexturePack());
         SpaceList.setModel(new DefaultListModel());
         if (idConfig.getConfigurationSection("ids") != null) {

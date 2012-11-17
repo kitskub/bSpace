@@ -71,12 +71,39 @@ public class SpaceConfigHandler {
     }
 
     /**
-     * Gets the helmet blockid of a world.
+     * Gets the helmet
      *
-     * @return block id integer
+     * @return string of id or name
      */
-    public static int getHelmetBlock() {
-        return SpaceConfig.getConfig(ConfigFile.CONFIG).getInt("global.blockid", (Integer) HELMET_BLOCK.getDefault());
+    public static String getHelmet() {
+        return SpaceConfig.getConfig(ConfigFile.CONFIG).getString("global.helmet", (String) HELMET.getDefault());
+    }
+
+    /**
+     * Gets the chestplate
+     *
+     * @return string of id or name
+     */
+    public static String getChestPlate() {
+        return SpaceConfig.getConfig(ConfigFile.CONFIG).getString("global.chestplate", (String) CHESTPLATE.getDefault());
+    }
+
+    /**
+     * Gets the leggings
+     *
+     * @return string of id or name
+     */
+    public static String getLeggings() {
+        return SpaceConfig.getConfig(ConfigFile.CONFIG).getString("global.leggings", (String) LEGGINGS.getDefault());
+    }
+
+    /**
+     * Gets the boots
+     *
+     * @return string of id or name
+     */
+    public static String getBoots() {
+        return SpaceConfig.getConfig(ConfigFile.CONFIG).getString("global.boots", (String) BOOTS.getDefault());
     }
 
     /**
@@ -86,7 +113,7 @@ public class SpaceConfigHandler {
      */
     public static String getArmorType() {
         String armorType = SpaceConfig.getConfig(ConfigFile.CONFIG).getString("global.armortype", (String) ARMOR_TYPE.getDefault());
-        if (Material.matchMaterial(armorType + "_HELMET") == null) {
+        if (!"id".equals(armorType) && Material.matchMaterial(armorType + "_HELMET") == null) {
             MessageHandler.print(Level.SEVERE, "Invalid armortype '" + SpaceConfig.getConfig(ConfigFile.CONFIG).getString("global.armortype") + "' in config!");
             return (String) ARMOR_TYPE.getDefault();
         }
