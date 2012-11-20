@@ -3,6 +3,7 @@ package me.iffa.bspace.api;
 
 // Java Imports
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 // Bukkit Imports
 import me.iffa.bspace.handlers.ConfigHandler;
@@ -102,50 +103,57 @@ public class SpacePlayerHandler {
             return false;
         }
 		String armortype = ConfigHandler.getArmorType();
-        Material playerChest = p.getInventory().getChestplate().getType();
-        Material playerLeg = p.getInventory().getLeggings().getType();
-        Material playerBoot = p.getInventory().getBoots().getType();
+        ItemStack playerChest = p.getInventory().getChestplate();
+        ItemStack playerLeg = p.getInventory().getLeggings();
+        ItemStack playerBoot = p.getInventory().getBoots();
+		if (playerChest == null || playerLeg == null || playerBoot == null) return false;
 
         if (armortype.equalsIgnoreCase("diamond")) {
             // Diamond
-            if (playerBoot != Material.DIAMOND_BOOTS 
-                    || playerChest != Material.DIAMOND_CHESTPLATE 
-                    || playerLeg != Material.DIAMOND_LEGGINGS) {
+            if (!playerBoot.getType().equals(Material.DIAMOND_BOOTS)
+                    || !playerChest.getType().equals(Material.DIAMOND_CHESTPLATE)
+                    || !playerLeg.getType().equals(Material.DIAMOND_LEGGINGS)
+					) {
                 return false;
             }
         } else if (armortype.equalsIgnoreCase("chainmail")) {
             // Chainmail
-            if (playerBoot != Material.CHAINMAIL_BOOTS 
-                    || playerChest != Material.CHAINMAIL_CHESTPLATE 
-                    || playerLeg != Material.CHAINMAIL_LEGGINGS) {
+            if (!playerBoot.getType().equals(Material.CHAINMAIL_BOOTS ) 
+					|| playerChest.getType().equals(Material.CHAINMAIL_CHESTPLATE)
+                    || playerLeg.getType().equals(Material.CHAINMAIL_LEGGINGS)
+					) {
                 return false;
             }
         } else if (armortype.equalsIgnoreCase("gold")) {
             // Gold
-            if (playerBoot != Material.GOLD_BOOTS 
-                    || playerChest != Material.GOLD_CHESTPLATE 
-                    || playerLeg != Material.GOLD_LEGGINGS) {
+            if (!playerBoot.getType().equals(Material.GOLD_BOOTS)
+                    || !playerChest.getType().equals(Material.GOLD_CHESTPLATE)
+                    || !playerLeg.getType().equals(Material.GOLD_LEGGINGS)
+					) {
                 return false;
             }
         } else if (armortype.equalsIgnoreCase("iron")) {
             // Iron
-            if (playerBoot != Material.IRON_BOOTS 
-                    || playerChest != Material.IRON_CHESTPLATE 
-                    || playerLeg != Material.IRON_LEGGINGS) {
+            if (!playerBoot.getType().equals(Material.IRON_BOOTS)
+                    || !playerChest.getType().equals(Material.IRON_CHESTPLATE) 
+                    || !playerLeg.getType().equals(Material.IRON_LEGGINGS)
+					) {
                 return false;
             }
         } else if (armortype.equalsIgnoreCase("leather")) {
             // Leather
-            if (playerBoot != Material.LEATHER_BOOTS 
-                    || playerChest != Material.LEATHER_CHESTPLATE 
-                    || playerLeg != Material.LEATHER_LEGGINGS) {
+            if (!playerBoot.getType().equals(Material.LEATHER_BOOTS)
+                    || !playerChest.getType().equals(Material.LEATHER_CHESTPLATE)
+                    || !playerLeg.getType().equals(Material.LEATHER_LEGGINGS)
+					) {
                 return false;
             }
         } else if (armortype.equalsIgnoreCase("id")) {
 			// By id
-			if (p.getInventory().getChestplate() != toItemStack(ConfigHandler.getChestPlate())
-					|| p.getInventory().getLeggings() != toItemStack(ConfigHandler.getLeggings())
-					|| p.getInventory().getBoots() != toItemStack(ConfigHandler.getBoots())) {
+			if (!typeAndAmountEqual(playerChest, toItemStack(ConfigHandler.getChestPlate()))
+					|| !typeAndAmountEqual(playerLeg, toItemStack(ConfigHandler.getLeggings()))
+					|| !typeAndAmountEqual(playerBoot, toItemStack(ConfigHandler.getBoots()))
+					) {
 				return false;
 			}
 		}
@@ -159,7 +167,8 @@ public class SpacePlayerHandler {
      * @return true if player's helmet id is <code>id</code>
      */
     public static boolean hasHelmet(Player p) {
-        return p.getInventory().getHelmet() == toItemStack(ConfigHandler.getHelmet());
+		if (p.getInventory().getHelmet() == null) return false;
+        return typeAndAmountEqual(p.getInventory().getHelmet(), toItemStack(ConfigHandler.getHelmet()));
     }
 
     public static ItemStack toItemStack(String materialOrId) {
@@ -170,9 +179,15 @@ public class SpacePlayerHandler {
 		try {
 			int id = Integer.parseInt(materialOrId);
 			return new ItemStack(id);
-		} catch (NumberFormatException ex) {}
+		} catch (NumberFormatException ex) {
+			MessageHandler.debugPrint(Level.WARNING, "You have an error in your config.yml: " + materialOrId + " is not a material name or id.");
+		}
 		return null;
     }
+	
+	public static boolean typeAndAmountEqual(ItemStack one, ItemStack two) {
+		return one.getAmount() == two.getAmount() && one.getTypeId() == two.getTypeId();
+	}
 
     /**
      * Checks if a player should start suffocating.
