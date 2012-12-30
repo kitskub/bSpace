@@ -162,17 +162,8 @@ public class SpaceSchematicHandler {
     @SuppressWarnings("unchecked")
     public static void loadSchematic(File file) {
         try{
-            FileInputStream fis;
-            NBTInputStream nbt;
-            if(isGZIP(file)){
-                fis = new FileInputStream(file);
-                nbt = new NBTInputStream(new GZIPInputStream(fis));
-            }
-            else{
-                fis = new FileInputStream(file);
-                nbt = new NBTInputStream(fis);    
-            }
-            
+			FileInputStream fis = new FileInputStream(file);
+			NBTInputStream nbt = new NBTInputStream(fis);
             Schematic schematic = loadSchematic(file.getName().replaceAll(".schematic", ""), nbt);
             if (nbt != null) {
                 nbt.close();
@@ -207,7 +198,7 @@ public class SpaceSchematicHandler {
         }
         return expected.cast(tag);
     }
-
+/*
     public static boolean isGZIP(File file) {
         DataInputStream str = null;
         try {
@@ -231,7 +222,7 @@ public class SpaceSchematicHandler {
             }
         }
     }
-
+*/
     private static Map<BlockVector, Map<String, Tag>> getTileEntitiesMap(List<Tag> tileEntities){
         Map<BlockVector, Map<String, Tag>> tileEntitiesMap = new HashMap<BlockVector, Map<String, Tag>>();
 
