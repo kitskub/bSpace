@@ -1,3 +1,27 @@
+v2.5
+-----------------------------------------
+ (added/modified/removed features)
+    - planets.yml can have multiple blocks in the core or shell. Separate blocks are separated with comma
+
+ (fixes)
+
+ (code changes)
+
+v2.4
+-----------------------------------------
+ (added/modified/removed features)
+    - Can now have either spout or non-spout blackholes
+    - Allow each armor piece to be changed
+
+ (fixes)
+    - Fix some NPEs
+    - Always night Fix!
+    - Various bug fixes
+    - Fixed schematic loading
+
+ (code changes)
+    - mass usages of Defaults changed to static imports for better readability
+
 v2.3
 -----------------------------------------
  (added/modified/removed features)

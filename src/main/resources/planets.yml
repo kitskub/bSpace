@@ -30,6 +30,7 @@ blocks:
     # 1 is 100%; 0 is 0%
     # Planet shells & probabilities
     shells:
+    - STONE,DIRT-1.0
     - STONE-1.0
     - DIRT-1.0
     - LEAVES-0.9
