@@ -4,7 +4,6 @@ package me.iffa.bspace.wgen.planets;
 // Java Imports
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -141,6 +140,7 @@ public class PlanetsChunkGenerator extends ChunkGenerator {
                                         }
                                     } else {
                                         ArrayList<MaterialData> list = new ArrayList<MaterialData>(curPl.coreBlkIds);
+                                        // this confuses me too much. this part is setting core blocks, right? how is it "random"?
                                         MaterialData get = list.get(random.nextInt(list.size()));
                                         setBlock(retVal, chunkX, worldY, chunkZ, (byte) get.getItemTypeId());
                                         if (get.getData() != 0) { //Has data

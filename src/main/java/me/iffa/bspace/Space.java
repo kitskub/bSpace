@@ -7,9 +7,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 
-// Pail Imports
-import me.escapeNT.pail.Pail;
-
 // bSpace Imports
 import me.iffa.bspace.api.SpaceAddon;
 import me.iffa.bspace.api.schematic.SpaceSchematicHandler;
@@ -17,7 +14,6 @@ import me.iffa.bspace.commands.SpaceCommandHandler;
 import me.iffa.bspace.config.SpaceConfig;
 import me.iffa.bspace.config.SpaceConfigUpdater;
 import me.iffa.bspace.economy.Economy;
-import me.iffa.bspace.gui.PailInterface;
 import me.iffa.bspace.handlers.AddonHandler;
 import me.iffa.bspace.handlers.ConfigHandler;
 import me.iffa.bspace.handlers.LangHandler;
@@ -56,7 +52,6 @@ public class Space extends JavaPlugin {
     // Variables
     private static String prefix;
     private static String version;
-    private static PailInterface pailInterface;
     private static Map<Player, Location> locCache = null;
     private static Map<Player, Boolean> jumpPressed = new HashMap<Player, Boolean>();
     private PluginManager pm;
@@ -124,13 +119,6 @@ public class Space extends JavaPlugin {
             if (Economy.checkEconomy()) {
                 economy = new Economy();
             }
-        }
-
-        // Initializing the Pail tab.
-        if (pm.getPlugin("Pail") != null) {
-            MessageHandler.debugPrint(Level.INFO, "Starting up the Pail tab.");
-            pailInterface = new PailInterface(this);
-            ((Pail) pm.getPlugin("Pail")).loadInterfaceComponent("bSpace", pailInterface);
         }
 
         // Finishing up enablation.

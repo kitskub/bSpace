@@ -9,7 +9,7 @@ jenkins-url: http://ci.chrisgward.com/jobs/bSpace
 # Load on startup for bukkit.yml, and all that support
 load: startup
 version: 'v2.5-dev'
-softdepend: [Spout, Pail, Register]
+softdepend: [Spout, Register]
 # Commands
 commands:
   space:

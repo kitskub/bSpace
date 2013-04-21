@@ -37,6 +37,6 @@ public class SpaceHelpCommand extends SpaceCommand {
         getSender().sendMessage(ChatColor.GRAY + " /space help - Brings up this help message");
         getSender().sendMessage(ChatColor.GRAY + " /space about [credits] - About bSpace");
         getSender().sendMessage(ChatColor.GRAY + "If you have questions, please visit " + ChatColor.GOLD + "bit.ly/banspace" + ChatColor.GRAY + "!");
-        getSender().sendMessage(ChatColor.GRAY + "...or if you prefer IRC, #iffa or #bananacode (Espernet)");
+        //getSender().sendMessage(ChatColor.GRAY + "...or if you prefer IRC, #iffa or #bananacode (Espernet)");
     }
 }
